@@ -16,6 +16,7 @@ It may give the users errors or not be compatible in certain cases.
 
 ## Online documents:
 [**Getting Started**](https://apiwiki.fxcorporate.com/api/Getting%20Started.pdf)
+
 [**Online documents for C++**](http://fxcodebase.com/bin/forexconnect/1.1.2/help/CPlusPlus/web-content-main.html?key=index.html)
 
 examples codes at ForexConnectAPI packages after installed
