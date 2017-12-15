@@ -15,7 +15,17 @@ It may give the users errors or not be compatible in certain cases.
 [**Download ForexConnect SDK**](http://www.fxcodebase.com/wiki/index.php/Download)
 
 ## Popular IDE:
+[**Windows 32bit and 64bit – Visual Studio 2005 and up**](https://www.visualstudio.com/en-us/downloads/download-visual-studio-vs.aspx)
 
+[**Linux 32bit and 64bit – Eclipse**](https://eclipse.org/)
+
+[**iOS – Xcode**]  (https://developer.apple.com/xcode/ide/)
+
+[**Android - Android Studio**]  (https://developer.android.com/studio/intro/index.html)
+
+[**ForexCOnnect with Python**] (https://github.com/4ever911/python-forexconnect)
+
+[**ForexCOnnect with Matlab**] (https://github.com/FXCMAPI/FXCM-MATLAB)
 
 
 ## Online documents:
