@@ -13,6 +13,7 @@ It may give the users errors or not be compatible in certain cases.
 
 ## SDK:
 [**Download ForexConnect SDK**](http://www.fxcodebase.com/wiki/index.php/Download)
+examples codes at ForexConnectAPI packages after installed
 
 ## Popular IDE:
 [**Windows 32bit and 64bit – Visual Studio 2005 and up**](https://www.visualstudio.com/en-us/downloads/download-visual-studio-vs.aspx)
@@ -28,8 +29,6 @@ It may give the users errors or not be compatible in certain cases.
 [**Getting Started**](https://apiwiki.fxcorporate.com/api/Getting%20Started.pdf)
 
 [**Online documents for C++**](http://fxcodebase.com/bin/forexconnect/1.1.2/help/CPlusPlus/web-content-main.html?key=index.html)
-
-examples codes at ForexConnectAPI packages after installed
 
 ## Real Case Study:
 1. Learn how to build and backtest Rsi signals using ForexConnect API at <a href="https://apiwiki.fxcorporate.com/api/StrategyRealCaseStudy/ForexConnectAPI/RsiSignals_via_ForexConnectAPI.zip">here</a>.
