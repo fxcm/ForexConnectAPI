@@ -14,6 +14,10 @@ It may give the users errors or not be compatible in certain cases.
 ## SDK:
 [**Download ForexConnect SDK**](http://www.fxcodebase.com/wiki/index.php/Download)
 
+## Popular IDE:
+
+
+
 ## Online documents:
 [**Getting Started**](https://apiwiki.fxcorporate.com/api/Getting%20Started.pdf)
 
