@@ -19,13 +19,9 @@ It may give the users errors or not be compatible in certain cases.
 
 [**Linux 32bit and 64bit – Eclipse**](https://eclipse.org/)
 
-[**iOS – Xcode**]  (https://developer.apple.com/xcode/ide/)
+[**iOS – Xcode**](https://developer.apple.com/xcode/ide/)
 
-[**Android - Android Studio**]  (https://developer.android.com/studio/intro/index.html)
-
-[**ForexCOnnect with Python**] (https://github.com/4ever911/python-forexconnect)
-
-[**ForexCOnnect with Matlab**] (https://github.com/FXCMAPI/FXCM-MATLAB)
+[**Android - Android Studio**](https://developer.android.com/studio/intro/index.html)
 
 
 ## Online documents:
