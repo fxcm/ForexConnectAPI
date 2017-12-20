@@ -14,8 +14,8 @@ It may give the users errors or not be compatible in certain cases.
 ## How to start:
 1) A FXCM TSII account. You can apply for a demo account <a href="https://www.fxcm.com/">here</a>. 
 2) Download [**ForexConnect SDK**](http://www.fxcodebase.com/wiki/index.php/Download)
-3) Examples codes at ForexConnectAPI packages after installed
-4) Online documents: [**at here**](https://apiwiki.fxcorporate.com/api/Getting%20Started.pdf)
+3) Examples codes and documents are at ForexConnectAPI packages after installed.
+4) Online documents: [**Getting Started**](https://apiwiki.fxcorporate.com/api/Getting%20Started.pdf)
 
 ## Suggested Popular Development Platform IDE:
 [**Windows 32bit and 64bit – Visual Studio 2005 and up**](https://www.visualstudio.com/en-us/downloads/download-visual-studio-vs.aspx)
