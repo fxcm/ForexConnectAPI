@@ -11,11 +11,13 @@ You can use ForexConnect on Trading station account, no extra setup required.
 If using O2G2 namespace, keep in mind that it is currently deprecated as it has not been updated since the beginning of 2015. 
 It may give the users errors or not be compatible in certain cases.
 
-## SDK:
-[**Download ForexConnect SDK**](http://www.fxcodebase.com/wiki/index.php/Download)
-examples codes at ForexConnectAPI packages after installed
+## How to start:
+1) A FXCM TSII account. You can apply for a demo account <a href="https://www.fxcm.com/">here</a>. 
+2) Download [**ForexConnect SDK**](http://www.fxcodebase.com/wiki/index.php/Download)
+3) Examples codes at ForexConnectAPI packages after installed
+4) Online documents: [**at here**](https://apiwiki.fxcorporate.com/api/Getting%20Started.pdf)
 
-## Popular IDE:
+## Suggested Popular Development Platform IDE:
 [**Windows 32bit and 64bit – Visual Studio 2005 and up**](https://www.visualstudio.com/en-us/downloads/download-visual-studio-vs.aspx)
 
 [**Linux 32bit and 64bit – Eclipse**](https://eclipse.org/)
@@ -24,11 +26,6 @@ examples codes at ForexConnectAPI packages after installed
 
 [**Android - Android Studio**](https://developer.android.com/studio/intro/index.html)
 
-
-## Online documents:
-[**Getting Started**](https://apiwiki.fxcorporate.com/api/Getting%20Started.pdf)
-
-[**Online documents for C++**](http://fxcodebase.com/bin/forexconnect/1.1.2/help/CPlusPlus/web-content-main.html?key=index.html)
 
 ## Real Case Study:
 1. Learn how to build and backtest Rsi signals using ForexConnect API at <a href="https://apiwiki.fxcorporate.com/api/StrategyRealCaseStudy/ForexConnectAPI/RsiSignals_via_ForexConnectAPI.zip">here</a>.
