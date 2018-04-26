@@ -32,6 +32,26 @@ SummaryTable is only accessible through the table manager.
 Table manager presents a performance decrease because it is constantly recalculating fields.
 Non-table manager allow you to capture table updates adhoc via the use of a class that implements theIO2GResponseListener interface. It give performance advantage but you need to calculate some fields such as PipCost or P/L.
 
+## How to get current balance?
+You need to request the table from server. please refer to NonTableManagerSamples/PrintTable example program.
+      private static O2GAccountRow GetAccount(O2GSession session)
+      {
+          O2GResponseReaderFactory readerFactory = session.getResponseReaderFactory();
+          if (readerFactory == null)
+          {
+              throw new Exception("Cannot create response reader factory");
+          }
+          O2GLoginRules loginRules = session.getLoginRules();
+          O2GResponse response = loginRules.getTableRefreshResponse(O2GTableType.Accounts);
+          O2GAccountsTableResponseReader accountsResponseReader = readerFactory.createAccountsTableReader(response);
+          for (int i = 0; i < accountsResponseReader.Count; i++)
+          {
+              O2GAccountRow accountRow = accountsResponseReader.getRow(i);
+              Console.WriteLine("AccountID: {0}, Balance: {1}", accountRow.AccountID, accountRow.Balance);
+          }
+          return accountsResponseReader.getRow(0);
+      }
+
 ## Real Case Study:
 1. Learn how to build and backtest Rsi signals using ForexConnect API at <a href="https://apiwiki.fxcorporate.com/api/StrategyRealCaseStudy/ForexConnectAPI/RsiSignals_via_ForexConnectAPI.zip">here</a>.
 2. Learn how to build and backtest CCI Oscillator strategy using ForexConnect API at <a href="https://apiwiki.fxcorporate.com/api/StrategyRealCaseStudy/ForexConnectAPI/2.1.CCI_via_FC_API.zip">here</a>.
