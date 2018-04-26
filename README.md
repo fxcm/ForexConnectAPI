@@ -34,6 +34,7 @@ Non-table manager allow you to capture table updates adhoc via the use of a clas
 
 ## How to get current balance?
 You need to request the table from server. please refer to NonTableManagerSamples/PrintTable example program.
+
       private static O2GAccountRow GetAccount(O2GSession session)
       {
           O2GResponseReaderFactory readerFactory = session.getResponseReaderFactory();
