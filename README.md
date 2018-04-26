@@ -53,6 +53,11 @@ You need to request the table from server. please refer to NonTableManagerSample
           return accountsResponseReader.getRow(0);
       }
 
+## How to get price history:
+For pricehistory, you need to use non-table manage. 
+You can see examples under NonTableManagerSamples/GetHistPrices
+
+
 ## Real Case Study:
 1. Learn how to build and backtest Rsi signals using ForexConnect API at <a href="https://apiwiki.fxcorporate.com/api/StrategyRealCaseStudy/ForexConnectAPI/RsiSignals_via_ForexConnectAPI.zip">here</a>.
 2. Learn how to build and backtest CCI Oscillator strategy using ForexConnect API at <a href="https://apiwiki.fxcorporate.com/api/StrategyRealCaseStudy/ForexConnectAPI/2.1.CCI_via_FC_API.zip">here</a>.
