@@ -26,6 +26,11 @@ It may give the users errors or not be compatible in certain cases.
 
 [**Android - Android Studio**](https://developer.android.com/studio/intro/index.html)
 
+## Table manager vs Non-table manager:
+Table manager preload all tables to your local memoery, it is an in-memory representation of API tables. The table manager allows you to subscribe to table change events such as updates, adding rows, or removing rows. It is important to note that the 
+SummaryTable is only accessible through the table manager.  
+Table manager presents a performance decrease because it is constantly recalculating fields.
+Non-table manager allow you to capture table updates adhoc via the use of a class that implements theIO2GResponseListener interface. It give performance advantage but you need to calculate some fields such as PipCost or P/L.
 
 ## Real Case Study:
 1. Learn how to build and backtest Rsi signals using ForexConnect API at <a href="https://apiwiki.fxcorporate.com/api/StrategyRealCaseStudy/ForexConnectAPI/RsiSignals_via_ForexConnectAPI.zip">here</a>.
