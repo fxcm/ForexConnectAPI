@@ -16,6 +16,7 @@ It may give the users errors or not be compatible in certain cases.
 2) Download [**ForexConnect SDK**](http://www.fxcodebase.com/wiki/index.php/Download)
 3) Examples codes and documents are at ForexConnectAPI packages after installed.
 4) Online documents: [**Getting Started**](https://apiwiki.fxcorporate.com/api/Getting%20Started.pdf)
+5) ForexConnect with Matlab, at [here](https://apiwiki.fxcorporate.com/api/StrategyRealCaseStudy/ForexConnectAPI/FXCM-MATLAB-master.zip).
 
 ## Suggested Popular Development Platform IDE:
 [**Windows 32bit and 64bit – Visual Studio 2005 and up**](https://www.visualstudio.com/en-us/downloads/download-visual-studio-vs.aspx)
