@@ -17,7 +17,7 @@ It may give the users errors or not be compatible in certain cases.
 3) Examples codes and documents are at ForexConnectAPI packages after installed.
 4) Online documents: [**Getting Started**](https://apiwiki.fxcorporate.com/api/Getting%20Started.pdf)
 5) ForexConnect with Matlab, at [here](https://apiwiki.fxcorporate.com/api/StrategyRealCaseStudy/ForexConnectAPI/FXCM-MATLAB-master.zip).
-6) ForexConnect with Python, at [here](https://github.com/neka-nat/python-forexconnect).
+6) ForexConnect sample code for Android/iOS/macOS/Python/Linux/Windows, at [here](https://github.com/gehtsoft/forex-connect/tree/master/samples).
 
 ## Suggested Popular Development Platform IDE:
 [**Windows 32bit and 64bit – Visual Studio 2005 and up**](https://www.visualstudio.com/en-us/downloads/download-visual-studio-vs.aspx)
