@@ -76,6 +76,13 @@ o	This is for personal use and abides by our [EULA](https://www.fxcm.com/uk/form
 
 o	For more information, you may contact us: api@fxcm.com
 
+## Release Note:
+Our price streams are moving from http to https using TLSv1.2 since 6/16/2019, to increase security on our price servers. 
+Please make sure client side software is compatible with TLSv1.2.
+Clients use ForexConnect API, Java API will be affected.
+The error you will get: ‘Can't connect to price server.’
+if you have any questions, please reach out to api@fxcm.com.
+
 ## Disclaimer:
 
  ”CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage.
