@@ -1,3 +1,9 @@
+CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage.
+
+**70.96% of retail investor accounts lose money when trading CFDs with this provider. **
+
+You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your money.
+
 # ForexConnectAPI
 
 This SDK is designed to get trading data, trade, load price histories and subscribe for the most recent prices. 
@@ -84,12 +90,6 @@ The error you will get: ‘Can't connect to price server.’
 if you have any questions, please reach out to api@fxcm.com.
 
 ## Disclaimer:
-
-CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage.
-
-**70.96% of retail investor accounts lose money when trading CFDs with this provider. **
-
-You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your money.
 
 High Risk Investment Notice: 
 
