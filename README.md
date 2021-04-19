@@ -96,7 +96,7 @@ Clients use ForexConnect API, Java API will be affected.
 The error you will get: ‘Can't connect to price server.’
 if you have any questions, please reach out to api@fxcm.com.
 
-### on 4/23 we will release a new Python package, price history bug fix and support https.
+### on 4/23 we will release a new Python package to demo environment only, the relase inlcude price history bug fix and support https.
 please upgrade the latest version at 
 https://pypi.org/project/forexconnect/ 
 
