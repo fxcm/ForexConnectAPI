@@ -101,7 +101,8 @@ End user need to upgrade their FC API package on their side.
 First round release will target to demo environments this coming weekend. 4/24/2021
 
 please upgrade the latest version at 
-https://pypi.org/project/forexconnect/ 
+https://pypi.org/project/forexconnect/
+
 https://fxcodebase.com/wiki/index.php/Download
 
 
