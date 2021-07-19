@@ -101,6 +101,10 @@ End user need to upgrade their FC API package on their side.
 First round release will target to demo environments this coming weekend. 5/1/2021
 This release to demo target at 7/9/2021 
 
+### the above release to live will target in mid-end August/2021. 
+Please make sure you are ready.
+Please send mail to api@fxcm.com if you have any questions. 
+
 please upgrade the latest version at 
 
 https://pypi.org/project/forexconnect/
