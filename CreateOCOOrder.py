@@ -9,17 +9,6 @@ from forexconnect import fxcorepy, ForexConnect, Common
 import common_samples
 
 
-def parse_args():
-    parser = argparse.ArgumentParser(description='Process command parameters.')
-    common_samples.add_main_arguments(parser)
-    common_samples.add_instrument_timeframe_arguments(parser, timeframe=False)
-    common_samples.add_direction_rate_lots_arguments(parser)
-    common_samples.add_account_arguments(parser)
-    args = parser.parse_args()
-
-    return args
-
-
 class OrdersMonitor:
     def __init__(self):
         self.__order_id = None
@@ -55,22 +44,20 @@ class OrdersMonitor:
         self.__event.clear()
 
 class Args:
-    l = "YOUR USERNAME/LOGIN"
-    p = "LOGIN PASSWORD"
+    l = "YOUR USERNAME / LOGIN"
+    p = "PASSWORD"
     u = "http://www.fxcorporate.com/Hosts.jsp"
     c = "Demo"
     i = 'EUR/USD'
     session = None
-
-
     pin = None
     amount = 10000
     r_up = 1.059
     r_dn = 1.051
     account = 'ACCOUNT ID'
 
+
 def main():
-    #args = parse_args()
     args = Args
 
     str_user_id = args.l
@@ -86,8 +73,7 @@ def main():
     str_account = args.account
 
     with ForexConnect() as fx:
-        fx.login(str_user_id, str_password, str_url, str_connection, str_session_id,
-                 str_pin, common_samples.session_status_changed)
+        fx.login(str_user_id, str_password, str_url, str_connection, str_session_id, str_pin, common_samples.session_status_changed)
 
         try:
             account = Common.get_account(fx, str_account)
@@ -112,10 +98,6 @@ def main():
             base_unit_size = trading_settings_provider.get_base_unit_size(
                 str_instrument, account)
 
-            amount = base_unit_size * str_lots
-
-            entry = fxcorepy.Constants.Orders.ENTRY
-
             valuemap_oco = fx.session.request_factory.create_value_map()
             valuemap_oco.set_string(fxcorepy.O2GRequestParamsEnum.COMMAND, fxcorepy.Constants.Commands.CREATE_OCO)
 
@@ -125,7 +107,7 @@ def main():
             valuemap_up.set_string(fxcorepy.O2GRequestParamsEnum.ACCOUNT_ID, str_account)
             valuemap_up.set_string(fxcorepy.O2GRequestParamsEnum.OFFER_ID, offer.offer_id)
             valuemap_up.set_string(fxcorepy.O2GRequestParamsEnum.BUY_SELL, fxcorepy.Constants.BUY)
-            valuemap_up.set_int(fxcorepy.O2GRequestParamsEnum.AMOUNT, str_lots)
+            valuemap_up.set_int(fxcorepy.O2GRequestParamsEnum.AMOUNT, str_amount)
             valuemap_up.set_double(fxcorepy.O2GRequestParamsEnum.RATE, rate_up)
             valuemap_oco.append_child(valuemap_up)
 
