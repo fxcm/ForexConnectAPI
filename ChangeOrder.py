@@ -1,5 +1,5 @@
 # example code how to change order, it can be used for any waiting order, attached stop or limit
-#the AMOUNT field is optional, can be used to change order amount
+#the AMOUNT field is optional,
 
 
 import argparse
@@ -69,7 +69,7 @@ class Args:
     r = 104.568
     stop_ord = 'S'
     limit_ord = 'L'
-    account = 'account_id'
+    account = 'account id'
     order_id = 'order_id'
 
 
@@ -82,7 +82,6 @@ def main():
     str_session_id = args.session
     str_pin = args.pin
     str_instrument = args.i
-    str_buy_sell = args.d
     str_rate = args.r
     lots = args.lots
     str_account = args.account
