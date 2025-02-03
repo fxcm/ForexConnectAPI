@@ -12,13 +12,14 @@ If using O2G2 namespace, keep in mind that it is currently deprecated as it has 
 It may give the users errors or not be compatible in certain cases.
 
 ## How to start:
-1) A FXCM TSII account. You can apply for a demo account [here](https://www.fxcm.com/uk/algorithmic-trading/api-trading/). 
-2) Download [**ForexConnect SDK**](http://www.fxcodebase.com/wiki/index.php/Download)
-3) Examples codes and documents are at ForexConnectAPI packages after installed.
-4) Online documents: [**Getting Started**](https://apiwiki.fxcorporate.com/api/Getting%20Started.pdf)
-5) ForexConnect with Matlab, at [here](https://apiwiki.fxcorporate.com/api/StrategyRealCaseStudy/ForexConnectAPI/FXCM-MATLAB-master.zip).
-6) ForexConnect sample code for Android/iOS/macOS/Python/Linux/Windows, at [here](https://github.com/gehtsoft/forex-connect/tree/master/samples).
-7) ForexConnect on Python at [here](http://fxcodebase.com/code/viewforum.php?f=51)
+1) You need sign the [EULA](https://www.fxcm.com/uk/forms/eula/) form first. 
+2) A FXCM TSII account. You can apply for a demo account [here](https://www.fxcm.com/uk/algorithmic-trading/api-trading/). 
+3) Download [**ForexConnect SDK**](http://www.fxcodebase.com/wiki/index.php/Download)
+4) Examples codes and documents are at ForexConnectAPI packages after installed.
+5) Online documents: [**Getting Started**](https://apiwiki.fxcorporate.com/api/Getting%20Started.pdf)
+6) ForexConnect with Matlab, at [here](https://apiwiki.fxcorporate.com/api/StrategyRealCaseStudy/ForexConnectAPI/FXCM-MATLAB-master.zip).
+7) ForexConnect sample code for Android/iOS/macOS/Python/Linux/Windows, at [here](https://github.com/gehtsoft/forex-connect/tree/master/samples).
+8) ForexConnect on Python at [here](http://fxcodebase.com/code/viewforum.php?f=51)
 
 ## Connect parameters:
 1) URL="www.fxcorporate.com/Hosts.jsp"
