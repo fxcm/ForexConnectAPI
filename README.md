@@ -122,7 +122,7 @@ The Stratos Group is headquartered at 20 Gresham Street, 4th Floor, London EC2V 
 
 Stratos Markets Limited: CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage. 67% of retail investor accounts lose money when trading CFDs with this provider. You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your money.
 
-Stratos Europe Limited: CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage. 69% of retail investor accounts lose money when trading CFDs with this provider. You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your money.
+Stratos Europe Limited: CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage. 68% of retail investor accounts lose money when trading CFDs with this provider. You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your money.
 
 Stratos Trading Pty. Limited: Trading CFDs on margin and margin FX carries a high level of risk, and may not be suitable for all investors. Retail clients could sustain a total loss of the deposited funds, but wholesale clients could sustain losses in excess of deposits. Trading CFDs on margin and margin FX does not give you any entitlements or rights to the underlying instruments.
 
