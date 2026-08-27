@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Add Order to Contingency Group</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Add Order to Contingency Group</b></font>
+    </p><p>You can add one or more existing entry order into an existing contingency (OCO, OTO or ELS) group.</p>
+<p>To join orders into a group:</p>
+<p>1) Create an <a href="fxcore2.O2GValueMap.html"><code>O2GValueMap</code></a> and fill three fields:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Valuemap field</p></td>
+    <td class="thdr"><p>Datatype</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Command</p></td>
+    <td class="tmain"><p>string</p></td>
+    <td class="tmain"><p>The command. Must be  <a href="fxcore2.Constants.Commands.JoinToExistingContingencyGroup.html"><code>JoinToExistingContingencyGroup</code></a>.</p>
+<p>The field is obligatory.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>ContingencyID</p></td>
+    <td class="tmain"><p>string</p></td>
+    <td class="tmain"><p>The identifier of an existing contingency group.</p>
+<p>The field is obligatory.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>ContingencyGroupType</p></td>
+    <td class="tmain"><p>int</p></td>
+    <td class="tmain"><p>The type of a new contingency group. Must be:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p>1</p></td>
+    <td class="tmain"><p>OCO group.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>2</p></td>
+    <td class="tmain"><p>OTO group.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>3</p></td>
+    <td class="tmain"><p>ELS group.</p></td>
+  </tr>
+</table><p>The field is obligatory.</p></td>
+  </tr>
+</table><p>2) Create an <a href="fxcore2.O2GValueMap.html"><code>O2GValueMap</code></a> for each entry order you want to add into the contingency group.
+Fill these value maps as:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Valuemap field</p></td>
+    <td class="thdr"><p>Datatype</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>AcctID</p></td>
+    <td class="tmain"><p>string</p></td>
+    <td class="tmain"><p>The identifier of the account which the order belongs to.</p>
+<p>The field is obligatory.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>OrderID</p></td>
+    <td class="tmain"><p>string</p></td>
+    <td class="tmain"><p>The identifier of an order to be included into the group.</p>
+<p>The order must exist, must be an entry order (LE or SE) and must be in the Waiting status.</p>
+<p>The field is obligatory.</p></td>
+  </tr>
+</table><p>3) Append each entry order valuemap to the main valuemap using the <a href="fxcore2.O2GValueMap.appendChild.0.html"><code>O2GValueMap.appendChild</code></a>
+method.</p>
+<p>Please note that only dependent orders may be added into OTO or ELS groups.</p>
+<p>4) Pass the main <code>valuemap</code> table to the createOrderRequest method.</p>
+<p>Limitations:</p>
+<p>1) All entry orders must be created for the same account.</p>
+<p>Returns:</p>
+<p>The createOrderRequest method will return an O2GRequest (the main request) containing child requests.
+If 3 entry orders are processed, 3 child requests will be returned. Note that you will receive responses
+to the child requests and will not receive a response to the main request.</p><div id="open98" style="display:none">
+  <p>Example: Add existing orders into an existing contingency group&nbsp;<a href="javascript: showdiv('close98'); hidediv('open98');" onclick="javascript: showdiv('close98'); hidediv('open98');">[show]</a></p>
+</div>
+<div id="close98" style="display:inline">
+  <p>Example: Add existing orders into an existing contingency group&nbsp;<a href="javascript: showdiv('open98'); hidediv('close98');" onclick="javascript: showdiv('open98'); hidediv('close98');">[hide]</a></p>
+  <pre class="example">    static bool PrepareParamsFromLoginRules(out string sAccountID, out string sOfferID, out int iBaseAmount, out double dPointSize, out double dAskRate, out double dBidRate)
+   {
+        bool bOK = false;
+        O2GResponseReaderFactory factory = session.getResponseReaderFactory();
+        if (factory == null)
+            return bOK;
+        O2GLoginRules loginRules = session.getLoginRules();
+        // get first account from login
+        O2GResponse accountResponse = loginRules.getTableRefreshResponse(O2GTable.Accounts);
+        O2GAccountsTableResponseReader accountsReader = factory.createAccountsTableReader(accountResponse);
+        O2GAccountRow account = accountsReader.getRow(0);
+        // get account id
+        sAccountID = account.AccountID;
+        // get base amount
+        iBaseAmount = account.BaseUnitSize;
+        sOfferID = &quot;&quot;;
+        dAskRate = 0;
+        dBidRate = 0;
+        dPointSize = 0;
+        // Get offers for EUR/USD
+        O2GResponse offersResponse = loginRules.getTableRefreshResponse(O2GTable.Offers);
+        O2GOffersTableResponseReader offersReader = factory.createOffersTableReader(offersResponse);
+        for (int i = 0; i &lt; offersReader.Count; i++)
+        {
+            O2GOfferRow offer = offersReader.getRow(i);
+            if (String.Equals(offer.Instrument, &quot;EUR/USD&quot;))
+            {
+                sOfferID = offer.OfferID;
+                dAskRate = offer.Ask;
+                dBidRate = offer.Bid;
+                dPointSize = offer.PointSize;
+                bOK = true;
+                break;
+            }
+        }
+        return bOK;
+   }
+ 
+    // Helper method for creating valueMap for existing order
+    static O2GValueMap CreateValueMapForExistingOrder(string sOrderID, string sAccountID)
+   {
+       O2GRequestFactory factory = session.getRequestFactory();
+       if (factory != null)
+       {
+           O2GValueMap valuemap = factory.createValueMap();
+ 
+           valuemap.setString(O2GRequestParamsEnum.OrderID, sOrderID);
+           valuemap.setString(O2GRequestParamsEnum.AccountID, sAccountID);
+           return valuemap;
+       }
+   }
+ 
+    static void JoinExistingContigencyGroup(string sAccountID, string sPrimaryID, string sSecondaryID1, string sSecondaryID2, int iContingencyType)
+   {
+       O2GRequestFactory factory = session.getRequestFactory();
+       if (factory != null)
+       {
+           O2GValueMap valuemap = factory.createValueMap();
+           valuemap.setString(O2GRequestParamsEnum.Command, Constants.Commands.JoinToExistingContingencyGroup);
+           valuemap.setInt(O2GRequestParamsEnum.ContingencyGroupType, iContingencyType);
+           valuemap.setString(O2GRequestParamsEnum.ContingencyID, sPrimaryID);
+ 
+           // secondary order
+           valuemap.appendChild(CreateValueMapForExistingOrder(sSecondaryID1, sAccountID));
+           // secondary order
+           valuemap.appendChild(CreateValueMapForExistingOrder(sSecondaryID2, sAccountID));
+ 
+           // create request from valueMap
+           O2GRequest request = factory.createOrderRequest(valuemap);
+           if (request == null)
+           {
+               Console.WriteLine(&quot;Order's request can not be created: &quot; + factory.getLastError());
+           }
+           else
+           {
+               session.sendRequest(request);
+           }
+       }
+   }</pre>
+</div><p>
+      <center><a href="NetTradingCommandsCreateOrder.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

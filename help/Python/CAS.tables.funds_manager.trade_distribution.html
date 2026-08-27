@@ -1,0 +1,320 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>trade_distribution Table</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b><code>trade_distribution</code> Table</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article describes the Trade Distribution table of the report.</p>
+    <p><b>Details</b></p><p>The <i>Trade Distribution</i> table contains information about allocation of funds realized from
+all positions that were closed during the report statement period. The funds are allocated (distributed) among
+all managed accounts mapped to the funds manager account. Each row of the table contains information
+about one allocation made from one closed position to one managed account.
+So, allocations from one closed position are recorded in several rows
+depending on the number of managed accounts.
+The identifier of the table is <code>trade_distribution</code>.</p>
+<p>All data rows are arranged in ascending order by the unique identification number (<code>ticket_id</code>)
+of the closed position.</p>
+<p>If no information is found for the report statement period, the table has only a header row.</p><table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><p>Column identifier</p></td>
+    <td class="thdr"><p>Column data type</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>ticket_id</code></p></td>
+    <td class="tmain"><p><code>INTEGER</code></p></td>
+    <td class="tmain"><p>The unique identification number of the position.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>manager_account</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>The identifier of the funds manager account (as it is displayed in the Trading Station).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>manager_gross_pl</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The amount of profit or loss realized during the entire lifetime of the position, i.e.
+from its open date to the close date. This amount excludes additional charges, such as broker commission
+(<code>manager_comm</code>), rollover interest (<code>manager_rollover</code>), and adjustment (<code>manager_adj</code>).</p>
+<p>The value can be either positive or negative. A positive value indicates profit, a negative value indicates loss.</p>
+<p>The manager gross profit/loss is expressed in the account denomination currency.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>manager_comm</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The amount of broker commission charged during the entire lifetime of the position, i.e.
+from its open date to the close date.</p>
+<p>The value can be either negative or zero. A negative value indicates that the commission was charged, a zero value
+indicates that the commission was not charged.</p>
+<p>The manager commission is expressed in the account denomination currency.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>manager_dividends</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>Not used.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>manager_rollover</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The amount of rollover interest earned or paid during the entire lifetime of the position, i.e.
+from its open date to the close date.</p>
+<p>The value can be either positive or negative. A positive value indicates that the rollover was earned, a negative value indicates
+that the rollover was paid.</p>
+<p>The manager rollover is expressed in the account denomination currency.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>manager_adj</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The amount of adjustment applied to the gross profit/loss (<code>manager_gross_pl</code>)
+for the period from the close date of the position to the current date and time.</p>
+<p>The value can be either positive or negative. A positive value indicates that the gross profit/loss encreased, a negative value indicates
+that the gross profit/loss decreased.</p>
+<p>The manager adjustment is expressed in the account denomination currency.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>manager_net_pl</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The amount of profit or loss realized during the entire lifetime of the position, i.e.
+from its open date to the close date. This amount includes all charges, such as broker commission
+(<code>manager_comm</code>), rollover interest (<code>manager_rollover</code>), and adjustment (<code>manager_adj</code>).</p>
+<p>The value can be either positive or negative. A positive value indicates profit, a negative value indicates
+loss.</p>
+<p>The manager net profit/loss is expressed in the account denomination currency.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>controlled_account</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>The identifier of the managed account (as it is displayed in the Trading Station).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>controlled_percent</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The allocation percentage that represents how much of
+the profit, loss, and fees must be allocated to the managed account.</p>
+<p>The allocation percentage is calculated at the end of each trading day
+based on the ratio of the managed account balance to the aggregate balance of the funds
+manager account.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>controlled_gross_pl</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The amount of gross profit or loss allocated to the managed account.
+This amount is obtained from the manager gross profit/loss (<code>manager_gross_pl</code>)
+based on the allocation percentage (<code>controlled_percent</code>) of the managed account.
+This amount excludes additional charges, such as broker commission
+(<code>controlled_comm</code>), rollover interest (<code>controlled_rollover</code>),
+and adjustment (<code>controlled_adj</code>).</p>
+<p>The value can be either positive or negative. A positive value indicates profit, a negative value indicates loss.</p>
+<p>The controlled gross profit/loss is expressed in the account denomination currency.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>controlled_comm</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The amount of broker commission charged on the managed account.
+This amount is obtained from the manager commission (<code>manager_comm</code>)
+based on the allocation percentage (<code>controlled_percent</code>) of the managed account.</p>
+<p>The value can be either negative or zero. A negative value indicates that the commission was charged, a zero value
+indicates that the commission was not charged.</p>
+<p>The controlled commission is expressed in the account denomination currency.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>controlled_dividends</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>Not used.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>controlled_rollover</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The amount of rollover interest earned or paid by the managed account.
+This amount is obtained from the manager rollover (<code>manager_rollover</code>)
+based on the allocation percentage (<code>controlled_percent</code>) of the managed account.</p>
+<p>The value can be either positive or negative. A positive value indicates that the rollover was earned, a negative value indicates
+that the rollover was paid.</p>
+<p>The controlled rollover is expressed in the account denomination currency.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>controlled_adj</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The amount of adjustment applied to the gross profit/loss (<code>controlled_gross_pl</code>) of the managed account.
+This amount is obtained from the manager adjustment (<code>manager_adj</code>)
+based on the allocation percentage (<code>controlled_percent</code>) of the managed account.</p>
+<p>The value can be either positive or negative. A positive value indicates that the gross profit/loss encreased,
+a negative value indicates that the gross profit/loss decreased.</p>
+<p>The controlled adjustment is expressed in the account denomination currency.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>controlled_net_pl</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The amount of profit or loss allocated to the managed account.
+This amount represents the sum of the controlled gross profit/loss
+(<code>controlled_gross_pl</code>), broker commission
+(<code>controlled_comm</code>), rollover interest (<code>controlled_rollover</code>),
+and adjustment (<code>controlled_adj</code>).</p>
+<p>The value can be either positive or negative. A positive value indicates profit, a negative value indicates
+loss.</p>
+<p>The controlled net profit/loss is expressed in the account denomination currency.</p></td>
+  </tr>
+</table><div id="open68" style="display:inline">
+  <p>Example:&nbsp;<a href="javascript: showdiv('close68'); hidediv('open68');" onclick="javascript: showdiv('close68'); hidediv('open68');">[show]</a></p>
+</div>
+<div id="close68" style="display:none">
+  <p>Example:&nbsp;<a href="javascript: showdiv('open68'); hidediv('close68');" onclick="javascript: showdiv('open68'); hidediv('close68');">[hide]</a></p>
+  <pre class="example">&lt;rdf:table name=&quot;trade_distribution&quot; description=&quot;TRADE DISTRIBUTION&quot;&gt;
+   &lt;rdf:head&gt;
+       &lt;rdf:column name=&quot;ticket_id&quot; type=&quot;INTEGER&quot; description=&quot;Ticket #&quot; /&gt;
+       &lt;rdf:column name=&quot;manager_account&quot; type=&quot;STRING&quot; description=&quot;Manager Account&quot; /&gt;
+       &lt;rdf:column name=&quot;manager_gross_pl&quot; type=&quot;DOUBLE&quot; description=&quot;Gross P/L&quot; /&gt;
+       &lt;rdf:column name=&quot;manager_comm&quot; type=&quot;DOUBLE&quot; description=&quot;Comm&quot; /&gt;
+       &lt;rdf:column name=&quot;manager_dividends&quot; type=&quot;DOUBLE&quot; description=&quot;Dividends&quot;
+       &lt;rdf:column name=&quot;manager_rollover&quot; type=&quot;DOUBLE&quot; description=&quot;Rollover&quot; /&gt;
+       &lt;rdf:column name=&quot;manager_adj&quot; type=&quot;DOUBLE&quot; description=&quot;Adj&quot; /&gt;
+       &lt;rdf:column name=&quot;manager_net_pl&quot; type=&quot;DOUBLE&quot; description=&quot;Net P/L&quot; /&gt;
+       &lt;rdf:column name=&quot;controlled_account&quot; type=&quot;STRING&quot; description=&quot;Controlled Account&quot; /&gt;
+       &lt;rdf:column name=&quot;controlled_percent&quot; type=&quot;DOUBLE&quot; description=&quot;%&quot; /&gt;
+       &lt;rdf:column name=&quot;controlled_gross_pl&quot; type=&quot;DOUBLE&quot; description=&quot;Gross P/L&quot; /&gt;
+       &lt;rdf:column name=&quot;controlled_comm&quot; type=&quot;DOUBLE&quot; description=&quot;Comm&quot; /&gt;
+       &lt;rdf:column name=&quot;controlled_dividends&quot; type=&quot;DOUBLE&quot; description=&quot;Dividends&quot;/&gt;
+       &lt;rdf:column name=&quot;controlled_rollover&quot; type=&quot;DOUBLE&quot; description=&quot;Rollover&quot; /&gt;
+       &lt;rdf:column name=&quot;controlled_adj&quot; type=&quot;DOUBLE&quot; description=&quot;Adj&quot; /&gt;
+       &lt;rdf:column name=&quot;controlled_net_pl&quot; type=&quot;DOUBLE&quot; description=&quot;Net P/L&quot; /&gt;
+   &lt;/rdf:head&gt;
+   &lt;rdf:body&gt;
+       &lt;rdf:row&gt;
+           &lt;rdf:cell name=&quot;ticket_id&quot;&gt;6025038&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;manager_account&quot;&gt;05051991&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;manager_gross_pl&quot;&gt;3.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;manager_comm&quot;&gt;-10.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;manager_dividends&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;manager_rollover&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;manager_adj&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;manager_net_pl&quot;&gt;-7.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;controlled_account&quot;&gt;05051995&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;controlled_percent&quot;&gt;40.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;controlled_gross_pl&quot;&gt;1.20&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;controlled_comm&quot;&gt;-4.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;controlled_dividends&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;controlled_rollover&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;controlled_adj&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;controlled_net_pl&quot;&gt;-2.80&lt;/rdf:cell&gt;
+       &lt;/rdf:row&gt;
+       ...
+   &lt;/rdf:body&gt;
+&lt;/rdf:table&gt;</pre>
+</div><p>
+      <center><a href="CAS.funds_manager.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

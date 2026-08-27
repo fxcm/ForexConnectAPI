@@ -1,0 +1,261 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GTradingSettingsProvider</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>IO2GTradingSettingsProvider</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="IAddRef.html">IAddRef</a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>Checks trading settings.</p>
+    <p><b>Details</b></p><p>To create <code>IO2GTradingSettingsProvider</code> use
+<a href="IO2GLoginRules.html"><code>IO2GLoginRules</code></a>.<a href="IO2GLoginRules.getTradingSettingsProvider.html"><code>getTradingSettingsProvider</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradingSettingsProvider.getBaseUnitSize.html">getBaseUnitSize</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the size of one lot, i.e. the minimum amount per trade that is allowed on the instrument on the account.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradingSettingsProvider.getCondDistEntryLimit.html">getCondDistEntryLimit</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the minimal distance between the rates of the entry limit order and the current market rate.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradingSettingsProvider.getCondDistEntryStop.html">getCondDistEntryStop</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the minimal distance between the rates of the entry stop order and the current market rate.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradingSettingsProvider.getCondDistLimitForTrade.html">getCondDistLimitForTrade</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the minimal distance between the rates of the limit order for the position and the current market rate.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradingSettingsProvider.getCondDistStopForTrade.html">getCondDistStopForTrade</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the minimal distance between the rates of the stop order for the position and the current market rate.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradingSettingsProvider.getMargins.html">getMargins</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Checks whether the three level margin policy is used and specifies the three margin levels. Returns 'true' if margin policy is three level and 'false' otherwise.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradingSettingsProvider.getMarketStatus.html">getMarketStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Checks whether the trading in the instrument is allowed (whether the market is opened or closed).</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradingSettingsProvider.getMaxQuantity.html">getMaxQuantity</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the maximum size of a trade or of a market order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradingSettingsProvider.getMaxTrailingStep.html">getMaxTrailingStep</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the maximum size of the market movement after which an order must be moved following the market.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradingSettingsProvider.getMinQuantity.html">getMinQuantity</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the minimum size of a trade or of a market order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradingSettingsProvider.getMinTrailingStep.html">getMinTrailingStep</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the minimum size of the market movement after which an order must be moved following the market.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradingSettingsProvider.getMMR.html">getMMR</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the minimum margin requirement.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradingSettingsProvider.getProgressiveMarginLevels.html">getProgressiveMarginLevels</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the progressive margin requirements for the specified instrument.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradingSettingsProvider.isProgressiveMargin.html">isProgressiveMargin</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Detects whether the specified instrument is under progressive margin requirements.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradingSettingsProvider.isTier3.html">isTier3</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Detect whether three level margin is used for specified account.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="forexconnect.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

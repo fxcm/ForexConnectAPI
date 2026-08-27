@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Getting Trading Table Updates</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Getting Trading Table Updates</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article explains how to get trading table updates.</p>
+    <p><b>Details</b></p><p>When logged in, ForexConnect API creates and maintains in-memory representations of <a href="TradingTables.html">trading tables</a> by default.
+Then you may need to know if rows of a trading table have been added, removed, or changed.<br>
+For example, you may want to get updated offers from the <a href="TTOffers.html">Offers table</a> or when opening a position,
+you may want to make sure that the corresponding trade has been added to the <a href="TTTrades.html">Trades table</a>.<br><br></p>
+<p>To get trading table updates in your Python script, you must perform the following steps:</p><ol class="main">
+  <li><p><a href="login_logout_py.html">Log in</a>.</p></li>
+  <li><p>Define a callback function or functions (<code>on_add_callback</code>, <code>on_delete_callback</code>, <code>on_change_callback</code>)
+that will be called by the <a href="forexconnect.exceptions.Common.Common.subscribeTableUpdates.html"><code>Common.subscribe_table_updates</code></a> method
+when a trading table row is added, removed, or changed. For example:</p><pre class="example">def on_added_trade(_, __, trade_row):
+    if trade_row.open_order_id == order_id:
+        print(&quot;For the order: OrderID = {0} the following positions have been opened:&quot;.format(order_id))
+        print(&quot;Trade ID: {0:s}; Amount: {1:d}; Rate: {2:.5f}&quot;.format(trade_row.trade_id, trade_row.amount,
+                                                                     trade_row.open_rate))</pre></li>
+  <li><p>Get the necessary table by calling the <a href="forexconnect.ForexConnect.ForexConnect.getTable.html"><code>ForexConnect.get_table</code></a> method.</p></li>
+  <li><p>Create a table listener and subscribe to the table updates by calling the
+<a href="forexconnect.exceptions.Common.Common.subscribeTableUpdates.html"><code>Common.subscribe_table_updates</code></a> method.
+For example:</p><pre class="example">trades_listener = Common.subscribe_table_updates(trades_table, on_add_callback=on_added_trade)</pre><p>The callback function will be called in a separate thread. You have to synchronize its results with your main thread.
+Find a link to sample scripts demonstrating implementation of the method <a href="forexconnect.exceptions.Common.Common.subscribeTableUpdates.html"><code>Common.subscribe_table_updates</code></a>
+below.</p></li>
+  <li><p>Before logging out, unsubscribe from table updates by calling the method
+<a href="forexconnect.TableListener.TableListener.unsubscribe.html"><code>TableListener.unsubscribe</code></a>
+For example:</p><pre class="example">trades_listener.unsubscribe()</pre></li>
+  <li><p><a href="login_logout_py.html">Log out</a>.</p></li>
+</ol><p><br><br></p>
+<p>Find sample scripts demonstrating how to get trading table updates at https://github.com/gehtsoft/forex-connect/tree/master/samples:</p><ul class="main">
+  <li><p><code>GetOffers.py</code><br>
+This sample script shows how to get up-to-date information about offers.</p></li>
+  <li><p><code>CreateEntryOrder.py</code><br>
+This sample script shows how to create an entry limit order with specified account ID, instrument, trading direction (buy/sell), rate, and number of lots.</p></li>
+  <li><p><code>RemoveOrder.py</code><br>
+This sample script shows how to remove an order by its order ID.</p></li>
+  <li><p><code>OpenPosition.py</code><br>
+This sample script shows how to open a position by creating an open market order for specified account ID, instrument, buy/sell, rate, and number of lots.</p></li>
+  <li><p><code>ClosePosition.py</code><br>
+This sample script shows how to close a position for a specified instrument by creating a close market order with an opposite direction.</p></li>
+</ul><p>
+      <center><a href="howto.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

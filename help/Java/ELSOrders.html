@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>ELS Orders</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>ELS Orders</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>This article describes ELS orders.</p>
+    <p><b>Details</b></p><p><b>ELS Order</b></p>
+<p>ELS Order (Entry with Limit and Stop) is an order which contains two or three orders - a primary (opening) order and one or
+two secondary (closing) orders.
+A primary order can be a market or entry order.
+Secondary orders can be one limit entry and one stop entry (the stop entry can be trailing) whose trade operation is
+opposite to that of the primary order. All orders in ELS have the same amount.</p>
+<p>When the primary order is executed, the secondary orders become active and then work like OCO orders -
+that is when one of them is executed, the other is automatically cancelled.
+But unlike OCO orders, ELS orders cannot open new positions, just close the existing ones in accordance with the FIFO rules.</p>
+<p>Unlike regular stop/limit orders, activated secondary orders of ELS do not close the exact position for which they are created,
+but the oldest of the existing positions in the same symbol. If the symbol net position is closed by other orders so
+that the remaining amount is less than the amount of activated secondary orders,
+their amount will not be changed automatically, and any leftover amount will be cancelled after the net position is closed in full.</p>
+<p>ELS orders is intended to be used as alternative of regular Stop and Limit orders for US-based accounts.</p>
+<p>Note that when you create a market order, you can create an ELS order only at once, secondary orders cannot be added later.
+As for creating an ELS order with a primary entry order, you can set entry limit or stop prices both when you create
+the entry order and later until the entry order is executed.</p>
+<p>Also note that secondary orders cannot be joined to any other orders group (OCO or ELS).</p><p>
+      <center><a href="OrderTypes.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

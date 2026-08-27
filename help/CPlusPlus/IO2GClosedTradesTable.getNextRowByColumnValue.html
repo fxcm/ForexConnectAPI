@@ -1,0 +1,185 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GClosedTradesTable.getNextRowByColumnValue</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>IO2GClosedTradesTable.getNextRowByColumnValue</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Gets the next row from <code>IO2GClosedTradesTable</code> based on the column value.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">C++</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code>virtual&nbsp;bool&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>getNextRowByColumnValue</b> (const char * columnID, const void * columnValueAsVariant, <a href="IO2GTableIterator.html">IO2GTableIterator</a> & iterator, <a href="IO2GClosedTradeTableRow.html">IO2GClosedTradeTableRow</a> *& row)  = 0</code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>columnID</code></td>
+    <td class="tmain" width="69%"><p>The name of a column in the <a href="TTClosedTrades.html">Closed Trades</a> table. For example, <code>OfferID</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>columnValueAsVariant</code></td>
+    <td class="tmain" width="69%"><p>The value of the column specified by the <code>columnId</code> parameter. For example, if you want to search the <a href="TTClosedTrades.html">Closed Trades</a> table
+for closed positions of the <code>EUR/USD</code> instrument only, the <code>columnId</code> parameter value is <code>OfferID</code>, the <code>columnValue</code> parameter value is <code>1</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>iterator</code></td>
+    <td class="tmain" width="69%"><p>The table iterator.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>row</code></td>
+    <td class="tmain" width="69%"><p>[out] The row fetched.</p></td>
+  </tr>
+</table><p><b>Details</b></p><p>This method allows finding all rows that contain the specified value.<br>
+If the row is not found, the method returns <code>false</code></p>
+<p><b>Example</b></p><div id="open120" style="display:none">
+  <p>Get closed positions in <code>EUR/USD</code> from the Closed Trades table&nbsp;<a href="javascript: showdiv('close120'); hidediv('open120');" onclick="javascript: showdiv('close120'); hidediv('open120');">[show]</a></p>
+</div>
+<div id="close120" style="display:inline">
+  <p>Get closed positions in <code>EUR/USD</code> from the Closed Trades table&nbsp;<a href="javascript: showdiv('open120'); hidediv('close120');" onclick="javascript: showdiv('open120'); hidediv('close120');">[hide]</a></p>
+  <pre class="example">    O2G2Ptr&lt;IO2GClosedTradesTable&gt; closedTradesTable = (IO2GClosedTradesTable *)tableManager-&gt;getTable(ClosedTrades);
+    bool found = false;
+    IO2GTableIterator iterator;
+    IO2GClosedTradeTableRow *closedTrade = NULL;
+    while(closedTradesTable-&gt;getNextRowByColumnValue(&quot;OfferID&quot;, &quot;1&quot;, iterator, closedTrade))
+    {
+        found = true;
+        std::cout &lt;&lt; &quot;TradeID: &quot; &lt;&lt; closedTrade-&gt;getTradeID() &lt;&lt;
+                     &quot; CloseRate = &quot; &lt;&lt; closedTrade-&gt;getCloseRate() &lt;&lt;
+                     &quot; GrossPL= &quot; &lt;&lt; closedTrade-&gt;getGrossPL() &lt;&lt; std::endl;
+        closedTrade-&gt;release();
+    }
+    if (!found)
+        std::cout &lt;&lt; &quot;You don't have any positions in EUR/USD instrument closed during the current trading day.&quot; &lt;&lt; std::endl;</pre>
+</div><p><b>Note:</b> The returned row contains the current column values. The values are not automatically updated. To monitor
+changes, use <a href="IO2GTableListener.onChanged.html"><code>IO2GTableListener.onChanged</code></a>.
+The row interface is thread-safe. The returned row can be used in different threads without synchronization.</p><p>Declared in <a href="IO2GClosedTradesTable.html">IO2GClosedTradesTable</a></p>
+<p>
+  <center><a href="IO2GClosedTradesTable.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'IO2GClosedTradesTable.html');</script></body>
+</html>

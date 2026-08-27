@@ -1,0 +1,162 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GOffersTable.findRow</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>O2GOffersTable.findRow</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Finds a row in the <code>O2GOffersTable</code> table by an OfferID.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">Java</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code><a href="com.fxcore2.O2GOfferTableRow.html"><code>O2GOfferTableRow</code></a>&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>findRow</b> (String id) </code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>id</code></td>
+    <td class="tmain" width="69%"><p>The unique identification number of an instrument.</p></td>
+  </tr>
+</table><p><b>Details</b></p><p>If the row is not found, the method returns <code>null</code>.
+<br><b>Note:</b> The returned row contains the current values of fields. The values are not automatically updated. To monitor changes, use <a href="com.fxcore2.IO2GTableListener.onChanged.html"><code>IO2GTableListener.onChanged</code></a>.
+The row interface is thread-safe. One can use the returned row in different threads without synchronization.</p>
+<p><b>Example</b></p><div id="open183" style="display:none">
+  <p>Find offer by OfferID&nbsp;<a href="javascript: showdiv('close183'); hidediv('open183');" onclick="javascript: showdiv('close183'); hidediv('open183');">[show]</a></p>
+</div>
+<div id="close183" style="display:inline">
+  <p>Find offer by OfferID&nbsp;<a href="javascript: showdiv('open183'); hidediv('close183');" onclick="javascript: showdiv('open183'); hidediv('close183');">[hide]</a></p>
+  <pre class="example">    O2GOffersTable offersTable = (O2GOffersTable)tableManager.getTable(O2GTableType.OFFERS);
+    O2GOfferTableRow offer = offersTable.findRow(mOfferID);
+    System.out.println(&quot;Instrument: &quot; + offer.getInstrument() +
+                       &quot; Bid = &quot; + offer.getBid() +
+                       &quot; Ask = &quot; + offer.getAsk());</pre>
+</div><p>Declared in <a href="com.fxcore2.O2GOffersTable.html">O2GOffersTable</a></p>
+<p>
+  <center><a href="com.fxcore2.O2GOffersTable.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'com.fxcore2.O2GOffersTable.html');</script></body>
+</html>

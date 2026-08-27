@@ -1,0 +1,518 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GClosedTradeRow</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>O2GClosedTradeRow</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="fxcore2.O2GRow.html"><code>O2GRow</code></a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The class provides access to information about a position closed during the current trading day.</p>
+    <p><b>Details</b></p><p>An instance of the class can be obtained by the following methods:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Method/Use</p></td>
+    <td class="thdr"><p>Prerequisites</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GClosedTradesTableResponseReader.html"><code>O2GClosedTradesTableResponseReader</code></a>.<a href="fxcore2.O2GClosedTradesTableResponseReader.getRow.0.html"><code>getRow</code></a><br></p>
+<p>This method is used to get the initial information about a closed position after a session with the trading server is established.<br>
+This method provides access to a single closed position. If you have multiple closed positions, call this method in a loop.</p></td>
+    <td class="tmain"><p>Depending on the trading server settings, the <a href="TTClosedTrades.html">ClosedTrades</a> table may or may not be loaded by the server automatically during the login process.<br></p>
+<p>To determine whether the table is loaded or not and what follow-up action is required to get closed position information, use the returned value of the <a href="fxcore2.O2GLoginRules.html"><code>O2GLoginRules</code></a>.<a href="fxcore2.O2GLoginRules.isTableLoadedByDefault.0.html"><code>isTableLoadedByDefault</code></a> method:<br></p><ul class="main">
+  <li><p>If the table is loaded, you can get the closed position information by using the <a href="fxcore2.O2GLoginRules.html"><code>O2GLoginRules</code></a>.<a href="fxcore2.O2GLoginRules.getTableRefreshResponse.0.html"><code>getTableRefreshResponse</code></a> method;</p></li>
+  <li><p>Otherwise, you must create a request to load the table by using the <a href="fxcore2.O2GRequestFactory.html"><code>O2GRequestFactory</code></a>.<a href="fxcore2.O2GRequestFactory.createRefreshTableRequest.0.html"><code>createRefreshTableRequest</code></a> method.
+You must obtain a response to this request by implementing the <a href="fxcore2.IO2GResponseListener.html"><code>IO2GResponseListener</code></a>.<a href="fxcore2.IO2GResponseListener.onRequestCompleted.0.html"><code>onRequestCompleted</code></a> method.</p></li>
+</ul><p>Both methods use the <a href="fxcore2.O2GResponse.html"><code>O2GResponse</code></a> object of the <a href="fxcore2.O2GResponseType.html"><code>O2GResponseType</code></a>.<a href="fxcore2.O2GResponseType.GetClosedTrades.0.html"><code>GetClosedTrades</code></a> type.<br>
+You must parse this object by using the <a href="fxcore2.O2GClosedTradesTableResponseReader.html"><code>O2GClosedTradesTableResponseReader</code></a> object.<br></p>
+<p>For details, see the example below.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GTablesUpdatesReader.html"><code>O2GTablesUpdatesReader</code></a>.<a href="fxcore2.O2GTablesUpdatesReader.getTradeRow.0.html"><code>getTradeRow</code></a><br></p>
+<p>This method is used to get information about a position closed during a session lifetime.<br>
+This method provides access to a single closed position. To track closing of multiple positions, call this method in a loop.</p></td>
+    <td class="tmain"><p>To receive information about a position closing, you must implement the <a href="fxcore2.IO2GResponseListener.html"><code>IO2GResponseListener</code></a>.<a href="fxcore2.IO2GResponseListener.onTablesUpdates.0.html"><code>onTablesUpdates</code></a> method.
+The received <a href="fxcore2.O2GResponse.html"><code>O2GResponse</code></a> object is of the <a href="fxcore2.O2GResponseType.html"><code>O2GResponseType</code></a>.<a href="fxcore2.O2GResponseType.TablesUpdates.0.html"><code>TablesUpdates</code></a> type.<br>
+You must parse this object by using the <a href="fxcore2.O2GTablesUpdatesReader.html"><code>O2GTablesUpdatesReader</code></a> object.<br></p>
+<p>For details, see the example below.</p></td>
+  </tr>
+</table><p><b>Example</b></p><div id="open142" style="display:inline">
+  <p>Get Trade ID, Offer ID and Amount of closed position&nbsp;<a href="javascript: showdiv('close142'); hidediv('open142');" onclick="javascript: showdiv('close142'); hidediv('open142');">[show]</a></p>
+</div>
+<div id="close142" style="display:none">
+  <p>Get Trade ID, Offer ID and Amount of closed position&nbsp;<a href="javascript: showdiv('open142'); hidediv('close142');" onclick="javascript: showdiv('open142'); hidediv('close142');">[hide]</a></p>
+  <pre class="example">    <b>// Get closed trades information</b>
+    public static void getClosedTrades(O2GSession session, ResponseListener responseListener)
+    {
+        try
+        {
+            O2GLoginRules loginRules = session.getLoginRules();
+ 
+           <b>// Check if Closed Trades table is loaded automatically</b>
+            if (loginRules != null &amp;&amp; loginRules.isTableLoadedByDefault(O2GTableType.ClosedTrades))
+            {
+ 
+               <b>// If table is loaded, use getTableRefreshResponse method</b>
+                O2GResponse closedTradesResponse = loginRules.getTableRefreshResponse(O2GTableType.ClosedTrades);
+                O2GResponseReaderFactory responseFactory = session.getResponseReaderFactory();
+                if (responseFactory != null)
+                {
+                    O2GClosedTradesTableResponseReader closedTradesReader = responseFactory.createClosedTradesTableReader(closedTradesResponse);
+                    for (int i = 0; i &lt; closedTradesReader.Count; i++) {
+                        O2GClosedTradeRow closedTrade = closedTradesReader.getRow(i);
+                        Console.WriteLine(&quot;TradeID = &quot; + closedTrade.TradeID +
+                                           &quot; CloseRate = &quot; + closedTrade.CloseRate +
+                                           &quot; GrossPL = &quot; + closedTrade.GrossPL);
+                    }
+                }
+            }
+            else
+            {
+ 
+               <b>// If table is not loaded, use createRefreshTableRequest method</b>
+                O2GRequestFactory requestFactory = session.getRequestFactory();
+                if (requestFactory != null)
+                {
+                    O2GRequest request = requestFactory.createRefreshTableRequest(O2GTableType.ClosedTrades);
+                    responseListener.setRequest(request.RequestID);
+                    session.sendRequest(request);
+                    Thread.Sleep(1000);
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(&quot;Exception in getClosedTrades().\n\t &quot; + e.Message);
+        }
+    }
+   <b>// Implementation of IO2GResponseListener interface public method onRequestCompleted</b>
+    public void onRequestCompleted(String requestID, O2GResponse response)
+    {
+        if (requestID.Equals(mRequestID))
+        {
+            O2GResponseReaderFactory readerFactory = mSession.getResponseReaderFactory();
+            if (readerFactory != null)
+            {
+                O2GClosedTradesTableResponseReader reader = readerFactory.createClosedTradesTableReader(response);
+                for (int i = 0; i &lt; reader.Count; i++)
+                {
+                    O2GClosedTradeRow closedtrade = reader.getRow(i);
+                    Console.WriteLine(&quot; This is a response to your request: \nTradeID = &quot; + closedtrade.TradeID +
+                                       &quot; CloseRate = &quot; + closedtrade.CloseRate +
+                                       &quot; GrossPL = &quot; + closedtrade.GrossPL);
+                }
+            }
+        }
+    }
+ 
+    <b>// Implementation of IO2GResponseListener interface public method onTablesUpdates</b>
+    public void onTablesUpdates(O2GResponse response)
+    {
+        O2GResponseReaderFactory factory = mSession.getResponseReaderFactory();
+        if (factory != null)
+        {
+            O2GTablesUpdatesReader updatesReader = factory.createTablesUpdatesReader(response);
+            for (int i = 0; i &lt; updatesReader.Count; i++)
+            {
+                O2GTableType tableType = updatesReader.getUpdateTable(i);
+                if (tableType == O2GTableType.ClosedTrades)
+                {
+                    O2GClosedTradeRow closedtrade = updatesReader.getClosedTradeRow(i);
+                    Console.WriteLine(&quot; This is a live update: \nTradeID = &quot; + closedtrade.TradeID +
+                                       &quot; CloseRate = &quot; + closedtrade.CloseRate +
+                                       &quot; GrossPL = &quot; + closedtrade.GrossPL);
+                }
+            }
+        }
+    }</pre>
+</div><p>The type defined in the <code>fxcore2.dll</code> assembly.
+The namespace is <a href="fxcore2.html"><code>fxcore2</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Properties</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.AccountID.0.html">AccountID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the position account.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.AccountKind.0.html">AccountKind</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of the position account.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.AccountName.0.html">AccountName</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique name of the position account.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.Amount.0.html">Amount</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the amount of a closed position.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.BuySell.0.html">BuySell</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the trade operation the position is opened by.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.CloseOrderID.0.html">CloseOrderID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the order the position is closed by.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.CloseOrderParties.0.html">CloseOrderParties</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identifier of the environment that has been used to close the position.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.CloseOrderReqID.0.html">CloseOrderReqID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identifier of the order request the position is closed by.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.CloseOrderRequestTXT.0.html">CloseOrderRequestTXT</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the custom identifier of the order the position is closed by.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.CloseQuoteID.0.html">CloseQuoteID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identifier of the pair of prices (bid and ask) the position is closed at.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.CloseRate.0.html">CloseRate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the price the position is closed at.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.CloseTime.0.html">CloseTime</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the date and time when the position is closed.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.Columns.0.html">Columns</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The columns of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.Commission.0.html">Commission</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the amount of funds subtracted from the account balance to pay for the broker's service in accordance with the terms and conditions of the account trading agreement.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.Dividends.0.html">Dividends</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the cumulative amount of dividends earned or paid for the position. Applicable only to Index CFD positions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.GrossPL.0.html">GrossPL</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the profit/loss of the position.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.OfferID.0.html">OfferID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of a traded instrument.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.OpenOrderID.0.html">OpenOrderID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the order the position is opened by.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.OpenOrderParties.0.html">OpenOrderParties</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identifier of the environment that has been used to open the position.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.OpenOrderReqID.0.html">OpenOrderReqID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identifier of the order request the position is opened by.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.OpenOrderRequestTXT.0.html">OpenOrderRequestTXT</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the custom identifier of the order the position is opened by.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.OpenQuoteID.0.html">OpenQuoteID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identifier of the pair of prices (bid and ask) the position is opened at.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.OpenRate.0.html">OpenRate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the price the position is opened at.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.OpenTime.0.html">OpenTime</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the date and time when the position is opened.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.RolloverInterest.0.html">RolloverInterest</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the cumulative amount of funds added to the account balance for holding a position opened overnight.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.TableType.0.html">TableType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The type of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.TradeID.0.html">TradeID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the position.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.TradeIDOrigin.0.html">TradeIDOrigin</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the position a partial closing of which results in opening of the current position.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.TradeIDRemain.0.html">TradeIDRemain</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the position opened as a result of the partial closing of the current position.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.ValueDate.0.html">ValueDate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the simulated delivery date.</p>
+    </td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.getCell.0.html">getCell</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a cell of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GClosedTradeRow.isCellChanged.0.html">isCellChanged</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a flag indicating whether the value of the cell is changed.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

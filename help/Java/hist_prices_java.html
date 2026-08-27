@@ -1,0 +1,482 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Getting Historical Prices</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Getting Historical Prices</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article discusses how to get historic prices in Java.</p>
+    <p><b>Details</b></p><p>To get historic prices in your Java application, you should:</p><ol class="main">
+  <li><p>Create a session, a session status listener, subscribe the listener to the session status
+(see <a href="login_logout_java.html"><code>this article</code></a>).</p></li>
+  <li><p>Implement the <a href="com.fxcore2.IO2GResponseListener.html"><code>IO2GResponseListener</code></a> interface
+in a response listener class:<br></p><pre class="example"><code>public class ResponseListener implements IO2GResponseListener{...}</code></pre></li>
+  <li><p>Subscribe an object of this class to the session response:<br></p><pre class="example"><code>ResponseListener responseListener = new ResponseListener(...);
+session.subscribeResponse(new myResponseListener());</code></pre></li>
+  <li><p>Log in (see <a href="login_logout_java.html"><code>this article</code></a>).</p></li>
+  <li><p>Use the listener <a href="com.fxcore2.IO2GSessionStatus.onSessionStatusChanged.html"><code>onSessionStatusChanged</code></a>
+function to capture the <a href="com.fxcore2.O2GSessionStatusCode.CONNECTED.html"><code>CONNECTED</code></a> event:<br></p></li>
+  <li><p>Create <a href="com.fxcore2.O2GRequestFactory.html"><code>O2GRequestFactory</code></a>:<br></p><pre class="example"><code>O2GRequestFactory factory = mSession.getRequestFactory();</code></pre></li>
+  <li><p>Get <a href="com.fxcore2.O2GTimeframeCollection.html"><code>O2GTimeframeCollection</code></a>:<br></p><pre class="example"><code>O2GTimeframeCollection timeFrames = factory.getTimeFrameCollection();</code></pre></li>
+  <li><p>Get the <a href="com.fxcore2.O2GTimeframe.html"><code>O2GTimeframe</code></a> you need:<br></p><pre class="example"><code>O2GTimeframe timeFrame = timeFrames.get(0);</code></pre><p>or <br></p><pre class="example"><code>O2GTimeframe timeFrame = timeFrames.get(&quot;m1&quot;);</code></pre></li>
+  <li><p>Create a market data snapshot request (<a href="com.fxcore2.O2GRequest.html"><code>O2GRequest</code></a>), using the instrument, time frame, and maximum number of bars as arguments:<br></p><pre class="example"><code>O2GRequest marketDataRequest = factory.createMarketDataSnapshotRequestInstrument(&quot;EUR/USD&quot;, timeFrame, 300);</code></pre></li>
+  <li><p>Fill the market data snapshot request, using the request, date and time &quot;from&quot;, and date and time &quot;to&quot; as arguments
+(use <code>null</code> for date and time &quot;from&quot; to get maximum number of bars;
+use <code>null</code> for date and time &quot;to&quot; to get history till now):<br></p><pre class="example"><code>factory.fillMarketDataSnapshotRequestTime(marketDataRequest, null, null);</code></pre></li>
+  <li><p>Send the request:<br></p><pre class="example"><code>mSession.sendRequest(marketDataRequest);</code></pre></li>
+  <li><p>Finally capture <a href="com.fxcore2.O2GResponse.html"><code>O2GResponse</code></a> in the
+<a href="com.fxcore2.IO2GResponseListener.onRequestCompleted.html"><code>onRequestCompleted</code></a>
+function of a response listener class.<br>
+If the type of response is
+<a href="com.fxcore2.O2GResponseType.MARKET_DATA_SNAPSHOT.html"><code>MARKET_DATA_SNAPSHOT</code></a>,
+process the response to extract necessary information.</p></li>
+  <li><p>Get <a href="com.fxcore2.O2GResponseReaderFactory.html"><code>O2GResponseReaderFactory</code></a>:<br></p><pre class="example"><code>O2GResponseReaderFactory factory = mSession.getResponseReaderFactory();</code></pre></li>
+  <li><p>Create <a href="com.fxcore2.O2GMarketDataSnapshotResponseReader.html"><code>O2GMarketDataSnapshotResponseReader</code></a>:<br></p><pre class="example"><code>O2GMarketDataSnapshotResponseReader marketSnapshotReader = factory.createMarketDataSnapshotReader(response);</code></pre></li>
+  <li><p>Process row by row:<br></p><pre class="example"><code>for (int i = 0; i &lt; marketSnapshotReader.size(); i++) {
+{
+    // information like marketSnapshotReader.getDate(i), marketSnapshotReader.getBidOpen(i), marketSnapshotReader.getBidHigh(i), marketSnapshotReader.getBidLow(i), marketSnapshotReader.getBidClose(i), marketSnapshotReader.getVolume(i) is now available
+}
+</code></pre></li>
+  <li><p>Unsubscribe the session from the response listener.</p></li>
+  <li><p>Log out.</p></li>
+</ol><div id="open45" style="display:inline">
+  <p>Get historic prices example&nbsp;<a href="javascript: showdiv('close45'); hidediv('open45');" onclick="javascript: showdiv('close45'); hidediv('open45');">[show]</a></p>
+</div>
+<div id="close45" style="display:none">
+  <p>Get historic prices example&nbsp;<a href="javascript: showdiv('open45'); hidediv('close45');" onclick="javascript: showdiv('open45'); hidediv('close45');">[hide]</a></p>
+  <pre class="example"><code>
+package gethistprices;
+ 
+import com.fxcore2.O2GSession;
+import com.fxcore2.O2GTransport;
+import com.fxcore2.O2GRequest;
+import com.fxcore2.O2GResponseReaderFactory;
+import com.fxcore2.O2GResponse;
+import com.fxcore2.O2GTableType;
+import com.fxcore2.O2GRequestFactory;
+import com.fxcore2.O2GTimeframeCollection;
+import com.fxcore2.O2GTimeframe;
+import com.fxcore2.O2GMarketDataSnapshotResponseReader;
+import com.fxcore2.O2GTimeConverter;
+import com.fxcore2.O2GTimeConverterTimeZone;
+import java.io.FileNotFoundException;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+ 
+import com.fxcore2.IO2GResponseListener;
+ 
+import com.fxcore2.IO2GSessionStatus;
+import com.fxcore2.O2GSessionStatusCode;
+import com.fxcore2.O2GSessionDescriptorCollection;
+import com.fxcore2.O2GSessionDescriptor;
+ 
+ 
+public class Main {
+ 
+    // Historic prices variables
+    static Calendar calFrom = null;
+    static Calendar calTo = null;
+    static Calendar calFirst = null;
+    static Calendar calDate = null;
+    static String mInstrument = &quot;&quot;;
+    static int mMaxBars = 300;
+ 
+    public static void main(String[] args) {
+ 
+        // Connection, session and log variables
+        String mUserID = &quot;&quot;;
+        String mPassword = &quot;&quot;;
+        String mURL = &quot;&quot;;
+        String mConnection = &quot;&quot;;
+        String mDBName = &quot;&quot;;
+        String mPin = &quot;&quot;;
+        O2GSession mSession = null;
+ 
+        // Market Data request variables
+        O2GRequest request = null;
+        String mTimeFrame = &quot;&quot;;
+        String mDateFrom = &quot;&quot;;
+        String mDateTo = &quot;&quot;;
+        boolean mContinue = true;
+        int mReaderSize = 0;
+        int mCounter = 0;
+        int mBorder = 0;
+ 
+ 
+        // Check for correct number of arguments
+        if (args.length &lt; 8) {
+            System.out.println(&quot;Not Enough Parameters!&quot;);
+            System.out.println(&quot;USAGE: [instrument] [timeframe] [datefrom] [dateto] [user ID] [password] [URL] [connection] [session ID (if needed)] [pin (if needed)]&quot;);
+            System.exit(1);
+        }
+ 
+        // Establish date format
+        DateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd hh:mm:ss&quot;);
+ 
+        // Get command line arguments
+        mInstrument = args[0];
+        mTimeFrame = args[1];
+        mDateFrom = args[2].trim();
+        if ((!mDateFrom.equals(&quot;&quot;)) &amp;&amp; (!mDateFrom.equals(&quot;{DATEFROM}&quot;))) {
+            try {
+                Date dtFrom = df.parse(mDateFrom);
+                calFrom = Calendar.getInstance();
+                calFrom.setTime(dtFrom);
+            } catch (Exception e) {
+                System.out.println(&quot; Date From format invalid.&quot;);
+                System.exit(1);
+            }
+        }
+        mDateTo = args[3].trim();
+        if ((!mDateTo.equals(&quot;&quot;)) &amp;&amp; (!mDateTo.equals(&quot;{DATETO}&quot;))) {
+            try {
+                Date dtTo = df.parse(mDateTo);
+                calTo = Calendar.getInstance();
+                calTo.setTime(dtTo);
+            } catch (Exception e) {
+                System.out.println(&quot; Date To format invalid.&quot;);
+                System.exit(1);
+            }
+        }
+        mUserID = args[4];
+        mPassword = args[5];
+        mURL = args[6];
+        mConnection = args[7];
+        if (args.length &gt; 8) {
+            mDBName = args[8];
+        }
+        if (args.length &gt; 9) {
+            mPin = args[9];
+        }
+ 
+ 
+        // Create a session, subscribe to session listener, login, get historic prices, logout
+        try {
+            mSession = O2GTransport.createSession();
+            SessionStatusListener statusListener = new SessionStatusListener(mSession, mDBName, mPin);
+            mSession.subscribeSessionStatus(statusListener);
+            ResponseListener responseListener = new ResponseListener();
+            mSession.subscribeResponse(responseListener);
+            mSession.login(mUserID, mPassword, mURL, mConnection);
+            while (!statusListener.isConnected() &amp;&amp; !statusListener.hasError()) {
+                    Thread.sleep(50);
+            }
+            if (!statusListener.hasError()) {
+                O2GRequestFactory requestFactory = mSession.getRequestFactory();
+                if (requestFactory != null) {
+                   O2GTimeframeCollection timeFrames = requestFactory.getTimeFrameCollection();
+                   O2GTimeframe timeFrame = timeFrames.get(mTimeFrame);
+                   if (timeFrame == null) {
+                      System.out.println(&quot;You specified an invalid time frame.&quot;);
+                      mContinue = false;
+                   }
+                   if (mContinue) {
+                       request = requestFactory.createMarketDataSnapshotRequestInstrument(mInstrument, timeFrame, mMaxBars);
+                       if (request == null) {
+                          System.out.println(&quot;Cannot create request for market data snapshot.&quot;);
+                          mContinue = false;
+                       }
+                   }
+                   if (mContinue) {
+                       do {
+                           requestFactory.fillMarketDataSnapshotRequestTime(request, calFrom, calTo, false);
+                           mSession.sendRequest(request);
+                           Thread.sleep(1000);
+                           O2GResponse response = responseListener.getResponse();
+                           if (response != null){
+                               O2GResponseReaderFactory responseFactory = mSession.getResponseReaderFactory();
+                               O2GMarketDataSnapshotResponseReader reader = responseFactory.createMarketDataSnapshotReader(response);
+                               mReaderSize = reader.size();
+                               // check if we need additional request
+                               if ((calFrom == null) || (calTo == null) || (mReaderSize &lt; mMaxBars)) {
+                                   mBorder = 0;
+                               } else {
+                                   if (mCounter &gt; 0) {
+                                      if (mTimeFrame.equals(&quot;m1&quot;)) {
+                                           mBorder = 1;
+                                       }
+                                   }
+                               }
+                               O2GTimeConverter converter = mSession.getTimeConverter();
+                               for (int i = mReaderSize - 1; i &gt;= 0; i--) {
+                                   calDate = reader.getDate(i);
+                                   calDate = converter.convert(calDate, O2GTimeConverterTimeZone.LOCAL);
+                                   if (i &lt;= mReaderSize - 1 - mBorder) {
+                                       System.out.println(&quot;Date = &quot; + calDate.getTime() +
+                                                          &quot;, BidOpen = &quot; + reader.getBidOpen(i) +
+                                                          &quot;, BidHigh = &quot; + reader.getBidHigh(i) +
+                                                          &quot;, BidLow = &quot; + reader.getBidLow(i)  +
+                                                          &quot;, BidClose = &quot; + reader.getBidClose(i) +
+                                                          &quot;, AskOpen = &quot; + reader.getAskOpen(i) +
+                                                          &quot;, AskHigh = &quot; + reader.getAskHigh(i) +
+                                                          &quot;, AskLow = &quot; + reader.getAskLow(i) +
+                                                          &quot;, AskClose = &quot; + reader.getAskClose(i));
+                                   }
+                                   calFirst = reader.getDate(0);
+                               }
+                               mCounter++;
+                           }
+                           if (calFrom == null){
+                               break;
+                           }
+                           if (mReaderSize &lt; mMaxBars) {
+                              break;
+                           }
+                           if (calFrom.before(calFirst)) {
+                              calTo = calFirst;
+                           }
+                       } while (calFrom.before(calFirst));
+                   }
+                   mSession.logout();
+                   while (!statusListener.isDisconnected()) {
+                       Thread.sleep(50);
+                   }
+                }
+            }
+            mSession.unsubscribeSessionStatus(statusListener);
+            mSession.unsubscribeResponse(responseListener);
+            mSession.dispose();
+        } catch (Exception e) {
+            System.out.println (&quot;Exception: &quot; + e.getMessage());
+            System.exit(1);
+        }
+    }
+}
+ 
+class ResponseListener implements IO2GResponseListener {
+ 
+    //Response , log and error variables
+    private boolean mError = false;
+    private O2GResponse mResponse = null;
+ 
+    // Gets Response
+    public O2GResponse getResponse() {
+        return mResponse;
+    }
+ 
+    // Shows if there was an error during the request processing
+    public final boolean hasError() {
+        return mError;
+    }
+ 
+    // Constructor
+    public ResponseListener() {
+
+    }
+ 
+    // Implementation of IO2GResponseListener interface public method onRequestCompleted
+    public void onRequestCompleted(String requestID, O2GResponse response) {
+        mResponse = response;
+        System.out.println(&quot;Request &quot; + requestID + &quot; completed&quot;);
+        mError = false;
+    }
+ 
+    // Implementation of IO2GResponseListener interface public method onRequestFailed
+    public void onRequestFailed(String requestID, String error) {
+        System.out.println(&quot;Request &quot; + requestID + &quot; failed. Error = &quot; + error);
+        mError = true;
+    }
+ 
+    // Implementation of IO2GResponseListener interface public method onTablesUpdates
+    public void onTablesUpdates(O2GResponse response) {
+    }
+ 
+}
+ 
+class SessionStatusListener implements IO2GSessionStatus {
+ 
+    // Connection , session and status variables
+    private boolean mConnected = false;
+    private boolean mDisconnected = false;
+    private boolean mError = false;
+    private String mDBName = &quot;&quot;;
+    private String mPin = &quot;&quot;;
+    private O2GSession mSession = null;
+    private O2GSessionStatusCode mStatus = null;
+ 
+    // Constructor
+    public SessionStatusListener(O2GSession session, String dbName, String pin) {
+        mSession = session;
+        mDBName = dbName;
+        mPin = pin;
+    }
+ 
+    //Shows if session is connected
+    public final boolean isConnected() {
+        return mConnected;
+    }
+ 
+    //Shows if session is disconnected
+    public final boolean isDisconnected() {
+        return mDisconnected;
+    }
+ 
+    // Shows if there was an error during the logn process
+    public final boolean hasError() {
+        return mError;
+    }
+ 
+    // Returns current session status
+    public final O2GSessionStatusCode getStatus() {
+        return mStatus;
+    }
+ 
+    // Implementation of IO2GSessionStatus interface public method onSessionStatusChanged
+    public final void onSessionStatusChanged(O2GSessionStatusCode status) {
+        mStatus = status;
+        System.out.println(&quot;Status: &quot; + mStatus.toString());
+        if (mStatus == O2GSessionStatusCode.CONNECTED) {
+            mConnected = true;
+        }
+        else {
+            mConnected = false;
+        }
+        if (status == O2GSessionStatusCode.DISCONNECTED) {
+            mDisconnected = true;
+        }
+        else {
+            mDisconnected = false;
+        }
+        if (mStatus == O2GSessionStatusCode.TRADING_SESSION_REQUESTED) {
+            O2GSessionDescriptorCollection descs = mSession.getTradingSessionDescriptors();
+            System.out.println(&quot;\nSession descriptors&quot;);
+            System.out.println(&quot;id, name, description, requires pin&quot;);
+            for (O2GSessionDescriptor desc : descs) {
+                System.out.println(desc.getId() + &quot; &quot; + desc.getName() + &quot; &quot; + desc.getDescription() + &quot; &quot; + desc.isPinRequired());
+            }
+            if (mDBName.equals(&quot;&quot;)) {
+                System.out.println(&quot;Argument for trading session ID is missing&quot;);
+            }
+            else {
+                mSession.setTradingSession(mDBName, mPin);
+            }
+        }
+    }
+ 
+    // Implementation of IO2GSessionStatus interface public method onLoginFailed
+    public final void onLoginFailed(String error) {
+        System.out.println(&quot;Login error: &quot; + error);
+        mError = true;
+    }
+}
+ 
+</code></pre>
+</div><p>See also the <a href="img/seq2-request-response_java.png">simplified request/response sequence diagram</a>.</p><p>
+      <center><a href="howto.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

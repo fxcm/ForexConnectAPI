@@ -1,0 +1,294 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Create Close Market Order</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Create Close Market Order</b></font>
+    </p><p>A close market order closes a position at any currently available market rate.</p>
+<p>Please note that close orders must be permitted for the account in order to be
+used.</p>
+<p>Please note that <b>netting</b> close order (see NetQuantity below)
+can be executed even if close orders are disabled.</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Parameter name</p></td>
+    <td class="thdr"><p>Datatype</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Command</p></td>
+    <td class="tmain"><p>string</p></td>
+    <td class="tmain"><p>The command. Must be <a href="fxcore2.Constants.Commands.CreateOrder.html"><code>CreateOrder</code></a>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>OrderType</p></td>
+    <td class="tmain"><p>string</p></td>
+    <td class="tmain"><p>The type of the order. Must be <a href="fxcore2.Constants.Orders.TrueMarketClose.html"><code>CM</code></a>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>OfferID</p></td>
+    <td class="tmain"><p>string</p></td>
+    <td class="tmain"><p>The identifier of the instrument the order should be placed for.
+The value must be obtained from the <a href="TTOffers.html">Offers</a> table, the <code>OfferID</code> column.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>AccountID</p></td>
+    <td class="tmain"><p>string</p></td>
+    <td class="tmain"><p>The identifier of the account the order should be placed for.
+The value must be obtained from the <a href="TTAccounts.html">Accounts</a> table, the <code>AccountID</code> column.</p>
+<p>Please note that the account identifier may not necessarily be equal to the account name
+which is shown in the FXCM Trading Station application.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TradeID</p></td>
+    <td class="tmain"><p>string</p></td>
+    <td class="tmain"><p>The identifier of the trade to be closed. The value must be obtained from the <a href="TTTrades.html">Trades</a> table, the <code>TradeID</code> column.</p>
+<p>Do not fill this value for a net quantity order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>BuySell</p></td>
+    <td class="tmain"><p>string</p></td>
+    <td class="tmain"><p>The order direction.</p>
+<p>The value must be <code>B</code> - for buy orders and <code>S</code> - for sell orders. The order direction must be
+opposite to the direction of the order which was used to create the position (see the <code>BuySell</code> column
+of the trade).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Amount</p></td>
+    <td class="tmain"><p>int</p></td>
+    <td class="tmain"><p>The amount of the order. In the case of FX instruments, the amount is expressed in the base currency of an instrument. In the case of CFD instruments, the amount is expressed in contracts.
+Must be divisible by the value of the lot size.</p>
+<p>The amount must be less than or equal to the size of the position (see the <code>Amount</code> column of the trade).</p>
+<p>Do not fill this value for a net quantity order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>NetQuantity</p></td>
+    <td class="tmain"><p>string</p></td>
+    <td class="tmain"><p>The net quantity flag. Use this parameter with the value <code>Y</code> only for a net quantity order.</p>
+<p>A close order in the netting mode closes all positions which
+exist at the moment of the order filling and which are created for the
+order account and order instrument in the direction (see <code>BuySell</code>)
+opposite to the direction of the order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TimeInForce</p></td>
+    <td class="tmain"><p>string</p></td>
+    <td class="tmain"><p>The Time In Force value.</p>
+<p>Can be <a href="fxcore2.Constants.TIF.GTC.html"><code>GTC</code></a> (Good Till Cancelled),
+<a href="fxcore2.Constants.TIF.IOC.html"><code>IOC</code></a> (Immediate Or Cancel),
+<a href="fxcore2.Constants.TIF.FOK.html"><code>FOK</code></a> (Fill Or Kill),
+or <a href="fxcore2.Constants.TIF.DAY.html"><code>DAY</code></a> (Day Order),
+or <a href="fxcore2.Constants.TIF.GTD.html"><code>GTD</code></a> (Good Till Date).
+The value is optional.</p>
+<p>Close Market orders are <a href="fxcore2.Constants.TIF.IOC.html"><code>IOC</code></a> orders by default.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>ClientRate</p></td>
+    <td class="tmain"><p>double</p></td>
+    <td class="tmain"><p>The current price of the order instrument.</p>
+<p>The value is optional. It is used for logging purposes.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>CustomID</p></td>
+    <td class="tmain"><p>string</p></td>
+    <td class="tmain"><p>The custom identifier of the order. This value will be populated into
+these columns of the trading tables:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Table</p></td>
+    <td class="thdr"><p>Column</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTOrders.html">Orders</a></p></td>
+    <td class="tmain"><p><code>RequestTXT</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTClosedTrades.html">Closed Trades</a></p></td>
+    <td class="tmain"><p><code>CloseOrderRequestTXT</code></p></td>
+  </tr>
+</table><p>The value is optional.</p></td>
+  </tr>
+</table><div id="open87" style="display:none">
+  <p>Create a Close Market order&nbsp;<a href="javascript: showdiv('close87'); hidediv('open87');" onclick="javascript: showdiv('close87'); hidediv('open87');">[show]</a></p>
+</div>
+<div id="close87" style="display:inline">
+  <p>Create a Close Market order&nbsp;<a href="javascript: showdiv('open87'); hidediv('close87');" onclick="javascript: showdiv('open87'); hidediv('close87');">[hide]</a></p>
+  <pre class="example">   public void PrepareParamsFromLoginRules(O2GLoginRules loginRules)
+   {
+       mParams = new OrderCreationParameters();
+ 
+       O2GResponseReaderFactory factory = mSession.getResponseReaderFactory();
+       if (factory == null)
+           return;
+       // Gets first account from login.
+       O2GResponse accountsResponse = loginRules.getTableRefreshResponse(O2GTable.Accounts);
+       O2GAccountsTableResponseReader accountsReader = factory.createAccountsTableReader(accountsResponse);
+       O2GAccountRow account = accountsReader.getRow(0);
+       // Store account id
+       mParams.AccountID = account.AccountID;
+       // Store base iAmount
+          mParams.BaseAmount = account.BaseUnitSize;
+       // Get offers for eur/usd
+       O2GResponse offerResponse = loginRules.getTableRefreshResponse(O2GTable.Offers);
+       O2GOffersTableResponseReader offersReader = factory.createOffersTableReader(offerResponse);
+       for (int i = 0; i &lt; offersReader.Count; i++)
+       {
+           O2GOfferRow offer = offersReader.getRow(i);
+           if (string.Compare(offer.Instrument, &quot;EUR/USD&quot;, true) == 0)
+           {
+               mParams.OfferID = offer.OfferID;
+               mParams.Ask = offer.Ask;
+               mParams.Bid = offer.Bid;
+               mParams.PointSize = offer.PointSize;
+               break;
+           }
+       }
+   }
+ 
+   public void PrepareParamsAndCallTrueMarketCloseOrder(O2GTradeRow tradeRow)
+   {
+       //The order direcion of the close order must be opposite to the direction of the trade.
+       string sTradeBuySell = tradeRow.BuySell;
+       if (sTradeBuySell == Constants.Buy)                    // trade BuySell=Constants.Buy = order BuySell = Constants.Sell
+           CreateTrueMarketCloseOrder(tradeRow.OfferID, tradeRow.AccountID, tradeRow.TradeID, tradeRow.Amount, Constants.Sell);
+       else                                            // trade BuySell=Constants.Sell = order BuySell = Constants.Buy
+           CreateTrueMarketCloseOrder(tradeRow.OfferID, tradeRow.AccountID, tradeRow.TradeID, tradeRow.Amount, Constants.Buy);
+   }
+ 
+   public void CreateTrueMarketCloseOrder(string sOfferID, string sAccountID, string sTradeID, int iAmount, string sBuySell)
+   {
+       O2GRequestFactory factory = mSession.getRequestFactory();
+       if (factory != null)
+       {
+           O2GValueMap valuemap = factory.createValueMap();
+           valuemap.setString(O2GRequestParamsEnum.Command, Constants.Commands.CreateOrder);
+           valuemap.setString(O2GRequestParamsEnum.OrderType, Constants.Orders.TrueMarketClose);
+           valuemap.setString(O2GRequestParamsEnum.AccountID, sAccountID);                // The identifier of the account the order should be placed for.
+           valuemap.setString(O2GRequestParamsEnum.OfferID, sOfferID);                    // The identifier of the instrument the order should be placed for.
+           // valuemap.setString(O2GRequestParamsEnum.TradeID, sTradeID);                 // The identifier of the trade to be closed (do not fill for Net amount order).
+           // valuemap.setInt(O2GRequestParamsEnum.Amount, iAmount);                      // The quantity of the instrument to be bought or sold (do not fill for Net amount order). Must be &lt;= to the size of the position.
+           valuemap.setString(O2GRequestParamsEnum.NetQuantity, &quot;Y&quot;);
+           valuemap.setString(O2GRequestParamsEnum.BuySell, sBuySell);                    // The order direction: Constants.Buy for Buy, Constants.Sell for Sell. Must be opposite to the direction of the trade.
+           valuemap.setString(O2GRequestParamsEnum.CustomID, &quot;CloseTrueMarketOrder&quot;);  // The custom identifier of the order.
+ 
+           O2GRequest request = factory.createOrderRequest(valuemap);
+           if (request == null)
+               Console.WriteLine(&quot;Order's request can not be created: &quot; + factory.getLastError());
+           else
+               mSession.sendRequest(request);
+       }
+   }</pre>
+</div><p>
+      <center><a href="NetTradingCommandsCreateOrder.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

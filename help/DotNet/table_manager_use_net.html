@@ -1,0 +1,383 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Using Table Manager</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Using Table Manager</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article describes the usage of a table manager in the ForexConnect API.</p>
+    <p><b>Details</b></p><p>A table manager creates and maintains the <a href="TradingTables.html">trading tables</a> in the ForexConnect memory. The advantages of the table manager usage are described in the <a href="fxcore2.O2GTableManager.html">O2GTableManager</a> class documentation.<br>
+The table manager implementation details are shown in the <a href="class_hierarchy.html">ForexConnect API Class Hierarchy</a> section.<br>
+The following paragraphs contain complete instructions on the table manager usage.</p>
+<p></p>
+<h4>Starting Table Manager</h4>
+<p>To ensure the correct usage of a table manager, you must follow these steps:<br></p>
+<p>1. Create an <a href="fxcore2.O2GSession.html">O2GSession</a> object by using the <a href="fxcore2.O2GTransport.html">O2GTransport</a>.<a href="fxcore2.O2GTransport.createSession.0.html">createSession</a> method. For example,<br></p><pre class="example"><code>mSession = O2GTransport.createSession();</code></pre><p><br>
+2. Before the login, specify that your session uses a table manager by calling the <a href="fxcore2.O2GSession.html">O2GSession</a>.<a href="fxcore2.O2GSession.useTableManager.0.html">useTableManager</a> method. For example, <br></p><pre class="example"><code>mSession.useTableManager(O2GTableManagerMode.Yes, null);</code></pre><p><br>
+3. Log on to the trading server by using the <a href="fxcore2.O2GSession.html">O2GSession</a>.<a href="fxcore2.O2GSession.login.0.html">login</a> method with your connection parameters. For example<br></p><pre class="example"><code>mSession.login(mUserID, mPassword, mURL, mConnection);</code></pre><p><br></p>
+<p><b>Note:</b> For complete login details, refer to the <a href="login_logout_net.html">How to log in</a> section.<br></p>
+<p>4. Obtain an instance of the <a href="fxcore2.O2GTableManager.html">O2GTableManager</a> class for your session by using the <a href="fxcore2.O2GSession.html">O2GSession</a>.<a href="fxcore2.O2GSession.getTableManager.0.html">getTableManager</a> method. For example,<br></p><pre class="example"><code>O2GTableManager tableManager = mSession.getTableManager();</code></pre><p><br></p>
+<p><b>Note:</b> An instance of the <a href="fxcore2.O2GTableManager.html">O2GTableManager</a> class can be obtained only after a session gets the <a href="fxcore2.O2GSessionStatusCode.Connected.0.html">Connected</a> status.<br>
+If the connection between the ForexConnect API and the trading server brakes, you may need to re-create an instance of the <code>O2GTableManager</code> class.
+In case of the restoration of the connection fails, the session status becomes <a href="fxcore2.O2GSessionStatusCode.Disconnected.0.html">Disconnected</a> and you must log on again and create a new instance of the <code>O2GTableManager</code> class.
+If the ForexConnect API restores the connection successfully, you can use the existing instance of the <code>O2GTableManager</code> class.
+For a detailed explanation of the session statuses, refer to the <a href="SessionStatus.html">Session Statuses</a> section.</p>
+<p></p>
+<h4>Getting Data from the Trading Tables</h4>
+<p>To get data from a trading table, you must follow these steps:<br></p>
+<p>1. Check the table manager status. <br>
+An <a href="fxcore2.O2GTableManager.html"><code>O2GTableManager</code></a> object must have the <a href="fxcore2.O2GTableManagerStatus.html">O2GTableManagerStatus</a>.<a href="fxcore2.O2GTableManagerStatus.TablesLoaded.0.html">TablesLoaded</a> status.<br>
+For details on checking the table manager status, refer to the <a href="fxcore2.IO2GTableManagerListener.html">IO2GTableManagerListener</a> documentation.<br></p>
+<p><b>Note:</b> You can also monitor the changes of the load status of every table in your implementation
+of the <a href="fxcore2.IO2GTableListener.html">IO2GTableListener</a>.<a href="fxcore2.IO2GTableListener.onStatusChanged.0.html">onStatusChanged</a> method.
+The table load status can be obtained at any time by calling the <a href="fxcore2.O2GTable.html">O2GTable</a>.<a href="fxcore2.O2GTable.getStatus.0.html">getStatus</a> method.
+A table can be used only if it has the <a href="fxcore2.O2GTableStatus.Refreshed.0.html">Refreshed</a> status.</p>
+<p>2. Use the <a href="fxcore2.O2GTableManager.html">O2GTableManager</a>.<a href="fxcore2.O2GTableManager.getTable.0.html">getTable</a> method
+to get an instance of one of the <a href="fxcore2.O2GTable.html"><code>O2GTable</code></a> subclasses and cast the return value to the corresponding subclass. The syntax examples
+for all trading tables are shown below: <br></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Trading table</p></td>
+    <td class="thdr"><p>Returned <code>O2GTable</code> subclass</p></td>
+    <td class="thdr"><p>Syntax example</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTOffers.html"><code>Offers</code></a></p></td>
+    <td class="tmain"><p><a href="fxcore2.O2GOffersTable.html"><code>O2GOffersTable</code></a></p></td>
+    <td class="tmain"><pre class="example"><code>O2GOffersTable offersTable = (O2GOffersTable)tableManager.getTable(O2GTableType.Offers);</code></pre></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTAccounts.html"><code>Accounts</code></a></p></td>
+    <td class="tmain"><p><a href="fxcore2.O2GAccountsTable.html"><code>O2GAccountsTable</code></a></p></td>
+    <td class="tmain"><pre class="example"><code>O2GAccountsTable accountsTable = (O2GAccountsTable)tableManager.getTable(O2GTableType.Accounts);</code></pre></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTOrders.html"><code>Orders</code></a></p></td>
+    <td class="tmain"><p><a href="fxcore2.O2GOrdersTable.html"><code>O2GOrdersTable</code></a></p></td>
+    <td class="tmain"><pre class="example"><code>O2GOrdersTable ordersTable = (O2GOrdersTable)tableManager.getTable(O2GTableType.Orders);</code></pre></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTTrades.html"><code>Trades</code></a></p></td>
+    <td class="tmain"><p><a href="fxcore2.O2GTradesTable.html"><code>O2GTradesTable</code></a></p></td>
+    <td class="tmain"><pre class="example"><code>O2GTradesTable tradesTable = (O2GTradesTable)tableManager.getTable(O2GTableType.Trades);</code></pre></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTClosedTrades.html"><code>Closed Trades</code></a></p></td>
+    <td class="tmain"><p><a href="fxcore2.O2GClosedTradesTable.html"><code>O2GClosedTradesTable</code></a></p></td>
+    <td class="tmain"><pre class="example"><code>O2GClosedTradesTable closedTradesTable = (O2GClosedTradesTable)tableManager.getTable(O2GTableType.ClosedTrades);</code></pre></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTMessages.html"><code>Messages</code></a></p></td>
+    <td class="tmain"><p><a href="fxcore2.O2GMessagesTable.html"><code>O2GMessagesTable</code></a></p></td>
+    <td class="tmain"><pre class="example"><code>O2GMessagesTable messagesTable = (O2GMessagesTable)tableManager.getTable(O2GTableType.Messages);</code></pre></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTSummary.html"><code>Summary</code></a></p></td>
+    <td class="tmain"><p><a href="fxcore2.O2GSummaryTable.html"><code>O2GSummaryTable</code></a></p></td>
+    <td class="tmain"><pre class="example"><code>O2GSummaryTable summaryTable = (O2GSummaryTable)tableManager.getTable(O2GTableType.Summary);</code></pre></td>
+  </tr>
+</table><p>3. Use one of the methods of the <a href="fxcore2.O2GTable.html"><code>O2GTable</code></a> subclass to get row level information.
+The methods are: <code>findRow</code>, <code>getRow</code>, <code>getNextRow</code> and <code>getNextRowByColumnValue</code>.<br>
+For example, if you want to get ask and bid prices from the <a href="TTOffers.html">Offers</a> table, write the following lines:<br></p><p>Get bid and ask prices</p>
+<pre class="example"><code>
+for (int i = 0; i &lt; offersTable.Count; i++)
+{
+    O2GOfferRow offer = offersTable.getRow(i);
+    Console.WriteLine(&quot;Instrument: &quot; + offer.Instrument +
+                      &quot; Bid = &quot; + offer.Bid +
+                      &quot; Ask = &quot; + offer.Ask);
+}
+</code></pre><p>For the methods definitions and code examples, refer to the documentation of the <code>O2GTable</code> subclasses shown in the table earlier.</p>
+<p></p>
+<h4>Processing Notifications about the Trading Tables Updates</h4>
+<p>The <a href="TradingTables.html">trading tables</a> are updated automatically.
+To process notifications about the trading tables updates, you must follow these steps:<br></p>
+<p>1. Create a table listener class that implements the <a href="fxcore2.IO2GTableListener.html">IO2GTableListener</a> interface. For example,<br></p>
+<p><code>public class TableListener implements IO2GTableListener {...}</code></p>
+<p>2. Implement the methods of a table listener class:<br></p>
+<p>- to process notifications about row additions to a table, implement the <a href="fxcore2.IO2GTableListener.onAdded.0.html">onAdded</a> method;<br>
+- to process notifications about row changes of a table, implement the <a href="fxcore2.IO2GTableListener.onChanged.0.html">onChanged</a> method;<br>
+- to process notifications about row deletions from a table,implement the <a href="fxcore2.IO2GTableListener.onDeleted.0.html">onDeleted</a> method.<br></p>
+<p>3. Create an instance of a table listener class. For example,<br></p>
+<p><code>TableListener tableListener = new TableListener();</code></p>
+<p>4. Subscribe an instance of a table listener class to each update type individually by using the
+<a href="fxcore2.O2GTable.html"><code>O2GTable</code></a>.<a href="fxcore2.O2GTable.subscribeUpdate.0.html"><code>subscribeUpdate</code></a> method.</p>
+<p>5. Process notifications about table updates in the methods described in step 2 of this paragraph.</p>
+<p>6. Before the logout, unsubscribe the listener from every subscribed update type separately by using
+the <a href="fxcore2.O2GTable.html"><code>O2GTable</code></a>.<a href="fxcore2.O2GTable.unsubscribeUpdate.0.html"><code>unsubscribeUpdate</code></a> method.</p>
+<p>For example, the table below shows the subscription/unsubsription syntax for the <a href="fxcore2.O2GTradesTable.html">O2GTradesTable</a> class
+and corresponding methods of a class implementing the <a href="fxcore2.IO2GTableListener.html"><code>IO2GTableListener</code></a> interface.</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Update type</p></td>
+    <td class="thdr"><p><code>IO2GTableListener</code> method</p></td>
+    <td class="thdr"><p>Subscription syntax</p></td>
+    <td class="thdr"><p>Unsubscription syntax</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GTableUpdateType.Insert.0.html">Insert</a></p></td>
+    <td class="tmain"><p><a href="fxcore2.IO2GTableListener.onAdded.0.html">onAdded</a></p></td>
+    <td class="tmain"><pre class="example"><code>tradesTable.subscribeUpdate(O2GTableUpdateType.Insert, tableListener);</code></pre></td>
+    <td class="tmain"><pre class="example"><code>tradesTable.unsubscribeUpdate(O2GTableUpdateType.Insert, tableListener);</code></pre></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GTableUpdateType.Update.0.html">Update</a></p></td>
+    <td class="tmain"><p><a href="fxcore2.IO2GTableListener.onChanged.0.html">onChanged</a></p></td>
+    <td class="tmain"><pre class="example"><code>tradesTable.subscribeUpdate(O2GTableUpdateType.Update, tableListener);</code></pre></td>
+    <td class="tmain"><pre class="example"><code>tradesTable.unsubscribeUpdate(O2GTableUpdateType.Update, tableListener);</code></pre></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GTableUpdateType.Delete.0.html">Delete</a></p></td>
+    <td class="tmain"><p><a href="fxcore2.IO2GTableListener.onDeleted.0.html">onDeleted</a></p></td>
+    <td class="tmain"><pre class="example"><code>tradesTable.subscribeUpdate(O2GTableUpdateType.Delete, tableListener);</code></pre></td>
+    <td class="tmain"><pre class="example"><code>tradesTable.unsubscribeUpdate(O2GTableUpdateType.Delete, tableListener);</code></pre></td>
+  </tr>
+</table><p></p>
+<h4>Using Table Manager Example</h4>
+<p>If you want to use a table manager to maintain information about opened positions, your program may look similar to the classes shown later:</p><p>MainController</p>
+<pre class="example"><code>
+class MainController
+{
+    private O2GSession mSession;
+    private O2GTableManager mTblMgr;
+    private string mRequestID;
+ 
+    public void Run(string sUsername, string sPassword, string sUrl, string sConneciton)
+    {
+        mSession = O2GTransport.createSession();
+        mSession.useTableManager(O2GTableManagerMode.Yes, null);
+        SessionStatusListener statusListener = new SessionStatusListener();
+        mSession.subscribeSessionStatus(statusListener);
+        mSession.login(sUsername, sPassword, sUrl, sConneciton);
+        while (statusListener.LastStatus != O2GSessionStatusCode.Connected &amp;&amp; !statusListener.Failed)
+            Thread.Sleep(50);
+ 
+        mTblMgr = mSession.getTableManager();
+ 
+        while (mTblMgr.getStatus() != O2GTableManagerStatus.TablesLoaded &amp;&amp; mTblMgr.getStatus() != O2GTableManagerStatus.TablesLoadFailed)
+        {
+            Thread.Sleep(50);
+        }
+ 
+        O2GTradesTable trades = (O2GTradesTable)mTblMgr.getTable(O2GTableType.Trades);
+        TradesListener listener = new TradesListener();
+        trades.subscribeUpdate(O2GTableUpdateType.Insert, listener);
+        trades.subscribeUpdate(O2GTableUpdateType.Update, listener);
+        try
+        {
+            mTblMgr.lockUpdates();
+            for (int ii = 0; ii &lt; trades.Count; ii++)
+            {
+                O2GTradeTableRow trade = trades.getRow(ii);
+                Console.WriteLine(&quot;TradeID={0}, OfferID={1}, Amount={2}&quot;, trade.TradeID, trade.OfferID, trade.Amount);
+            }
+        }
+        finally
+        {
+            mTblMgr.unlockUpdates();
+        }
+ 
+        Thread.Sleep(10000); //waiting 10 sec for tracing new closed trades
+ 
+        trades.unsubscribeUpdate(O2GTableUpdateType.Insert, listener);
+        trades.unsubscribeUpdate(O2GTableUpdateType.Update, listener);
+ 
+        mSession.logout();
+        while (statusListener.LastStatus != O2GSessionStatusCode.Disconnected &amp;&amp; !statusListener.Failed)
+            Thread.Sleep(50);
+        mSession.unsubscribeSessionStatus(statusListener);
+        mSession.Dispose();
+        mSession = null;
+    }
+}
+</code></pre><p>SessionStatusListener</p>
+<pre class="example"><code>
+class SessionStatusListener:IO2GSessionStatus
+{
+    private object mSyncObj = new Object();
+ 
+    public O2GSessionStatusCode LastStatus
+    {
+        get
+        {
+            lock(mSyncObj)
+                return mLastStatus;
+        }
+        set
+        {
+            lock(mSyncObj)
+                mLastStatus = value;
+        }
+    }
+    private O2GSessionStatusCode mLastStatus = O2GSessionStatusCode.Unknown;
+ 
+    public bool Failed
+    {
+        get { return mFailed; }
+    }
+    private volatile bool mFailed = false;
+ 
+    public string LastError
+    {
+        get { return mLastError; }
+    }
+    private string mLastError =string.Empty;
+ 
+    #region IO2GSessionStatus Members
+ 
+    public void onLoginFailed(string error)
+    {
+        mFailed = true;
+        mLastError = error;
+    }
+ 
+    public void onSessionStatusChanged(O2GSessionStatusCode status)
+    {
+        LastStatus = status;
+        mFailed = false;
+        mLastError = string.Empty;
+    }
+ 
+    #endregion
+}
+</code></pre><p>TradesListener.java</p>
+<pre class="example"><code>
+class TradesListener : IO2GTableListener
+{
+    public void onAdded(string rowID, O2GRow rowData)
+    {
+        O2GTradeTableRow trade = (O2GTradeTableRow)rowData;
+        Console.WriteLine(&quot;Added TradeID={0}, OfferID={1}, Amount={2}&quot;, trade.TradeID, trade.OfferID, trade.Amount);
+    }
+ 
+    public void onChanged(string rowID, O2GRow rowData)
+    {
+        O2GTradeTableRow trade = (O2GTradeTableRow)rowData;
+        Console.WriteLine(&quot;Changed TradeID={0}, OfferID={1}, Amount={2}&quot;, trade.TradeID, trade.OfferID, trade.Amount);
+    }
+ 
+    public void onDeleted(string rowID, O2GRow rowData)
+    {
+ 
+    }
+ 
+    public void onStatusChanged(O2GTableStatus status)
+    {
+ 
+    }
+}
+</code></pre><p>
+      <center><a href="howto.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

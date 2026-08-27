@@ -1,0 +1,179 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Common.add_orders_into_group_request</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>static public method <b>Common.add_orders_into_group_request</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Creates a request for adding certain orders to an existing contingency group.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">Python</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"></td>
+    <td width="99%" valign="top"><code><b>add_orders_into_group_request</b>((<a href="forexconnect.ForexConnect.html"><code>ForexConnect</code></a>)fc, (str)account_id, (str)contingency_id, (typing.List[str])order_ids, (int)contingency_type) -&gt; <a href="IO2GRequest.html"><code>O2GRequest</code></a></code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>fc</code></td>
+    <td class="tmain" width="69%"><p>An instance of <a href="forexconnect.ForexConnect.html"><code>ForexConnect</code></a>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>account_id</code></td>
+    <td class="tmain" width="69%"><p>The identifier of the account the orders belong to.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>contingency_id</code></td>
+    <td class="tmain" width="69%"><p>The identifier of an existing contingency group.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>order_ids</code></td>
+    <td class="tmain" width="69%"><p>The identifiers of the orders to be added to the contingency group.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>contingency_type</code></td>
+    <td class="tmain" width="69%"><p>The type of the contingency group.<br>
+Possible values:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>1</code></p></td>
+    <td class="tmain"><p>OCO group</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>2</code></p></td>
+    <td class="tmain"><p>OTO group</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>3</code></p></td>
+    <td class="tmain"><p>ELS group</p></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p><b>Details</b></p><p>For details, see <a href="forexconnect.ForexConnect.ForexConnect.createRequest.html"><code>ForexConnect.create_request</code></a>.</p><p>Declared in <a href="forexconnect.exceptions.Common.html">Common</a></p>
+<p>
+  <center><a href="forexconnect.exceptions.Common.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'forexconnect.exceptions.Common.html');</script></body>
+</html>

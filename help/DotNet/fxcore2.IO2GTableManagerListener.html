@@ -1,0 +1,228 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GTableManagerListener</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>interface <b>IO2GTableManagerListener</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The interface provides a method signature to process notifications about table manager status changes.</p>
+    <p><b>Details</b></p><p>In order to work with the <a href="TradingTables.html">trading tables</a>, an <a href="fxcore2.O2GTableManager.html"><code>O2GTableManager</code></a>
+object must have the <a href="fxcore2.O2GTableManagerStatus.html">O2GTableManagerStatus</a>.<a href="fxcore2.O2GTableManagerStatus.TablesLoaded.0.html">TablesLoaded</a> status.<br></p>
+<p>You can track the <code>O2GTableManagerStatus</code> by using an instance of the class that implements the <code>IO2GTableManagerListener</code> interface.
+The table manager status is checked asynchronously. Therefore, your application can run without interruption the processes that are not
+directly dependent on the status of the table manager. For example, if your application requires loading the
+GUI components, they are loaded without any interruptions.<br>
+<b>Note:</b> If you do not require any special processing and can afford a temporal suspension of the main thread, you can track the table manager status
+by using the <a href="fxcore2.O2GTableManager.html">O2GTableManager</a>.<a href="fxcore2.O2GTableManager.getStatus.0.html">getStatus</a> method. In this case, the
+implementation of the <code>IO2GTableManagerListener</code> is not required.</p>
+<p>If you want to use the <code>IO2GTableManagerListener</code> interface to track the table manager status, you must create a class that implements the interface. For example,<br>
+<code>public class TableManagerListener implements IO2GTableManagerListener{ }</code><br></p>
+<p>Then, you must create an instance of the class, pass the instance to the <a href="fxcore2.O2GSession.html"><code>O2GSession</code></a>.<a href="fxcore2.O2GSession.useTableManager.0.html"><code>useTableManager</code></a> method
+and wait for the <a href="fxcore2.O2GTableManagerStatus.TablesLoaded.0.html">TablesLoaded</a> status.</p><div id="open121" style="display:none">
+  <p>Waiting for the status&nbsp;<a href="javascript: showdiv('close121'); hidediv('open121');" onclick="javascript: showdiv('close121'); hidediv('open121');">[show]</a></p>
+</div>
+<div id="close121" style="display:inline">
+  <p>Waiting for the status&nbsp;<a href="javascript: showdiv('open121'); hidediv('close121');" onclick="javascript: showdiv('open121'); hidediv('close121');">[hide]</a></p>
+  <pre class="example"> 
+         TableManagerListener managerListener = new TableManagerListener();
+         mSession.useTableManager(O2GTableManagerMode.Yes, managerListener);
+         //...
+         if (managerListener.WaitForTablesLoad())
+         {
+             O2GTableManager tableManager = mSession.getTableManager();
+             //...
+         }
+ </pre>
+</div><p>For details of the <code>IO2GTableManagerListener</code> interface implementation, see the example below.</p>
+<p><b>Example</b></p><div id="open122" style="display:inline">
+  <p>TableManagerListener&nbsp;<a href="javascript: showdiv('close122'); hidediv('open122');" onclick="javascript: showdiv('close122'); hidediv('open122');">[show]</a></p>
+</div>
+<div id="close122" style="display:none">
+  <p>TableManagerListener&nbsp;<a href="javascript: showdiv('open122'); hidediv('close122');" onclick="javascript: showdiv('open122'); hidediv('close122');">[hide]</a></p>
+  <pre class="example">using System;
+using System.Collections.Generic;
+using System.Text;
+using fxcore2;
+using System.Threading;
+ 
+namespace PrintTableListener
+{
+    class TableManagerListener : IO2GTableManagerListener
+    {
+        private EventWaitHandle mEventWait;
+        private O2GTableManagerStatus mLastStatus = O2GTableManagerStatus.TablesLoading;
+ 
+        public TableManagerListener()
+        {
+            mEventWait = new EventWaitHandle(false, EventResetMode.AutoReset);
+        }
+ 
+        ~TableManagerListener()
+        {
+            mEventWait.Close();
+        }
+ 
+        public bool WaitForTablesLoad()
+        {
+            if (mLastStatus == O2GTableManagerStatus.TablesLoading)
+            {
+                if (!mEventWait.WaitOne(5000))
+                {
+                    Console.WriteLine(&quot;Waiting timeout&quot;);
+                }
+            }
+            return (mLastStatus == O2GTableManagerStatus.TablesLoaded);
+        }
+ 
+        public void onStatusChanged(O2GTableManagerStatus status, O2GTableManager tableManager)
+        {
+            mLastStatus = status;
+            switch (status)
+            {
+                case O2GTableManagerStatus.TablesLoaded:
+                    Console.WriteLine(&quot;All tables are loaded&quot;);
+                    mEventWait.Set();
+                    break;
+                case O2GTableManagerStatus.TablesLoadFailed:
+                    Console.WriteLine(&quot;Tables loading failed&quot;);
+                    mEventWait.Set();
+                    break;
+                case O2GTableManagerStatus.TablesLoading:
+                    break;
+            }
+        }
+ 
+    }
+}
+ </pre>
+</div><p>The type defined in the <code>fxcore2.dll</code> assembly.
+The namespace is <a href="fxcore2.html"><code>fxcore2</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.IO2GTableManagerListener.onStatusChanged.0.html">onStatusChanged</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Processes notifications about the table manager status changes.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

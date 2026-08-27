@@ -1,0 +1,451 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>open_floating_positions Table</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b><code>open_floating_positions</code> Table</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article describes the Open/Floating Positions table of the report.</p>
+    <p><b>Details</b></p><p>The <i>Open/Floating Positions</i> table contains information about all positions that remain open
+at the end (<code>till</code>) date of the report statement period
+(see <a href="CAS.RequestParameters.html">Combined Account Statement: Report Request Parameters</a>).
+The identifier of the table is <code>open_floating_positions</code>.</p>
+<p>The table is available only if the account is set to a non-netting trading mode (the value of the <code>position_maintenance</code> costant is
+<code>N</code>, <code>F</code> or <code>Y</code>).</p>
+<p>The table has <i>data</i> rows and a <i>total</i> row. One data row contains information about one open position.
+The total row contains summarized information about all open positions.
+Data rows can be distinguished from a total row by the value of the <code>grouping_type</code> column.
+If the value is <code>2</code>, the row is a data row. If the value is <code>3</code>, the row is a total row.
+Note that though a total row includes information for all columns of the table,
+only some of this information is relevant and makes sense, namely:</p><ul class="main">
+  <li><p>Floating profit/loss (<code>floating_pl</code>)</p></li>
+  <li><p>Broker commission (<code>comm</code> and <code>statement_comm</code>)</p></li>
+  <li><p>Rollover interest (<code>rollover</code> and <code>statement_rollover</code>)</p></li>
+  <li><p>Net profit/loss (<code>net_pl</code>)</p></li>
+</ul><p>All data rows are arranged in ascending order by the unique identification number (<code>ticket_id</code>) of the position.</p>
+<p>If no information is found for the report statement period, the table has only a header row.</p><table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><p>Column identifier</p></td>
+    <td class="thdr"><p>Column data type</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>grouping_type</code></p></td>
+    <td class="tmain"><p><code>INTEGER</code></p></td>
+    <td class="tmain"><p>Defines whether the row is a data row or a total row.<br>
+The value <code>2</code> indicates a data row, the value <code>3</code>
+indicates a total row.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>ticket_id</code></p></td>
+    <td class="tmain"><p><code>INTEGER</code></p></td>
+    <td class="tmain"><p>The unique identification number of the position.<br>
+The value makes sense only for data rows.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>symbol</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>The instrument traded.<br>
+The value makes sense only for data rows.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>precision</code></p></td>
+    <td class="tmain"><p><code>INTEGER</code></p></td>
+    <td class="tmain"><p>The precision (i.e. the number of digits after the decimal point) of the instrument price.<br>
+The value makes sense only for data rows.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>volume</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The amount of the instrument traded.<br>
+The value makes sense only for data rows.</p>
+<p>In case of FX instruments, the volume is expressed in the base currency of the instrument.<br>
+In case of CFD instruments, the volume is expressed in contracts.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>open_date</code></p></td>
+    <td class="tmain"><p><code>DATE</code></p></td>
+    <td class="tmain"><p>The date and time when the position was opened. The open date has the format <code>YYYY-MM-DD hh:mm:ss</code>, where:</p><table class="tmain">
+  <tr>
+    <td class="tmain" width="1%"><p><code>YYYY</code></p></td>
+    <td class="tmain"><p>Year</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>MM</code></p></td>
+    <td class="tmain"><p>Month (01-12)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>DD</code></p></td>
+    <td class="tmain"><p>Day of month (01-31)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>hh</code></p></td>
+    <td class="tmain"><p>Hour (00-23)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>mm</code></p></td>
+    <td class="tmain"><p>Minute (00-59)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>ss</code></p></td>
+    <td class="tmain"><p>Second (00-59)</p></td>
+  </tr>
+</table><p>The value makes sense only for data rows.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>date</code></p></td>
+    <td class="tmain"><p><code>DATE</code></p></td>
+    <td class="tmain"><p>The end date of the report statement period.</p>
+<p>If the end date is the current date (the report was requested &quot;till now&quot;), the value is the date and time
+when the report was requested.<br>
+If the end date is in the past, the value is the end of that trading day.<br>
+The value makes sense only for data rows.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>quantity</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The amount of the instrument traded.</p>
+<p>The value can be either positive or negative.  A positive value indicates that the position was opened by buying,
+a negative value indicates that the position was opened by selling. <br>
+The value makes sense only for data rows.</p>
+<p>In case of FX instruments, the quantity is expressed in the base currency of the instrument.<br>
+In case of CFD instruments, the quantity is expressed in contracts.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>rate</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The price the position was opened at.<br>
+The value makes sense only for data rows.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>offer_rate</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The price of the instrument at the end date of the report statement period.
+This is the price the position can (or could) be closed at.</p>
+<p>If the end date is the current date (the report was requested &quot;till now&quot;),
+the value is the current price of the instrument.<br>
+If the end date is in the past,
+the value is the price of the instrument at the end of that trading day. <br>
+The value makes sense only for data rows.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>floating_pl</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The amount of floating (unrealized) profit or loss at the end date of the report statement period.
+This amount excludes additional charges, such as broker commission (<code>comm</code>) and rollover interest (<code>rollover</code>).</p>
+<p>The value can be either positive or negative. A positive value indicates profit, a negative value indicates loss.<br>
+The value makes sense for data rows as well as for a total row.</p>
+<p>The floating profit/loss is expressed in the account denomination currency.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>markups</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The markups applied to the position. <br>
+The column is displayed if the report account is subject to MIFID II (Directive on Markets in Financial Instruments
+repealing Directive 2004/39/EC and the Regulation on Markets in Financial Instruments) requirements.</p>
+<p>The value makes sense only for data rows.</p>
+<p>The markups are expressed in pips.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>comm</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The amount of broker commission charged for the period from <code>open_date</code> of the position(s)
+to the end date of the report statement period.</p>
+<p>The value can be either negative or zero. A negative value indicates that the commission was charged, a zero value
+indicates that the commission was not charged.<br>
+The value makes sense for data rows as well as for a total row.</p>
+<p>The commission is expressed in the account denomination currency.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>dividends</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>Not used.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>rollover</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The amount of rollover interest earned or paid for the period from <code>open_date</code> of the position(s)
+to the end date of the report statement period.</p>
+<p>The value can be either positive or negative. A positive value indicates that the rollover was earned, a negative value indicates
+that the rollover was paid.<br>
+The value makes sense for data rows as well as for a total row.</p>
+<p>The rollover is expressed in the account denomination currency.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>net_pl</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The amount of floating (unrealized) profit or loss at the end date of the report statement period.
+This amount includes additional charges, such as broker commission (<code>comm</code>) and rollover interest (<code>rollover</code>).</p>
+<p>The value can be either positive or negative. A positive value indicates profit, a negative value indicates loss.<br>
+The value makes sense for data rows as well as for a total row.</p>
+<p>The net profit/loss is expressed in the account denomination currency.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>statement_comm</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The amount of broker commission posted to the account during the report statement period.
+The statement commission may differ from the commission (<code>comm</code>) if, for example, the position(s) was(were) opened
+before the <code>from</code> date of the report statement period
+(see <a href="CAS.RequestParameters.html">Combined Account Statement: Report Request Parameters</a>).</p><div id="open70" style="display:inline">
+  <p>Statement Commission vs. Commission:&nbsp;<a href="javascript: showdiv('close70'); hidediv('open70');" onclick="javascript: showdiv('close70'); hidediv('open70');">[show]</a></p>
+</div>
+<div id="close70" style="display:none">
+  <p>Statement Commission vs. Commission:&nbsp;<a href="javascript: showdiv('open70'); hidediv('close70');" onclick="javascript: showdiv('open70'); hidediv('close70');">[hide]</a></p>
+  <pre class="example"><img src="img/commission_open.gif"></pre>
+</div><p>The value can be either negative or zero. A negative value indicates that the commission was charged, a zero value
+indicates that the commission was not charged.<br>
+The value makes sense for data rows as well as for a total row.</p>
+<p>The statement commission is expressed in the account denomination currency.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>statement_dividends</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>Not used.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>statement_rollover</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The amount of rollover interest posted to the account during the report statement period.
+The statement rollover may differ from the rollover (<code>rollover</code>) if, for example, the position(s) was(were) opened
+before the <code>from</code> date of the report statement period
+(see <a href="CAS.RequestParameters.html">Combined Account Statement: Report Request Parameters</a>).</p><div id="open71" style="display:inline">
+  <p>Statement Rollover vs. Rollover:&nbsp;<a href="javascript: showdiv('close71'); hidediv('open71');" onclick="javascript: showdiv('close71'); hidediv('open71');">[show]</a></p>
+</div>
+<div id="close71" style="display:none">
+  <p>Statement Rollover vs. Rollover:&nbsp;<a href="javascript: showdiv('open71'); hidediv('close71');" onclick="javascript: showdiv('open71'); hidediv('close71');">[hide]</a></p>
+  <pre class="example"><img src="img/rollover_open.gif"></pre>
+</div><p>The value can be either positive or negative. A positive value indicates that the rollover was earned, a negative value indicates
+that the rollover was paid. <br>
+The value makes sense for data rows as well as for a total row.</p>
+<p>The statement rollover is expressed in the account denomination currency.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>order_id</code></p></td>
+    <td class="tmain"><p><code>INTEGER</code></p></td>
+    <td class="tmain"><p>The unique identification number of the order the position was opened by.<br>
+The value makes sense only for data rows.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>condition</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>The type of the order the position was opened by. Possible values:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>Mkt</code></p></td>
+    <td class="tmain"><p>Open/close market, open/close limit, open/close range, open/close order</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>SE</code></p></td>
+    <td class="tmain"><p>Entry stop or OCO order</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>LE</code></p></td>
+    <td class="tmain"><p>Entry limit or OCO order</p></td>
+  </tr>
+</table><p>The value makes sense only for data rows.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>created_by</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>The name (login) of the user who placed the order the position was opened by.<br>
+The value makes sense only for data rows.</p></td>
+  </tr>
+</table><div id="open72" style="display:inline">
+  <p>Example:&nbsp;<a href="javascript: showdiv('close72'); hidediv('open72');" onclick="javascript: showdiv('close72'); hidediv('open72');">[show]</a></p>
+</div>
+<div id="close72" style="display:none">
+  <p>Example:&nbsp;<a href="javascript: showdiv('open72'); hidediv('close72');" onclick="javascript: showdiv('open72'); hidediv('close72');">[hide]</a></p>
+  <pre class="example">&lt;rdf:table name=&quot;open_floating_positions&quot; description=&quot;OPEN/FLOATING POSITIONS&quot;&gt;
+   &lt;rdf:head&gt;
+       &lt;rdf:column name=&quot;grouping_type&quot; type=&quot;INTEGER&quot; /&gt;
+       &lt;rdf:column name=&quot;ticket_id&quot; type=&quot;INTEGER&quot; description=&quot;Ticket #&quot; /&gt;
+       &lt;rdf:column name=&quot;symbol&quot; type=&quot;STRING&quot; description=&quot;Symbol&quot; /&gt;
+       &lt;rdf:column name=&quot;precision&quot; type=&quot;INTEGER&quot; /&gt;
+       &lt;rdf:column name=&quot;volume&quot; type=&quot;DOUBLE&quot; description=&quot;Volume&quot; /&gt;
+       &lt;rdf:column name=&quot;open_date&quot; type=&quot;DATE&quot; description=&quot;Date&quot; /&gt;
+       &lt;rdf:column name=&quot;date&quot; type=&quot;DATE&quot; description=&quot;Date&quot; /&gt;
+       &lt;rdf:column name=&quot;quantity&quot; type=&quot;DOUBLE&quot; /&gt;
+       &lt;rdf:column name=&quot;rate&quot; type=&quot;DOUBLE&quot; /&gt;
+       &lt;rdf:column name=&quot;offer_rate&quot; type=&quot;DOUBLE&quot; /&gt;
+       &lt;rdf:column name=&quot;floating_pl&quot; type=&quot;DOUBLE&quot; description=&quot;Floating P/L&quot; /&gt;
+       &lt;rdf:column name=&quot;markups&quot; type=&quot;DOUBLE&quot; description=&quot;Markups (pips)&quot;/&gt;
+       &lt;rdf:column name=&quot;comm&quot; type=&quot;DOUBLE&quot; description=&quot;Comm&quot; /&gt;
+       &lt;rdf:column name=&quot;dividends&quot; type=&quot;DOUBLE&quot; description=&quot;Dividends&quot;/&gt;
+       &lt;rdf:column name=&quot;rollover&quot; type=&quot;DOUBLE&quot; description=&quot;Rollover&quot; /&gt;
+       &lt;rdf:column name=&quot;net_pl&quot; type=&quot;DOUBLE&quot; description=&quot;Net P/L&quot; /&gt;
+       &lt;rdf:column name=&quot;statement_comm&quot; type=&quot;DOUBLE&quot; /&gt;
+       &lt;rdf:column name=&quot;statement_dividends&quot; type=&quot;DOUBLE&quot;/&gt;
+       &lt;rdf:column name=&quot;statement_rollover&quot; type=&quot;DOUBLE&quot; /&gt;
+       &lt;rdf:column name=&quot;order_id&quot; type=&quot;INTEGER&quot; /&gt;
+       &lt;rdf:column name=&quot;condition&quot; type=&quot;STRING&quot; description=&quot;Condition&quot; /&gt;
+       &lt;rdf:column name=&quot;created_by&quot; type=&quot;STRING&quot; description=&quot;Created By&quot; /&gt;
+   &lt;/rdf:head&gt;
+   &lt;rdf:body&gt;
+       &lt;rdf:row&gt;
+           &lt;rdf:cell name=&quot;grouping_type&quot;&gt;2&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;ticket_id&quot;&gt;6038425&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;symbol&quot;&gt;EUR/USD&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;precision&quot;&gt;5&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;volume&quot;&gt;100000.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;open_date&quot;&gt;2010-01-31 17:12:18&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;date&quot;&gt;2010-02-01 10:16:49&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;quantity&quot;&gt;100000.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;rate&quot;&gt;1.39228&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;offer_rate&quot;&gt;1.39228&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;floating_pl&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;markups&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;comm&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;dividends&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;rollover&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;net_pl&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;statement_comm&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;statement_dividends&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;statement_rollover&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;order_id&quot;&gt;12101327&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;condition&quot;&gt;Mkt&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;created_by&quot;&gt;fx00035789&lt;/rdf:cell&gt;
+       &lt;/rdf:row&gt;
+       ...
+       &lt;rdf:row&gt;
+           &lt;rdf:cell name=&quot;grouping_type&quot;&gt;3&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;ticket_id&quot;&gt;6038425&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;symbol&quot;&gt;AUD/NZD&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;precision&quot;&gt;0&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;volume&quot;&gt;160001.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;open_date&quot;&gt;2010-01-31 17:12:18&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;date&quot;&gt;2010-02-01 10:16:49&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;quantity&quot;&gt;-10000.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;rate&quot;&gt;1.182&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;offer_rate&quot;&gt;1.182&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;floating_pl&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;markups&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;comm&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;dividends&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;rollover&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;net_pl&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;statement_comm&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;statement_dividends&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;statement_rollover&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;order_id&quot;&gt;12101327&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;condition&quot;&gt;Mkt&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;created_by&quot;&gt;fx00035789&lt;/rdf:cell&gt;
+       &lt;/rdf:row&gt;
+   &lt;/rdf:body&gt;
+&lt;/rdf:table&gt;
+</pre>
+</div><p>
+      <center><a href="CAS.funds_manager.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

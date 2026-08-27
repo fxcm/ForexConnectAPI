@@ -1,0 +1,220 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>AO2GSessionStatus.O2GSessionStatus</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>enum <b>AO2GSessionStatus.O2GSessionStatus</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The enum specifies a set of values representing the session status.</p>
+    <p><b>Details</b></p><p>During the session lifetime, the session status changes. For a detailed explanation of session statuses, refer to the <a href="SessionStatusPy.html">Session Statuses</a> section.
+To capture the session status changes, your application must have a class that implements the <a href="IO2GSessionStatus.html"><code>AO2GSessionStatus</code></a> abstract class.</p>
+<p>The module is <code>forexconnect.fxcorepy</code></p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Static Public Fields</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSessionStatus.O2GSessionStatus.O2GSessionStatus.ChartSessionReconnecting.html">CHART_SESSION_RECONNECTING</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The value represents the chart server reconnecting session status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSessionStatus.O2GSessionStatus.O2GSessionStatus.Connected.html">CONNECTED</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The value represents the connected session status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSessionStatus.O2GSessionStatus.O2GSessionStatus.ConnectedWithNeedToChangePassword.html">CONNECTED_WITH_NEED_TO_CHANGE_PASSWORD</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The value represents the connected session status with need to change password.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSessionStatus.O2GSessionStatus.O2GSessionStatus.Connecting.html">CONNECTING</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The value represents the connecting session status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSessionStatus.O2GSessionStatus.O2GSessionStatus.Disconnected.html">DISCONNECTED</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The value represents the disconnected session status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSessionStatus.O2GSessionStatus.O2GSessionStatus.Disconnecting.html">DISCONNECTING</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The value represents the disconnecting session status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSessionStatus.O2GSessionStatus.O2GSessionStatus.PriceSessionReconnecting.html">PRICE_SESSION_RECONNECTING</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The value represents the price server reconnecting session status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSessionStatus.O2GSessionStatus.O2GSessionStatus.Reconnecting.html">RECONNECTING</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The value represents the reconnecting session status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSessionStatus.O2GSessionStatus.O2GSessionStatus.SessionLost.html">SESSION_LOST</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The value represents the lost session status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSessionStatus.O2GSessionStatus.O2GSessionStatus.TradingSessionRequested.html">TRADING_SESSION_REQUESTED</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The value represents the trading session requested session status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSessionStatus.O2GSessionStatus.O2GSessionStatus.Unknown.html">UNKNOWN</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The value represents the unknown session status.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="module_fxcorepy.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

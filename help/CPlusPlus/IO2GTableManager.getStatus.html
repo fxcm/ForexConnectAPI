@@ -1,0 +1,176 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GTableManager.getStatus</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>IO2GTableManager.getStatus</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Gets a table manager status.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">C++</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code>virtual&nbsp;<a href="O2GTableManagerStatus.html">O2GTableManagerStatus</a>&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>getStatus</b> ()  = 0</code></td>
+  </tr>
+</table></td>
+  </tr>
+</table>
+<p><b>Details</b></p><p>The table manager status defines wheather the <a href="TradingTables.html">trading tables</a> data can be used or not.</p>
+<p>The possible return values are as follows:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>TablesLoadFailed</code></p></td>
+    <td class="tmain"><p>The loading of at least one of the <a href="TradingTables.html">trading tables</a> has failed. The trading tables data cannot be used.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>TablesLoaded</code></p></td>
+    <td class="tmain"><p>All trading tables have been loaded from the trading server into the ForexConnect memory. The trading tables data can be used.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>TablesLoading</code></p></td>
+    <td class="tmain"><p>The trading tables are being loaded from the trading server into the ForexConnect memory. The trading tables data cannot be used.</p></td>
+  </tr>
+</table><p><b>Example</b></p><div id="open218" style="display:none">
+  <p>Getting the table manager status&nbsp;<a href="javascript: showdiv('close218'); hidediv('open218');" onclick="javascript: showdiv('close218'); hidediv('open218');">[show]</a></p>
+</div>
+<div id="close218" style="display:inline">
+  <p>Getting the table manager status&nbsp;<a href="javascript: showdiv('open218'); hidediv('close218');" onclick="javascript: showdiv('open218'); hidediv('close218');">[hide]</a></p>
+  <pre class="example">    mSession-&gt;useTableManager(Yes, NULL);
+    //...
+    O2G2Ptr&lt;IO2GTableManager&gt; tableManager = mSession-&gt;getTableManager();
+    while (tableManager-&gt;getStatus() != TablesLoaded &amp;&amp;
+           tableManager-&gt;getStatus() != TablesLoadFailed)
+    {
+        uni::Sleep(50);
+    }
+    if (tableManager-&gt;getStatus() == TablesLoaded)
+    {
+        //...
+    }</pre>
+</div><p><b>Note:</b> The method has the following  disadvantage: your thread is suspended and cannot be used while you are waiting for the <code>TablesLoaded</code> status.
+For example, if your application requires loading of the GUI components or some other processing that is not directly dependent on the
+status of the table manager, these processes are also suspended. If you cannot afford a temporary suspension of the main thread,
+your application must implement the <a href="IO2GTableManagerListener.html">IO2GTableManagerListener</a>.<a href="IO2GTableManagerListener.onStatusChanged.html">onStatusChanged</a> method
+to get a table manager status.</p><p>Declared in <a href="IO2GTableManager.html">IO2GTableManager</a></p>
+<p>
+  <center><a href="IO2GTableManager.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'IO2GTableManager.html');</script></body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Open/Close, Open/Close Range Orders</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Open/Close, Open/Close Range Orders</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article describes Open/Close, Open/Close Range orders.</p>
+    <p><b>Details</b></p><p></p>
+<h3>Definition and Use</h3>
+<p><b>Open/Close</b>, <b>Open/Close Range Orders</b> (generally known as <b>Market Orders</b>) are orders to buy or sell an instrument immediately
+at a certain price or within a certain price range:</p><ul class="main">
+  <li><p>Open/Close order - The order is executed only at the current offer price<font color="red">*</font>.</p></li>
+  <li><p>Open/Close Range order - The order is executed at any price within the specified price range.</p></li>
+</ul><p>Note: If you want guaranteed execution regardless of the order price, you should use an <b>Open/Close Market</b> order.</p>
+<p>With open/close, open/close range orders, the trader has the following time-in-force options that provide additional instructions
+on how long an order should remain active:</p><table class="tmain" width="100%">
+  <tr>
+    <td class="thdr" width="12%"><p>Time-in-Force Option</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Fill Or Kill (FOK)</p></td>
+    <td class="tmain"><p>An instruction to fill an order immediately and completely or not at all.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Immediate Or Cancel (IOC)</p></td>
+    <td class="tmain"><p>An instruction to fill an order (or any of its portions) immediately after it has been brought to the market;
+any portions not executed immediately must be rejected. An IOC order may be executed in portions.
+Such execution results in a number of positions opened/closed at different prices.</p></td>
+  </tr>
+</table><p>Generally, a market order is used for entering the market (opening a position) while a close order is used for exiting the market (closing a position).
+See execution <a href="OpenCloseOrderScenario1.html">scenario 1</a>.
+This is a common rule for regular accounts which are not subject to FIFO and allow hedging. If, however, hedging is disabled, placing a market
+order in the direction opposite to an existing position will result in closing such position.
+FIFO-based accounts do not allow placing close orders, so whether the trader is willing to exit the market immediately,
+he/she must use an open order or a <b>Net Amount Order</b>.</p>
+<p>A close order can be specified as a <b>Net Amount Order</b>. This is an instruction to close all positions in the given instrument.
+This type of order was initially designed for FIFO-based accounts, but has eventually become available for all accounts regardless of their settings.
+See execution <a href="OpenCloseOrderScenario4.html">scenario 4</a>.</p>
+<p><font color="red">*</font>
+<font size="-1">The current offer price is the price the trader sees when he/she places the order.</font></p>
+<p></p>
+<h3>Execution Price</h3>
+<p>Before sending the order to the bank, the system searches for the best available price. Depending on this price, orders are filled in the following way:</p><ul class="main">
+  <li><p>Open/Close order - The order is filled at order price if the best available price is equal to or better than the original order price.
+If the best available price is worse than the price specified in the order, the system rejects the order.</p></li>
+  <li><p>Open/Close Range order - The order is filled at the best available price within the specified price range.
+If the best available price is beyond the specified price range, the system rejects the order.</p></li>
+</ul><p></p>
+<h3>Partial Fill</h3>
+<p>Market orders with IOC time-in-force option can be executed partially. It means that one order may result in a number of positions opened/closed
+at different prices (if the order is a range order) or at exact order price (if the order is an open/close order).
+An IOC order is filled in portions to the maximum extent possible (until the liquidity pool is dried up), the remainder of the order is rejected.
+In case of partial closing, the system closes a position in the filled amount and opens a new position in the remaining amount.
+See <a href="OpenCloseOrderExecScenarios.html">Execution Scenarios</a>.</p>
+<p></p>
+<h3>Open/Close, Open/Close Range Orders State Machine</h3>
+<p>The state machine below is based on FXCM's order statuses.
+Note that the system creates an order only after the order is successfully validated. Otherwise, the system creates a rejection message
+and does not store the order in the database. However, the information about the order (such as, for example, the order ID and the reason for its rejection) is stored
+in the database.</p>
+<p><b>Open/Close, Open/Close Range Orders: State Machine</b><br></p>
+<p><img src="img/OpenCloseStateMachine.gif"></p>
+<p><b>Open/Close, Open/Close Range Orders: FXCM Order Statuses Description</b><br></p><table class="tmain" width="100%">
+  <tr>
+    <td class="thdr" width="12%"><p>Order Status</p></td>
+    <td class="thdr" width="38%"><p>Order Status Description</p></td>
+    <td class="thdr" width="50%"><p>Transition</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><b>In Process (P)</b></p></td>
+    <td class="tmain"><p>The order was successfully validated and is ready for further execution.</p></td>
+    <td class="tmain"><table class="tmain" width="100%">
+  <tr>
+    <td class="tmain" width="13%"><p>Pending Calculated (U)</p></td>
+    <td class="tmain"><p>The order is sent to external execution.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><b>Pending Calculated (U)</b></p></td>
+    <td class="tmain"><p>The status has one of the following meanings:</p><ul class="main">
+  <li><p>Transition from &quot;In Process (P)&quot; (all orders regardless of time-in-force option):<br>
+The order was sent to external execution.</p></li>
+  <li><p>Transition from &quot;Pending Calculated (U)&quot; (the status is applicable only to IOC orders):<br>
+The order was filled partially.</p></li>
+</ul></td>
+    <td class="tmain"><table class="tmain" width="100%">
+  <tr>
+    <td class="tmain" width="13%"><p>Pending Calculated (U)</p></td>
+    <td class="tmain"><p>The transition is applicable only to IOC orders:<br>
+The order is filled partially. A position is either opened or closed in the filled amount.
+Note that the filled portion may result in a number of open/closed positions.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="13%"><p>Executing (E)</p></td>
+    <td class="tmain"><p>The order is completely filled.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="13%"><p>Cancelled (C)</p></td>
+    <td class="tmain"><p>Open/close orders:</p><ul class="main">
+  <li><p><i>FOK orders:</i><br>
+There is no liquidity or the liquidity pool is not large enough to fill the entire order at the price specified by the
+trader or at a better price.</p></li>
+  <li><p><i>IOC orders:</i><br>
+There is no liquidity to fill the order or any of its portions at the price specified by the trader or at a better price.</p></li>
+</ul><p>Open/close range orders:</p><ul class="main">
+  <li><p><i>FOK orders:</i><br>
+There is no liquidity or the liquidity pool is not large enough to fill the entire order at the price within the range
+specified by the trader.</p></li>
+  <li><p><i>IOC orders:</i><br>
+There is no liquidity to fill the order or any of its portions at the price within the range specified by the trader.</p></li>
+</ul></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><b>Executing (E)</b></p></td>
+    <td class="tmain"><p>The order was completely filled.</p></td>
+    <td class="tmain"><table class="tmain" width="100%">
+  <tr>
+    <td class="tmain" width="13%"><p>Executed (F)</p></td>
+    <td class="tmain"><p>A position is either opened or closed. Note that the order may result in a number of open/closed positions.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><b>Executed (F)</b></p></td>
+    <td class="tmain"><p>A position was opened/closed. Note that the order may result in a number of open/closed positions.</p></td>
+    <td class="tmain">
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><b>Cancelled (C)</b></p></td>
+    <td class="tmain"><p><i>FOK Orders:</i><br>
+The order was rejected because there was no liquidity or the liquidity pool was not large enough to fill the entire order at the price
+that would have satisfied the order criteria.<br>
+<i>IOC Orders:</i><br>
+The order was rejected because there was no liquidity to fill the order or any of its portions at the price that would have
+satisfied the order criteria.</p></td>
+    <td class="tmain">
+    </td>
+  </tr>
+</table><p>
+      <center><a href="FXCMOpenCloseOrder.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

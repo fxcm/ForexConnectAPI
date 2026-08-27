@@ -1,0 +1,411 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GTradeRow</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>IO2GTradeRow</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="IO2GRow.html">IO2GRow</a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The class provides access to open position information.</p>
+    <p><b>Details</b></p><p>An instance of the class can be obtained by the following methods:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Method/Use</p></td>
+    <td class="thdr"><p>Prerequisites</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GTradesTableResponseReader.html"><code>IO2GTradesTableResponseReader</code></a>.<a href="IO2GTradesTableResponseReader.getRow.html"><code>getRow</code></a><br></p>
+<p>This method is used to get the initial open position information after a session with the trading server is established.<br>
+This method provides access to a single open position. If you have multiple open positions, call this method in a loop.</p></td>
+    <td class="tmain"><p>Depending on the trading server settings, the <a href="TTTrades.html">Trades</a> table may or may not be loaded by the server automatically during the login process.<br></p>
+<p>To determine whether the table is loaded or not and what follow-up action is required to get open position information, use the returned value of the <a href="IO2GLoginRules.html"><code>IO2GLoginRules</code></a>.<a href="IO2GLoginRules.isTableLoadedByDefault.html"><code>isTableLoadedByDefault</code></a> method:<br></p><ul class="main">
+  <li><p>If the table is loaded, you can get the open position information using <a href="IO2GLoginRules.html"><code>IO2GLoginRules</code></a>.<a href="IO2GLoginRules.getTableRefreshResponse.html"><code>getTableRefreshResponse</code></a> method;</p></li>
+  <li><p>Otherwise, you must create a request to load the table by using the <a href="IO2GRequestFactory.html"><code>IO2GRequestFactory</code></a>.<a href="IO2GRequestFactory.createRefreshTableRequest.html"><code>createRefreshTableRequest</code></a> method.
+You must obtain a response to this request by implementing the <a href="IO2GResponseListener.html"><code>IO2GResponseListener</code></a>.<a href="IO2GResponseListener.onRequestCompleted.0.html"><code>onRequestCompleted</code></a> method.</p></li>
+</ul><p>Both methods use the <a href="IO2GResponse.html"><code>IO2GResponse</code></a> object of the <a href="O2GResponseType.html"><code>O2GResponseType</code></a>.<a href="O2GResponseType.GetTrades.0.html"><code>GetTrades</code></a> type.<br>
+You must parse this object by using the <a href="IO2GTradesTableResponseReader.html"><code>IO2GTradesTableResponseReader</code></a> object.<br></p>
+<p>For details, see the example below.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GTablesUpdatesReader.html"><code>IO2GTablesUpdatesReader</code></a>.<a href="IO2GTablesUpdatesReader.getTradeRow.html"><code>getTradeRow</code></a><br></p>
+<p>This method is used to get open position information updates.<br>
+This method provides access to a single open position. If you have multiple open positions, call this method in a loop.</p></td>
+    <td class="tmain"><p>To receive the open position information updates, you must implement the <a href="IO2GResponseListener.html"><code>IO2GResponseListener</code></a>.<a href="IO2GResponseListener.onTablesUpdates.0.html"><code>onTablesUpdates</code></a> method.
+The received <a href="IO2GResponse.html"><code>IO2GResponse</code></a> object is of the <a href="O2GResponseType.html"><code>O2GResponseType</code></a>.<a href="O2GResponseType.TablesUpdates.0.html"><code>TablesUpdates</code></a> type.<br>
+You must parse this object bu using the <a href="IO2GTablesUpdatesReader.html"><code>IO2GTablesUpdatesReader</code></a> object.<br></p>
+<p>For details, see the example below.</p></td>
+  </tr>
+</table><p><b>Example</b></p><div id="open227" style="display:inline">
+  <p>Get Trade ID, Offer ID and Amount&nbsp;<a href="javascript: showdiv('close227'); hidediv('open227');" onclick="javascript: showdiv('close227'); hidediv('open227');">[show]</a></p>
+</div>
+<div id="close227" style="display:none">
+  <p>Get Trade ID, Offer ID and Amount&nbsp;<a href="javascript: showdiv('open227'); hidediv('close227');" onclick="javascript: showdiv('open227'); hidediv('close227');">[hide]</a></p>
+  <pre class="example">    <b>// Get trades information</b>
+    void getTrades(IO2GSession *session, ResponseListener *responseListener)
+    {
+        O2G2Ptr&lt;IO2GRequestFactory&gt; requestFactory = session-&gt;getRequestFactory();
+        if (requestFactory)
+        {
+            O2G2Ptr&lt;IO2GRequest&gt; request = requestFactory-&gt;createRefreshTableRequest(Trades);
+            responseListener-&gt;setRequest(request-&gt;getRequestID());
+            session-&gt;sendRequest(request);
+            while (!responseListener-&gt;isRequestComplete() &amp;&amp; !responseListener-&gt;isRequestFailed())
+               uni::Sleep(50);
+        }
+     }
+ 
+     <b>// Implementation of IO2GResponseListener interface public method onRequestCompleted</b>
+     void ResponseListener::onRequestCompleted(const char *requestID, IO2GResponse *response)
+     {
+        if (mRequestID == requestID)
+        {
+            O2G2Ptr&lt;IO2GResponseReaderFactory&gt; readerFactory = mSession-&gt;getResponseReaderFactory();
+            if (readerFactory)
+            {
+                O2G2Ptr&lt;IO2GTradesTableResponseReader&gt; reader = readerFactory-&gt;createTradesTableReader(response);
+                for (int i = 0; i &lt; reader-&gt;size(); i++)
+                {
+                    O2G2Ptr&lt;IO2GTradeRow&gt; trade = reader-&gt;getRow(i);
+                    std::cout &lt;&lt; &quot; This is a response to your request: \nTradeID = &quot; &lt;&lt; trade-&gt;getTradeID() &lt;&lt;
+                                 &quot; OfferID = &quot; &lt;&lt; trade-&gt;getOfferID() &lt;&lt;
+                                 &quot; Amount = &quot; &lt;&lt; trade-&gt;getAmount() &lt;&lt; std::endl;
+                }
+            }
+            mRequestComplete = true;
+        }
+     }
+ 
+ 
+     <b>// Implementation of IO2GResponseListener interface public method onTablesUpdates</b>
+     void ResponseListener::onTablesUpdates(IO2GResponse *response)
+     {
+        O2G2Ptr&lt;IO2GResponseReaderFactory&gt; factory = mSession-&gt;getResponseReaderFactory();
+        if (factory)
+        {
+            O2G2Ptr&lt;IO2GTablesUpdatesReader&gt; updatesReader = factory-&gt;createTablesUpdatesReader(response);
+            for (int i = 0; i &lt; updatesReader-&gt;size(); i++)
+            {
+                if (updatesReader-&gt;getUpdateTable(i) == Trades)
+                {
+                    O2G2Ptr&lt;IO2GTradeRow&gt; trade = updatesReader-&gt;getTradeRow(i);
+                    std::cout &lt;&lt; &quot; This is a live update: \nTradeID = &quot; &lt;&lt; trade-&gt;getTradeID() &lt;&lt;
+                                 &quot; OfferID = &quot; &lt;&lt; trade-&gt;getOfferID() &lt;&lt;
+                                 &quot; Amount = &quot; &lt;&lt; trade-&gt;getAmount() &lt;&lt; std::endl;
+                }
+            }
+        }
+    }</pre>
+</div><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradeRow.columns.html">columns</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the columns of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradeRow.getAccountID.html">getAccountID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the account the position is opened on.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradeRow.getAccountKind.html">getAccountKind</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of the account the position is opened on.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradeRow.getAccountName.html">getAccountName</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique name of the account the position is opened on.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradeRow.getAmount.html">getAmount</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the amount of the position.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradeRow.getBuySell.html">getBuySell</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the trade operation the position is opened by.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradeRow.getCell.html">getCell</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets value of a table cell.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradeRow.getCommission.html">getCommission</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the amount of funds subtracted from the account balance to pay for the broker's service in accordance with the terms and conditions of the account trading agreement.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradeRow.getDividends.html">getDividends</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the cumulative amount of dividends earned or paid for the position. Applicable only to Index CFD positions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradeRow.getOfferID.html">getOfferID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the traded instrument.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradeRow.getOpenOrderID.html">getOpenOrderID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the order the position is opened by.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradeRow.getOpenOrderReqID.html">getOpenOrderReqID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the identifier of the order request the position is opened by.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradeRow.getOpenOrderRequestTXT.html">getOpenOrderRequestTXT</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the custom identifier of the order the position is opened by.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradeRow.getOpenQuoteID.html">getOpenQuoteID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identifier of the pair of prices (bid and ask) the position is opened at.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradeRow.getOpenRate.html">getOpenRate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the price the position is opened at.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradeRow.getOpenTime.html">getOpenTime</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the date and time when the position is opened.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradeRow.getParties.html">getParties</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identifier of the environment that has been used to open the position.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradeRow.getRolloverInterest.html">getRolloverInterest</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the cumulative amount of funds that is added to the account balance for holding the position opened overnight.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradeRow.getTableType.html">getTableType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradeRow.getTradeID.html">getTradeID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the open position.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradeRow.getTradeIDOrigin.html">getTradeIDOrigin</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the position partial closing of which results in opening of the current position.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradeRow.getValueDate.html">getValueDate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the simulated delivery date.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTradeRow.isCellChanged.html">isCellChanged</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a flag indicating whether the value of the cell is changed.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="forexconnect.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

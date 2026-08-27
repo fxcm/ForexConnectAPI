@@ -1,0 +1,190 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GTableManager.getTable</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>O2GTableManager.getTable</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Gets an instance of a trading table.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">Java</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code><a href="com.fxcore2.O2GTable.html"><code>O2GTable</code></a>&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>getTable</b> (<a href="com.fxcore2.O2GTableType.html"><code>O2GTableType</code></a> eTableType) </code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>eTableType</code></td>
+    <td class="tmain" width="69%"><p>A trading table. The possible values are shown below.</p></td>
+  </tr>
+</table><p><b>Details</b></p><p>The method returns an instance of one of the <a href="com.fxcore2.O2GTable.html"><code>O2GTable</code></a> subclasses. You must cast the returned value to the responding type. The examples are shown below.</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p><code>eTableType</code> parameter</p></td>
+    <td class="thdr"><p>Returned <code>O2GTable</code> subclass</p></td>
+    <td class="thdr"><p>Syntax example</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTableType.MESSAGES.html"><code>MESSAGES</code></a></p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GMessagesTable.html"><code>O2GMessagesTable</code></a></p></td>
+    <td class="tmain"><p><code>O2GMessagesTable messagesTable = (O2GMessagesTable)tableManager.getTable(O2GTableType.MESSAGES);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTableType.CLOSED_TRADES.html"><code>CLOSED_TRADES</code></a></p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GClosedTradesTable.html"><code>O2GClosedTradesTable</code></a></p></td>
+    <td class="tmain"><p><code>O2GClosedTradesTable closedTradesTable = (O2GClosedTradesTable)tableManager.getTable(O2GTableType.CLOSED_TRADES);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTableType.TRADES.html"><code>TRADES</code></a></p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTradesTable.html"><code>O2GTradesTable</code></a></p></td>
+    <td class="tmain"><p><code>O2GTradesTable tradesTable = (O2GTradesTable)tableManager.getTable(O2GTableType.TRADES);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTableType.ORDERS.html"><code>ORDERS</code></a></p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GOrdersTable.html"><code>O2GOrdersTable</code></a></p></td>
+    <td class="tmain"><p><code>O2GOrdersTable ordersTable = (O2GOrdersTable)tableManager.getTable(O2GTableType.ORDERS);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTableType.ACCOUNTS.html"><code>ACCOUNTS</code></a></p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GAccountsTable.html"><code>O2GAccountsTable</code></a></p></td>
+    <td class="tmain"><p><code>O2GAccountsTable accountsTable = (O2GAccountsTable)tableManager.getTable(O2GTableType.ACCOUNTS);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTableType.OFFERS.html"><code>OFFERS</code></a></p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GOffersTable.html"><code>O2GOffersTable</code></a></p></td>
+    <td class="tmain"><p><code>O2GOffersTable offersTable = (O2GOffersTable)tableManager.getTable(O2GTableType.OFFERS);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTableType.SUMMARY.html"><code>SUMMARY</code></a></p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GSummaryTable.html"><code>O2GSummaryTable</code></a></p></td>
+    <td class="tmain"><p><code>O2GSummaryTable summaryTable = (O2GSummaryTable)tableManager.getTable(O2GTableType.SUMMARY);</code></p></td>
+  </tr>
+</table><p>Declared in <a href="com.fxcore2.O2GTableManager.html">O2GTableManager</a></p>
+<p>
+  <center><a href="com.fxcore2.O2GTableManager.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'com.fxcore2.O2GTableManager.html');</script></body>
+</html>

@@ -1,0 +1,337 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GSessionStatus</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>IO2GSessionStatus</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="IAddRef.html">IAddRef</a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The interface provides method signatures to process notifications about session status changes and login failure.</p>
+    <p><b>Details</b></p><p>The interface must be implemented by the application in order to process the status change of the session object.<br></p>
+<p>When the user tries to login, the session status changes to <a href="O2GSessionStatus.Connecting.0.html">Connecting</a>.<br></p>
+<p>If login failed, the status changes to <a href="O2GSessionStatus.Disconnected.0.html">Disconnected</a> and server
+returns an error message explaining why login has failed. If you want to capture what went wrong, use
+<a href="IO2GSessionStatus.onLoginFailed.0.html">onLoginFailed</a> method of the interface.<br></p>
+<p>If login was successful, the session status changes to <a href="O2GSessionStatus.Connected.0.html">Connected</a>.
+If you want to capture and process every status change of the session object, use
+<a href="IO2GSessionStatus.onSessionStatusChanged.0.html">onSessionStatusChanged</a> method of the interface.
+For complete list of session statuses, please see <a href="O2GSessionStatus.html">O2GSessionStatus</a>.
+For detailed explanation of session statuses, please refer to <a href="SessionStatus.html">Session Statuses</a> section.<br></p>
+<p>If you want to use methods of <code>IO2GSessionStatus</code> interface, you must create a class which implements the interface. For example,<br>
+<code>class SessionStatusListener : public IO2GSessionStatus { };</code><br></p>
+<p>An instance of the class implementing <code>IO2GSessionStatus</code> interface must be subscribed to the session object before calling
+<a href="IO2GSession.html">IO2GSession</a>::<a href="IO2GSession.login.html">login</a> method. It is accomplished by calling
+<a href="IO2GSession.html"><code>IO2GSession</code></a>::<a href="IO2GSession.subscribeSessionStatus.html"><code>subscribeSessionStatus</code></a>
+method. For example,<br></p>
+<p><code>mSession = CO2GTransport::createSession();<br>
+SessionStatusListener *statusListener = new SessionStatusListener(mSession, mSubSessionID, mPin);<br>
+mSession-&gt;subscribeSessionStatus(statusListener);</code><br></p>
+<p>An instance of the class implementing <code>IO2GSessionStatus</code> interface must be unsubscribed from the session object after calling
+<a href="IO2GSession.html">IO2GSession</a>::<a href="IO2GSession.logout.html">logout</a> method. It is accomplished by calling
+<a href="IO2GSession.html"><code>IO2GSession</code></a>::<a href="IO2GSession.unsubscribeSessionStatus.html"><code>unsubscribeSessionStatus</code></a> method.
+For example,<br></p>
+<p><code>mSession-&gt;logout();<br>
+mSession-&gt;unsubscribeSessionStatus(statusListener);</code><br></p>
+<p>For the interface implementation details, please see the example below:</p><div id="open196" style="display:inline">
+  <p>Process notifications about session status changes and login failure&nbsp;<a href="javascript: showdiv('close196'); hidediv('open196');" onclick="javascript: showdiv('close196'); hidediv('open196');">[show]</a></p>
+</div>
+<div id="close196" style="display:none">
+  <p>Process notifications about session status changes and login failure&nbsp;<a href="javascript: showdiv('open196'); hidediv('close196');" onclick="javascript: showdiv('open196'); hidediv('close196');">[hide]</a></p>
+  <pre class="example">    #include &lt;ForexConnect.h&gt;
+    #include &lt;threadlib.h&gt;
+ 
+    class SessionStatusListener : public IO2GSessionStatus
+    {
+    private:
+        <b>// Connection, session and status variables</b>
+        volatile bool mConnected;
+        volatile bool mDisconnected;
+        volatile bool mError;
+        std:string mSubSessionID;
+        std:string mPin;
+        IO2GSession *mSession;
+        IO2GSessionStatus::O2GSessionStatus mStatus;
+ 
+        <b>// Reference counter</b>
+        long mRefCount;
+ 
+    public:
+        <b>// Constructor</b>
+        SessionStatusListener(IO2GSession *session, const char *subSessionID, const char *pin)
+        {
+            mSession = session;
+            mSession-&gt;addRef();
+            if (mSubSessionID)
+                mSubSessionID = subSessionID;
+            else
+                mSubSessionID = &quot;&quot;;
+            if (pin)
+                mPin = pin;
+            else
+                mPin = &quot;&quot;;
+            mConnected = false;
+            mDisconnected = false;
+            mError = false;
+            mStatus = IO2GSessionStatus::Disconnected;
+            mRefCount = 1;
+        }
+ 
+        <b>// Destructor</b>
+        ~SessionStatusListener()
+        {
+            mSession-&gt;release();
+        }
+ 
+        <b>// Increase reference counter.</b>
+        long addRef()
+        {
+            <b>// for non-Windows OS InterlockedIncrement is platform specific macro defined in threadlib.h</b>
+            return InterlockedIncrement(&mRefCount);
+        }
+ 
+        <b>// Decrease reference counter.</b>
+        long release()
+        {
+            <b>// for non-Windows OS InterlockedDecrement is platform specific macro defined in threadlib.h</b>
+            long rc = InterlockedDecrement(&mRefCount);
+            if (rc == 0)
+                delete this;
+            return rc;
+        }
+ 
+        <b>// Shows if session is connected</b>
+        bool isConnected()
+        {
+            return mConnected;
+        }
+ 
+        <b>// Shows if session is disconnected</b>
+        bool isDisconnected()
+        {
+            return mDisconnected;
+        }
+ 
+        <b>// Shows if there was an error during the logn process</b>
+        bool hasError()
+        {
+            return mError;
+        }
+ 
+        <b>// Returns current session status</b>
+        IO2GSessionStatus::O2GSessionStatus getStatus()
+        {
+            return mStatus;
+        }
+ 
+        <b>// Implementation of IO2GSessionStatus interface public method onSessionStatusChanged</b>
+        void onSessionStatusChanged(O2GSessionStatus status)
+        {
+            mStatusCode = status;
+            switch (mStatusCode)
+            {
+            case    IO2GSessionStatus::Disconnected:
+                    std::cout &lt;&lt; &quot;Status::disconnected&quot; &lt;&lt; std::endl;
+                    break;
+            case    IO2GSessionStatus::Connecting:
+                    std::cout &lt;&lt; &quot;Status::connecting&quot; &lt;&lt; std::endl;
+                    break;
+            case    IO2GSessionStatus::TradingSessionRequested:
+                    std::cout &lt;&lt; &quot;Status::trading session requested&quot; &lt;&lt; std::endl;
+                    break;
+            case    IO2GSessionStatus::Connected:
+                    std::cout &lt;&lt; &quot;Status::connected&quot; &lt;&lt; std::endl;
+                    break;
+            case    IO2GSessionStatus::Reconnecting:
+                    std::cout &lt;&lt; &quot;Status::reconnecting&quot; &lt;&lt; std::endl;
+                    break;
+            case    IO2GSessionStatus::Disconnecting:
+                    std::cout &lt;&lt; &quot;Status::disconnecting&quot; &lt;&lt; std::endl;
+                    break;
+            case    IO2GSessionStatus::SessionLost:
+                    std::cout &lt;&lt; &quot;Status::session lost&quot; &lt;&lt; std::endl;
+                    break;
+            }
+ 
+            if (mStatusCode == IO2GSessionStatus::TradingSessionRequested)
+            {
+                IO2GSessionDescriptorCollection *descriptors = mSession-&gt;getTradingSessionDescriptors();
+                bool found = false;
+                if (descriptors)
+                {
+                    std::cout &lt;&lt; &quot;Available descriptors:&quot; &lt;&lt; std::endl;
+                    for (int i = 0; i &lt; descriptors-&gt;size(); i++)
+                    {
+                        IO2GSessionDescriptor *descriptor = descriptors-&gt;get(i);
+                        std::cout &lt;&lt; &quot;  id='&quot; &lt;&lt; descriptor-&gt;getID() &lt;&lt; &quot;' &quot; &lt;&lt;
+                                      &quot;name='&quot; &lt;&lt; descriptor-&gt;getName() &lt;&lt; &quot;' &quot; &lt;&lt;
+                                      &quot;description='&quot; &lt;&lt; descriptor-&gt;getDescription() &lt;&lt; &quot;' &quot; &lt;&lt;
+                                      &lt;&lt; descriptor-&gt;requiresPin() ? &quot;requires pin&quot; : &quot;&quot; &lt;&lt; std::endl;
+ 
+                        if (mSubSessionID == descriptor-&gt;getID())
+                            found = true;
+ 
+                        descriptor-&gt;release();
+                    }
+                    descriptors-&gt;release();
+                }
+                if (!found)
+                    onLoginFailed(&quot;The specified sub session identifier is not found&quot;);
+                else
+                    mSession-&gt;setTradingSession(mSubSessionID.c_str(), mPin.c_str());
+            }
+        }
+ 
+        <b>// Implementation of IO2GSessionStatus interface public method onLoginFailed</b>
+        void onLoginFailed(const char *error)
+        {
+            std::cout &lt;&lt; &quot;Login error: &quot; &lt;&lt; error &lt;&lt; std::endl;
+            mError = true;
+        }
+    };</pre>
+</div><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSessionStatus.onLoginFailed.0.html">onLoginFailed</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Processes notification about the login failure.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSessionStatus.onSessionStatusChanged.0.html">onSessionStatusChanged</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Processes notifications about the session status change.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="forexconnect.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

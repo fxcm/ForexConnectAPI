@@ -1,0 +1,193 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GRequestFactory.fillMarketDataSnapshotRequestTime</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>O2GRequestFactory.fillMarketDataSnapshotRequestTime</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Fills the date/time range of the market data snapshot.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">Java</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code>void&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>fillMarketDataSnapshotRequestTime</b> (<a href="com.fxcore2.O2GRequest.html"><code>O2GRequest</code></a> request, java.util.Calendar timeFrom, java.util.Calendar timeTo, boolean isIncludeWeekends, O2GCandleOpenPriceMode mode) </code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>request</code></td>
+    <td class="tmain" width="69%"><p>The request object previously created
+using the <a href="com.fxcore2.O2GRequestFactory.createMarketDataSnapshotRequestInstrument.html"><code>createMarketDataSnapshotRequestInstrument</code></a> method.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>timeFrom</code></td>
+    <td class="tmain" width="69%"><p>The date and time to get the snapshot from.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>timeTo</code></td>
+    <td class="tmain" width="69%"><p>The date and time to get the snapshot to.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>isIncludeWeekends</code></td>
+    <td class="tmain" width="69%"><p>Defines whether weekend price data will be requested from the server.
+If the value is <code>true</code>, the market data will include weekend price data.
+<b>Note:</b> if it is not specified in a request that isIncludeWeekends==true, the response may contain less bars than it was originally specified in the request in maxBars.</p>
+<p>If the value is <code>false</code>, the market data will include data from Monday through Friday.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>mode</code></td>
+    <td class="tmain" width="69%"><p>Possible parameters are determined in <a href="com.fxcore2.O2GCandleOpenPriceMode.html"><code>O2GCandleOpenPriceMode</code></a>. Ability to change mode is defined by the system property FIRST_TICK_OPEN_PRICE_ENABLED (see O2GSystemPropertiesReader.findProperty). The user may change mode in case the value of the property equals Y.</p></td>
+  </tr>
+</table><p><b>Details</b></p><p><code>fillMarketDataSnapshotRequestTime</code> is the last step to get historic prices and used after
+<a href="com.fxcore2.O2GRequestFactory.createMarketDataSnapshotRequestInstrument.html"><code>createMarketDataSnapshotRequestInstrument</code></a>. <br>
+The date/time is in the UTC time zone. <br>
+If timeTo is <code>null</code>, the server will send most recent data.<br>
+If timeFrom is <code>null</code>, the server will send the maximum number of bars specified in the request.<br>
+If timeFrom is not <code>null</code> but the chosen date rage contains more bars than the maximum number of bars,
+the maximum number of bars will be returned <b>ending</b> at the specified dateTo. <br></p><div id="open218" style="display:none">
+  <p>fillMarketDataSnapshotRequestTime&nbsp;<a href="javascript: showdiv('close218'); hidediv('open218');" onclick="javascript: showdiv('close218'); hidediv('open218');">[show]</a></p>
+</div>
+<div id="close218" style="display:inline">
+  <p>fillMarketDataSnapshotRequestTime&nbsp;<a href="javascript: showdiv('open218'); hidediv('close218');" onclick="javascript: showdiv('open218'); hidediv('close218');">[hide]</a></p>
+  <pre class="example">static Calendar calFirst = null;
+static Calendar calDate = null;
+//...
+O2GRequestFactory requestFactory = mSession.getRequestFactory();
+if (factory != null) {
+   O2GTimeframeCollection timeFrames = requestFactory.getTimeFrameCollection();
+   O2GTimeframe timeFrame = timeFrames.get(&quot;m1&quot;);
+   if (timeFrame != null) {
+       request = requestFactory.createMarketDataSnapshotRequestInstrument(&quot;EUR/USD&quot;, timeFrame, 300);
+       requestFactory.fillMarketDataSnapshotRequestTime(request, calFrom, calTo, false, O2GCandleOpenPriceMode.PREVIOUS_CLOSE);
+       //...
+   }
+}</pre>
+</div><p>Declared in <a href="com.fxcore2.O2GRequestFactory.html">O2GRequestFactory</a></p>
+<p>
+  <center><a href="com.fxcore2.O2GRequestFactory.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'com.fxcore2.O2GRequestFactory.html');</script></body>
+</html>

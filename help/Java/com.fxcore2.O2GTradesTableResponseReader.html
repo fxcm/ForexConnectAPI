@@ -1,0 +1,288 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GTradesTableResponseReader</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>O2GTradesTableResponseReader</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="com.fxcore2.O2GGenericTableResponseReader.html"><code>O2GGenericTableResponseReader</code></a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The class reads a stream of open position rows coming from the trading server.</p>
+    <p><b>Details</b></p><p>All data from the trading server come in the form of responses. The type of the response depends on the type of the request.
+An <a href="com.fxcore2.O2GResponse.html"><code>O2GResponse</code></a> object of the type <a href="com.fxcore2.O2GResponseType.GET_TRADES.html"><code>GET_TRADES</code></a>
+comes from the trading server as a response to the request for initial open position information.
+The response consists of the <a href="TTTrades.html">Trades</a> table rows. Every row is represented by an
+<a href="com.fxcore2.O2GTradeRow.html"><code>O2GTradeRow</code></a> object.
+In order to read this response you must use the <code>O2GTradesTableResponseReader</code>.</p>
+<p><b>Getting the response</b><br></p>
+<p>If your application uses the <a href="com.fxcore2.O2GTableManager.html"><code>O2GTableManager</code></a>, the <a href="TTTrades.html">Trades</a> table is always loaded during the login process.
+This information is kept in an <a href="com.fxcore2.O2GTradesTable.html"><code>O2GTradesTable</code></a> object.<br></p>
+<p>If your application does not use the <a href="com.fxcore2.O2GTableManager.html"><code>O2GTableManager</code></a>, the initial open position information needs to be requested.<br>
+Depending on the trading server settings, the <a href="TTTrades.html">Trades</a> table may or may not be loaded by the server automatically during the login process.
+To determine whether the table is loaded or not and what follow-up action is required to obtain the
+<a href="com.fxcore2.O2GResponseType.GET_TRADES.html"><code>GET_TRADES</code></a> response,
+use the returned value of the <a href="com.fxcore2.O2GLoginRules.html"><code>O2GLoginRules</code></a>.<a href="com.fxcore2.O2GLoginRules.isTableLoadedByDefault.html"><code>isTableLoadedByDefault</code></a> method
+with the <a href="com.fxcore2.O2GTableType.TRADES.html">O2GTableType.TRADES</a> argument:<br></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Returned Value</p></td>
+    <td class="thdr"><p>Follow-up action</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>true</code></p></td>
+    <td class="tmain"><p>Call the <a href="com.fxcore2.O2GLoginRules.html"><code>O2GLoginRules</code></a>.<a href="com.fxcore2.O2GLoginRules.getTableRefreshResponse.html"><code>getTableRefreshResponse</code></a> method.
+For example,<br></p>
+<p><code>O2GResponse tradesResponse = loginRules.getTableRefreshResponse(O2GTableType.TRADES);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>false</code></p></td>
+    <td class="tmain"><p>Create a request to get initial open position information by using the <a href="com.fxcore2.O2GRequestFactory.html"><code>O2GRequestFactory</code></a>.<a href="com.fxcore2.O2GRequestFactory.createRefreshTableRequest.html"><code>createRefreshTableRequest</code></a> method.
+For example,<br></p>
+<p><code>O2GRequest request = requestFactory.createRefreshTableRequest(O2GTableType.TRADES);</code><br></p>
+<p>In this case, an instance of the <a href="com.fxcore2.O2GResponse.html"><code>O2GResponse</code></a> class is the <code>response</code> parameter in your implementation of the
+<a href="com.fxcore2.IO2GResponseListener.html"><code>IO2GResponseListener</code></a>.<a href="com.fxcore2.IO2GResponseListener.onRequestCompleted.html"><code>onRequestCompleted</code></a> method.</p></td>
+  </tr>
+</table><p><b>Instantiating the class</b></p>
+<p>After receiving the <a href="com.fxcore2.O2GResponseType.GET_TRADES.html"><code>GET_TRADES</code></a> response, an instance of the
+<code>O2GTradesTableResponseReader</code> class can be obtained by calling the
+<a href="com.fxcore2.O2GResponseReaderFactory.html"><code>O2GResponseReaderFactory</code></a>.<a href="com.fxcore2.O2GResponseReaderFactory.createTradesTableReader.html"><code>createTradesTableReader</code></a> method.
+For example:<br></p>
+<p><code>O2GResponseReaderFactory responseFactory = session.getResponseReaderFactory();<br>
+O2GTradesTableResponseReader tradesReader = responseFactory.createTradesTableReader(tradesResponse);</code></p>
+<p><b>Example</b></p><div id="open258" style="display:inline">
+  <p>Get Trade ID, Offer ID and Amount&nbsp;<a href="javascript: showdiv('close258'); hidediv('open258');" onclick="javascript: showdiv('close258'); hidediv('open258');">[show]</a></p>
+</div>
+<div id="close258" style="display:none">
+  <p>Get Trade ID, Offer ID and Amount&nbsp;<a href="javascript: showdiv('open258'); hidediv('close258');" onclick="javascript: showdiv('open258'); hidediv('close258');">[hide]</a></p>
+  <pre class="example">    <b>// Get trades information</b>
+    public static void getTrades(O2GSession session, ResponseListener responseListener) {
+        try {
+            O2GLoginRules loginRules = session.getLoginRules();
+ 
+            <b>// Check if Trades table is loaded automatically</b>
+            if (loginRules != null &amp;&amp; loginRules.isTableLoadedByDefault(O2GTableType.TRADES)) {
+ 
+                <b>// If table is loaded, use getTableRefreshResponse method</b>
+                O2GResponse tradesResponse = loginRules.getTableRefreshResponse(O2GTableType.TRADES);
+                O2GResponseReaderFactory responseFactory = session.getResponseReaderFactory();
+                O2GTradesTableResponseReader tradesReader = responseFactory.createTradesTableReader(tradesResponse);
+                for (int i = 0; i &lt; tradesReader.size(); i++) {
+                    O2GTradeRow trade = tradesReader.getRow(i);
+                    System.out.println(&quot;TradeID = &quot; + trade.getTradeID() +
+                                       &quot; OfferID = &quot; +  trade.getOfferID() +
+                                       &quot; Amount= &quot; + trade.getAmount());
+                }
+            } else {
+ 
+                <b>// If table is not loaded, use createRefreshTableRequest method</b>
+                O2GRequestFactory requestFactory = session.getRequestFactory();
+                if (requestFactory != null) {
+                    O2GRequest request = requestFactory.createRefreshTableRequest(O2GTableType.TRADES);
+                    responseListener.setRequest(request.getRequestId());
+                    session.sendRequest(request);
+                    Thread.sleep(1000);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(&quot;Exception in getTrades().\n\t &quot; + e.getMessage());
+        }
+    }
+ 
+    <b>// Implementation of IO2GResponseListener interface public method onRequestCompleted</b>
+    public void onRequestCompleted(String requestID, O2GResponse response) {
+        if (requestID.equals(mRequestID)) {
+            O2GResponseReaderFactory readerFactory = mSession.getResponseReaderFactory();
+            O2GTradesTableResponseReader reader = readerFactory.createTradesTableReader(response);
+            for (int i = 0; i &lt; reader.size(); i++) {
+                O2GTradeRow trade = reader.getRow(i);
+                System.out.println(&quot; This is a response to your request: \nTradeID = &quot; + trade.getTradeID() +
+                                   &quot; OfferID = &quot; +  trade.getOfferID() +
+                                   &quot; Amount= &quot; + trade.getAmount());
+            }
+        }
+    }</pre>
+</div><p>The namespace is <a href="com.fxcore2.html"><code>com.fxcore2</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GTradesTableResponseReader.getCell.html">getCell</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the value of a cell.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GTradesTableResponseReader.getColumns.html">getColumns</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets an instance of the class that provides access to the list of table columns.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GTradesTableResponseReader.getGenericRow.html">getGenericRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a row by its index.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GTradesTableResponseReader.getRow.html">getRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a row from the <a href="TTTrades.html">Trades</a> table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GTradesTableResponseReader.getType.html">getType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of a trading table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GTradesTableResponseReader.isCellValid.html">isCellValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Checks whether the cell value can be used or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GTradesTableResponseReader.size.html">size</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the number of rows in the reader.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="com.fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

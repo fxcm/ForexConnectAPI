@@ -1,0 +1,241 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GValueMap</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>IO2GValueMap</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="IAddRef.html">IAddRef</a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>A value map containing order parameters.</p>
+    <p><b>Details</b></p><p>To create <code>IO2GValueMap</code> use
+<a href="IO2GRequestFactory.html"><code>IO2GRequestFactory</code></a>.<a href="IO2GRequestFactory.createValueMap.html"><code>createValueMap</code></a>.
+<br>
+<code>IO2GValueMap</code> contains elements of <a href="O2GRequestParamsEnum.html"><code>O2GRequestParamsEnum</code></a> (order parameters) as keys
+and corresponding string, boolean, double, or integer values.
+<br>
+<code>IO2GValueMap</code> is used to combine order parameters when creating order request by
+<a href="IO2GRequestFactory.html"><code>IO2GRequestFactory</code></a>.<a href="IO2GRequestFactory.createOrderRequest.html"><code>createOrderRequest</code></a>.</p><div id="open242" style="display:none">
+  <p>Create and fill IO2GValueMap&nbsp;<a href="javascript: showdiv('close242'); hidediv('open242');" onclick="javascript: showdiv('close242'); hidediv('open242');">[show]</a></p>
+</div>
+<div id="close242" style="display:inline">
+  <p>Create and fill IO2GValueMap&nbsp;<a href="javascript: showdiv('open242'); hidediv('close242');" onclick="javascript: showdiv('open242'); hidediv('close242');">[hide]</a></p>
+  <pre class="example">     IO2GValueMap* CExample::createOrder(const char* offerID, const char* accountID, double rate, int amount, const char* buySell, const char* orderType)
+    {
+        using namespace O2G2;
+        O2G2Ptr&lt;IO2GRequestFactory&gt; factory = getRequestFactory();
+        if (factory)
+        {
+             IO2GValueMap* valuemap = factory-&gt;createValueMap();
+             valuemap-&gt;setString(Command, Commands::CreateOrder);
+             valuemap-&gt;setString(OrderType, orderType);
+             valuemap-&gt;setString(AccountID, accountID);
+             valuemap-&gt;setString(OfferID, offerID);
+             valuemap-&gt;setString(BuySell, buySell);
+             valuemap-&gt;setDouble(Rate, rate);
+             valuemap-&gt;setInt(Amount, amount);
+             return valuemap;
+        }
+    }</pre>
+</div><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GValueMap.appendChild.html">appendChild</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Adds the value map to the list of child value maps.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GValueMap.clear.html">clear</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Clears the value map.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GValueMap.clone.html">clone</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Makes a copy of the value map.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GValueMap.getChild.html">getChild</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a child value map.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GValueMap.getChildrenCount.html">getChildrenCount</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the number of child value maps.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GValueMap.setBoolean.html">setBoolean</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Sets a boolean value.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GValueMap.setDouble.html">setDouble</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Sets a double value.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GValueMap.setInt.html">setInt</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Sets an integer value.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GValueMap.setString.html">setString</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Sets a string value.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="forexconnect.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

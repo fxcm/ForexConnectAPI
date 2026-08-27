@@ -1,0 +1,347 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Accounts (table)</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Accounts (table)</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>This section describes the Accounts table that contains the trading account data such as funds used in trading, idle funds, profits/losses, certain account limitations, and so on.</p>
+    <p><b>Details</b></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Name</p></td>
+    <td class="thdr"><p>Type</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>AccountID</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identification number of an account. The number is unique within the database where the
+account is stored. For example, <code>MINIDEMO</code> or <code>U100D1</code>. The uniqueness of the account itself is assured by
+the combination of the database ID and the value of this field.<br>
+<b>Note:</b> In the field labeled &quot;Account&quot;, the FXCM Trading Station displays the value of the <code>AccountName</code> field (for example, <code>00286255</code>).
+This value is not equal to the value of the <code>AccountID</code> field (for example <code>286255</code>). Therefore, do not use the <code>AccountName</code> field when the
+actual <code>AccountID</code> field is required!</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>AccountName</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique name of the account as it is displayed in the FXCM Trading Station. The name is unique within
+the database where the account is stored. For example, <code>MINIDEMO</code> or <code>U100D1</code>. The uniqueness of the
+account itself is assured by the combination of the database ID and the value of this field.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Balance</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The amount of funds on the account. This amount does not include floating profit and loss.
+It is expressed in the account currency.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>NonTradeEquity</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The amount of accounting transactions that is applied to the account during the current
+trading day. In other words, this amount is a part of the equity balance that reflects non-trading
+activity. It is expressed in the account currency and used for calculation of <code>DayPL</code>.
+The accounting transactions are: deposit, withdrawal and funds transfer. A trading day is from 17:00
+through 17:00 Eastern Time (UTC-5).
+If there are no accounting transactions during the current trading day, the value of this field is <code>0.0</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>M2MEquity</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The equity balance of the account at the beginning of a trading day. It is expressed in the account currency and
+used for calculation of <code>DayPL</code>. A trading day is from 17:00 through 17:00 Eastern Time (UTC-5).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>UsedMargin</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The amount of funds used to maintain all open positions on the account. It is expressed in
+the account currency. If there are no open positions on the account, the value of this field is <code>0.0</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>UsedMargin3</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The amount of funds used to maintain all open positions on the account with the three-level
+margin policy. It is expressed in the account currency. If there are no open positions on the account, the value of this field is <code>0.0</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>AccountKind</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The type of the account. The possible values are:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>32</code></p></td>
+    <td class="tmain"><p>Self-traded account, funds manager account (only LAMM), managed account (only LAMM).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>36</code></p></td>
+    <td class="tmain"><p>Funds manager account (only PAMM).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>38</code></p></td>
+    <td class="tmain"><p>Managed account (only PAMM).</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>MarginCallFlag</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The limitation state of the account. Each state defines the operations that can be performed on the
+account. The possible values are:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>Y</code></p></td>
+    <td class="tmain"><p>Margin call (all positions are liquidated, new positions cannot be opened).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>W</code></p></td>
+    <td class="tmain"><p>Warning of a possible margin call (positions may be closed, new positions cannot be opened).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>Q</code></p></td>
+    <td class="tmain"><p>Equity stop (all positions are liquidated, new positions cannot be opened up to the end of
+the trading day).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>A</code></p></td>
+    <td class="tmain"><p>Equity alert (positions may be closed, new positions cannot be opened up to the end of the
+trading day).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>N</code></p></td>
+    <td class="tmain"><p>No limitations (no limitations are imposed on the account operations).</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>LastMarginCallDate</p></td>
+    <td class="tmain"><p>Date</p></td>
+    <td class="tmain"><p>The date and time of the last occurrence of a Margin Call. If the account has never been in the Margin call limitation state, the value of this field is <code>null</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>MaintenanceType</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The type of the position maintenance. It defines how trade operations can be performed on the
+account. The possible values are:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>Y</code></p></td>
+    <td class="tmain"><p>Hedging is allowed. In other words, both buy and sell positions can be opened for
+the same instrument at the same time. To close each buy or sell position, an individual
+order is required.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>N</code></p></td>
+    <td class="tmain"><p>Hedging is not allowed. In other words, either a buy or a sell position can be opened for
+the same instrument at a time. Opening a position for the instrument that already has
+open position(s) of the opposite trade operation always causes closing or partial closing of the open position(s).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>0</code></p></td>
+    <td class="tmain"><p>Netting only. In other words, for each instrument there exists only one open position.
+The amount of the position is the total amount of the instrument, either bought or sold,
+that has not yet been offset by opposite trade operations.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>D</code></p></td>
+    <td class="tmain"><p>Day netting. In other words, for each instrument there exists only one open position.
+Same as Netting only, but within a trading day. If the position is not offset during the same trading day it is opened,
+it is closed automatically on simulated delivery date (see <code>ValueDate</code> field in the <a href="TTOffers.html">Offers</a> table).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>F</code></p></td>
+    <td class="tmain"><p>FIFO. Positions open and close in accordance with the FIFO (First-in, First-out) rule. Hedging is not allowed.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>AmountLimit</p></td>
+    <td class="tmain"><p>Integer</p></td>
+    <td class="tmain"><p>The maximum amount of an order that is allowed on the account.
+It is expressed in the base currency of the instrument. For example, if the value is <code>30000</code>, the maximum
+amount of an order for <code>EUR/USD</code> is 30,000 Euro, for <code>USD/JPY</code> - 30,000 U.S. dollars, and so on.
+If there are no restrictions on the maximum amount of an order, the value of this field is <code>0</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>BaseUnitSize</p></td>
+    <td class="tmain"><p>Integer</p></td>
+    <td class="tmain"><p>The size of one lot. In other words, the minimum amount of a position that is allowed on the account.
+It is expressed in the base currency of the instrument. For example, if the value is <code>1000</code>, one lot for
+<code>EUR/USD</code> is 1,000 Euro, for <code>USD/JPY</code> - 1,000 U.S. dollars, and so on. The total amount of a position must
+be a whole number of lots. It is applicable only for FX instruments. This field is used for information purposes only.
+The value for all instruments must be obtained from <code>getBaseUnitSize</code> method of the <code>TradingSettingsProvider</code> object.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>MaintenanceFlag</p></td>
+    <td class="tmain"><p>Boolean</p></td>
+    <td class="tmain"><p>The rollover maintenance flag. It defines whether the account is under a rollover maintenance or not. The possible values are:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>true</code></p></td>
+    <td class="tmain"><p>The account is under a rollover maintenance.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>false</code></p></td>
+    <td class="tmain"><p>The account is not under a rollover maintenance.</p></td>
+  </tr>
+</table><p>It is applicable only for funds manager accounts (see <code>AccountKind</code> field above). For all other account types, the value of this field is <code>false</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>ManagerAccountID</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identification number of the funds manager account.
+The number is unique within the database where the account is stored. For example, <code>MINIDEMO</code> or <code>U100D1</code>. The uniqueness of the funds manager
+account itself is assured by the combination of the database ID and the value of this field.</p>
+<p>It is applicable only for managed accounts. For all other account types, the value of this field is blank.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>LeverageProfileID</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identification number of the account leverage profile which defines the margin requirements.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>DayPL</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The amount of profits and losses (both floating and realized) of the current trading day. It is expressed in the account currency. A trading day is from
+17:00 through 17:00 Eastern Time (UTC-5).<br>
+<b>Note:</b> It is a calculated field and is available only through the Table Manager.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Equity</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The amount of funds on the account, including profits and losses of all open positions (the floating
+balance of the account). It is expressed in the account currency.<br>
+<b>Note:</b> It is a calculated field and is available only through the Table Manager.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>GrossPL</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The amount of profits and losses of all open positions on the account. It is expressed in the account currency. The GrossPL equals the difference between the Equity and the Balance of the
+account.<br>
+<b>Note:</b> It is a calculated field and is available only through the Table Manager.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>UsableMargin</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The amount of funds available to open new positions or to absorb losses of the existing positions. It is expressed in the account currency. Once the UsableMargin
+reaches zero, the margin call order is triggered for the account and the positions are automatically liquidated at the best
+available price. Added together, the UsableMargin and UsedMargin make up the Equity of the account.<br>
+<b>Note:</b> It is a calculated field and is available only through the Table Manager.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>ATPID</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identification number of the account trading profile which defines the commission requirements.</p></td>
+  </tr>
+</table><p>
+      <center><a href="TradingTables.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

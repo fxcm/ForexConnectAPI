@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Session Statuses</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Session Statuses</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article describes session statuses.</p>
+    <p><b>Details</b></p><p>The description of session statuses is provided below.</p>
+<p><img src="img/SessionStatusPy.gif"></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Session Status</p></td>
+    <td class="thdr"><p>Session Status Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>DISCONNECTED</code></p></td>
+    <td class="tmain"><p>The session is disconnected from the server.<br></p>
+<p>From this status, the session is transferred to the <code>CONNECTING</code> status in case the user tries to log in.<br></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>CONNECTING</code></p></td>
+    <td class="tmain"><p>The user specified login information and the session is being connected to the server.<br></p>
+<p>From this status, the session can be transferred to one of the following statuses:</p>
+<p><code>CONNECTED</code><br>
+In case the login was successful, the session is transferred to the <code>CONNECTED</code> status.</p>
+<p><code>TRADING_SESSION_REQUESTED</code><br>
+This status is possible only on connections having more than one trading session or requiring a PIN code. <br>
+The session is transferred to the status <code>TRADING_SESSION_REQUESTED</code> when it was requested to specify a PIN or database.</p>
+<p><code>DISCONNECTED</code><br>
+In case the login failed, the session is transferred to the <code>DISCONNECTED </code> status.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>CONNECTED</code></p></td>
+    <td class="tmain"><p>The login was successful, the session is connected successfully.</p>
+<p>For connections with multiple trading sessions or requiring a PIN code,
+a valid PIN or database was specified, the session is connected successfully.</p>
+<p>This is the only status when most of the methods of the session object can be used.</p>
+<p>From this status, the session can be transferred to one of the following statuses:</p>
+<p><code>DISCONNECTING</code><br>
+In case the user logged out, the session is transferred to the <code>DISCONNECTING</code> status.</p>
+<p><code>RECONNECTING</code><br>
+In case the connection was lost, the session is transferred to the <code>RECONNECTING</code> status.</p>
+<p><code>PRICE_SESSION_RECONNECTING</code><br>
+This status is possible only on connections with the price session.<br>
+The session is transferred to this status in case the connection with the price session was lost.</p>
+<p><code>SESSION_LOST</code><br>
+In case the session expired or the server was shut down, the session is transferred to the status <code>SESSION_LOST</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>DISCONNECTING</code></p></td>
+    <td class="tmain"><p>The user logged out, the current session is being disconnected.<br></p>
+<p>From this status, the session is transferred to the <code>DISCONNECTED</code> status.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>RECONNECTING</code></p></td>
+    <td class="tmain"><p><u>For connections without the price session:</u> The connection was lost. The core is attempting to restore the connection.</p>
+<p><u>For connections with the price session:</u> The connection with the price session was lost and either:<br></p>
+<p>1. The connection with the trade session exists but the maximum number of attempts to reconnect to the price session
+was reached (currently 20)<br>
+or<br>
+2. The connection with the trade session was lost.<br></p>
+<p>The core is attempting to restore the connection with the trade session.</p>
+<p>From this status, the session can be transferred to one of the following statuses:</p>
+<p><code>RECONNECTING</code><br>
+<u>For connections without the price session:</u> The core attempts to restore the connection and stays in this status
+after each unsuccessful attempt until the maximum number of attempts to reconnect is reached (currently 20).</p>
+<p><u>For connections with the price session:</u><br>
+1. If the maximum number of attempts to reconnect to the price session was reached,
+the core attempts to restore the connection with the trade session only once.<br>
+2. If the connection with the trade session was lost, the session makes the maximum
+number of attempts to restore the connection with the trade session and then with the price session.</p>
+<p><code>CONNECTED</code><br>
+If the connection was restored, the session is transferred to the <code>CONNECTED</code> status.</p>
+<p><code>SESSION_LOST</code><br>
+The reconnect failed or the maximum number of attempts to reconnect was reached (currently 20),
+ForexConnect closes the session, and the <code>SESSION_LOST</code> status is received.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>TRADING_SESSION_REQUESTED</code></p></td>
+    <td class="tmain"><p>This status is possible only on connections having more than one trading session or requiring a PIN code.</p>
+<p>After the user entered the login information, the server requests the trading session or a PIN code.
+The login process is suspended until a subsession or a PIN is specified.</p>
+<p>From this status, the session can be transferred to one of the following statuses:</p>
+<p><code>CONNECTED</code><br>
+In case a valid PIN or database was specified, the session is transferred to the <code>CONNECTED</code> status.</p>
+<p><code>TRADING_SESSION_REQUESTED</code><br>
+In case an invalid PIN was specified, ForexConnect provides the second and then the third attempt to enter a valid PIN,
+the session stays in the <code>TRADING_SESSION_REQUESTED</code> status.</p>
+<p><code>DISCONNECTED</code><br>
+The session is transferred to the <code>DISCONNECTED</code> status if:<br></p><ul class="main">
+  <li><p>An invalid database is specified;</p></li>
+  <li><p>An invalid PIN is entered at the third attempt. In this case, login to the connection is locked.</p></li>
+</ul></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>PRICE_SESSION_RECONNECTING</code></p></td>
+    <td class="tmain"><p>This status is possible only on connections with the price session.<br>
+The connection with the price session was lost. The core is attempting to restore the connection with the price session.</p>
+<p>From this status, the session can be transferred to one of the following statuses:</p>
+<p><code>CONNECTED</code><br>
+In case the connection with the price session was restored, the session is transferred to the status <code>CONNECTED</code>.</p>
+<p><code>PRICE_SESSION_RECONNECTING</code><br>
+The price session attempts to reconnect once and stays in this status after each unsuccessful attempt
+until the maximum number of attempts to reconnect is reached (currently 20).</p>
+<p><code>RECONNECTING</code><br>
+The connection with the trade session was lost or the maximum number of attempts to reconnect to the price session
+was reached (currently 20). ForexConnect tries to reconnect to the trade session, in this case the <code>RECONNECTING</code> status is received.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>SESSION_LOST</code></p></td>
+    <td class="tmain"><p>The session was lost.</p>
+<p>The session is transferred to this status in one of the following cases:</p><ul class="main">
+  <li><p>The session expired;</p></li>
+  <li><p>The server was shut down;</p></li>
+  <li><p>Reconnect failed;</p></li>
+  <li><p>The maximum number of attempts to reconnect to the trade session was reached (currently 20).</p></li>
+</ul><p>From this status, the session is transferred to the <code>DISCONNECTED</code> status.</p></td>
+  </tr>
+</table><p>
+      <center><a href="references.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

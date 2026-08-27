@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Create OTOCO Order</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Create OTOCO Order</b></font>
+    </p><p>To create an <a href="OTOCOOrders.html"><code>OTOCO</code></a> (one-triggers-OCO) order you should create an <a href="OTOOrders.html"><code>OTO</code></a> order, where the primary order is an Entry order, and the secondary order is an <a href="OCOOrders.html"><code>OCO</code></a> (one-cancels-others) order.</p>
+<p>You can create two or more entry orders and then join them into OTO (one-triggers-others) using just one call.</p>
+<p>The first of the orders specified is a root order of the OTO group. This is the only order which becomes active
+immediately. All other orders are inactive until the root order is executed.</p>
+<p>To create an OTOCO order group:</p>
+<p>1) Create an <a href="com.fxcore2.O2GValueMap.html"><code>O2GValueMap</code></a> for an OTO order and fill only one field:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Valuemap field</p></td>
+    <td class="thdr"><p>Datatype</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>COMMAND</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The command. Must be <a href="com.fxcore2.Constants.Commands.CreateOTO.html"><code>CreateOTO</code></a>.</p>
+<p>The field is obligatory.</p></td>
+  </tr>
+</table><p>2) Create an <code>O2GValueMap</code> for primary order and fill it as for a regular entry order.</p>
+<p>3) Create an <code>O2GValueMap</code> for an OCO order and fill only one field:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Parameter name</p></td>
+    <td class="thdr"><p>Datatype</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>COMMAND</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The command. Must be <a href="com.fxcore2.Constants.Commands.CreateOCO.html"><code>CreateOCO</code></a>.</p>
+<p>The field is obligatory.</p></td>
+  </tr>
+</table><p>4) Create an <code>IO2GValueMap</code> for each entry order of an OCO group you want to create and fill it as for a regular entry order.</p>
+<p>5) Append each entry order value map to the main value map using the <a href="com.fxcore2.O2GValueMap.appendChild.html"><code>O2GValueMap.appendChild</code></a> method in the following way:</p>
+<p>5.1) Append OTO primary order value map from step 2 to the OTO value map using the <code>IO2GValueMap.appendChild</code> method.</p>
+<p>5.2) Append each entry order of an OCO group value map from step 4 to the OCO value map using the <code>IO2GValueMap.appendChild</code> method.</p>
+<p>5.3) Append OCO value map to OTO value map using the <code>O2GValueMap.appendChild</code> method.</p>
+<p>6) Pass the OTO <code>O2GValueMap.appendChild</code> to the <a href="com.fxcore2.O2GRequestFactory.createOrderRequest.html"><code>O2GRequestFactory.createOrderRequest</code></a> method.</p>
+<p>Limitations:</p>
+<p>1) Only entry orders or other OTO/OTOCO groups can be joined into OTOCO. However, entry orders with attached stops/limits,either regular or ELS, can be joined into OTOCO.</p>
+<p>2) All entry orders must be created for the same account.</p>
+<p>Returns:</p>
+<p>The <code>createOrderRequest</code> method will return an IO2GRequest (the main request) containing child requests.
+If 3 entry orders are created, 3 child requests will be returned.
+Note that you will receive responses to the child requests and will not receive a response to the main request.</p><div id="open94" style="display:none">
+  <p>Example: Create an OTOCO order&nbsp;<a href="javascript: showdiv('close94'); hidediv('open94');" onclick="javascript: showdiv('close94'); hidediv('open94');">[show]</a></p>
+</div>
+<div id="close94" style="display:inline">
+  <p>Example: Create an OTOCO order&nbsp;<a href="javascript: showdiv('open94'); hidediv('close94');" onclick="javascript: showdiv('open94'); hidediv('close94');">[hide]</a></p>
+  <pre class="example"> class ParamsFromLoginRules {
+    String sAccountID;
+    String sOfferID;
+    int iBaseAmount;
+    double dPointSize;
+    double dAskRate;
+    double dBidRate;
+       }
+    }
+ }
+ 
+    private boolean prepareParamsFromLoginRules(ParamsFromLoginRules params)
+    {
+        boolean bOK = false;
+        O2GResponseReaderFactory factory = mSession.getResponseReaderFactory();
+        if (factory == null) {
+            return false;
+        }
+        O2GLoginRules loginRules = mSession.getLoginRules();
+        // get first account from login
+        O2GResponse accountResponse = loginRules.getTableRefreshResponse(O2GTableType.ACCOUNTS);
+        O2GAccountsTableResponseReader accountsReader = factory.createAccountsTableReader(accountResponse);
+        O2GAccountRow account = accountsReader.getRow(0);
+        // get account id
+        params.sAccountID = account.getAccountID();
+        // get base amount
+        params.iBaseAmount = account.getBaseUnitSize();
+        params.sOfferID = &quot;&quot;;
+        params.dAskRate = 0;
+        params.dBidRate = 0;
+        params.dPointSize = 0;
+        // Get offers for EUR/USD
+        O2GResponse offersResponse = loginRules.getTableRefreshResponse(O2GTableType.OFFERS);
+        O2GOffersTableResponseReader offersReader = factory.createOffersTableReader(offersResponse);
+        for (int i = 0; i &lt; offersReader.size(); i++)
+        {
+            O2GOfferRow offer = offersReader.getRow(i);
+            if (offer.getInstrument().equals(&quot;EUR/USD&quot;))
+            {
+                params.sOfferID = offer.getOfferID();
+                params.dAskRate = offer.getAsk();
+                params.dBidRate = offer.getBid();
+                params.dPointSize = offer.getPointSize();
+                bOK = true;
+                break;
+            }
+        }
+        return bOK;
+    }
+ 
+    private O2GValueMap createOrder(String sAccountID, String sOfferID, double dRate, int iAmount, String sBuySell, String sOrderType)
+    {
+        O2GRequestFactory factory = mSession.getRequestFactory();
+        if (factory != null) {
+           O2GValueMap valuemap = factory.createValueMap();
+           valuemap.setString(O2GRequestParamsEnum.COMMAND, Constants.Commands.CreateOrder);
+           valuemap.setString(O2GRequestParamsEnum.ORDER_TYPE, sOrderType);
+           valuemap.setString(O2GRequestParamsEnum.ACCOUNT_ID, sAccountID);
+           valuemap.setString(O2GRequestParamsEnum.OFFER_ID, sOfferID);
+           valuemap.setString(O2GRequestParamsEnum.BUY_SELL, sBuySell);
+           valuemap.setInt(O2GRequestParamsEnum.AMOUNT, iAmount);
+           valuemap.setDouble(O2GRequestParamsEnum.RATE, dRate);
+           return valuemap;
+        }
+    }
+ 
+    private void createOTOCO(O2GValueMap otoPrimary, O2GValueMap ocoFirst, O2GValueMap ocoSecond)
+    {
+        O2GRequestFactory factory = mSession.getRequestFactory();
+        if (factory != null) {
+           // create OTO command
+           O2GValueMap otocoValuemap = factory.createValueMap();
+           otocoValuemap.setString(O2GRequestParamsEnum.COMMAND, Constants.Commands.CreateOTO);
+ 
+           // create primary order
+           otocoValuemap.appendChild(otoPrimary);
+ 
+           // create OCO command
+           O2GValueMap ocoValuemap = factory.createValueMap();
+           ocoValuemap.setString(O2GRequestParamsEnum.COMMAND, Constants.Commands.CreateOCO);
+ 
+           // create 2 secondary orders
+           ocoValuemap.appendChild(ocoFirst);
+           ocoValuemap.appendChild(ocoSecond);
+ 
+           // attach OCO order
+           otocoValuemap.appendChild(ocoValuemap);
+ 
+           // create request from valueMap
+           O2GRequest request = factory.createOrderRequest(otocoValuemap);
+           if (request == null) {
+               System.out.println(&quot;Order's request can not be created: &quot; + factory.getLastError());
+           } else {
+               mSession.sendRequest(request);
+           }
+        }
+    }</pre>
+</div><p>
+      <center><a href="JavaTradingCommandsCreateOrder.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

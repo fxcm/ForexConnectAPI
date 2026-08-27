@@ -1,0 +1,954 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>ForexConnect API</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>ForexConnect API</b></font>
+    </p><p>ForexConnect API is an API designed to trade Forex and CFD instruments. Any
+connection which is compatible with the FXCM Trading Station/Marketscope application or an older
+version of Order2Go API is also compatible with this API.</p><p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Groups</b></td>
+      </tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="intro.html">Introduction</a></p>
+    <p>The article explains the general principles of API usage.</p>
+  </td>
+</tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="howto.html">How-to</a></p>
+    <p>The section describes how use ForexConnect API</p>
+  </td>
+</tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="O2G2.html">O2G2 namespace</a></p>
+    <p>This namespace contains constants used in ForexConnect API.</p>
+  </td>
+</tr></table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Classes</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="CO2GDateUtils.html">CO2GDateUtils</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class converts between the OLE Automation date, SYSTEMTIME, and the C time formats.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="CO2GHtmlContentUtils.html">CO2GHtmlContentUtils</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class converts relative paths specified as tag parameters to absolute paths.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="CO2GTransport.html">CO2GTransport</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class is used to create sessions and  to configure the transport parameters.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IAddRef.html">IAddRef</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Manages the existence of an object. All objects created by ForexConnect API implement this interface.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GAccountRow.html">IO2GAccountRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to account information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GAccountsTable.html">IO2GAccountsTable</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class keeps up-to-date information about accounts in memory.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GAccountsTableResponseReader.html">IO2GAccountsTableResponseReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class reads a stream of account rows coming from the trading server.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GAccountTableRow.html">IO2GAccountTableRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to the account information and calculated fields.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GChartSessionStatus.html">IO2GChartSessionStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The interface provides method signatures to process notifications about chart session status changes and login failures.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GClosedTradeRow.html">IO2GClosedTradeRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to information about a position closed during the current trading day.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GClosedTradesTable.html">IO2GClosedTradesTable</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class keeps in memory the up-to-date information about positions closed during the current trading day.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GClosedTradesTableResponseReader.html">IO2GClosedTradesTableResponseReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class reads a stream of closed position rows coming from the trading server.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GClosedTradeTableRow.html">IO2GClosedTradeTableRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to the closed position information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GCommissionDescription.html">IO2GCommissionDescription</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A trading commissions descriptor</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GCommissionDescriptionsCollection.html">IO2GCommissionDescriptionsCollection</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A collection of commission descriptors.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GCommissionProviderListener.html">IO2GCommissionProviderListener</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The interface provides the method signature to process notifications about commissions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GCommissionsProvider.html">IO2GCommissionsProvider</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Checks commissions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GEachRowListener.html">IO2GEachRowListener</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The interface provides the method signature to process notifications about iteration through rows of a table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GGenericTableResponseReader.html">IO2GGenericTableResponseReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides methods to read a stream of trading table rows coming from the trading server.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GLastOrderUpdateResponseReader.html">IO2GLastOrderUpdateResponseReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class reads a response to a request for the current state of an order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GLoginRules.html">IO2GLoginRules</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Information about the rules used during the login in the currently established session.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GMarketDataSnapshotResponseReader.html">IO2GMarketDataSnapshotResponseReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class reads a stream of historical prices.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GMessageRow.html">IO2GMessageRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to a message which is intended for the user.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GMessagesTable.html">IO2GMessagesTable</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class keeps in memory the up-to-date information about dealing desk messages received during the current trading day.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GMessagesTableResponseReader.html">IO2GMessagesTableResponseReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class reads a stream of message rows coming from the trading server.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GMessageTableRow.html">IO2GMessageTableRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to the message information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GOfferRow.html">IO2GOfferRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to offer information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GOffersTable.html">IO2GOffersTable</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class keeps in memory the up-to-date information about offers.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GOffersTableResponseReader.html">IO2GOffersTableResponseReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class reads a stream of offer rows coming from the trading server.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GOfferTableRow.html">IO2GOfferTableRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to the offer information and calculated fields.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GOrderResponseReader.html">IO2GOrderResponseReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A reader of a response belonging to the CreateOrderResponse type.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GOrderRow.html">IO2GOrderRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to order information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GOrdersTable.html">IO2GOrdersTable</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>An interface to the <a href="TTOrders.html">Orders</a> table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GOrdersTableResponseReader.html">IO2GOrdersTableResponseReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class reads a stream of order rows coming from the trading server.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GOrderTableRow.html">IO2GOrderTableRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to the order information and calculated fields.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GPermissionChecker.html">IO2GPermissionChecker</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Checks permissions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GProgressiveMarginLevels.html">IO2GProgressiveMarginLevels</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The collection of progressive margin levels.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GRequest.html">IO2GRequest</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A request to the server.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GRequestFactory.html">IO2GRequestFactory</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A request factory.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GResponse.html">IO2GResponse</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class contains a response received from the trading server.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GResponseListener.html">IO2GResponseListener</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The interface provides method signatures to process notifications about request completions, request failures and tables updates.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GResponseReaderFactory.html">IO2GResponseReaderFactory</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class creates readers to process the content of the trading server responses.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GRolloverProvider.html">IO2GRolloverProvider</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class is used for obtaining the information about rollovers.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GRolloverProviderListener.html">IO2GRolloverProviderListener</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The interface provides the method signature to process notifications about rollover updating.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GRow.html">IO2GRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to abstract row information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GSession.html">IO2GSession</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A session object.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GSessionDescriptor.html">IO2GSessionDescriptor</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A trading session descriptor.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GSessionDescriptorCollection.html">IO2GSessionDescriptorCollection</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A collection of the trading session descriptors.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GSessionStatus.html">IO2GSessionStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The interface provides method signatures to process notifications about session status changes and login failure.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GSummaryRow.html">IO2GSummaryRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Summary information about a particular traded instrument in a response object.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GSummaryTable.html">IO2GSummaryTable</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class keeps in memory the up-to-date summary information per the instrument traded.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GSummaryTableRow.html">IO2GSummaryTableRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to the summary information of the instrument traded.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GSystemPropertiesReader.html">IO2GSystemPropertiesReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A reader of the system properties.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GTable.html">IO2GTable</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>An abstract interface to a table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GTableColumn.html">IO2GTableColumn</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to a trading table column.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GTableColumnCollection.html">IO2GTableColumnCollection</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to the list of table columns.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GTableIterator.html">IO2GTableIterator</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class iterates through rows of a table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GTableListener.html">IO2GTableListener</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The interface provides method signatures to process notifications about trading tables events: adding/updating/deleting of rows, and changes in a table status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GTableManager.html">IO2GTableManager</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class creates and maintains trading tables in the ForexConnect memory.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GTableManagerListener.html">IO2GTableManagerListener</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The interface provides a method signature to process notifications about table manager status changes.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GTablesUpdatesReader.html">IO2GTablesUpdatesReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class reads a stream of table updates coming from the trading server.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GTimeConverter.html">IO2GTimeConverter</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p> A date/time converter between the time zones.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GTimeframe.html">IO2GTimeframe</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A time frame description.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GTimeframeCollection.html">IO2GTimeframeCollection</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A collection of the time frames available for the session.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GTradeRow.html">IO2GTradeRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to open position information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GTradesTable.html">IO2GTradesTable</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class keeps in memory the up-to-date information about open positions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GTradesTableResponseReader.html">IO2GTradesTableResponseReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class reads a stream of open position rows coming from the trading server.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GTradeTableRow.html">IO2GTradeTableRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to the open position information and calculated fields.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GTradingSettingsProvider.html">IO2GTradingSettingsProvider</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Checks trading settings.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GValueMap.html">IO2GValueMap</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A value map containing order parameters.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2G2Ptr.html">O2G2Ptr(T)</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Auto-release template class</p>
+    </td>
+  </tr>
+</table>
+<p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Enumerations</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GChartSessionStatus.html">IO2GChartSessionStatus::O2GChartSessionStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the chart session status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GSessionStatus.html">IO2GSessionStatus::O2GSessionStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the session status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="IO2GTableColumn_O2GTableColumnType.html">IO2GTableColumn::O2GTableColumnType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the data type of a table column.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GCandleOpenPriceMode.html">O2GCandleOpenPriceMode</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the candles open price mode that indicates how the open price is determined.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GChartSessionMode.html">O2GChartSessionMode</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the chart session modes.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GCommissionStage.html">O2GCommissionStage</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing stages when commission is incurred.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GCommissionStatus.html">O2GCommissionStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the commission status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GCommissionUnitType.html">O2GCommissionUnitType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the commission unit type.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GContingencyType.html">O2GContingencyType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the contingency type.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GInstrumentType.html">O2GInstrumentType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the instrument type.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GMarketStatus.html">O2GMarketStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the market status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GPermissionStatus.html">O2GPermissionStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum provides a set of constants specifying the status of permissions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GPriceUpdateMode.html">O2GPriceUpdateMode</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the price update mode that indicates if a session receives prices or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GRateType.html">O2GRateType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the rate type of stop or limit orders.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GRelationalOperators.html">O2GRelationalOperators</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of relational operators.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GReportUrlError.html">O2GReportUrlError</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Errors returned by <a href="IO2GSession.getReportURL.html"><code>getReportURL</code></a>.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GRequestParamsEnum.html">O2GRequestParamsEnum</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The request parameters.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GResponseType.html">O2GResponseType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the types of the trading server responses.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="ERolloverStatus.html">O2GRolloverStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum provides a set of constants specifying the status of rollovers.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GTable.html">O2GTable</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The tables.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GTableEventsFilter.html">O2GTableEventsFilter</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the type of events filtering.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GTableManagerMode.html">O2GTableManagerMode</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the table manager mode that indicates if a session uses a table manager or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GTableManagerStatus.html">O2GTableManagerStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the table manager status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GTableStatus.html">O2GTableStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the trading table load status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GTableUpdateType.html">O2GTableUpdateType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the type of the trading table update.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GTimeConverterTimeZone.html">O2GTimeConverter::TimeZone</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the time zone.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GTimeframeUnit.html">O2GTimeframeUnit</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the unit of measurement of the historical prices time frame.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GTokenError.html">O2GTokenError</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The errors returned by <a href="IO2GSession.getToken.html"><code>getToken</code></a>.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GUserKind.html">O2GUserKind</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the user kind.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="index.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

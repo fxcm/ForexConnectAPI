@@ -1,0 +1,375 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GSystemPropertiesReader</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>O2GSystemPropertiesReader</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>A reader of the system properties.</p>
+    <p><b>Details</b></p><div id="open242" style="display:none">
+  <p>O2GSystemPropertiesReader&nbsp;<a href="javascript: showdiv('close242'); hidediv('open242');" onclick="javascript: showdiv('close242'); hidediv('open242');">[show]</a></p>
+</div>
+<div id="close242" style="display:inline">
+  <p>O2GSystemPropertiesReader&nbsp;<a href="javascript: showdiv('open242'); hidediv('close242');" onclick="javascript: showdiv('open242'); hidediv('close242');">[hide]</a></p>
+  <pre class="example"> O2GResponse response = loginRules.getSystemPropertiesResponse();
+ O2GResponseReaderFactory factory = mSession.getResponseReaderFactory();
+ if (factory == null)
+    return;
+ O2GSystemPropertiesReader systemResponseReader = factory.createSystemPropertiesReader(response);
+ if (systemResponseReader == null)
+    return;
+ mSimpleLog.Log(&quot;System Properties:&quot;);
+ IDictionary&lt;string, string&gt; properties = systemResponseReader.Properties;
+ foreach (KeyValuePair&lt;string, string&gt; pair in properties)
+    mSimpleLog.Log(&quot;{0} {1}&quot;, pair.Key, pair.Value);</pre>
+</div><p>To create <code>O2GSystemPropertiesReader</code> use
+<a href="fxcore2.O2GResponseReaderFactory.html"><code>O2GResponseReaderFactory</code></a>.<a href="fxcore2.O2GResponseReaderFactory.createSystemPropertiesReader.0.html"><code>createSystemPropertiesReader</code></a></p>
+<p>The properties are available immediately after login.</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Property name</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>BASE_CRNCY</p></td>
+    <td class="tmain"><p>The property contains the currency symbol of the base currency of the system.
+The base currency is the currency of the account.
+Margin requirements, profit/loss, account balance and equity are also expressed in the base currency units. Example of the value: USD.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>BASE_CRNCY_PRECISION</p></td>
+    <td class="tmain"><p>The property contains the precision of the base currency.
+The precision is a number of significant digits after the decimal point.
+The property is useful for the formatting and rounding operations. Example of the value: 2 for USD, 0 for JPY.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>BASE_CRNCY_SYMBOL</p></td>
+    <td class="tmain"><p>The property contains the currency symbol of the base currency of the system. Example: $ for USD.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>BASE_TIME_ZONE</p></td>
+    <td class="tmain"><p>The property contains the name of the time zone of the server.
+The list of time zone names can be found <a href="http://en.wikipedia.org/wiki/List_of_zoneinfo_timezones" target="_blank">here</a>.
+Please note that the server can send the time either in the UTC or in the server time zone. Please also check the SERVER_TIME_UTC property.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>BASE_UNIT_SIZE</p></td>
+    <td class="tmain"><p>The size of one lot, i.e. the minimum amount per trade that is allowed in the system.
+The amount is expressed in the base currency of the instrument (for example, if the value is 1,000, one lot for EUR/USD is 1,000 Euros, for USD/JPY - 1,000 US dollars, etc).
+The total amount of the trade must consist of a whole number of lots.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>SERVER_TIME_UTC</p></td>
+    <td class="tmain"><p>The value of the property equals UTC in case the server sends time as UTC time.
+In case the value is not equal to UTC, the server sends time in the local time zone of the server.
+The local time zone of the server can be checked in the BASE_TIME_ZONE property.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>COND_DIST</p></td>
+    <td class="tmain"><p>The property contains the minimal recommended distance between the rates of the stop or limit and the current market rate.
+The server can reject the stop or limit orders in case the distance is smaller. The distance is expressed in pips.<br>
+<br>
+Backwards compatibility is available for Forex-Only accounts.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>COND_DIST_ENTRY</p></td>
+    <td class="tmain"><p>The property contains the minimal recommended distance between the rates of the entry order and the current market rate.
+The server can reject the order in case the distance is smaller. The distance is expressed in pips. <br>
+<br>
+Backwards compatibility is available for Forex-Only accounts.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>END_TRADING_DAY</p></td>
+    <td class="tmain"><p>The property contains the time of the end of a trading day. The time is expressed in the format hh:mm:ss, where hh is hour in 24-hour format, mm is minutes and ss is seconds. The time is in the UTC time zone.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>FORCE_PASSWORD_CHANGE</p></td>
+    <td class="tmain"><p>The property contains Y in case the user password is expired and must be changed immediately.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>FIRST_TICK_OPEN_PRICE_ENABLED</p></td>
+    <td class="tmain"><p>The property shows whether the user may change the Open price mode. The user may change mode in case the value of the property equals Y.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>MARKET_OPEN</p></td>
+    <td class="tmain"><p>The property shows whether the market is currently open. The property contains Y in case the market is open and N in case the market is closed.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TRAILING_DYNAMIC</p></td>
+    <td class="tmain"><p>The property shows whether the server supports dynamic trailing.
+This mode is set for the whole server and cannot be modified for a particular user or account.</p>
+<p>In case the value of this parameter is Y, the TrailStep parameter of the methods related to orders acts as a simple Boolean flag.
+In case the TrailStep parameter does not equal zero the order is a trailing order.
+In case the TrailStep parameter equals zero, the order is not a trailing order.</p>
+<p>In case the value of this parameter is N, the TrailStep parameter defines the minimal movement of the order rate expressed in pips.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TRAILING_FLUCTUATE_PTS_MAX</p></td>
+    <td class="tmain"><p>The property contains the maximal value of the trailing minimal move.
+The server can reject orders in case the trailing move distance is bigger than the specified value.
+The value is expressed in pips.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TRAILING_FLUCTUATE_PTS_MIN</p></td>
+    <td class="tmain"><p>The property contains the minimal value of the trailing minimal move.
+The server can reject orders in case the trailing move distance is smaller than the specified value.
+The value is expressed in pips.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TRAILING_FLUCTUATE</p></td>
+    <td class="tmain"><p>The property shows whether the trailing mode is supported.
+In case the value of this property does not equal Y, trailing orders must not be used at all.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>PEGGED_STOP_LIMIT_DISABLED</p></td>
+    <td class="tmain"><p>The property shows whether the server supports Pegged Stop/Limit orders. If the value of this parameter is Y, Pegged Stop/Limit orders are not supported. If the value of this parameter is N, Pegged Stop/Limit orders are supported.
+In case the property does not exist, pegged stop/limits are enabled.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TP_86 or CP_86</p></td>
+    <td class="tmain"><p>The property shows whether the user may create, change, delete entry orders,
+link entry orders to an OCO order, add and remove entry orders from an OCO order.
+The user may in case the value of the property equals Y.
+Only one of these properties is available depending on the kind of the user: TP_ is available for a trader and CP_ is available for a customer.</p>
+<p>Backwards compatibility is available for Forex-Only accounts.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TP_88 or CP_88</p></td>
+    <td class="tmain"><p>The property shows whether the user may open and close trades.
+The user may in case the value of the property equals Y.
+Only one of these properties is available depending on the kind of the user: TP_ is available for a trader and CP_ is available for a customer.</p>
+<p>Backwards compatibility is available for Forex-Only accounts.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TP_89 or CP_89</p></td>
+    <td class="tmain"><p>The property shows whether the user may change the subscription for currencies.
+The user may in case the value of the property equals Y.
+Only one of these properties is available depending on the kind of the user: TP_ is available for a trader and CP_ is available for a customer.</p>
+<p>Backwards compatibility is available for Forex-Only accounts.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TP_94 or CP_94</p></td>
+    <td class="tmain"><p>The property shows whether the user may create, change and delete stop and limit orders.
+The user may in case the value of the property equals Y.
+Only one of these properties is available depending on the kind of the user: TP_ is available for a trader and CP_ is available for a customer.</p>
+<p>Backwards compatibility is available for Forex-Only accounts.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TP_170 or CP_170</p></td>
+    <td class="tmain"><p>The property shows whether the user may close opposite positions by each other when hedging is allowed.
+The user may in case the value of the property equals Y.
+Only one of these properties is available depending on the kind of the user: TP_ is available for a trader and CP_ is available for a customer.</p>
+<p>Backwards compatibility is available for Forex-Only accounts.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TP_171 or CP_171</p></td>
+    <td class="tmain"><p>The property shows whether the user may open and close positions using opening orders.
+The user may in case the value of the property equals Y.
+Only one of these properties is available depending on the kind of the user: TP_ is available for a trader and CP_ is available for a customer.</p>
+<p>Backwards compatibility is available for Forex-Only accounts.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TP_172 or CP_172</p></td>
+    <td class="tmain"><p>The property shows whether the user may close positions using closing orders.
+The user may in case the value of the property equals Y.
+Only one of these properties is available depending on the kind of the user: TP_ is available for a trader and CP_ is available for a customer.</p>
+<p>Backwards compatibility is available for Forex-Only accounts.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>SupportTickVolume</p></td>
+    <td class="tmain"><p>The property shows whether the tick volume is supported. In case the value of this property does not equal Y, the tick volume is not available.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>QUERYDEPTH_0</p></td>
+    <td class="tmain"><p>The property contains the maximal number of periods that can be retrieved for a chart with the Tick period. If the property does not exist, the Tick period is not supported.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>QUERYDEPTH_1</p></td>
+    <td class="tmain"><p>The property contains the maximal number of periods that can be retrieved for a chart with the m1 period. If the property does not exist, the m1 period is not supported.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>QUERYDEPTH_2</p></td>
+    <td class="tmain"><p>The property contains the maximal number of periods that can be retrieved for a chart with the m5 period. If the property does not exist, the m5 period is not supported.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>QUERYDEPTH_3</p></td>
+    <td class="tmain"><p>The property contains the maximal number of periods that can be retrieved for a chart with the m15 period. If the property does not exist, the m15 period is not supported.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>QUERYDEPTH_4</p></td>
+    <td class="tmain"><p>The property contains the maximal number of periods that can be retrieved for a chart with the m30 period. If the property does not exist, the m30 period is not supported.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>QUERYDEPTH_5</p></td>
+    <td class="tmain"><p>The property contains the maximal number of periods that can be retrieved for a chart with the h1 period. If the property does not exist, the h1 period is not supported.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>QUERYDEPTH_6</p></td>
+    <td class="tmain"><p>The property contains the maximal number of periods that can be retrieved for a chart with the d1 period. If the property does not exist, the d1 period is not supported.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>QUERYDEPTH_7</p></td>
+    <td class="tmain"><p>The property contains the maximal number of periods that can be retrieved for a chart with the w1 period. If the property does not exist, the w1 period is not supported</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>QUERYDEPTH_8</p></td>
+    <td class="tmain"><p>The property contains the maximal number of periods that can be retrieved for a chart with the M1 period. If the property does not exist, the M1 period is not supported.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>QUERYDEPTH_h2</p></td>
+    <td class="tmain"><p>The property contains the maximal number of periods that can be retrieved for a chart with the h2 period. If the property does not exist, the h2 period is not supported.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>QUERYDEPTH_h3</p></td>
+    <td class="tmain"><p>The property contains the maximal number of periods that can be retrieved for a chart with the h3 period. If the property does not exist, the h3 period is not supported.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>QUERYDEPTH_h4</p></td>
+    <td class="tmain"><p>The property contains the maximal number of periods that can be retrieved for a chart with the h4 period. If the property does not exist, the h4 period is not supported.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>QUERYDEPTH_h6</p></td>
+    <td class="tmain"><p>The property contains the maximal number of periods that can be retrieved for a chart with the h6 period. If the property does not exist, the h6 period is not supported.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>QUERYDEPTH_h8</p></td>
+    <td class="tmain"><p>The property contains the maximal number of periods that can be retrieved for a chart with the h8 period. If the property does not exist, the h8 period is not supported.</p></td>
+  </tr>
+</table><p>The type defined in the <code>fxcore2.dll</code> assembly.
+The namespace is <a href="fxcore2.html"><code>fxcore2</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Properties</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GSystemPropertiesReader.Count.0.html">Count</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The number of properties in the system.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GSystemPropertiesReader.Properties.0.html">Properties</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The properties dictionary (read-only).</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

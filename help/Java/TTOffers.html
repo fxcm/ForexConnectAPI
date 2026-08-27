@@ -1,0 +1,367 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Offers (table)</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Offers (table)</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>This section describes the Offers table that contains information about trading instruments, current prices, and high/low trading day prices.</p>
+    <p><b>Details</b></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Name</p></td>
+    <td class="thdr"><p>Type</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>OfferID</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identification number of the instrument.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Instrument</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The symbol of the instrument. For example, <code>EUR/USD, USD/JPY, GBP/USD</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>QuoteID</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identification number of the pair of prices (bid and ask) the instrument can be traded at.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Bid</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The current market price the instrument can be sold at. In the case of FX instruments, it is expressed in the instrument
+counter currency per one unit of base currency. In the case of CFD instruments, it is expressed in the instrument native currency per one contract.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Ask</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The current market price the instrument can be bought at. In the case of FX instruments, it is expressed in the instrument
+counter currency per one unit of base currency. In the case of CFD instruments, it is expressed in the instrument native currency per one contract.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>BidTradable</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The usage of the bid price. It defines whether the bid price of the instrument is available for trading or not.
+The possible values are:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>T</code></p></td>
+    <td class="tmain"><p>The bid price is available for trading.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>I</code></p></td>
+    <td class="tmain"><p>The bid price is view only.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>N</code></p></td>
+    <td class="tmain"><p>The bid price is not available for trading.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>AskTradable</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The usage of the ask price. It defines whether the ask price of the instrument is available for trading or not.
+The possible values are:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>T</code></p></td>
+    <td class="tmain"><p>The ask price is available for trading.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>I</code></p></td>
+    <td class="tmain"><p>The ask price is view only.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>N</code></p></td>
+    <td class="tmain"><p>The ask price is not available for trading.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>High</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The highest ask price (buy price) of the instrument for the current trading day. In the case of FX instruments,
+it is expressed in the instrument counter currency per one unit of base currency. In the case of CFD instruments,
+it is expressed in the instrument native currency per one contract. A trading day is from
+17:00 through 17:00 Eastern Time (UTC-5).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Low</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The lowest bid price (sell price) of the instrument for the current trading day. In the case of FX instruments,
+it is expressed in the instrument counter currency per one unit of base currency. In the case of CFD instruments,
+it is expressed in the instrument native currency per one contract. A trading day is from
+17:00 through 17:00 Eastern Time (UTC-5).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>BuyInterest</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The interest amount added to the account balance for holding a one lot long (buy) position
+overnight. In the case of FX instruments, lot size is determined by the system base unit size.
+In the case of CFD instruments, lot size equals to one contract. The interest
+amount is expressed in the account currency and can be positive or negative.<br></p>
+<p><b>Note:</b> If the account base unit size differs from the system base unit size, to get the proper interest
+amount for the account, use the following formula:<br>
+<code>Offer.BuyInterest/SystemProperties.Base_Unit_Size* Account.Base_Unit_Size</code><br>
+This formula is applicable for FX instruments only.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>SellInterest</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The interest amount added to the account balance for holding a one lot short (sell) position
+overnight. In the case of FX instruments, lot size is determined by the system base unit size.
+In the case of CFD instruments, lot size equals to one contract. The interest
+amount is expressed in the account currency and can be positive or negative.<br></p>
+<p><b>Note:</b> If the account base unit size differs from the system base unit size, to get the proper interest
+amount for the account, use the following formula:<br>
+<code>Offer.SellInterest/SystemProperties.Base_Unit_Size* Account.Base_Unit_Size</code><br>
+This formula is applicable for FX instruments only.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Volume</p></td>
+    <td class="tmain"><p>Integer</p></td>
+    <td class="tmain"><p>The tick volume of the current minute. The value of this field represents the number of ticks happened during the current minute.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>ContractCurrency</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The base currency of the instrument (for example, <code>EUR</code> - in <code>EUR/USD</code>, <code>USD</code> - in <code>USD/JPY</code>, <code>GBP</code> - in <code>GBP/USD</code>, and so on).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Digits</p></td>
+    <td class="tmain"><p>Integer</p></td>
+    <td class="tmain"><p>The price precision of the instrument. It defines number of digits after the decimal point in the instrument price quote.
+For example, it is <code>5</code> for <code>EUR/USD</code> and <code>3</code> for <code>USD/JPY</code>. Therefore, price for <code>EUR/USD</code> instrument may look like <code>1.33187</code>,
+for <code>USD/JPY</code> instrument like <code>77.953</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>PointSize</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The size of one pip. It used to define the smallest move the instrument can make. In the case of FX instruments,
+it is expressed in the instrument counter currency. In the case of CFD instruments, it is expressed in
+the instrument native currency. The possible values are:</p><ul class="main">
+  <li><p><code>1.0</code>;</p></li>
+  <li><p><code>0.1</code>;</p></li>
+  <li><p><code>0.01</code>;</p></li>
+  <li><p><code>0.001</code>;</p></li>
+  <li><p><code>0.0001</code>;</p></li>
+  <li><p><code>0.00001</code>.</p></li>
+</ul><p>Different instruments have different pip values. For example, it is <code>0.0001</code> for <code>EUR/USD</code> and <code>0.01</code> for <code>USD/JPY</code>.<br></p>
+<p><b>Note:</b> For different instruments, the minimum possible change of the price could be 1 pip or a fraction of 1 pip.
+In the case of FX instruments, the pip is the minimal possible change of the second-to-last digit in a price quote.
+In the case of CFD instruments, the pip is the minimal possible change of the last digit in a price quote.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>SubscriptionStatus</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The subscription status.</p>
+<p>The possible values are:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>T</code></p></td>
+    <td class="tmain"><p>Available for trading.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>D</code></p></td>
+    <td class="tmain"><p>Disabled (applicable for the FXCM Trading Station only; orders can still be created, and <code>D</code>
+changes to <code>T</code>).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>V</code></p></td>
+    <td class="tmain"><p>View only.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TradingStatus</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The trading status.</p>
+<p>The possible values are:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>O</code></p></td>
+    <td class="tmain"><p>Open, in other words, the instrument is tradable.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>C</code></p></td>
+    <td class="tmain"><p>Closed, in other words, the instrument is not tradable.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>InstrumentType</p></td>
+    <td class="tmain"><p>Integer</p></td>
+    <td class="tmain"><p>The type of the instrument. The possible values are:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>1</code></p></td>
+    <td class="tmain"><p>Forex.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>2</code></p></td>
+    <td class="tmain"><p>Indices.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>3</code></p></td>
+    <td class="tmain"><p>Commodity.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>4</code></p></td>
+    <td class="tmain"><p>Treasury.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>5</code></p></td>
+    <td class="tmain"><p>Bullion.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>6</code></p></td>
+    <td class="tmain"><p>Shares.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>7</code></p></td>
+    <td class="tmain"><p>FXIndex.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>ContractMultiplier</p></td>
+    <td class="tmain"><p>Integer</p></td>
+    <td class="tmain"><p>The contract multiplier for some CFD instruments only. It is used  for simulation of the real-life trading conditions.
+For example, it is impossible to buy less than 25,000 lbs of copper on the market.
+Hence, the value of this field for Copper is <code>25000</code>.  In the case of FX instruments, the value of this field is <code>1</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>ValueDate</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The simulated delivery date. The date and time when the position opened in the instrument could be automatically closed.
+The value of this field is provided in the <code>yyyyMMdd</code> format.
+It is applicable only when instrument trades on account with the day netting trading mode (see <code>MaintenanceType</code> field in
+the <a href="TTAccounts.html">Accounts</a> table). Otherwise, the value of this field is blank.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Time</p></td>
+    <td class="tmain"><p>Date</p></td>
+    <td class="tmain"><p>The date and time of the last update of the instrument. The time zone is defined by the system properties
+<code>SERVER_TIME_UTC</code> and <code>BASE_TIME_ZONE</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>PipCost</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The cost of one pip per lot. It is expressed in the account currency and used to calculate the P/L
+value in the account currency. The size of one lot is returned by the <code>getBaseUnitSize</code> method of the <code>TradingSettingsProvider</code> object.<br>
+<b>Note:</b> It is a calculated field and is available only through the Table Manager.</p></td>
+  </tr>
+</table><p>
+      <center><a href="TradingTables.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

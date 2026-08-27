@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Report Request Parameters</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Report Request Parameters</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article describes the request parameters of the report.</p>
+    <p><b>Details</b></p><table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><p>Parameter name</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>reporttype</code></p></td>
+    <td class="tmain"><p>The report name. The value is <code>combined_account_statement</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>cn</code></p></td>
+    <td class="tmain"><p>The connection name of the database the report data is retrieved from. Your credentials and access rights are verified in this database.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>account</code></p></td>
+    <td class="tmain"><p>The identifier of the account (as it is displayed in the Trading Station) the report is requested for.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>from</code></p></td>
+    <td class="tmain"><p>The start date of the report statement period.</p>
+<p>If the start date is earlier than the account open date, the value is the account open date.</p>
+<p>The date has the format <code>YYYY-MM-DD hh:mm:ss</code>, where:</p><table class="tmain">
+  <tr>
+    <td class="tmain" width="1%"><p><code>YYYY</code></p></td>
+    <td class="tmain"><p>Year</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>MM</code></p></td>
+    <td class="tmain"><p>Month (01-12)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>DD</code></p></td>
+    <td class="tmain"><p>Day of month (01-31)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>hh</code></p></td>
+    <td class="tmain"><p>Hour (00-23)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>mm</code></p></td>
+    <td class="tmain"><p>Minute (00-59)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>ss</code></p></td>
+    <td class="tmain"><p>Second (00-59)</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>till</code></p></td>
+    <td class="tmain"><p>The end date of the report statement period.</p>
+<p>If the end date is earlier than the account open date, the value is the account open date.</p>
+<p>The date has the format <code>YYYY-MM-DD hh:mm:ss</code>, where:</p><table class="tmain">
+  <tr>
+    <td class="tmain" width="1%"><p><code>YYYY</code></p></td>
+    <td class="tmain"><p>Year</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>MM</code></p></td>
+    <td class="tmain"><p>Month (01-12)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>DD</code></p></td>
+    <td class="tmain"><p>Day of month (01-31)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>hh</code></p></td>
+    <td class="tmain"><p>Hour (00-23)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>mm</code></p></td>
+    <td class="tmain"><p>Minute (00-59)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>ss</code></p></td>
+    <td class="tmain"><p>Second (00-59)</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>timeformat</code></p></td>
+    <td class="tmain"><p>The time zone used to display the date and time in the report. This parameter is optional. Possible values:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>Server</code></p></td>
+    <td class="tmain"><p>The time zone of the server. If the <code>tzname</code> parameter is used, it is ignored.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>UTC</code></p></td>
+    <td class="tmain"><p>The Coordinated Universal Time time zone. If the <code>tzname</code> parameter is used, it is ignored.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>Financial</code></p></td>
+    <td class="tmain"><p>Counts 17:00 New York time as 00:00 and displays the date and time as if 17:00 were midnight.
+If the <code>tzname</code> parameter is used, it is ignored.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>Local</code></p></td>
+    <td class="tmain"><p>The time zone of the local device. For this value, the <code>tzname</code> parameter is used.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>tzname</code></p></td>
+    <td class="tmain"><p>The user time zone named according to the rules described in
+<a href="http://en.wikipedia.org/wiki/Tz_database" target="_blank">Wikipedia</a>, see <b>Names of time zones</b>.
+This parameter is optional. It has sense only when the <code>timeformat</code> value is <code>Local</code>.<br>
+Example: <code>America/New_York</code></p></td>
+  </tr>
+</table><div id="open40" style="display:inline">
+  <p>Example:&nbsp;<a href="javascript: showdiv('close40'); hidediv('open40');" onclick="javascript: showdiv('close40'); hidediv('open40');">[show]</a></p>
+</div>
+<div id="close40" style="display:none">
+  <p>Example:&nbsp;<a href="javascript: showdiv('open40'); hidediv('close40');" onclick="javascript: showdiv('open40'); hidediv('close40');">[hide]</a></p>
+  <pre class="example">&lt;rdf:report xmlns:rdf=&quot;http://re.fxcm.com/2008/2.0/format-xml&quot;&gt;
+    &lt;rdf:parameters&gt;
+        &lt;rdf:parameter name=&quot;reporttype&quot;&gt;combined_account_statement&lt;/rdf:parameter&gt;
+        &lt;rdf:parameter name=&quot;cn&quot;&gt;100KREAL&lt;/rdf:parameter&gt;
+        &lt;rdf:parameter name=&quot;account&quot;&gt;05051721&lt;/rdf:parameter&gt;
+        &lt;rdf:parameter name=&quot;from&quot;&gt;2010-01-31 17:00:00&lt;/rdf:parameter&gt;
+        &lt;rdf:parameter name=&quot;till&quot;&gt;2010-02-01 10:28:22&lt;/rdf:parameter&gt;
+        &lt;rdf:parameter name=&quot;time_format&quot;&gt;Local&lt;/rdf:parameter&gt;
+        &lt;rdf:parameter name=&quot;time_zone&quot;&gt;America/New_York&lt;/rdf:parameter&gt;
+    &lt;/rdf:parameters&gt;
+    ...
+&lt;/rdf:report&gt;</pre>
+</div><p>
+      <center><a href="CAS.ReportView.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

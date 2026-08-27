@@ -1,0 +1,212 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>TableListener</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>TableListener</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="IO2GTableListener.html"><code>AO2GTableListener</code></a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The class implements the abstract class <a href="IO2GTableListener.html"><code>AO2GTableListener</code></a> and calls the passed functions on the appropriate trading tables events: adding/changing/deleting of rows and table status changes.</p>
+    <p><b>Details</b></p><p>An instance of the class is created when the method
+<a href="forexconnect.exceptions.Common.Common.subscribeTableUpdates.html"><code>Common.subscribe_table_updates</code></a> is called.
+The instance is created with the callback functions passed in the method and is subscribed to updates of a certain table.</p>
+<p>To process notifications on the appropriate trading tables events: adding/changing/deleting of rows and table status changes,
+create an instance of the class using the method
+<a href="forexconnect.exceptions.Common.Common.createTableListener.html"><code>Common.createTableListener</code></a>
+and subscribe it to a certain table using the method
+<a href="forexconnect.TableListener.TableListener.subscribe.html"><code>subscribe</code></a>.</p>
+<p>The instance of <code>TableListener</code> will call the appropriate callback function passed in the constructor when one of the following methods
+is called: <a href="forexconnect.TableListener.TableListener.onAdded.html"><code>on_added</code></a>,
+<a href="forexconnect.TableListener.TableListener.onChanged.html"><code>on_changed</code></a>,
+<a href="forexconnect.TableListener.TableListener.onDeleted.html"><code>on_deleted</code></a>,
+<a href="forexconnect.TableListener.TableListener.onStatusChanged.html"><code>on_status_changed</code></a>.</p>
+<p>When the listener is not needed anymore or before the logout, unsubscribe the listener using the method <a href="forexconnect.TableListener.TableListener.unsubscribe.html"><code>unsubscribe</code></a>.</p>
+<p><b>Note:</b> You <b>must not</b> use the method <a href="forexconnect.TableListener.TableListener.unsubscribe.html"><code>unsubscribe</code></a>
+while any of the callback functions is being called.</p>
+<p>The module is <code>forexconnect</code>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.TableListener.TableListener.init.html">__init__</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constructor.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.TableListener.TableListener.onAdded.html">on_added</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Implements the method <a href="IO2GTableListener.IO2GTableListener.onAdded.html"><code>AO2GTableListener.on_added</code></a> and calls the function that processes notifications about the row addition to a table. The function is passed in the constructor.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.TableListener.TableListener.onChanged.html">on_changed</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Implements the method <a href="IO2GTableListener.IO2GTableListener.onChanged.html"><code>AO2GTableListener.on_changed</code></a> and calls the function that processes notifications about the row change in a table. The function is passed in the constructor.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.TableListener.TableListener.onDeleted.html">on_deleted</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Implements the method <a href="IO2GTableListener.IO2GTableListener.onDeleted.html"><code>AO2GTableListener.on_deleted</code></a> and calls the function that processes notifications about the row deletion from a table. The function is passed in the constructor.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.TableListener.TableListener.onStatusChanged.html">on_status_changed</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Implements the method <a href="IO2GTableListener.IO2GTableListener.onStatusChanged.html"><code>AO2GTableListener.on_status_changed</code></a> and calls the function that processes notifications about the table status change. The function is passed in the constructor.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.TableListener.TableListener.subscribe.html">subscribe</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Subscribes a table listener to updates of a certain table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.TableListener.TableListener.unsubscribe.html">unsubscribe</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Unsubscribes a table listener from table updates.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="module_forexconnect.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

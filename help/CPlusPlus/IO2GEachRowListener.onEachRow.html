@@ -1,0 +1,239 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GEachRowListener.onEachRow</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>IO2GEachRowListener.onEachRow</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Processes iteration through rows of a table.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">C++</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code>virtual&nbsp;void&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>onEachRow</b> (const char * rowID, <a href="IO2GRow.html">IO2GRow</a> * rowData)  = 0</code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>rowID</code></td>
+    <td class="tmain" width="69%"><p>The identifier of a row. The parameter has the value of the row identifier for a specific <a href="TradingTables.html">trading table</a>.
+For example, for the <a href="TTAccounts.html">Accounts</a> table, it has the value of the AccountID field. The complete list of the identifiers is shown below.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>rowData</code></td>
+    <td class="tmain" width="69%"><p>The object representing a row of a table. In order to process the parameter, you need to know what table it belongs to. It can be accomplished by calling
+the <a href="IO2GRow.html"><code>O2GRow</code></a>.<a href="IO2GRow.getTableType.html"><code>getTableType</code></a> method. After that, you must cast the parameter to an appropriate class.
+For example, for a row of the <a href="TTAccounts.html">Accounts</a> table, use the <a href="IO2GAccountTableRow.html"><code>IO2GAccountTableRow</code></a> class.
+The complete list of the classes is shown below.</p></td>
+  </tr>
+</table><p><b>Details</b></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Table name</p></td>
+    <td class="thdr"><p><code>rowID</code></p></td>
+    <td class="thdr"><p>Cast <code>rowData</code> to</p></td>
+    <td class="thdr"><p>Casting syntax</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTAccounts.html">Accounts</a></p></td>
+    <td class="tmain"><p>AccountID</p></td>
+    <td class="tmain"><p><a href="IO2GAccountTableRow.html"><code>IO2GAccountTableRow</code></a></p></td>
+    <td class="tmain"><p><code>IO2GAccountTableRow *row = (IO2GAccountTableRow *)(rowData);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTOffers.html">Offers</a></p></td>
+    <td class="tmain"><p>OfferID</p></td>
+    <td class="tmain"><p><a href="IO2GOfferTableRow.html"><code>IO2GOfferTableRow</code></a></p></td>
+    <td class="tmain"><p><code>IO2GOfferTableRow *row = (IO2GOfferTableRow *)(rowData);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTTrades.html">Trades</a></p></td>
+    <td class="tmain"><p>TradeID</p></td>
+    <td class="tmain"><p><a href="IO2GTradeTableRow.html"><code>IO2GTradeTableRow</code></a></p></td>
+    <td class="tmain"><p><code>IO2GTradeTableRow *row = (IO2GTradeTableRow *)(rowData);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTClosedTrades.html">ClosedTrades</a></p></td>
+    <td class="tmain"><p>TradeID</p></td>
+    <td class="tmain"><p><a href="IO2GClosedTradeTableRow.html"><code>IO2GClosedTradeTableRow</code></a></p></td>
+    <td class="tmain"><p><code>IO2GClosedTradeTableRow *row = (IO2GClosedTradeTableRow *)(rowData);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTOrders.html">Orders</a></p></td>
+    <td class="tmain"><p>OrderID</p></td>
+    <td class="tmain"><p><a href="IO2GOrderTableRow.html"><code>IO2GOrderTableRow</code></a></p></td>
+    <td class="tmain"><p><code>IO2GOrderTableRow *row = (IO2GOrderTableRow *)(rowData);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTMessages.html">Messages</a></p></td>
+    <td class="tmain"><p>MsgID</p></td>
+    <td class="tmain"><p><a href="IO2GMessageTableRow.html"><code>IO2GMessageTableRow</code></a></p></td>
+    <td class="tmain"><p><code>IO2GMessageTableRow *row = (IO2GMessageTableRow *)(rowData);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTSummary.html">Summary</a></p></td>
+    <td class="tmain"><p>OfferID</p></td>
+    <td class="tmain"><p><a href="IO2GSummaryTableRow.html"><code>IO2GSummaryTableRow </code></a></p></td>
+    <td class="tmain"><p><code>IO2GSummaryTableRow *row = (IO2GSummaryTableRow *)(rowData);</code></p></td>
+  </tr>
+</table><p>To get notifications about iteration through each row of a specific table, an instance of the class implementing
+the <code>IO2GEachRowListener</code> interface must be passed to the <a href="IO2GTable.html"><code>IO2GTable</code></a>.<a href="IO2GTable.forEachRow.html"><code>forEachRow</code></a> method as an argument.
+For example, if you want to get notifications about iteration through the rows of the <a href="TTTrades.html">Trades</a> table, write the following line:<br></p>
+<p><code>tradesTable-&gt;forEachRow(forEachListener);</code><br></p>
+<p>For the method implementation details, see the example below.</p>
+<p><b>Example</b></p><div id="open130" style="display:none">
+  <p>Process iteration through the rows of the Trades table&nbsp;<a href="javascript: showdiv('close130'); hidediv('open130');" onclick="javascript: showdiv('close130'); hidediv('open130');">[show]</a></p>
+</div>
+<div id="close130" style="display:inline">
+  <p>Process iteration through the rows of the Trades table&nbsp;<a href="javascript: showdiv('open130'); hidediv('close130');" onclick="javascript: showdiv('open130'); hidediv('close130');">[hide]</a></p>
+  <pre class="example"><b>// Create session which uses table manager</b>
+mSession = ÑO2GTransport::createSession();
+mSession-&gt;useTableManager(Yes, NULL);
+ 
+<b>//...
+// After the login, get instances of the table manager and Trades table</b>
+O2G2Ptr&lt;IO2GTableManager&gt; tableManager = mSession-&gt;getTableManager();
+O2G2Ptr&lt;IO2GTradesTable&gt; tradesTable = (IO2GTradesTable *)tableManager-&gt;getTable(Trades);
+ 
+<b>// ...
+// Iterate through the rows of the Trades table</b>
+O2G2Ptr&lt;EachRowListener&gt; eachRowListener = new EachRowListener();
+tradesTable-&gt;forEachRow(eachRowListener);
+ 
+ 
+<b>// Implementation of IO2GEachRowListener interface public method onEachRow</b>
+void EachRowListener::onEachRow(const char * rowID, IO2GRow * rowData)
+{
+    O2G2Ptr&lt;IO2GTradeTableRow&gt; trade = (IO2GTradeTableRow *)(rowData);
+    std::cout &lt;&lt; &quot;Iterating through the row &quot; &lt;&lt; rowID &lt;&lt; std::endl;
+    std::cout &lt;&lt; &quot;TradeID: &quot; &lt;&lt; trade-&gt;getTradeID() &lt;&lt;
+                 &quot; Close = &quot; &lt;&lt; trade-&gt;getClose() &lt;&lt; std::endl;
+}</pre>
+</div><p>Declared in <a href="IO2GEachRowListener.html">IO2GEachRowListener</a></p>
+<p>
+  <center><a href="IO2GEachRowListener.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'IO2GEachRowListener.html');</script></body>
+</html>

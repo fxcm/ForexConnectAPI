@@ -1,0 +1,529 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GClosedTradeTableRow</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>IO2GClosedTradeTableRow</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="IO2GClosedTradeRow.html">IO2GClosedTradeRow</a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The class provides access to the closed position information.</p>
+    <p><b>Details</b></p><p>The class represents a single row of the <a href="TTClosedTrades.html">Closed Trades</a> table.</p>
+<p><b>Prerequisites</b></p>
+<p>The class is available only through the use of the <a href="IO2GTableManager.html"><code>IO2GTableManager</code></a>. An <a href="IO2GTableManager.html"><code>IO2GTableManager</code></a>
+object must have the <a href="O2GTableManagerStatus.html">O2GTableManagerStatus</a>.<a href="O2GTableManagerStatus.TablesLoaded.0.html">TablesLoaded</a> status.<br>
+For complete instructions on the table manager usage, see the
+<a href="table_manager_use_c.html">How to use table manager in ForexConnect API</a> section.<br>
+After tables are loaded, you must obtain an instance of the <a href="IO2GClosedTradesTable.html"><code>IO2GClosedTradesTable</code></a> class. For example,<br></p>
+<p><code>O2GClosedTradesTable closedTradesTable = (O2GClosedTradesTable)tableManager.getTable(O2GTable::ClosedTrades);</code></p>
+<p><b>Instantiating the class</b></p>
+<p>If you need access to the current closed position information, get an instance of the class by calling any of the following methods of the
+<a href="IO2GClosedTradesTable.html"><code>IO2GClosedTradesTable</code></a> class:<br></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p><code>IO2GClosedTradesTable</code> method</p></td>
+    <td class="thdr"><p>Syntax example</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GClosedTradesTable.getRow.html"><code>getRow</code></a></p></td>
+    <td class="tmain"><p><code>IO2GClosedTradeTableRow *closedTrade = closedTradesTable-&gt;getRow(i);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GClosedTradesTable.findRow.html"><code>findRow</code></a></p></td>
+    <td class="tmain"><p><code>IO2GClosedTradeTableRow *closedTrade = NULL;<br>
+bool bFound = closedTradesTable-&gt;findRow(mTradeID, closedTrade);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GClosedTradesTable.getNextRow.html"><code>getNextRow</code></a></p></td>
+    <td class="tmain"><p><code>IO2GClosedTradeTableRow *closedTrade = NULL;<br>
+bool bFound = closedTradesTable-&gt;getNextRow(mIterator, closedTrade);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GClosedTradesTable.getNextRowByColumnValue.html"><code>getNextRowByColumnValue</code></a></p></td>
+    <td class="tmain"><p><code>IO2GClosedTradeTableRow *closedTrade = NULL;<br>
+bool bFound = closedTradesTable-&gt;getNextRowByColumnValue(&quot;OfferID&quot;, (void *)mOfferID, mIterator, closedTrade);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GClosedTradesTable.getNextRowByColumnValues.html"><code>getNextRowByColumnValues</code></a></p></td>
+    <td class="tmain"><p><code>IO2GClosedTradeTableRow *closedTrade = NULL;<br>
+O2GRelationalOperators operator = EqualTo;<br>
+const void *values[] = {(void *)&quot;12345&quot;, (void *)&quot;23456&quot;};<br>
+bool bFound = closedTradesTable-&gt;getNextRowByColumnValues(&quot;AccountID&quot;, 2, operator, values, mIterator, closedTrade);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GClosedTradesTable.getNextRowByMultiColumnValues.html"><code>getNextRowByMultiColumnValues</code></a></p></td>
+    <td class="tmain"><p><code>IO2GClosedTradeTableRow *closedTrade = NULL;<br>
+const char *names[] = {&quot;AccountID&quot;, &quot;OfferID&quot;};<br>
+O2GRelationalOperators operators[] = {EqualTo, EqualTo};<br>
+const void *values[] = {(void *)mAccountID, (void *)mOfferID};<br>
+bool bFound = closedTradesTable-&gt;getNextRowByMultiColumnValues(2, names, operators, values, mIterator, closedTrade);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GClosedTradesTable.getNextRowByCondition.html"><code>getNextRowByCondition</code></a></p></td>
+    <td class="tmain"><p><code>const char *name = {&quot;AccountID&quot;};<br>
+O2GRelationalOperators operator = {EqualTo};<br>
+const void *values[] = {(void *)mAccountID};<br>
+bool bFound = closedTradesTable-&gt;getNextRowByCondition(name, operator, values, mIterator, closedTrade);</code></p></td>
+  </tr>
+</table><p>If you want to track the <a href="TTClosedTrades.html">Closed Trades</a> table updates, your application must have a listener class that
+implements the <a href="IO2GTableListener.html"><code>IO2GTableListener</code></a> interface.
+An instance of the listener class must be subscribed to the table updates. Subscription to each update type is done individually.
+Before the logout, you must unsubscribe the listener from each update type separately. The examples of subscription/unsubscription syntax are listed below.</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p><code>IO2GTableListener</code> method</p></td>
+    <td class="thdr"><p>Subscribe syntax</p></td>
+    <td class="thdr"><p>Unsubscribe syntax</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GTableListener.onAdded.html"><code>onAdded</code></a></p></td>
+    <td class="tmain"><p><code>closedTradesTable.subscribeUpdate(O2GTableUpdateType.INSERT, tableListener);</code></p></td>
+    <td class="tmain"><p><code>closedTradesTable.unsubscribeUpdate(O2GTableUpdate
+Type.INSERT, tableListener);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GTableListener.onChanged.html"><code>onChanged</code></a></p></td>
+    <td class="tmain"><p><code>closedTradesTable.subscribeUpdate(O2GTableUpdateType.UPDATE, tableListener);</code></p></td>
+    <td class="tmain"><p><code>closedTradesTable.unsubscribeUpdate(O2GTableUpdateType.UPDATE, tableListener);</code></p></td>
+  </tr>
+</table><p>To instantiate the <code>O2GClosedTradeTableRow</code> class, cast the <code>rowData</code> parameter of the methods above to the
+<code>O2GClosedTradeTableRow</code> type. For example,</p>
+<p><code>O2GClosedTradeTableRow row = (O2GClosedTradeTableRow)(rowData);</code></p>
+<p><b>Example</b></p><div id="open127" style="display:inline">
+  <p>Get Trade ID, close rate and gross profit/loss&nbsp;<a href="javascript: showdiv('close127'); hidediv('open127');" onclick="javascript: showdiv('close127'); hidediv('open127');">[show]</a></p>
+</div>
+<div id="close127" style="display:none">
+  <p>Get Trade ID, close rate and gross profit/loss&nbsp;<a href="javascript: showdiv('open127'); hidediv('close127');" onclick="javascript: showdiv('open127'); hidediv('close127');">[hide]</a></p>
+  <pre class="example">    <b>// Get the instance of table manager</b>
+    O2G2Ptr&lt;IO2GTableManager&gt; tableManager = mSession-&gt;getTableManager();
+    while (tableManager-&gt;getStatus() != TableLoaded &amp;&amp;
+           tableManager-&gt;getStatus() != TablesLoadFailed)
+        uni::Sleep(50);
+ 
+ 
+    <b>// Get closed trades information</b>
+    if (tableManager-&gt;getStatus() == TablesLoaded)
+    {
+        O2G2Ptr&lt;IO2GClosedTradesTable&gt; closedTradeTable = (IO2GClosedTradesTable *)tableManager-&gt;getTable(ClosedTrades);
+        for (int i = 0; i &lt; closedTradeTable-&gt;size(); ++i)
+        {
+            O2G2Ptr&lt;IO2GClosedTradeTableRow&gt; closedTrade = closedTradeTable-&gt;getRow(i);
+            std::cout &lt;&lt; &quot;TradeID: &quot; &lt;&lt; closedTrade-&gt;getTradeID() &lt;&lt;
+                         &quot; CloseRate = &quot; &lt;&lt; closedTrade-&gt;getCloseRate() &lt;&lt;
+                         &quot; GrossPL= &quot; &lt;&lt; closedTrade-&gt;getGrossPL() &lt;&lt; std::endl;
+        }
+ 
+        <b>// Subscribe table listener</b>
+        O2G2Ptr&lt;TableListener&gt; tableListener = new TableListener();
+        closedTradeTable-&gt;subscribeUpdate(Update, tableListener);
+        uni::WaitForSingleObject(tableListener-&gt;getUpdateEvent(), INFINITE);
+        closedTradeTable-&gt;unsubscribeUpdate(Update, tableListener);
+    }
+ 
+    <b>// Implementation of IO2GTableListener interface public method onChanged</b>
+    void TableListener::onChanged(const char * rowID, IO2GRow * rowData)
+    {
+        IO2GClosedTradeTableRow closedTrade = (O2GClosedTradeTableRow)(rowData);
+        std::cout &lt;&lt; &quot;Closed trade information changed &quot; &lt;&lt; rowID &lt;&lt; std::endl;
+        std::cout &lt;&lt; &quot;TradeID: &quot; &lt;&lt; closedTrade-&gt;getTradeID() &lt;&lt;
+                     &quot; CloseRate = &quot; &lt;&lt; closedTrade-&gt;getCloseRate() &lt;&lt;
+                     &quot; GrossPL= &quot; &lt;&lt; closedTrade-&gt;getGrossPL() &lt;&lt; std::endl;
+        uni::SetEvent(mUpdateEvent);
+    }
+ 
+    HANDLE TableListener::getUpdateEvent()
+    {
+        return mUpdateEvent;
+    }</pre>
+</div><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.columns.html">columns</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the columns of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getAccountID.html">getAccountID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the position account.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getAccountKind.html">getAccountKind</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of the position account.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getAccountName.html">getAccountName</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique name of the position account.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getAmount.html">getAmount</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the amount of a closed position.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getBuySell.html">getBuySell</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the trade operation the position is opened by.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getCell.html">getCell</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets value of a table cell.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getCloseOrderID.html">getCloseOrderID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the order the position is closed by.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getCloseOrderParties.html">getCloseOrderParties</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identifier of the environment that is used to close the position.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getCloseOrderReqID.html">getCloseOrderReqID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identifier of the order the position is closed by.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getCloseOrderRequestTXT.html">getCloseOrderRequestTXT</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the custom identifier of the order the position is closed by.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getCloseQuoteID.html">getCloseQuoteID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identifier of the pair of prices (bid and ask) the position is closed at.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getCloseRate.html">getCloseRate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the price the position is closed at.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getCloseTime.html">getCloseTime</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the date and time when the position is closed.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getCommission.html">getCommission</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the amount of funds subtracted from the account balance to pay for the broker's service in accordance with the terms and conditions of the account trading agreement.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getDividends.html">getDividends</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the cumulative amount of dividends earned or paid for the position. Applicable only to Index CFD positions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getGrossPL.html">getGrossPL</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the profit/loss of the position.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getOfferID.html">getOfferID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of a traded instrument.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getOpenOrderID.html">getOpenOrderID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the order the position is opened by.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getOpenOrderParties.html">getOpenOrderParties</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identifier of the environment that was used to open the position.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getOpenOrderReqID.html">getOpenOrderReqID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identifier of the order request the position is opened by.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getOpenOrderRequestTXT.html">getOpenOrderRequestTXT</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the custom identifier of the order the position is opened by.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getOpenQuoteID.html">getOpenQuoteID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identifier of the pair of prices (bid and ask) the position is opened at.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getOpenRate.html">getOpenRate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the price the position is opened at.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getOpenTime.html">getOpenTime</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the date and time when the position is opened.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getPL.html">getPL</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p> Gets the current profit/loss per one lot of the position.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getRolloverInterest.html">getRolloverInterest</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the cumulative amount of funds added to the account balance for holding a position opened overnight.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getTableType.html">getTableType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getTradeID.html">getTradeID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the position.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getTradeIDOrigin.html">getTradeIDOrigin</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the position, partial closing of which results in opening of the current position.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getTradeIDRemain.html">getTradeIDRemain</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the position opened as a result of the current position partial closing.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.getValueDate.html">getValueDate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the simulated delivery date.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GClosedTradeTableRow.isCellChanged.html">isCellChanged</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a flag indicating whether the value of the cell is changed.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="forexconnect.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

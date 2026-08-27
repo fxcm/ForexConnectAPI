@@ -1,0 +1,280 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GMessageRow</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>IO2GMessageRow</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="IO2GRow.html">IO2GRow</a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The class provides access to a message which is intended for the user.</p>
+    <p><b>Details</b></p><p>An instance of the class can be obtained by the following methods:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Method/Use</p></td>
+    <td class="thdr"><p>Prerequisites</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GMessagesTableResponseReader.html"><code>IO2GMessagesTableResponseReader</code></a>.<a href="IO2GMessagesTableResponseReader.getRow.html"><code>getRow</code></a><br></p>
+<p>This method is used to get an initial message after a session with the trading server is established.<br>
+This method provides access to a single message. To get multiple messages, call this method in a loop.</p></td>
+    <td class="tmain"><p>If your application does nor use the IO2GTableManager you should get the Messages table updates analogously to updates of the other tables (Orders table, Trades table). Use the method <a href="IO2GTablesUpdatesReader.getMessageRow.html"><code>getMessageRow</code></a> of the class <a href="IO2GTablesUpdatesReader.html"><code>IO2GTablesUpdatesReader</code></a>.<br></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GTablesUpdatesReader.html"><code>IO2GTablesUpdatesReader</code></a>.<a href="IO2GTablesUpdatesReader.getMessageRow.html"><code>getMessageRow</code></a><br></p>
+<p>This method is used to get information about a message received during a session lifetime.<br>
+This method provides access to a single message. To track multiple messages, call this method in a loop.</p></td>
+    <td class="tmain"><p>To receive the message information, you must implement the <a href="IO2GResponseListener.html"><code>IO2GResponseListener</code></a>.<a href="IO2GResponseListener.onTablesUpdates.0.html"><code>onTablesUpdates</code></a> method.
+The received <a href="IO2GResponse.html"><code>IO2GResponse</code></a> object is of the <a href="O2GResponseType.html"><code>O2GResponseType</code></a>.<a href="O2GResponseType.TablesUpdates.0.html"><code>TablesUpdates</code></a> type.<br></p>
+<p>You must parse this object by using the <a href="IO2GTablesUpdatesReader.html"><code>IO2GTablesUpdatesReader</code></a> object.<br></p>
+<p>For details, see the example below.</p></td>
+  </tr>
+</table><p><b>Example</b></p><div id="open137" style="display:inline">
+  <p>Get Messages information&nbsp;<a href="javascript: showdiv('close137'); hidediv('open137');" onclick="javascript: showdiv('close137'); hidediv('open137');">[show]</a></p>
+</div>
+<div id="close137" style="display:none">
+  <p>Get Messages information&nbsp;<a href="javascript: showdiv('open137'); hidediv('close137');" onclick="javascript: showdiv('open137'); hidediv('close137');">[hide]</a></p>
+  <pre class="example">     <b>// Implementation of IO2GResponseListener interface public method onTablesUpdates</b>
+     void ResponseListener::onTablesUpdates(IO2GResponse *response)
+     {
+        O2G2Ptr&lt;IO2GResponseReaderFactory&gt; factory = mSession-&gt;getResponseReaderFactory();
+        if (factory)
+        {
+            O2G2Ptr&lt;IO2GTablesUpdatesReader&gt; updatesReader = factory-&gt;createTablesUpdatesReader(response);
+            for (int i = 0; i &lt; updatesReader-&gt;size(); i++)
+            {
+                if (updatesReader-&gt;getUpdateTable(i) == Messages)
+                {
+                    O2G2Ptr&lt;IO2GMessageRow&gt; message = updatesReader-&gt;getMessageRow(i);
+                    std::cout &lt;&lt; &quot; This is a live message: \nFrom = &quot; &lt;&lt; message-&gt;getFrom() &lt;&lt;
+                                 &quot; Subject = &quot; &lt;&lt; message-&gt;getSubject() &lt;&lt;
+                                 &quot; Text= &quot; &lt;&lt; message-&gt;getText() &lt;&lt; std::endl;
+                }
+            }
+        }
+    }</pre>
+</div><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessageRow.columns.html">columns</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the columns of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessageRow.getCell.html">getCell</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets value of a table cell.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessageRow.getFeature.html">getFeature</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of the message content.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessageRow.getFrom.html">getFrom</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the login of the message sender.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessageRow.getHTMLFragmentFlag.html">getHTMLFragmentFlag</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the message is in the HTML format or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessageRow.getMsgID.html">getMsgID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the message.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessageRow.getSubject.html">getSubject</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the subject of the message.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessageRow.getTableType.html">getTableType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessageRow.getText.html">getText</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a text body of the message.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessageRow.getTime.html">getTime</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the date and time when the recipient receives the message.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessageRow.getType.html">getType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the message container.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessageRow.isCellChanged.html">isCellChanged</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a flag indicating whether the value of the cell is changed.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="forexconnect.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

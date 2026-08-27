@@ -1,0 +1,167 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Quotes Manager API</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Quotes Manager API</b></font>
+    </p><p>This section provides detailed information about Quotes Manager API.</p>
+<p>The <b>Quotes Manager API</b> provides fast and efficient access to historical price data
+up to the end of the last trading week.</p>
+<p>The Quotes Manager API has the following advantages:</p><ul class="main">
+  <li><p>The new effective protocol allows to transmit big amounts of data faster and
+with less traffic usage than the ForexConnect API.</p></li>
+  <li><p>The caching mechanism allows to keep previously loaded data locally, so, the application
+will not request the same data again, which also increases speed and reduces traffic usage.</p></li>
+  <li><p>Unlike the ForexConnect API that can load only a limited set of timeframes,
+the Quotes Manager API can load data of any correct timeframe.</p></li>
+  <li><p>Loading data via the Quotes Manager API does not require a trading connection.</p></li>
+  <li><p>The Quotes Manager API provides any reasonable history (up to millions of bars) as one piece,
+unlike the ForexConnect API, which returns histories in 300-1000 bar pieces at a
+time (depending on the server configuration).</p></li>
+</ul><p>The Quotes Manager API has the following disadvantages:</p><ul class="main">
+  <li><p>Only generic Demo prices can be loaded via the Quotes Manager API. To get Real prices, the ForexConnect
+connection is required.</p></li>
+  <li><p>Only bar data can be loaded. Tick data must be loaded via the ForexConnect API.</p></li>
+  <li><p>Only price data of the last trading week or older can be loaded. The current trading week data must be loaded
+via the ForexConnect API and then joined with the Quotes Manager data.</p></li>
+  <li><p>The Quotes Manager API requires significant storage space to keep the cached data and additional process time to
+handle it. This makes the Quotes Manager API available only for desktop platforms, where these requirements
+are insignificant.</p></li>
+  <li><p>The Quotes Manager API is more complex and is not similar to the ForexConnect API, so developers need to learn a new API and/or
+heavily modify their applications in order to use the Quotes Manager API.</p></li>
+</ul><p>See also: <a href="img/qm1.png">Quotes Manager API classes UML diagram</a></p><p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Groups</b></td>
+      </tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="quotesmanager_intro.html">Introduction</a></p>
+    <p></p>
+  </td>
+</tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="howto_quotesmgr.html">How-to</a></p>
+    <p>The section describes how to use Quotes Manager API</p>
+  </td>
+</tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="quotesmgr.html">Package com.candleworks.quotesmgr</a></p>
+    <p></p>
+  </td>
+</tr></table>
+    <p>
+      <center><a href="index.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

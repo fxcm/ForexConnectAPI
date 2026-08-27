@@ -1,0 +1,148 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Introduction</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Introduction</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article explains the general principles of API usage.</p>
+    <p><b>Details</b></p><p>All APIs used by ForexConnect are asynchronous, therefore, you have to implement an event-driven architecture in your code.<br><br>
+An event-driven architecture is a software architecture pattern that manages the behavior of production,
+detection, and consumption of events, as well as the responses they evoke. In this context, an event should be treated as some value or message
+that can be identified within an ongoing stream of monitored inputs, such as specific conditions or signals or something else.<br><br>
+Event-driven architectures usually consist of event producers and event consumers. Event consumers subscribe to some event manager and publish
+to this manager. When a manager receives an event from a producer, it forwards this event to all registered consumers or stores the event for
+later forwarding.<br><br>
+An event handler is a callback routine that operates asynchronously and handles inputs received into a program (events).
+In this context, an event is some meaningful element of application information from an underlying development framework,
+usually from a graphical user interface (GUI) toolkit or some kind of an input routine. On the GUI side, for example, events include key strokes,
+mouse activity, action selections, or timer expirations. On the input side, events include opening or closing files and data streams,
+reading data and so on.<br><br>
+Event handling is the receipt of an event from an event producer by some event handler and subsequent processes. The processes involved in event
+handling include:</p><ul class="main">
+  <li><p>Identifying where to forwarded an event.</p></li>
+  <li><p>Forwarding the event.</p></li>
+  <li><p>Receiving the forwarded event.</p></li>
+  <li><p>Taking some kind of appropriate action in response, such as writing to a log.</p></li>
+  <li><p>Sending an error or recovery routine or a message.</p></li>
+  <li><p>The event handler can ultimately forward the event to an event consumer.</p></li>
+</ul><p>The benefit of event-driven architectures is that they enable arbitrarily large collections of consumers and producers,
+along with some number of managers, to exchange ongoing status and response information. They are also usually fairly responsive
+to events as they occur, and work well in unpredictable and asynchronous communication environments.
+<br><br></p><p>
+      <center><a href="forexconnect.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

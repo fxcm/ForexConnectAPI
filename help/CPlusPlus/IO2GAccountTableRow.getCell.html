@@ -1,0 +1,257 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GAccountTableRow.getCell</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>IO2GAccountTableRow.getCell</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Gets value of a table cell.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">C++</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code>virtual&nbsp;const void *&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>getCell</b> (int column)  = 0</code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>column</code></td>
+    <td class="tmain" width="69%"><p>The index of the column. The index should be between <code>0</code> and
+<a href="IO2GRow.columns.html"><code>columns()</code></a>.<a href="IO2GTableColumnCollection.size.html"><code>size()</code></a><code> - 1</code>.</p></td>
+  </tr>
+</table><p><b>Returns</b></p><p>Returns the cell value that can be of different types. To determine a type, it is necessary to
+get a column by using the <a href="IO2GGenericTableResponseReader.columns.html"><code>IO2GGenericTableResponseReader.columns</code></a>
+and the <a href="IO2GTableColumnCollection.get.html"><code>IO2GTableColumnCollection.get</code></a> methods. The index passed to the latter
+method should be the same as the column parameter.
+The type of value is defined by using the <a href="IO2GTableColumn.getType.html"><code>IO2GTableColumn.getType</code></a> method.
+The <a href="IO2GTableColumn_O2GTableColumnType.html"><code>IO2GTableColumn::O2GTableColumnType</code></a> enumerator returned
+by the above method contains the returned value type. A client application must cast void* data to the returned type
+and copy the value.<br>
+<b>Column types and cast operations:</b></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Column type</p></td>
+    <td class="thdr"><p>getCell value</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>IO2GTableColumn.Integer</code></p></td>
+    <td class="tmain"><p>The method returns a pointer to a 32-bit integer value on a 32-bit operation system or a 64 bit integer on a 64-bit system.<br>
+Cast operation:  <code>int value = *(int*)reader.getCell(columnIndex);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>IO2GTableColumn.Double</code></p></td>
+    <td class="tmain"><p>The method returns a pointer to a 64-bit floating-point value.<br>
+Cast operation:<code> double value = *(double*)reader.getCell(column);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>IO2GTableColumn.Boolean</code></p></td>
+    <td class="tmain"><p>The method returns a pointer to a boolean value.<br>
+Cast operation:<code> bool value = *(bool*)reader.getCell(column);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>IO2GTableColumn.Date</code></p></td>
+    <td class="tmain"><p>The method returns a pointer to a 64-bit floating-point value.<br>
+Cast operation:<code> double OLEdate= *(double*)reader.getCell(column);</code></p>
+<p>The date is in the OLE Automation Date format.
+An OLE Automation date is implemented as a floating-point
+number whose integral component is the number of days before or after
+midnight, December 30, 1899, and whose fractional component represents
+the time on that day divided by 24.</p>
+<p>If it is not specified explicitly, all the date/time values are in the UTC time zone.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>IO2GTableColumn.String</code></p></td>
+    <td class="tmain"><p>The method returns a pointer to a zero-terminated ASCII string.<br>
+Cast operation: <code>std::string value = (const char*)reader.getCell(column);</code></p></td>
+  </tr>
+</table><p><b>Details</b></p><p>The method is used to work with an abstract table. The method provides common access to a row value independently of
+a row type (a table type).</p>
+<p><b>Example</b></p><div id="open113" style="display:none">
+  <p>Example of using getCell&nbsp;<a href="javascript: showdiv('close113'); hidediv('open113');" onclick="javascript: showdiv('close113'); hidediv('open113');">[show]</a></p>
+</div>
+<div id="close113" style="display:inline">
+  <p>Example of using getCell&nbsp;<a href="javascript: showdiv('open113'); hidediv('close113');" onclick="javascript: showdiv('open113'); hidediv('close113');">[hide]</a></p>
+  <pre class="example">void EachRowListener::onEachRow(const char *sRowID, IO2GRow *row)
+{
+    if (row-&gt;getTableType() == Orders)
+    {
+        IO2GOrderTableRow *order = dynamic_cast&lt;IO2GOrderTableRow *&gt;(row);
+        if (!mAccountID || strlen(mAccountID) == 0 ||
+                strcmp(mAccountID, order-&gt;getAccountID()) == 0)
+        {
+            int columnsCount = order-&gt;columns()-&gt;size();
+            for (int i = 0; i &lt; columnsCount; ++i)
+            {
+                const void* value = row-&gt;getCell(i);
+                O2G2Ptr&lt;IO2GTableColumn&gt; column = row-&gt;columns()-&gt;get(i);
+                switch (column-&gt;getType())
+                {
+                case IO2GTableColumn::Integer:
+                {
+                    int iValue = *(const int*)(value);
+                    std::cout &lt;&lt; column-&gt;getID() &lt;&lt; &quot;=&quot; &lt;&lt; iValue;
+                }
+                break;
+                case IO2GTableColumn::Double:
+                {
+                    double dValue = *(const double*)(value);
+                    std::cout &lt;&lt; column-&gt;getID() &lt;&lt; &quot;=&quot; &lt;&lt; dValue;
+                }
+                break;
+                case IO2GTableColumn::Boolean:
+                {
+                    bool bValue = *(const bool*)(value);
+                    const char* value = bValue ? &quot;True&quot; : &quot;False&quot;;
+                    std::cout &lt;&lt; column-&gt;getID() &lt;&lt; &quot;=&quot; &lt;&lt; value;
+                }
+                break;
+                case IO2GTableColumn::Date:
+               {
+                    char sDate[20];
+                    DATE date = *(DATE*)(value);
+                    formatDate(date, sDate);
+                    std::cout &lt;&lt; column-&gt;getID() &lt;&lt; &quot;=&quot; &lt;&lt; sDate;
+                }
+                break;
+                case IO2GTableColumn::String:
+                {
+                    const char* szValue = (const char*)value;
+                    std::cout &lt;&lt; column-&gt;getID() &lt;&lt; &quot;=&quot; &lt;&lt; szValue;
+                }
+                break;
+                }
+                std::cout &lt;&lt; &quot;; &quot;;
+            }
+            std::cout &lt;&lt; std::endl &lt;&lt; std::endl;
+        }
+    }
+}
+</pre>
+</div><p>Declared in <a href="IO2GRow.html">IO2GRow</a></p>
+<p>
+  <center><a href="IO2GAccountTableRow.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'IO2GAccountTableRow.html');</script></body>
+</html>

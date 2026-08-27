@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>controlled_accounts Table</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b><code>controlled_accounts</code> Table</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article describes the Controlled Account table of the report.</p>
+    <p><b>Details</b></p><p>The <i>Controlled Account</i> table contains information about all managed accounts mapped to the funds manager account.
+The information mainly includes the account balance at the start (<code>from</code>) and
+end (<code>till</code>) dates of the report statement period
+(see <a href="CAS.RequestParameters.html">Combined Account Statement: Report Request Parameters</a>).
+The identifier of the table is <code>controlled_accounts</code>.</p>
+<p>All data rows are arranged in ascending order by the managed account identifier (<code>controlled_account</code>).</p>
+<p>If no information is found for the report statement period, the table has only a header row.</p><table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><p>Column identifier</p></td>
+    <td class="thdr"><p>Column data type</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>controlled_account</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>The identifier of the managed account (as it is displayed in the Trading Station).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>beginning_balance</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The amount of funds in the managed account at the start date of the report statement period.
+The beginning balance does not reflect floating (unrealized) profit/loss.</p>
+<p>Note that if the account was mapped to the funds manager account after the start date
+of the report statement period, the beginning balance will be the actual balance of
+that account at the time of mapping.</p>
+<p>The beginning balance is expressed in the account denomination currency.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>ending_balance</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The amount of funds in the managed account at the end date of the report statement period.
+The ending balance does not reflect floating (unrealized) profit/loss.</p>
+<p>The ending balance is expressed in the account denomination currency.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>equity</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The amount of funds in the managed account at the end date of the report statement period.
+The equity reflects floating (unrealized) profit/loss.</p>
+<p>The equity is expressed in the account denomination currency.</p></td>
+  </tr>
+</table><div id="open74" style="display:inline">
+  <p>Example:&nbsp;<a href="javascript: showdiv('close74'); hidediv('open74');" onclick="javascript: showdiv('close74'); hidediv('open74');">[show]</a></p>
+</div>
+<div id="close74" style="display:none">
+  <p>Example:&nbsp;<a href="javascript: showdiv('open74'); hidediv('close74');" onclick="javascript: showdiv('open74'); hidediv('close74');">[hide]</a></p>
+  <pre class="example">&lt;rdf:table name=&quot;controlled_accounts&quot; description=&quot;CONTROLLED ACCOUNT&quot;&gt;
+   &lt;rdf:head&gt;
+       &lt;rdf:column name=&quot;controlled_account&quot; type=&quot;STRING&quot; description=&quot;Controlled Account&quot; /&gt;
+       &lt;rdf:column name=&quot;beginning_balance&quot; type=&quot;DOUBLE&quot; description=&quot;Beginning Balance&quot; /&gt;
+       &lt;rdf:column name=&quot;ending_balance&quot; type=&quot;DOUBLE&quot; description=&quot;Ending Balance&quot; /&gt;
+       &lt;rdf:column name=&quot;equity&quot; type=&quot;DOUBLE&quot; description=&quot;Equity&quot; /&gt;
+   &lt;/rdf:head&gt;
+   &lt;rdf:body&gt;
+       &lt;rdf:row&gt;
+           &lt;rdf:cell name=&quot;controlled_account&quot;&gt;05051995&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;beginning_balance&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;ending_balance&quot;&gt;9989.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;equity&quot;&gt;9989.00&lt;/rdf:cell&gt;
+       &lt;/rdf:row&gt;
+       ...
+   &lt;/rdf:body&gt;
+&lt;/rdf:table&gt;</pre>
+</div><p>
+      <center><a href="CAS.funds_manager.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

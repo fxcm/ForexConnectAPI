@@ -1,0 +1,538 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GOfferRow</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>O2GOfferRow</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="IO2GRow.html"><code>O2GRow</code></a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The class provides access to offer information.</p>
+    <p><b>Details</b></p><p>An instance of the class can be obtained by the following methods:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Method/Use</p></td>
+    <td class="thdr"><p>Prerequisites</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GGenericTableResponseReader.IO2GGenericTableResponseReader.getRow.html"><code>O2GGenericTableResponseReader.get_row</code></a><br>
+This method is used to get the initial offer information after a session with the trading server is established.<br>
+This method provides access to a single offer. If you want to receive information about multiple offers, call this method in a loop.</p></td>
+    <td class="tmain"><p>Depending on the trading server settings, the <a href="TTOffers.html">Offers</a> table may or may not be loaded by the server automatically during the login process.<br>
+To determine whether the table is loaded or not and what follow-up action is required to get the offer information, use the returned value of the <a href="IO2GLoginRules.html"><code>O2GLoginRules</code></a>.<a href="IO2GLoginRules.IO2GLoginRules.isTableLoadedByDefault.html"><code>is_table_loaded_by_default</code></a> method:<br></p><ul class="main">
+  <li><p>If the table is loaded, you can get the offer information by using the <a href="IO2GLoginRules.IO2GLoginRules.getTableRefreshResponse.html"><code>O2GLoginRules.get_table_refresh_response</code></a> method;</p></li>
+  <li><p>Otherwise, you must create a request to load the table by using the <a href="IO2GRequestFactory.IO2GRequestFactory.createRefreshTableRequest.html"><code>O2GRequestFactory.create_refresh_table_request</code></a> method.
+You must obtain a response to this request by implementing of the <a href="IO2GResponseListener.IO2GResponseListener.onRequestCompleted.html"><code>AO2GResponseListener.on_request_completed</code></a> method.</p></li>
+</ul><p>Both methods use the <a href="IO2GResponse.html"><code>O2GResponse</code></a> object of the <a href="O2GResponseType.O2GResponseType.GetOffers.html"><code>O2GResponseType.GetOffers</code></a> type.<br>
+You must parse this object by using the <a href="IO2GGenericTableResponseReader.html"><code>O2GGenericTableResponseReader</code></a> object.<br></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GTablesUpdatesReader.IO2GTablesUpdatesReader.getOfferRow.html"><code>O2GTablesUpdatesReader.get_offer_row</code></a><br></p>
+<p>This method is used to get offer information updates.<br>
+This method provides access to a single offer. If you need information about multiple offers, call this method in a loop.</p></td>
+    <td class="tmain"><p>To receive offer information updates, you must implement the <a href="IO2GResponseListener.IO2GResponseListener.onTablesUpdates.html"><code>AO2GResponseListener.on_tables_updates</code></a> method.
+The received <a href="IO2GResponse.html"><code>O2GResponse</code></a> object is of the <a href="O2GResponseType.O2GResponseType.TablesUpdates.html"><code>O2GResponseType.TablesUpdates</code></a> type.<br>
+You must parse this object by using the <a href="IO2GTablesUpdatesReader.html"><code>O2GTablesUpdatesReader</code></a> object.<br></p></td>
+  </tr>
+</table><p>The module is <code>forexconnect.fxcorepy</code></p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Properties</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.getAsk.html">ask</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the current market price an instrument can be bought at.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.getAskExpireDate.html">ask_expire_date</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the value_date field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.getAskTradable.html">ask_tradable</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the usage of an ask price.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.getBid.html">bid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the current market price an instrument can be sold at.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.getBidTradable.html">bid_tradable</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the usage of a bid price.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.getBuyInterest.html">buy_interest</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the interest amount applied to the account balance for holding a one lot long (buy) position opened overnight.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GRow.getColumns.html">columns</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the columns of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.getContractCurrency.html">contract_currency</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets currency for the Forex instrument and the counter currency for the CFD instrument depending on the instrument type: Forex or CFD. For example, EUR for EUR/USD and GBP for UK100/GBP</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.getContractMultiplier.html">contract_multiplier</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the contract multiplier for some CFD instruments only.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.getDigits.html">digits</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the instrument price precision.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.getHigh.html">high</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the highest ask price (buy price) of an instrument for the current trading day.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.getInstrument.html">instrument</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the symbol of an instrument.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.getInstrumentType.html">instrument_type</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of the instrument.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.getLow.html">low</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the lowest bid price (sell price) of an instrument for the current trading day.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.getOfferID.html">offer_id</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of an instrument.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.getPointSize.html">point_size</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the size of one pip.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.getQuoteID.html">quote_id</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identifier of the pair of prices (bid and ask) an instrument can be traded at.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.getSellInterest.html">sell_interest</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the interest amount applied to the account balance for holding a one lot short (sell) position opened overnight.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.getSubscriptionStatus.html">subscription_status</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the subscription status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GRow.getTableType.html">table_type</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.getTime.html">time</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the date and time of the last update of the instrument.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.getTradingStatus.html">trading_status</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the trading status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.getValueDate.html">value_date</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the simulated delivery date.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.getVolume.html">volume</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a tick volume of the current minute.</p>
+    </td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GRow.getCell.html">get_cell</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets value of a table cell.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.isAskTradableValid.html">is_ask_tradable_valid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the ask_tradable field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.isAskValid.html">is_ask_valid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the Ask field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.isBidTradableValid.html">is_bid_tradable_valid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the bid_tradable field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.isBidValid.html">is_bid_valid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the Bid field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.isBuyInterestValid.html">is_buy_interest_valid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the buy_interest field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GRow.isCellChanged.html">is_cell_changed</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a flag indicating whether the value of the cell is changed.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.isContractCurrencyValid.html">is_contract_currency_valid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the contract_currency field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.isContractMultiplierValid.html">is_contract_multiplier_valid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the contract_multiplier field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.isDigitsValid.html">is_digits_valid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the Digits field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.isHighValid.html">is_high_valid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the High field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.isInstrumentTypeValid.html">is_instrument_type_valid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the instrument_type field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.isInstrumentValid.html">is_instrument_valid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the Instrument field is valid.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.isLowValid.html">is_low_valid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the Low field is valid.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.isOfferIDValid.html">is_offer_id_valid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the Offer_id field is valid.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.isPointSizeValid.html">is_point_size_valid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the point_size field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.isQuoteIDValid.html">is_quote_id_valid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the quote_id field is valid.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.isSellInterestValid.html">is_sell_interest_valid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the sell_interest field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.isSubscriptionStatusValid.html">is_subscription_status_valid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the subscription_status field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.isTimeValid.html">is_time_valid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the date and time of the last instrument update is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.isTradingStatusValid.html">is_trading_status_valid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the trading_status field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferRow.IO2GOfferRow.isVolumeValid.html">is_volume_valid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the Volume field is valid or not.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="module_fxcorepy.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

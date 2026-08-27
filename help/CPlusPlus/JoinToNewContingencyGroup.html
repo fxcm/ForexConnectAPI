@@ -1,0 +1,267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Create Contingency Group</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Create Contingency Group</b></font>
+    </p><p>You can join two or more existing entry orders into a new contingency (OCO, OTO or ELS) group.</p>
+<p>To join orders into a contingency group:</p>
+<p>1) Create an <a href="IO2GValueMap.html"><code>IO2GValueMap</code></a> and fill only two fields:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Valuemap field</p></td>
+    <td class="thdr"><p>Datatype</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Command</p></td>
+    <td class="tmain"><p>const char *</p></td>
+    <td class="tmain"><p>The command. Must be <code>JoinToNewContingencyGroup</code>.</p>
+<p>The field is obligatory.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>ContingencyGroupType</p></td>
+    <td class="tmain"><p>int</p></td>
+    <td class="tmain"><p>The type of a new contingency group. Must be:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p>1</p></td>
+    <td class="tmain"><p>OCO group.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>2</p></td>
+    <td class="tmain"><p>OTO group.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>3</p></td>
+    <td class="tmain"><p>ELS group.</p></td>
+  </tr>
+</table><p>The field is obligatory.</p></td>
+  </tr>
+</table><p>2) Create an <a href="IO2GValueMap.html"><code>IO2GValueMap</code></a> for each entry order you want to add into the contingency group.
+Fill these value maps as:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Valuemap field</p></td>
+    <td class="thdr"><p>Datatype</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>AcctID</p></td>
+    <td class="tmain"><p>const char *</p></td>
+    <td class="tmain"><p>The identifier of the account which the order belongs to.</p>
+<p>The field is obligatory.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>OrderID</p></td>
+    <td class="tmain"><p>const char *</p></td>
+    <td class="tmain"><p>The identifier of the order to be included into the group.</p>
+<p>The order must exist, must be an entry order (LE or SE) and must be in the Waiting status.</p>
+<p>The field is obligatory.</p></td>
+  </tr>
+</table><p>3) Append each entry order valuemap to the main valuemap using the <a href="IO2GValueMap.appendChild.html"><code>IO2GValueMap.appendChild</code></a>
+method.</p>
+<p>For OTO and ELS groups, append the order that must be a root order of the contingency group first.</p>
+<p>4) Pass the main <code>valuemap</code> table to the createOrderRequest method.</p>
+<p>Limitations:</p>
+<p>1) All entry orders must be created for the same account.</p>
+<p>Returns:</p>
+<p>The createOrderRequest method will return an IO2GRequest (the main request) containing child requests.
+If 3 entry orders are created, 3 child requests will be returned.
+Note that you will receive responses to the child requests and will not receive a response to the main request.</p><div id="open80" style="display:none">
+  <p>Example: Create a new contingency group&nbsp;<a href="javascript: showdiv('close80'); hidediv('open80');" onclick="javascript: showdiv('close80'); hidediv('open80');">[show]</a></p>
+</div>
+<div id="close80" style="display:inline">
+  <p>Example: Create a new contingency group&nbsp;<a href="javascript: showdiv('open80'); hidediv('close80');" onclick="javascript: showdiv('open80'); hidediv('close80');">[hide]</a></p>
+  <pre class="example">  void CExample::prepareParamsFromLoginRules(IO2GLoginRules *loginRules)
+  {
+      mParams = new OrderCreationParam();
+ 
+      O2G2Ptr&lt;IO2GResponseReaderFactory&gt; factory = mSession-&gt;getResponseReaderFactory();
+      // Get first account from login
+      O2G2Ptr&lt;IO2GResponse&gt; accountsResponse = loginRules-&gt;getTableRefreshResponse(Accounts);
+      O2G2Ptr&lt;IO2GAccountsTableResponseReader&gt; accountsReader = factory-&gt;createAccountsTableReader(accountsResponse);
+      O2G2Ptr&lt;IO2GAccountRow&gt; account = accountsReader-&gt;getRow(0);
+      // Store account id
+      mParams-&gt;mAccountID = account-&gt;getAccountID();
+      // Store base amount
+      mParams-&gt;mBaseAmount = account-&gt;getBaseUnitSize();
+      // Get offers for eur/usd
+      O2G2Ptr&lt;IO2GResponse&gt; offerResponse = loginRules-&gt;getTableRefreshResponse(Offers);
+      O2G2Ptr&lt;IO2GOffersTableResponseReader&gt; offersReader = factory-&gt;createOffersTableReader(offerResponse);
+      for (int i = 0; i &lt; offersReader-&gt;size(); i++)
+      {
+          O2G2Ptr&lt;IO2GOfferRow&gt; offer = offersReader-&gt;getRow(i);
+          if (_stricmp(offer-&gt;getInstrument(), &quot;EUR/USD&quot;) == 0)
+          {
+              mParams-&gt;mOfferID = offer-&gt;getOfferID();
+              mParams-&gt;mAsk = offer-&gt;getAsk();
+              mParams-&gt;mBid = offer-&gt;getBid();
+              mParams-&gt;mPointSize = offer-&gt;getPointSize();
+              break;
+          }
+      }
+  }
+ 
+  // Helper method for creating valueMap for existing order
+  IO2GValueMap* CExample::existOrder(const char* orderID, const char* accountID)
+  {
+      using namespace O2G2;
+      O2G2Ptr&lt;IO2GRequestFactory&gt; factory = getRequestFactory();
+      if (factory)
+      {
+           IO2GValueMap* valuemap = factory-&gt;createValueMap();
+ 
+           valuemap-&gt;setString(OrderID, orderID);
+           valuemap-&gt;setString(AccountID, accountID);
+ 
+           return valuemap;
+      }
+  }
+ 
+  void CreateOrderSample::joinToNewContingencyGroup(const char* accountID, int contingencyType, const char* primaryID, const char* secID1, const char* secID2)
+  {
+      using namespace O2G2;
+      O2G2Ptr&lt;IO2GRequestFactory&gt; factory = mSession-&gt;getRequestFactory();
+      if (factory)
+      {
+           O2G2Ptr&lt;IO2GValueMap&gt; valuemap = factory-&gt;createValueMap();
+           valuemap-&gt;setString(Command, Commands::JoinToNewContingencyGroup);
+           //set contingency type for created group
+           valuemap-&gt;setInt(ContingencyGroupType, contingencyType);
+ 
+           // primary order
+           valuemap-&gt;appendChild(existOrder(primaryID, accountID));
+           // secondary order
+           valuemap-&gt;appendChild(existOrder(secID1, accountID));
+           // secondary order
+           valuemap-&gt;appendChild(existOrder(secID2, accountID));
+ 
+           // create request from valueMap
+           O2G2Ptr&lt;IO2GRequest&gt; request = factory-&gt;createOrderRequest(valuemap);
+           if (request == NULL)
+               std::cout &lt;&lt; &quot;Order's request can not be created: &quot; &lt;&lt; factory-&gt;getLastError() &lt;&lt; std::endl;
+           else
+           {
+               for (int i = 0; i &lt; request-&gt;getChildrenCount(); i++)
+               {
+                   O2G2Ptr&lt;IO2GRequest&gt; childRequest = request-&gt;getChildRequest(i);
+                   mActions[childRequest-&gt;getRequestID()] = manageOTOAction;
+               }
+               mSession-&gt;sendRequest(request);
+           }
+      }
+  }</pre>
+</div><p>
+      <center><a href="TradingCommandsCreateOrder.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

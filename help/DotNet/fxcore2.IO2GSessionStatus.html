@@ -1,0 +1,322 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GSessionStatus</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>interface <b>IO2GSessionStatus</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The interface provides method signatures to process notifications about session status changes and login failures.</p>
+    <p><b>Details</b></p><p>The interface must be implemented by the application in order to process the status change of the session object.<br></p>
+<p>When a user tries to login, the session status changes to to <a href="fxcore2.O2GSessionStatusCode.Connecting.0.html">Connecting</a>.<br></p>
+<p>If a login failed, the status changes to <a href="fxcore2.O2GSessionStatusCode.Disconnected.0.html">Disconnected</a> and the server
+returns an error message explaining why the login has failed. If you want to capture what has gone wrong, use the
+<a href="fxcore2.IO2GSessionStatus.onLoginFailed.0.html">onLoginFailed</a> method of the interface.<br></p>
+<p>If a login was successful, the session status changes to <a href="fxcore2.O2GSessionStatusCode.Connected.0.html">Connected</a>.
+If you want to capture and process every status change of the session object, use the
+<a href="fxcore2.IO2GSessionStatus.onSessionStatusChanged.0.html">onSessionStatusChanged</a> method of the interface.
+For a complete list of the session statuses, please see <a href="fxcore2.O2GSessionStatusCode.html">O2GSessionStatusCode</a>.
+For a detailed explanation of the session statuses, refer to the <a href="SessionStatus.html">Session Statuses</a> section.<br></p>
+<p>If you want to use the methods of the <code>IO2GSessionStatus</code> interface, you must create a class that implements the interface. For example,<br>
+<code>public class SessionStatusListener: IO2GSessionStatus { }</code><br></p>
+<p>An instance of the class implementing the <code>IO2GSessionStatus</code> interface must be subscribed to the session object before calling the
+<a href="fxcore2.O2GSession.html">O2GSession</a>.<a href="fxcore2.O2GSession.login.0.html">login</a> method. It is accomplished by calling the
+<a href="fxcore2.O2GSession.html"><code>O2GSession</code></a>.<a href="fxcore2.O2GSession.subscribeSessionStatus.0.html"><code>subscribeSessionStatus</code></a>
+method. For example,<br></p>
+<p><code>mSession = O2GTransport.createSession();<br>
+SessionStatusListener statusListener = new SessionStatusListener(mSession, mDBName, mPin);<br>
+mSession.subscribeSessionStatus(statusListener);</code><br></p>
+<p>The subscribed instance must be unsubscribed from the session object after calling the
+<a href="fxcore2.O2GSession.html">O2GSession</a>.<a href="fxcore2.O2GSession.logout.0.html">logout</a> method, but before calling the
+<a href="fxcore2.O2GSession.html">O2GSession</a>.<a href="fxcore2.O2GSession.Dispose.0.html">Dispose</a> method. It is accomplished by calling the
+<a href="fxcore2.O2GSession.html"><code>O2GSession</code></a>.<a href="fxcore2.O2GSession.unsubscribeSessionStatus.0.html"><code>unsubscribeSessionStatus</code></a> method.
+For example,<br></p>
+<p><code>mSession.logout();<br>
+mSession.unsubscribeSessionStatus(statusListener);<br>
+mSession.dispose();</code><br></p>
+<p>For the interface implementation details, see the example below:
+<b>Example</b></p><div id="open114" style="display:inline">
+  <p>Process notifications about session status changes and a login failure&nbsp;<a href="javascript: showdiv('close114'); hidediv('open114');" onclick="javascript: showdiv('close114'); hidediv('open114');">[show]</a></p>
+</div>
+<div id="close114" style="display:none">
+  <p>Process notifications about session status changes and a login failure&nbsp;<a href="javascript: showdiv('open114'); hidediv('close114');" onclick="javascript: showdiv('open114'); hidediv('close114');">[hide]</a></p>
+  <pre class="example">using fxcore2;
+ 
+namespace SessionListener
+{
+    public class SessionStatusListener: IO2GSessionStatus
+    {
+ 
+        // Connection , session and status variables
+        private bool mConnected = false;
+        private bool mDisconnected = false;
+        private bool mError = false;
+        private String mDBName = &quot;&quot;;
+        private String mPin = &quot;&quot;;
+        private O2GSession mSession = null;
+        private O2GSessionStatusCode mStatus;
+ 
+ 
+        /// &lt;summary&gt;
+        /// Constructor
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;session&quot;&gt;&lt;/param&gt;
+        /// &lt;param name=&quot;dbName&quot;&gt;&lt;/param&gt;
+        /// &lt;param name=&quot;pin&quot;&gt;&lt;/param&gt;
+        public SessionStatusListener(O2GSession session, String dbName, String pin)
+        {
+            mSession = session;
+            mDBName = dbName;
+            mPin = pin;
+        }
+ 
+        /// &lt;summary&gt;
+        /// Shows if session is connected
+        /// &lt;/summary&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        public  bool isConnected()
+        {
+            return mConnected;
+        }
+ 
+        /// &lt;summary&gt;
+        /// Shows if session is disconnected
+        /// &lt;/summary&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        public  bool isDisconnected()
+        {
+            return mDisconnected;
+        }
+ 
+        /// &lt;summary&gt;
+        /// Shows if there was an error during the logn process
+        /// &lt;/summary&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        public  bool hasError()
+        {
+            return mError;
+        }
+ 
+        /// &lt;summary&gt;
+        /// Returns current session status
+        /// &lt;/summary&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        public  O2GSessionStatusCode getStatus()
+        {
+            return mStatus;
+        }
+ 
+        /// &lt;summary&gt;
+        /// Implementation of IO2GSessionStatus interface public method onSessionStatusChanged
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;status&quot;&gt;&lt;/param&gt;
+        public  void onSessionStatusChanged(O2GSessionStatusCode status)
+        {
+            mStatus = status;
+            Console.WriteLine(&quot;Status: &quot; + mStatus.ToString());
+            if (mStatus == O2GSessionStatusCode.Connected)
+            {
+                mConnected = true;
+            }
+            else
+            {
+                mConnected = false;
+            }
+            if (status == O2GSessionStatusCode.Disconnected)
+            {
+                mDisconnected = true;
+            }
+            else
+            {
+                mDisconnected = false;
+            }
+            if (mStatus == O2GSessionStatusCode.TradingSessionRequested)
+            {
+                O2GSessionDescriptorCollection descs = mSession.getTradingSessionDescriptors();
+                Console.WriteLine(&quot;\nSession descriptors&quot;);
+                Console.WriteLine(&quot;id, name, description, requires pin&quot;);
+                foreach(O2GSessionDescriptor desc in descs)
+                {
+                    Console.WriteLine(desc.Id + &quot; &quot; + desc.Name + &quot; &quot; + desc.Description + &quot; &quot; + desc.RequiresPin);
+                }
+                if (mDBName.Equals(&quot;&quot;))
+                {
+                    Console.WriteLine(&quot;Argument for database is missing&quot;);
+                }
+                else
+                {
+                    mSession.setTradingSession(mDBName, mPin);
+                }
+            }
+        }
+ 
+        /// &lt;summary&gt;
+        /// Implementation of IO2GSessionStatus interface public method onLoginFailed
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;error&quot;&gt;&lt;/param&gt;
+        public  void onLoginFailed(String error)
+        {
+            Console.WriteLine(&quot;Login error: &quot; + error);
+            mError = true;
+        }
+    }
+}
+ </pre>
+</div><p><b>Example</b></p><div id="open115" style="display:none">
+  <p>Processing a login failure&nbsp;<a href="javascript: showdiv('close115'); hidediv('open115');" onclick="javascript: showdiv('close115'); hidediv('open115');">[show]</a></p>
+</div>
+<div id="close115" style="display:inline">
+  <p>Processing a login failure&nbsp;<a href="javascript: showdiv('open115'); hidediv('close115');" onclick="javascript: showdiv('open115'); hidediv('close115');">[hide]</a></p>
+  <pre class="example">     <b>// Create a session, subscribe to session listener, login</b>
+     mSession = O2GTransport.createSession();
+     SessionStatusListener statusListener = new SessionStatusListener(mSession, mDBName, mPin);
+     mSession.subscribeSessionStatus(statusListener);
+     mSession.login(mUserID, mPassword, mURL, mConnection);
+     while (!statusListener.isConnected() &amp;&amp; !statusListener.hasError()) {
+          Thread.Sleep(50);
+     }
+ 
+    <b>// Implementation of IO2GSessionStatus interface public method onLoginFailed</b>
+    public void onLoginFailed(String error) {
+        Console.WriteLine(&quot;Login error: &quot; + error);
+        mError = true;
+    }
+</pre>
+</div><p>The type defined in the <code>fxcore2.dll</code> assembly.
+The namespace is <a href="fxcore2.html"><code>fxcore2</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.IO2GSessionStatus.onLoginFailed.0.html">onLoginFailed</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Processes a notification about a login failure.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.IO2GSessionStatus.onSessionStatusChanged.0.html">onSessionStatusChanged</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Processes notifications about session status changes.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

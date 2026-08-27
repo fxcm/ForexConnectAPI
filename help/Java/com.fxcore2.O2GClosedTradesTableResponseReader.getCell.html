@@ -1,0 +1,216 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GClosedTradesTableResponseReader.getCell</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>O2GClosedTradesTableResponseReader.getCell</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Gets the value of a cell.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">Java</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code>Object&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>getCell</b> (int iRow, int iColumn) </code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>iRow</code></td>
+    <td class="tmain" width="69%"><p>The index of a row. The index must be between <code>0</code> and
+<code><a href="com.fxcore2.O2GGenericTableResponseReader.html">O2GGenericTableResponseReader</a>.<a href="com.fxcore2.O2GGenericTableResponseReader.size.html">size()</a> - 1</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>iColumn</code></td>
+    <td class="tmain" width="69%"><p>The index of a column. The index must be between <code>0</code> and
+<code><a href="com.fxcore2.O2GTableColumnCollection.html">O2GTableColumnCollection</a>.<a href="com.fxcore2.O2GTableColumnCollection.size.html">size()</a> - 1</code>.</p></td>
+  </tr>
+</table><p><b>Returns</b></p><p>Returns the cell value that can be of different types. To determine a type, it is necessary to
+get a column by using the <a href="com.fxcore2.O2GGenericTableResponseReader.getColumns.html"><code>O2GGenericTableResponseReader.getColumns</code></a>
+and the <a href="com.fxcore2.O2GTableColumnCollection.get.html"><code>O2GTableColumnCollection.get</code></a> methods. The index passed to the latter
+method should be the same as the column parameter.
+The type of value is defined by using the <a href="com.fxcore2.O2GTableColumn.getType.html"><code>O2GTableColumn.getType</code></a> method.
+The <a href="com.fxcore2.O2GTableColumnType.html"><code>IO2GTableColumn::O2GTableColumnType</code></a> enumerator returned
+by the above method contains the returned value type. A client application can cast object data to the returned type or can
+use abstract object.</p>
+<p><b>Column types and cast operations:</b></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Column type</p></td>
+    <td class="thdr"><p>getCell value</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTableColumnType.INTEGER.html"><code><code>O2GTableColumnType.INTEGER</code></code></a></p></td>
+    <td class="tmain"><p>The method returns the 32-bit Integer class.<br>
+Cast operation:  <code>Integer value =  (Integer)reader.getCell(columnIndex);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTableColumnType.DOUBLE.html"><code><code>O2GTableColumnType.DOUBLE</code></code></a></p></td>
+    <td class="tmain"><p>The method returns the Double class.<br>
+Cast operation:<code> Double value = (double)reader.getCell(column);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTableColumnType.BOOLEAN.html"><code><code>O2GTableColumn.BOOLEAN</code></code></a></p></td>
+    <td class="tmain"><p>The method returns the Boolean class.<br>
+Cast operation:<code> Boolean value = (Boolean)reader.getCell(column);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTableColumnType.DATE.html"><code><code>O2GTableColumn.DATE</code></code></a></p></td>
+    <td class="tmain"><p>The method returns the calendar. <br>
+Cast operation:<code> Calendar value  = (Calendar)reader.getCell(column);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTableColumnType.STRING.html"><code><code>O2GTableColumnType.STRING</code></code></a></p></td>
+    <td class="tmain"><p>The method returns a string data value. <br>
+Cast operation: <code>String value = (String)reader.getCell(column);</code></p></td>
+  </tr>
+</table><p><b>Details</b></p><p>The method is used to work with an abstract table. The method provides common access to a row value independently of
+a row type (a table type).</p><div id="open151" style="display:none">
+  <p>Print Generic Table&nbsp;<a href="javascript: showdiv('close151'); hidediv('open151');" onclick="javascript: showdiv('close151'); hidediv('open151');">[show]</a></p>
+</div>
+<div id="close151" style="display:inline">
+  <p>Print Generic Table&nbsp;<a href="javascript: showdiv('open151'); hidediv('close151');" onclick="javascript: showdiv('open151'); hidediv('close151');">[hide]</a></p>
+  <pre class="example">private void printGenericTableInterface(O2GGenericTableResponseReader genericReader) {
+    System.out.println(&quot;Generic table&quot;);
+    O2GTableColumnCollection columns = genericReader.getColumns();
+ 
+    for (int i = 0; i &lt; genericReader.size(); i++) {
+        int iCount = columns.size();
+        for (int j = 0; j &lt; iCount; j++) {
+            Object value = row.getCell(i, j);
+            O2GTableColumn column = columns.get(j);
+            if (column.getType() == O2GTableColumnType.DATE) {
+                value = ((Calendar)value).getTime();
+            }
+        String sColumn = MessageFormat.format(&quot;{0} {1} {2}&quot;, column.getId(), value, column.getType());
+        System.out.println(sColumn);
+        }
+    }
+}</pre>
+</div><p>Declared in <a href="com.fxcore2.O2GGenericTableResponseReader.html">O2GGenericTableResponseReader</a></p>
+<p>
+  <center><a href="com.fxcore2.O2GClosedTradesTableResponseReader.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'com.fxcore2.O2GClosedTradesTableResponseReader.html');</script></body>
+</html>

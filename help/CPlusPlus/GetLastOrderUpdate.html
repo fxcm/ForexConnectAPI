@@ -1,0 +1,296 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Get Order Update</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Get Order Update</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p> Get the up-to-date order information from the server.</p>
+    <p><b>Details</b></p><p>This command is used to request the latest available information on the order from the server.<br>
+The command is useful in case the trader wants to get the information about his order after the relogin or the automatic reconnection.<br>
+The method can be called in the &quot;logged in&quot; state.<br>
+If the request has been executed successfuly, the response will be received in
+<a href="IO2GResponseListener.html"><code>IO2GResponseListener</code></a>.<a href="IO2GResponseListener.onRequestCompleted.0.html"><code>onRequestCompleted</code></a>.
+The repsonse can be converted to <a href="IO2GLastOrderUpdateResponseReader.html"><code>IO2GLastOrderUpdateResponseReader</code></a>.<br>
+If the order has been executed, the server returns <a href="IO2GLastOrderUpdateResponseReader.html"><code>IO2GLastOrderUpdateResponseReader</code></a> with
+the 'Delete' type of the table update and the 'F' status ('Executed') in the order row.</p>
+<p>To get the updated order information, please fill the following values in the value map:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Parameter name</p></td>
+    <td class="thdr"><p>Datatype</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Command</p></td>
+    <td class="tmain"><p>const&nbspchar*</p></td>
+    <td class="tmain"><p>The command. Must be <code>GetLastOrderUpdate</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Key</p></td>
+    <td class="tmain"><p>const&nbspchar*</p></td>
+    <td class="tmain"><p>The order field to search the order.</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>OrderID</code></p></td>
+    <td class="tmain"><p>Search by identification number of the order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>RequestID</code></p></td>
+    <td class="tmain"><p>Search by the identifier of the order request. Note that if the order has the attached stop and limit orders,
+all of them have the same RequestID. In this case the main order will be returned.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>RequestTXT</code></p></td>
+    <td class="tmain"><p>Search by the custom identifier of the order.
+In case there are a few orders with the same RequestTXT,
+the oldest order will be returned (the order which was created first).</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Id</p></td>
+    <td class="tmain"><p>const&nbspchar*</p></td>
+    <td class="tmain"><p>The value of the order field to search.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>AccountName</p></td>
+    <td class="tmain"><p>const&nbspchar*</p></td>
+    <td class="tmain"><p>The name of the account.
+Note that it is not AccountID.</p></td>
+  </tr>
+</table><p>To use the command:<br></p><ol class="main">
+  <li><p>Create a request and send it to the server.</p></li>
+  <li><p>Wait for the response using <a href="IO2GResponseListener.html"><code>IO2GResponseListener</code></a>.</p></li>
+</ol><div id="open88" style="display:none">
+  <p>Example: Get last order update&nbsp;<a href="javascript: showdiv('close88'); hidediv('open88');" onclick="javascript: showdiv('close88'); hidediv('open88');">[show]</a></p>
+</div>
+<div id="close88" style="display:inline">
+  <p>Example: Get last order update&nbsp;<a href="javascript: showdiv('open88'); hidediv('close88');" onclick="javascript: showdiv('open88'); hidediv('close88');">[hide]</a></p>
+  <pre class="example">// Forward definition
+std::string getAccountName(IO2GSession *session);
+IO2GResponse* sendGetLastOrderUpdateRequest(IO2GSession *session, LPCSTR accountName, LPCSTR orderID, IO2GResponseListener *responseListener);
+IO2GLastOrderUpdateResponseReader* processResponse(IO2GSession *session, IO2GResponse *response);
+void printLastOrderUpdateResponse(IO2GLastOrderUpdateResponseReader *lastOrderUpdateResponseReader);
+ 
+ // Program entry point
+ int main(int argc, char *argv[])
+ {
+   IO2Session *session = NULL;
+   // Must be implemented by the user
+   IO2GResponseListener *responseListener = NULL;
+   //.... Obtain session object and connect to the server
+   std::string accountName = getAccountName(session);
+   std::string orderID = &quot;XXXXX&quot;; // Should be specified by the user
+ 
+   IO2GResponse *response = sendGetLastOrderUpdateRequest(accountName, orderID);
+   if (response)
+   {
+       O2G2Ptr&lt;IO2GLastOrderUpdateResponseReader&gt; lastOrderUpdateResponseReader = processResponse(response);
+       printLastOrderUpdate(lastOrderUpdateResponseReader);
+   }
+   response-&gt;release();
+   //...Logout
+ }
+ 
+std::string getAccountName(IO2GSession *session)
+{
+    O2G2Ptr&lt;IO2GLoginRules&gt; loginRules = session-&gt;getLoginRules();
+    std::string sAccountName = &quot;&quot;;
+    if(loginRules-&gt;isTableLoadedByDefault(::Accounts))
+    {
+        O2G2Ptr&lt;IO2GResponse&gt; response = loginRules-&gt;getTableRefreshResponse(::Accounts);
+        if(response)
+        {
+            O2G2Ptr&lt;IO2GResponseReaderFactory&gt; readerFactory = session-&gt;getResponseReaderFactory();
+            O2G2Ptr&lt;IO2GAccountsTableResponseReader&gt; responseReader = readerFactory-&gt;createAccountsTableReader(response);
+            O2G2Ptr&lt;IO2GAccountRow&gt; row = responseReader-&gt;getRow(0);
+            sAccountName = row-&gt;getAccountName();
+            std::cout &lt;&lt; &quot;Using account Name: &quot; &lt;&lt; accountName &lt;&lt; std::endl;!
+        }
+    }
+    return sAccountName;
+}
+ 
+/** Sync method. Send a request and wait for the response/
+IO2GResponse* sendGetLastOrderUpdateRequest(IO2GSession *session, LPCSTR accountName, LPCSTR orderID, IO2GResponseListener *responseListener)
+{
+    O2G2Ptr&lt;IO2GRequestFactory&gt; requestFactory = session-&gt;getRequestFactory();
+    if (requestFactory)
+    {
+         O2G2Ptr&lt;IO2GValueMap&gt; valuemap = requestFactory-&gt;createValueMap();
+         valuemap-&gt;setString(Command, O2G2::Commands::GetLastOrderUpdate);
+         valuemap-&gt;setString(AccountName, sAccountName.c_str());
+         valuemap-&gt;setString(Key, O2G2::KeyType::OrderID);
+         valuemap-&gt;setString(Id, orderID);
+ 
+         O2G2Ptr&lt;IO2GRequest&gt; lastOrderUpdateRequest = requestFactory-&gt;createOrderRequest(valuemap);
+         if (lastOrderUpdateRequest == NULL)
+             std::cout &lt;&lt; &quot;Order's request can not be created: &quot; &lt;&lt; requestFactory-&gt;getLastError() &lt;&lt; std::endl;
+         else
+         {
+               // Response listener receives async callback. Therefore, request ID must be set
+               // before sending the request.
+               responseListener-&gt;setRequest(lastOrderUpdateRequest-&gt;getRequestID());
+               session-&gt;sendRequest(lastOrderUpdateRequest);
+               uni::WaitForSingleObject(responseListener-&gt;getResponseEvent(), INFINITE);
+               return responseListener-&gt;getLastUpdateOrderUpdateResponse();
+         }
+    }
+}
+ 
+IO2GLastOrderUpdateReader* processResponse(IO2GSession *session, IO2GResponse *response)
+{
+    O2G2Ptr&lt;IO2GResponseReaderFactory&gt; readerFactory = session-&gt;getResponseReaderFactory();
+    return readerFactory-&gt;createLastOrderUpdateResponseReader(response);
+}
+ 
+void printLastOrderUpdate(IO2GLastOrderUpdateReader *lastOrderUpdateReader)
+{
+    O2GTableUpdateType updateType = lastOrderUpdateResponseReader-&gt;getUpdateType();
+    std::string updateTypeString;
+    switch(updateType)
+    {
+    case Delete:
+        updateTypeString = &quot;Delete&quot;;
+        break;
+    case Insert:
+        updateTypeString = &quot;Insert&quot;;
+        break;
+    case Update:
+        updateTypeString = &quot;Update&quot;;
+        break;
+    default:
+        updateTypeString = &quot;Undefined&quot;;
+    }
+    O2G2Ptr&lt;IO2GOrderRow&gt; orderRow = lastOrderUpdateResponseReader-&gt;getOrder();
+ 
+    std::cout &lt;&lt; &quot;UpdateType: &quot; &lt;&lt;  updateTypeString
+              &lt;&lt; &quot;; Order ID: &quot; &lt;&lt; orderRow-&gt;getOrderID()
+              &lt;&lt; &quot;; Status: &quot;  &lt;&lt; orderRow-&gt;getStatus() &lt;&lt; std::endl;
+}
+ 
+// In response listener file
+void ResponseListener::onRequestCompleted(const char *requestId, IO2GResponse  *response)
+{
+    if (response != 0 &amp;&amp; mRequestID == requestID)
+    {
+       mLastOrderUpdateResponseLast = response;
+    }
+    uni::SetEvent(mResponseEvent);
+}</pre>
+</div><p>
+      <center><a href="TradingCommandsCreateOrder.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>
