@@ -1,0 +1,415 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GPermissionChecker</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>IO2GPermissionChecker</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="IAddRef.html">IAddRef</a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>Checks permissions.</p>
+    <p><b>Details</b></p><p>To get an instance of the class, use the method
+<a href="IO2GLoginRules.html"><code>IO2GLoginRules</code></a>.<a href="IO2GLoginRules.getPermissionChecker.html"><code>getPermissionChecker</code></a>.</p><div id="open183" style="display:none">
+  <p>IO2GPermissionChecker&nbsp;<a href="javascript: showdiv('close183'); hidediv('open183');" onclick="javascript: showdiv('close183'); hidediv('open183');">[show]</a></p>
+</div>
+<div id="close183" style="display:inline">
+  <p>IO2GPermissionChecker&nbsp;<a href="javascript: showdiv('open183'); hidediv('close183');" onclick="javascript: showdiv('open183'); hidediv('close183');">[hide]</a></p>
+  <pre class="example"> IO2GLoginRules *loginRules = session-&gt;getLoginRules();
+ IO2GPermissionChecker *permissionChecker = loginRules-&gt;getPermissionChecker();
+ std::cout &lt;&lt; &quot;canCreateMarketOpenOrder = &quot;  &lt;&lt; ParseO2GPermissionStatus(permissionChecker-&gt;canCreateMarketOpenOrder(instrument.c_str())) &lt;&lt; std::endl;
+ permissionChecker-&gt;release();
+ loginRules-&gt;release();</pre>
+</div><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canAcceptQuote.html">canAcceptQuote</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may accept a quote provided by the dealer.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canChangeEntryOrder.html">canChangeEntryOrder</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may change entry orders.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canChangeMarketCloseOrder.html">canChangeMarketCloseOrder</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may change close market orders.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canChangeMarketOpenOrder.html">canChangeMarketOpenOrder</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may change open market orders.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canChangeNetCloseOrder.html">canChangeNetCloseOrder</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may change an order to close all positions for an instrument on an account.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canChangeNetStopLimitOrder.html">canChangeNetStopLimitOrder</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may change net stop/limit orders.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canChangeOfferSubscription.html">canChangeOfferSubscription</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may change the offer subscription.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canChangeStopLimitOrder.html">canChangeStopLimitOrder</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may change stop/limit orders.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canCreateEntryOrder.html">canCreateEntryOrder</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may create entry orders.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canCreateMarketCloseOrder.html">canCreateMarketCloseOrder</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may create close market orders.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canCreateMarketOpenOrder.html">canCreateMarketOpenOrder</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may create open market orders.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canCreateNetCloseOrder.html">canCreateNetCloseOrder</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may create an order to close all positions for an instrument on an account.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canCreateNetStopLimitOrder.html">canCreateNetStopLimitOrder</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may create net stop/limit orders.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canCreateOCO.html">canCreateOCO</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may create a new OCO order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canCreateStopLimitOrder.html">canCreateStopLimitOrder</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may create stop/limit orders.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canDeleteEntryOrder.html">canDeleteEntryOrder</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may delete entry orders.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canDeleteMarketCloseOrder.html">canDeleteMarketCloseOrder</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may delete close market orders.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canDeleteMarketOpenOrder.html">canDeleteMarketOpenOrder</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may delete open market orders.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canDeleteNetCloseOrder.html">canDeleteNetCloseOrder</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may delete an order to close all positions for an instrument on an account.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canDeleteNetStopLimitOrder.html">canDeleteNetStopLimitOrder</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may delete net stop/limit orders.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canDeleteQuote.html">canDeleteQuote</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may delete a quote provided by the dealer.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canDeleteStopLimitOrder.html">canDeleteStopLimitOrder</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may delete stop/limit orders.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canExcludeOCO.html">canExcludeOCO</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may exclude orders from the existing OCO order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canJoinOCO.html">canJoinOCO</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may add orders to the existing OCO order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canRequestQuote.html">canRequestQuote</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may request a quote.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canUseDynamicTrailingForEntryLimit.html">canUseDynamicTrailingForEntryLimit</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may use trailing entry limit and net limit orders with a dynamic step.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canUseDynamicTrailingForEntryStop.html">canUseDynamicTrailingForEntryStop</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may use trailing entry stop and net stop orders with a dynamic step.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canUseDynamicTrailingForLimit.html">canUseDynamicTrailingForLimit</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may use trailing limit orders with a dynamic step.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canUseDynamicTrailingForStop.html">canUseDynamicTrailingForStop</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may use trailing stop orders with a dynamic step.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canUseFluctuateTrailingForEntryLimit.html">canUseFluctuateTrailingForEntryLimit</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may use trailing entry limit and net limit orders with a fixed step.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canUseFluctuateTrailingForEntryStop.html">canUseFluctuateTrailingForEntryStop</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may use trailing entry stop and net stop orders with a fixed step.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canUseFluctuateTrailingForLimit.html">canUseFluctuateTrailingForLimit</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may use trailing limit orders with a fixed step.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GPermissionChecker.canUseFluctuateTrailingForStop.html">canUseFluctuateTrailingForStop</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Determines whether the user may use trailing stop orders with a fixed step.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="forexconnect.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

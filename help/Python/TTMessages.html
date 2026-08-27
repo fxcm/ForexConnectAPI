@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Messages (table)</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Messages (table)</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>This section describes the Messages table that contains information about dealing desk messages received during the current trading day.</p>
+    <p><b>Details</b></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Name</p></td>
+    <td class="thdr"><p>Type</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>msg_id</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identification number of the message. The number is unique within the same database
+that stores the account trader. For example, <code>MINIDEMO</code> or <code>U100D1</code>. The uniqueness of
+the message itself is assured by the combination of the database ID and the value of this field.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>time</p></td>
+    <td class="tmain"><p>Date</p></td>
+    <td class="tmain"><p>The date and time when the message is received. The time zone is defined by the system properties
+<code>SERVER_TIME_UTC</code> and <code>BASE_TIME_ZONE</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>from</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The login of the message sender.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>type</p></td>
+    <td class="tmain"><p>Integer</p></td>
+    <td class="tmain"><p>The message container. It defines the way the message is displayed to the recipient in the FXCM Trading Station.
+The possible values are:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>0</code></p></td>
+    <td class="tmain"><p>Plain message that is displayed in the Messages window.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>1</code></p></td>
+    <td class="tmain"><p>Pop-up message that does not need to be answered.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>2</code></p></td>
+    <td class="tmain"><p>Pop-up message that needs to be answered.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>feature</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The type of the message content. The possible values are:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>1</code></p></td>
+    <td class="tmain"><p>Plain message.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>2</code></p></td>
+    <td class="tmain"><p>Trading hours.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>3</code></p></td>
+    <td class="tmain"><p>Questions.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>4</code></p></td>
+    <td class="tmain"><p>Information.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>5</code></p></td>
+    <td class="tmain"><p>Market conditions.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>6</code></p></td>
+    <td class="tmain"><p>Software updates.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>7</code></p></td>
+    <td class="tmain"><p>Emergency.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>8</code></p></td>
+    <td class="tmain"><p>System.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>text</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The text body of the message.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>subject</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The subject of the message.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>html_fragment_flag</p></td>
+    <td class="tmain"><p>Boolean</p></td>
+    <td class="tmain"><p>The HTML format flag. It defines whether the message is in the HTML format. The possible values are:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>true</code></p></td>
+    <td class="tmain"><p>The message is in the HTML format.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>false</code></p></td>
+    <td class="tmain"><p>The message is a plain text.</p></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p>
+      <center><a href="TradingTables.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

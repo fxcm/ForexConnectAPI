@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Create OTO Order</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Create OTO Order</b></font>
+    </p><p>You can create two or more entry orders and then join them into OTO (one-triggers-others) using just one call.</p>
+<p>The first of the orders specified is a root order of the OTO group. This is the only order which becomes active
+immediately. All other orders are inactive until the root order is executed.</p>
+<p>To create an OTO order group:</p>
+<p>1) Create an <a href="IO2GValueMap.html"><code>IO2GValueMap</code></a> and fill only one field:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Valuemap field</p></td>
+    <td class="thdr"><p>Datatype</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Command</p></td>
+    <td class="tmain"><p>const char *</p></td>
+    <td class="tmain"><p>The command. Must be <code>CreateOTO</code>.</p>
+<p>The field is obligatory.</p></td>
+  </tr>
+</table><p>2) Create an <a href="IO2GValueMap.html"><code>IO2GValueMap</code></a> for each entry order you want to create and
+fill it as for a regular entry order.</p>
+<p>3) Append each entry order valuemap to the main valuemap using the <a href="IO2GValueMap.appendChild.html"><code>IO2GValueMap.appendChild</code></a>
+method. Always append the root order first. Instead of any of dependent orders you can also create another &quot;CreateOTO&quot;
+command. In this case the root order of this additional OTO will become a dependent order of the root OTO, so, you can
+create a tree of OTO orders of any level of hierarchy.</p>
+<p>4) Pass the main <code>valuemap</code> table to the createOrderRequest method.</p>
+<p>Limitations:</p>
+<p>1) Only entry orders or other OTO groups can be joined into OTO. However, entry orders with attached stops/limits,
+either regular or ELS, can be joined into OTO.</p>
+<p>2) All entry orders must be created for the same account.</p>
+<p>Returns:</p>
+<p>The createOrderRequest method will return an IO2GRequest (the main request) containing child requests.
+If 3 entry orders are created, 3 child requests will be returned.
+Note that you will receive responses to the child requests and will not receive a response to the main request.</p><div id="open78" style="display:none">
+  <p>Example: Create an OTO order&nbsp;<a href="javascript: showdiv('close78'); hidediv('open78');" onclick="javascript: showdiv('close78'); hidediv('open78');">[show]</a></p>
+</div>
+<div id="close78" style="display:inline">
+  <p>Example: Create an OTO order&nbsp;<a href="javascript: showdiv('open78'); hidediv('close78');" onclick="javascript: showdiv('open78'); hidediv('close78');">[hide]</a></p>
+  <pre class="example">  void CExample::prepareParamsFromLoginRules(IO2GLoginRules *loginRules)
+  {
+      mParams = new OrderCreationParam();
+ 
+      O2G2Ptr&lt;IO2GResponseReaderFactory&gt; factory = mSession-&gt;getResponseReaderFactory();
+      // Get first account from login
+      O2G2Ptr&lt;IO2GResponse&gt; accountsResponse = loginRules-&gt;getTableRefreshResponse(Accounts);
+      O2G2Ptr&lt;IO2GAccountsTableResponseReader&gt; accountsReader = factory-&gt;createAccountsTableReader(accountsResponse);
+      O2G2Ptr&lt;IO2GAccountRow&gt; account = accountsReader-&gt;getRow(0);
+      // Store account id
+      mParams-&gt;mAccountID = account-&gt;getAccountID();
+      // Store base amount
+      mParams-&gt;mBaseAmount = account-&gt;getBaseUnitSize();
+      // Get offers for eur/usd
+      O2G2Ptr&lt;IO2GResponse&gt; offerResponse = loginRules-&gt;getTableRefreshResponse(Offers);
+      O2G2Ptr&lt;IO2GOffersTableResponseReader&gt; offersReader = factory-&gt;createOffersTableReader(offerResponse);
+      for (int i = 0; i &lt; offersReader-&gt;size(); i++)
+      {
+          O2G2Ptr&lt;IO2GOfferRow&gt; offer = offersReader-&gt;getRow(i);
+          if (_stricmp(offer-&gt;getInstrument(), &quot;EUR/USD&quot;) == 0)
+          {
+              mParams-&gt;mOfferID = offer-&gt;getOfferID();
+              mParams-&gt;mAsk = offer-&gt;getAsk();
+              mParams-&gt;mBid = offer-&gt;getBid();
+              mParams-&gt;mPointSize = offer-&gt;getPointSize();
+              break;
+          }
+      }
+  }
+ 
+  struct sOrderParams
+  {
+      std::string offerID;
+      int amount;
+      double rate;
+      std::string buySell;
+      std::string orderType;
+  };
+ 
+  // Helper method for creating valueMap for one order
+  IO2GValueMap* CExample::createOrder(const char* accountID, const char* offerID, double rate, int amount, const char* buySell, const char* orderType)
+  {
+      using namespace O2G2;
+      O2G2Ptr&lt;IO2GRequestFactory&gt; factory = getRequestFactory();
+      if (factory)
+      {
+           IO2GValueMap* valuemap = factory-&gt;createValueMap();
+ 
+           valuemap-&gt;setString(Command, Commands::CreateOrder);    // for OTO orders this field is not mandatory
+           valuemap-&gt;setString(OrderType, orderType);
+           valuemap-&gt;setString(AccountID, accountID);
+           valuemap-&gt;setString(OfferID, offerID);
+           valuemap-&gt;setString(BuySell, buySell);
+           valuemap-&gt;setDouble(Rate, rate);
+           valuemap-&gt;setInt(Amount, amount);
+ 
+           return valuemap;
+      }
+  }
+  // Helper method for creating valueMap for one order
+  IO2GValueMap* CExample::createOrder(const char* accountID, sOrderParams& params)
+  {
+      return createOrder(accountID, params.offerID.c_str(), params.rate, params.amount, params.buySell.c_str(), params.orderType.c_str());
+  }
+ 
+  void CreateOrderSample::prepareAndCreateOTO(const char* accountID, const char* offerID,
+                                              int baseAmount, double pointSize)
+  {
+      double rate = mParams-&gt;mAsk;
+ 
+      sOrderParams orders[3];
+      orders[0].amount = orders[1].amount = orders[2].amount = 10 * baseAmount;
+      orders[0].offerID = orders[1].offerID = orders[2].offerID = offerID;
+ 
+      orders[0].buySell = O2G2::Buy;
+      orders[0].orderType = O2G2::Orders::LimitEntry;
+      orders[0].rate = rate + 50 * pointSize;
+      orders[1].buySell = O2G2::Sell;
+      orders[1].orderType = O2G2::Orders::StopEntry;
+      orders[1].rate = orders[0].rate - 10 * pointSize;
+      orders[2].buySell = O2G2::Buy;
+      orders[2].orderType = O2G2::Orders::StopEntry;
+      orders[2].rate = orders[0].rate + 20 * pointSize;
+ 
+      IO2GValueMap* primary = createOrder(accountID, orders[0]);
+      IO2GValueMap* secondary1 = createOrder(accountID, orders[1]);
+      IO2GValueMap* secondary2 = createOrder(accountID, orders[2]);
+      createOTO(primary, secondary1, secondary2);
+  }
+  void CreateOrderSample::createOTO(IO2GValueMap* primary, IO2GValueMap* secondary1, IO2GValueMap* secondary2)
+  {
+      using namespace O2G2;
+      O2G2Ptr&lt;IO2GRequestFactory&gt; factory = mSession-&gt;getRequestFactory();
+      if (factory)
+      {
+           // create OTO command
+           O2G2Ptr&lt;IO2GValueMap&gt; valuemap = factory-&gt;createValueMap();
+           valuemap-&gt;setString(Command, Commands::CreateOTO);
+ 
+           // create primary order
+           valuemap-&gt;appendChild(primary);
+ 
+           // create two secondary orders
+           valuemap-&gt;appendChild(secondary1);
+           valuemap-&gt;appendChild(secondary2);
+ 
+           // create request from valueMap
+           O2G2Ptr&lt;IO2GRequest&gt; request = factory-&gt;createOrderRequest(valuemap);
+           if (request == NULL)
+               std::cout &lt;&lt; &quot;Order's request can not be created: &quot; &lt;&lt; factory-&gt;getLastError() &lt;&lt; std::endl;
+           else
+           {
+               for (int i = 0; i &lt; request-&gt;getChildrenCount(); i++)
+               {
+                   O2G2Ptr&lt;IO2GRequest&gt; childRequest = request-&gt;getChildRequest(i);
+                   mActions[childRequest-&gt;getRequestID()] = deleteOrderAction;
+               }
+               mSession-&gt;sendRequest(request);
+           }
+      }
+  }</pre>
+</div><p>
+      <center><a href="TradingCommandsCreateOrder.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

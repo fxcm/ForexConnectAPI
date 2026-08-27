@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Delete Order</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Delete Order</b></font>
+    </p><p>To delete an order, please fill the following values in the value map:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Parameter name</p></td>
+    <td class="thdr"><p>Datatype</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>COMMAND</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The command. Must be <a href="com.fxcore2.Constants.Commands.DeleteOrder.html"><code>DeleteOrder</code></a>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>ORDER_ID</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The identifier of the order. The order must exist and must be in the waiting status.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>ACCOUNT_ID</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The identifier of the account the order should be placed for.
+The value must be obtained from the <a href="TTAccounts.html">Accounts</a> table, the <code>AccountID</code> column.</p>
+<p>Please note that the account identifier may not necessarily be equal to the account name
+which is shown in the FXCM Trading Station application.</p></td>
+  </tr>
+</table><div id="open99" style="display:none">
+  <p>Example: Delete an order&nbsp;<a href="javascript: showdiv('close99'); hidediv('open99');" onclick="javascript: showdiv('close99'); hidediv('open99');">[show]</a></p>
+</div>
+<div id="close99" style="display:inline">
+  <p>Example: Delete an order&nbsp;<a href="javascript: showdiv('open99'); hidediv('close99');" onclick="javascript: showdiv('open99'); hidediv('close99');">[hide]</a></p>
+  <pre class="example">    private void deleteOrder(String sOrderID, string sAccountID)
+    {
+       O2GRequestFactory factory = mSession.getRequestFactory();
+       if (factory != null) {
+           O2GValueMap valuemap = factory.createValueMap();
+           valuemap.setString(O2GRequestParamsEnum.COMMAND, Constants.Commands.DeleteOrder);
+           valuemap.setString(O2GRequestParamsEnum.ORDER_ID, sOrderID);
+           valuemap.setString(O2GRequestParamsEnum.ACCOUNT_ID, sAccountID);
+           O2GRequest request = factory.createOrderRequest(valuemap);
+           if (request == null) {
+               System.out.println(&quot;Order's request can not be created: &quot; + factory.getLastError());
+           } else {
+               mSession.sendRequest(request);
+           }
+       }
+    }</pre>
+</div><p>
+      <center><a href="JavaTradingCommandsCreateOrder.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

@@ -1,0 +1,214 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>CO2GDateUtils</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>CO2GDateUtils</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The class converts between the OLE Automation date, SYSTEMTIME, and the C time formats.</p>
+    <p><b>Details</b></p><p>All methods of the class are static. One does not need to have an instance of the class. <br></p>
+<p>SYSTEMTIME is a time structure that is used by the Windows API functions to work with date and time.
+The structure contains  date and time, using individual members for month, day, year, weekday, hour, minute, second, and millisecond.
+On Unix/Mac/IOS operating systems, the same structure is declared in the ForexConnect API headers. <br></p>
+<p>The OLE automation DATE format is represented by an 8-byte floating-point number,
+counting days since midnight of December 30, 1899. Hours and minutes are represented as fractional days.
+So, a second is 1.0 / 86400.0, a minute is 1.0 / 1440.0 and an hour is 1.0 / 24.0.
+The format is used in OLE automation functions on Windows.</p>
+<p>tm is a standard C structure for date representation. The
+structure contains calendar date and time broken down into components. The structure does not
+contain milliseconds.  The structure is available on all operation systems and from any C/C++ compiler.</p>
+<p><b>Example:</b></p><div id="open94" style="display:inline">
+  <p>Format date from the OLE Automation DATE to a human-readable string.&nbsp;<a href="javascript: showdiv('close94'); hidediv('open94');" onclick="javascript: showdiv('close94'); hidediv('open94');">[show]</a></p>
+</div>
+<div id="close94" style="display:none">
+  <p>Format date from the OLE Automation DATE to a human-readable string.&nbsp;<a href="javascript: showdiv('open94'); hidediv('close94');" onclick="javascript: showdiv('open94'); hidediv('close94');">[hide]</a></p>
+  <pre class="example">#include &lt;ForexConnect.h&gt;
+#include &lt;sstream&gt;
+#include &lt;iomanip&gt;
+#include &lt;string&gt;
+ 
+ 
+void formatDate(DATE d, std::string &buf)
+{
+    struct tm t;
+    CO2GDateUtils::OleTimeToCTime(d, &t);
+    std::stringstream sstream;
+    sstream &lt;&lt; std::setfill('0') &lt;&lt; std::setw(4) &lt;&lt; t.tm_year + 1900 &lt;&lt; &quot;/&quot;
+            &lt;&lt; std::setfill('0') &lt;&lt; std::setw(2) &lt;&lt; t.tm_mon + 1 &lt;&lt; &quot;/&quot;
+            &lt;&lt; std::setfill('0') &lt;&lt; std::setw(2) &lt;&lt; t.tm_mday &lt;&lt; &quot; &quot;
+            &lt;&lt; std::setfill('0') &lt;&lt; std::setw(2) &lt;&lt; t.tm_hour &lt;&lt; &quot;:&quot;
+            &lt;&lt; std::setfill('0') &lt;&lt; std::setw(2) &lt;&lt; t.tm_min &lt;&lt; &quot;:&quot;
+            &lt;&lt; std::setfill('0') &lt;&lt; std::setw(2) &lt;&lt; t.tm_sec;
+    buf = sstream.str();
+}
+ </pre>
+</div><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Static Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="CO2GDateUtils.CTimeToOleTime.html">CTimeToOleTime</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Converts the C time structure to the OLE Automation date.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="CO2GDateUtils.CTimeToWindowsTime.html">CTimeToWindowsTime</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Converts the C time structure to the SYSTEMTIME structure.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="CO2GDateUtils.OleTimeToCTime.html">OleTimeToCTime</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Converts the OLE Automation date (double) to the C time structure.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="CO2GDateUtils.OleTimeToWindowsTime.html">OleTimeToWindowsTime</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Converts the OLE Automation date (double) to the SYSTEMTIME structure.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="CO2GDateUtils.WindowsTimeToCTime.html">WindowsTimeToCTime</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Converts the SYSTEMTIME structure to the C time structure.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="CO2GDateUtils.WindowsTimeToOleTime.html">WindowsTimeToOleTime</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Converts the SYSTEMTIME structure to the OLE Automation date (double).</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="forexconnect.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

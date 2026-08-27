@@ -1,0 +1,166 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Trading Tables</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Trading Tables</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>This section describes tables that contain trading-related data. See also the <a href="img/TTables.gif">ER-diagram</a> of the trading tables.</p>
+    <p><b>Details</b></p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Articles</b></td>
+      </tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="TTAccounts.html">Accounts (table)</a></p>
+    <p>This section describes the Accounts table that contains the trading account data such as funds used in trading, idle funds, profits/losses, certain account limitations, and so on.</p>
+  </td>
+</tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="TTOrders.html">Orders (table)</a></p>
+    <p>This section describes the Orders table that contains information about orders. The data is kept in this table until all the orders are executed.</p>
+  </td>
+</tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="TTOffers.html">Offers (table)</a></p>
+    <p>This section describes the Offers table that contains information about trading instruments, current prices, and high/low trading day prices.</p>
+  </td>
+</tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="TTTrades.html">Trades (table)</a></p>
+    <p>This section describes the Trades table that contains open positions data such as floating profit/loss, charged commission, cumulative interest, and so on.</p>
+  </td>
+</tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="TTClosedTrades.html">Closed Trades (table)</a></p>
+    <p>This section describes the Closed Trades table that contains information about the positions closed during the current trading day such as realized profit/loss, charged commission, cumulative interest, and so on.</p>
+  </td>
+</tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="TTMessages.html">Messages (table)</a></p>
+    <p>This section describes the Messages table that contains information about dealing desk messages received during the current trading day.</p>
+  </td>
+</tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="TTSummary.html">Summary (table)</a></p>
+    <p>This section describes the Summary table that contains summarized information such as the average entry price, profit/loss, and so on for every instrument currently traded. <b>Note:</b> The Summary table is available only through the Table Manager.</p>
+  </td>
+</tr></table>
+    <p>
+      <center><a href="Trading.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

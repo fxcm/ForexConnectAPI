@@ -1,0 +1,163 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>WeekendCandleMode</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>enum <b>WeekendCandleMode</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The options of handling price data during weekends.</p>
+    <p><b>Details</b></p><p>While 17:00NYT, Friday till 17:00NYT, Sunday is a non-trading time, prices actually start to be broadcasted between 12:00 and 14:00
+of Sunday. There are three options how these prices can be handled for 1-Day candles.
+The choice depends on preferences of the user and his method of the market data interpretation and analysis.</p><ul class="main">
+  <li><p>These prices can be simply ignored (this is the default behavior of the FXCM trading system).</p></li>
+  <li><p>These prices can be formed into a separate Sunday candle.</p></li>
+  <li><p>These prices can be added to the Monday candle, so, it actually starts not at 17:00NYT, Sunday, but at 12:00NYT, Sunday.</p></li>
+</ul><p><b>[Since QuotesManager 2.6]</b> These options affect timeframes from m1 to D1.</p>
+<p>One of these options can be chosen using the <a href="quotesmgr.IQuotesManager.setWeekendCandleMode.0.html"><code>IQuotesManager::setWeekendCandleMode()</code></a> method.</p>
+<p>The type defined in the <code>quotesmgr2</code> library.
+The namespace is <a href="quotesmgr.html"><code>quotesmgr</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Static Public Fields</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="quotesmgr.WeekendCandleMode.WeekendCandleHide.0.html">WeekendCandleHide</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Ignore the prices during non-trading hours.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="quotesmgr.WeekendCandleMode.WeekendCandleMergeToNextWeek.0.html">WeekendCandleMergeToNextWeek</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Add prices during non-trading hours to the first candle of the week.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="quotesmgr.WeekendCandleMode.WeekendCandleShow.0.html">WeekendCandleShow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Make a separate candle reflecting price movement during non-trading hours.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="quotesmgr.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

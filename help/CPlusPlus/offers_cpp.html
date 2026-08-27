@@ -1,0 +1,938 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Getting Offers</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Getting Offers</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article discusses how to get offers in C++.</p>
+    <p><b>Details</b></p><p>There are two ways to get offers in your C++ application.<br>
+The first way is to use table listener. In this case you should:</p><ol class="main">
+  <li><p>Create a session, a session status listener, subscribe the status listener to the session status
+(see <a href="login_logout_cpp.html"><code>this article</code></a>).
+<br></p></li>
+  <li><p>Implement the <a href="IO2GTableListener.html"><code>IO2GTableListener</code></a> interface
+in a table listener class:<br></p><pre class="example"><code>class TableListener : public IO2GTableListener {...}</code></pre></li>
+  <li><p>Allow the use of table manager (it should be done before the login):<br></p><pre class="example"><code>session-&gt;useTableManager(::Yes, NULL);</code><br></pre></li>
+  <li><p>Log in (see <a href="login_logout_cpp.html"><code>this article</code></a>).
+<br></p></li>
+  <li><p>Get table manager:<br></p><pre class="example"><code>IO2GTableManager *tableManager = session-&gt;getTableManager();</code></pre></li>
+  <li><p>Wait for <a href="O2GTableManagerStatus.TablesLoaded.0.html"><code>TablesLoaded</code></a> status of <a href="IO2GTableManager.html"><code>IO2GTableManager</code></a>.<br></p><pre class="example"><code>while (tableManager-&gt;getStatus() != TablesLoaded &amp;&amp; tableManager-&gt;getStatus() != TablesLoadFailed) </code>
+<code>    uni::Sleep(50);</code><br></pre></li>
+  <li><p>Get &quot;Offers&quot; table:<br></p><pre class="example"><code>IO2GOffersTable *offersTable = (IO2GOffersTable *)tableManager-&gt;getTable(::Offers);</code></pre></li>
+  <li><p>The table can be processed to get information about offers:<br></p><pre class="example"><code>
+IO2GOfferTableRow *offerRow = NULL;
+IO2GTableIterator tableIterator = {0, 0, NULL};
+while (offersTable-&gt;getNextRow(tableIterator, offerRow))
+{
+    printf(&quot;Instrument: %s, Bid = %f, Ask = %f\n&quot;, offerRow-&gt;getInstrument(), offerRow-&gt;getBid(), offerRow-&gt;getAsk());
+    offerRow-&gt;release();
+}
+</code></pre></li>
+  <li><p>To capture updates of &quot;Offers&quot; table create table listener and subscribe it to &quot;Update&quot; event of &quot;Offers&quot; table:<br></p><pre class="example"><code>
+TableListener * tableListener = new TableListener();
+offersTable-&gt;subscribeUpdate(Update, tableListener);
+</code></pre></li>
+  <li><p>Process table updates in &quot;onChanged&quot; event of <a href="IO2GTableListener.html"><code>IO2GTableListener</code></a>:<br></p><pre class="example"><code>
+void TableListener::onChanged(const char *rowID, IO2GRow *row)
+{
+    IO2GOfferRow *offerRow = static_cast&lt;IO2GOfferRow *&gt;(row);
+    if (offerRow!=NULL)
+        printf(&quot;Instrument: %s, Bid = %f, Ask = %f\n&quot;, offerRow-&gt;getInstrument(), offerRow-&gt;getBid(), offerRow-&gt;getAsk());
+}
+</code></pre></li>
+  <li><p>Unsubscribe from table listener when you are done:<br></p><pre class="example"><code>
+offersTable-&gt;unsubscribeUpdate(Update, tableListener);
+delete tableListener;
+offersTable-&gt;release();
+</code></pre></li>
+  <li><p>Log out (see <a href="login_logout_cpp.html"><code>this article</code></a>).
+<br></p></li>
+</ol><div id="open20" style="display:inline">
+  <p>Get offers example&nbsp;<a href="javascript: showdiv('close20'); hidediv('open20');" onclick="javascript: showdiv('close20'); hidediv('open20');">[show]</a></p>
+</div>
+<div id="close20" style="display:none">
+  <p>Get offers example&nbsp;<a href="javascript: showdiv('open20'); hidediv('close20');" onclick="javascript: showdiv('open20'); hidediv('close20');">[hide]</a></p>
+  <pre class="example"><code>
+main.cpp
+#include &lt;string&gt;
+#include &lt;map&gt;
+#include &quot;../../../../../../include/ForexConnect.h&quot;
+#include &quot;sessionstatus.h&quot;
+#include &quot;responselistener.h&quot;
+ 
+int main(int argc, char *argv[])
+{
+    const char *user = 0;
+    const char *password = 0;
+    const char *url = 0;
+    const char *connection = 0;
+    const char *subsession = 0;
+    const char *pin = 0;
+    if (argc &lt; 3)
+    {
+        printf(&quot;usage: GetOffers.exe user password url connection [subsession] [pin]\n&quot;);
+        return -1;
+    }
+ 
+    user = argv[1];
+    password = argv[2];
+    if (argc &gt;= 4)
+        url = argv[3];
+    else
+        url = &quot;http://www.fxcorporate.com/Hosts.jsp&quot;;
+    if (argc &gt;= 5)
+        connection = argv[4];
+    else
+        connection = &quot;Demo&quot;;
+ 
+    IO2GSession *session = CO2GTransport::createSession();
+    SessionStatusListener *status_listener = new SessionStatusListener(session, true, subsession, pin);
+    ResponseListener *response_listener = new ResponseListener(session);
+    session-&gt;subscribeSessionStatus(status_listener);
+    session-&gt;subscribeResponse(response_listener);
+    status_listener-&gt;resetError();
+    printf(&quot;connecting...\n&quot;);
+    session-&gt;login(user, password, url, connection);
+ 
+    bool connected = false;
+ 
+    while (true)
+    {
+        uni::WaitForSingleObject(status_listener-&gt;getEvent(), 250);
+        if (status_listener-&gt;getStatusCode() == IO2GSessionStatus::Connected)
+        {
+            connected = true;
+            break;
+        }
+        if (status_listener-&gt;wasError())
+        {
+            printf(&quot;Connection failed: %s&quot;, status_listener-&gt;getError());
+            break;
+        }
+    }
+ 
+    if (connected)
+    {
+        printf(&quot;connected\n&quot;);
+ 
+        //subscribe for offer updates if offers aren't subscribed automatically
+        IO2GLoginRules *rules = session-&gt;getLoginRules();
+        if (!rules-&gt;isTableLoadedByDefault(Offers))
+        {
+            //subscribe
+            IO2GRequestFactory *factory = session-&gt;getRequestFactory();
+            if (factory)
+            {
+               IO2GRequest *request = factory-&gt;createRefreshTableRequest(Offers);
+               session-&gt;sendRequest(request);
+               request-&gt;release();
+               factory-&gt;release();
+            }
+        }
+        else
+        {
+            //process response in case the offers are already subscribed
+            IO2GResponse *response = rules-&gt;getTableRefreshResponse(Offers);
+            response_listener-&gt;onRequestCompleted(&quot;&quot;, response);
+            response-&gt;release();
+        }
+ 
+        //do nothing 10 seconds, lets all work
+        Sleep(10000);
+ 
+        session-&gt;logout();
+        printf(&quot;disconnecting...\n&quot;);
+        while (true)
+        {
+            uni::WaitForSingleObject(status_listener-&gt;getEvent(), 250);
+            if (status_listener-&gt;getStatusCode() == IO2GSessionStatus::Disconnected)
+                break;
+        }
+        printf(&quot;disconnected\n&quot;);
+    }
+ 
+    session-&gt;unsubscribeResponse(response_listener);
+    response_listener-&gt;release();
+    session-&gt;unsubscribeSessionStatus(status_listener);
+    status_listener-&gt;release();
+    session-&gt;release();
+}
+ 
+ 
+ Offer.h
+#include &quot;../../../../../../include/ForexConnect.h&quot;
+!
+/** class to keep offers. */
+class Offer
+{
+ private:
+    std::string mID;            //!&lt; offer identifier
+    std::string mInstrument;    //!&lt; instrument
+    int mPrecision;             //!&lt; offer precision
+    DATE mTime;                 //!&lt; date and time of the offer change
+    double mPipSize;            //!&lt; offer pipsize
+    double mBid;                //!&lt; offer bid
+    double mAsk;                //!&lt; offer ask
+ public:
+    /** Constructor. */
+    Offer(const char *id, const char *instrument, int precision, double pipsize, double date, double bid, double ask);
+ 
+    /** Update bid. */
+    void setBid(double bid);
+ 
+    /** Update ask. */
+    void setAsk(double ask);
+ 
+    /** Update date. */
+    void setTime(DATE date);
+ 
+    /** Get id. */
+    const char *getID() const;
+ 
+    /** Get instrument. */
+    const char *getInstrument() const;
+ 
+    /** Get precision. */
+    int getPrecision() const;
+ 
+    /** Get pipsize. */
+    double getPipSize() const;
+ 
+    /** Get bid. */
+    double getBid() const;
+ 
+    /** Get ask. */
+    double getAsk() const;
+ 
+    /** Get date. */
+    DATE getTime() const;
+};
+ 
+ offer.cpp
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;map&gt;
+#include &quot;offer.h&quot;
+ 
+/** Constructor. */
+Offer::Offer(const char *id, const char *instrument, int precision, double pipsize, DATE date, double bid, double ask)
+{
+    mID = id;
+    mInstrument = instrument;
+    mPrecision = precision;
+    mPipSize = pipsize;
+    mTime = date;
+    mBid = bid;
+    mAsk = ask;
+}
+ 
+/** Update bid. */
+void Offer::setBid(double bid)
+{
+    mBid = bid;
+}
+ 
+/** Update ask. */
+void Offer::setAsk(double ask)
+{
+    mAsk = ask;
+}
+ 
+ 
+/** Update date. */
+void Offer::setTime(DATE date)
+{
+    mTime = date;
+}
+ 
+/** Get id. */
+const char *Offer::getID() const
+{
+    return mID.c_str();
+}
+ 
+/** Get instrument. */
+const char *Offer::getInstrument() const
+{
+    return mInstrument.c_str();
+}
+ 
+/** Get precision. */
+int Offer::getPrecision() const
+{
+    return mPrecision;
+}
+ 
+/** Get pipsize. */
+double Offer::getPipSize() const
+{
+    return mPipSize;
+}
+ 
+/** Get bid. */
+double Offer::getBid() const
+{
+    return mBid;
+}
+ 
+/** Get ask. */
+double Offer::getAsk() const
+{
+    return mAsk;
+}
+ 
+/** Get date. */
+DATE Offer::getTime() const
+{
+    return mTime;
+}
+ 
+ 
+/** Constructor. */
+OfferCollection::OfferCollection()
+{
+}
+ 
+/** Destructor. */
+OfferCollection::~OfferCollection()
+{
+    clear();
+}
+ 
+/** Add offer to collection. */
+void OfferCollection::addOffer(Offer *offer)
+{
+    std::map&lt;std::string, Offer *&gt;::const_iterator iter = mIndex.find(offer-&gt;getID());
+    if (iter != mIndex.end())
+    {
+        for (int i = 0; i &lt; (int)mOffers.size(); i++)
+        {
+            if (mOffers[i] == offer)
+            {
+                delete mOffers[i];
+                mOffers.erase(mOffers.begin() + i);
+                break;
+            }
+        }
+    }
+    mOffers.push_back(offer);
+    mIndex[offer-&gt;getID()] = offer;
+}
+ 
+/** Find offer by id. */
+Offer *OfferCollection::findOfferForUpdate(const char *id) const
+{
+    std::map&lt;std::string, Offer *&gt;::const_iterator iter = mIndex.find(id);
+    if (iter == mIndex.end())
+        return 0;
+    else
+        return iter-&gt;second;
+}
+/** Find offer by id. */
+const Offer *OfferCollection::findOffer(const char *id) const
+{
+    std::map&lt;std::string, Offer *&gt;::const_iterator iter = mIndex.find(id);
+    if (iter == mIndex.end())
+        return 0;
+    else
+        return iter-&gt;second;
+}
+ 
+/** Get number of offers. */
+int OfferCollection::size() const
+{
+    return (int)mOffers.size();
+}
+ 
+/** Get offer by index. */
+const Offer *OfferCollection::get(int index) const
+{
+    return mOffers[index];
+}
+ 
+void OfferCollection::clear()
+{
+    int i;
+    for (i = 0; i &lt; (int)mOffers.size(); i++)
+        delete mOffers[i];
+    mOffers.clear();
+    mIndex.clear();
+}
+ 
+sessionstatuslistener.h
+#pragma once
+ 
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &quot;../../../../threadlib/include/threadlib.h&quot;
+#ifdef WIN32
+ #pragma warning (disable : 4996)
+#else
+  #define Sleep(A) sleep((A) / 1000)
+#endif
+ 
+/** Status listener for the sessions. */
+ 
+class SessionStatusListener : public IO2GSessionStatus
+{
+ private:
+    long mRefCount;
+    /** Sub session identifier. */
+    std::string mSubSessionID;
+    /** Pin code. */
+    std::string mPin;
+    /** The last session status code received. */
+    IO2GSessionStatus::O2GSessionStatus mStatusCode;
+    /** Flag indicating what error happened. */
+    bool mHasError;
+    /** Error. */
+    std::string mError;
+    /** Flag indicating whether sessions must be printed. */
+    bool mPrintSubsessions;
+    /** Session object. */
+    IO2GSession *mSession;
+    /** Event handle. */
+    HANDLE mEvent;
+ protected:
+    /** Destructor. */
+    ~SessionStatusListener();
+ 
+ public:
+    /** Constructor.
+ 
+        @param session          Session to listen
+        @param printSubsessions Print sub sessions
+        @param subSessionID     Identifier of the subsession or NULL in case
+                                no subsession selector is expected
+        @param pin              Pin code or NULL in case no pin code request is expected
+      */
+    SessionStatusListener(IO2GSession *session, bool printSubsessions, const char *subSessionID = 0, const char *pin = 0);
+ 
+    /** Increase reference counter. */
+    virtual long addRef();
+ 
+    /** Decrease reference counter. */
+    virtual long release();
+ 
+    /** Callback called when login has been failed. */
+    virtual void  onLoginFailed (const char *error);
+ 
+    /** Callback called when session status has been changed. */
+    virtual void  onSessionStatusChanged(IO2GSessionStatus::O2GSessionStatus status);
+ 
+    /** Get the session status. */
+    IO2GSessionStatus::O2GSessionStatus getStatusCode() const;
+ 
+    /** Check whether error happened. */
+    bool wasError() const;
+ 
+    /** Reset error information (use before login). */
+    void resetError();
+ 
+    /** Get error. */
+    const char *getError() const;
+ 
+    /** Get event handle to monitor the status. */
+    HANDLE getEvent() const;
+};
+ 
+sessionstatuslistener.cpp
+#include &lt;string&gt;
+#include &quot;../../../../../../include/ForexConnect.h&quot;
+#include &quot;sessionstatus.h&quot;
+ 
+/** Constructor. */
+SessionStatusListener::SessionStatusListener(IO2GSession *session, bool printSubsessions, const char *subSessionID, const char *pin)
+{
+    if (subSessionID != 0)
+        mSubSessionID = subSessionID;
+    else
+        mSubSessionID = &quot;&quot;;
+    if (pin != 0)
+        mPin = pin;
+    else
+        mPin = &quot;&quot;;
+    mSession = session;
+    mSession-&gt;addRef();
+    mHasError = false;
+    mError = &quot;&quot;;
+    mPrintSubsessions = printSubsessions;
+    mRefCount = 1;
+    mStatusCode = IO2GSessionStatus::Disconnected;
+    mEvent = uni::CreateEvent(0, FALSE, FALSE, 0);
+}
+ 
+/** Destructor. */
+SessionStatusListener::~SessionStatusListener()
+{
+    mSession-&gt;release();
+    mSubSessionID.clear();
+    mPin.clear();
+    mError.clear();
+    uni::CloseHandle(mEvent);
+}
+ 
+/** Increase reference counter. */
+long SessionStatusListener::addRef()
+{
+    return InterlockedIncrement(&mRefCount);
+}
+ 
+/** Decrease reference counter. */
+long SessionStatusListener::release()
+{
+    long rc = InterlockedDecrement(&mRefCount);
+    if (rc == 0)
+        delete this;
+    return rc;
+}
+ 
+/** Callback called when login has been failed. */
+void SessionStatusListener::onLoginFailed(const char *error)
+{
+    mHasError = true;
+    mError = error;
+    uni::SetEvent(mEvent);
+}
+ 
+/** Callback called when session status has been changed. */
+void SessionStatusListener::onSessionStatusChanged(IO2GSessionStatus::O2GSessionStatus status)
+{
+    switch (status)
+    {
+    case    IO2GSessionStatus::Disconnected:
+            printf(&quot;status::disconnected\n&quot;);
+            break;
+    case    IO2GSessionStatus::Connecting:
+            printf(&quot;status::connecting\n&quot;);
+            break;
+    case    IO2GSessionStatus::TradingSessionRequested:
+            printf(&quot;status::trading session requested\n&quot;);
+            break;
+    case    IO2GSessionStatus::Connected:
+            printf(&quot;status::connected\n&quot;);
+            break;
+    case    IO2GSessionStatus::Reconnecting:
+            printf(&quot;status::reconnecting\n&quot;);
+            break;
+    case    IO2GSessionStatus::Disconnecting:
+            printf(&quot;status::disconnecting\n&quot;);
+            break;
+    case    IO2GSessionStatus::SessionLost:
+            printf(&quot;status::session lost\n&quot;);
+            break;
+    }
+ 
+    if (status == IO2GSessionStatus::TradingSessionRequested)
+    {
+        IO2GSessionDescriptorCollection *descriptors = mSession-&gt;getTradingSessionDescriptors();
+        bool found = false;
+        if (descriptors != 0)
+        {
+            if (mPrintSubsessions)
+                printf(&quot;descriptors available:\n&quot;);
+            int i;
+            for (i = 0; i &lt; descriptors-&gt;size(); i++)
+            {
+                IO2GSessionDescriptor *descriptor = descriptors-&gt;get(i);
+ 
+                if (mPrintSubsessions)
+                    printf(&quot;  id:='%s' name='%s' description='%s' %s\n&quot;, descriptor-&gt;getID(), descriptor-&gt;getName(), descriptor-&gt;getDescription(), descriptor-&gt;requiresPin() ? &quot;requires pin&quot; : &quot;&quot;);
+ 
+                if (strcmp(mSubSessionID.c_str(), descriptor-&gt;getID()) == 0)
+                    found = true;
+ 
+                descriptor-&gt;release();
+            }
+            descriptors-&gt;release();
+        }
+        if (!found)
+        {
+            onLoginFailed(&quot;The specified sub session identifier is not found&quot;);
+        }
+        else
+        {
+            mSession-&gt;setTradingSession(mSubSessionID.c_str(), mPin.c_str());
+        }
+    }
+    mStatusCode = status;
+    uni::SetEvent(mEvent);
+}
+ 
+/** Get the session status. */
+IO2GSessionStatus::O2GSessionStatus SessionStatusListener::getStatusCode() const
+{
+    return mStatusCode;
+}
+ 
+/** Check whether error happened. */
+bool SessionStatusListener::wasError() const
+{
+    return mHasError;
+}
+ 
+/** Reset error information (use before login). */
+void SessionStatusListener::resetError()
+{
+    mHasError = false;
+    mError = &quot;&quot;;
+}
+ 
+/** Get error. */
+const char *SessionStatusListener::getError() const
+{
+    return mError.c_str();
+}
+ 
+HANDLE SessionStatusListener::getEvent() const
+{
+    return mEvent;
+}
+ 
+ responselistern.h
+#include &quot;../../../../../../include/ForexConnect.h&quot;
+ 
+ 
+/** Response listener class. */
+class OfferCollection;
+class Offer;
+ 
+class ResponseListener : public IO2GResponseListener
+{
+ private:
+    long mRefCount;
+    /** Session object. */
+    IO2GSession *mSession;
+    /** Collection of the offers. */
+    OfferCollection *mOffers;
+ protected:
+    /** Destructor. */
+    virtual ~ResponseListener();
+ 
+    /** Print offer to the console. */
+    void printOffer(Offer *offer);
+ 
+    /** Format date to print */
+    void formatDate(DATE d, char *buf);
+ 
+ public:
+    ResponseListener(IO2GSession *session);
+ 
+    /** Increase reference counter. */
+    virtual long addRef();
+ 
+    /** Decrease reference counter. */
+    virtual long release();
+ 
+    /** Request execution completed data handler. */
+    virtual void onRequestCompleted(const char * requestId, IO2GResponse  *response = 0);
+ 
+    /** Request execution failed data handler. */
+    virtual void onRequestFailed(const char *requestId , const char *error);
+ 
+    /** Request update data received data handler. */
+    virtual void onTablesUpdates(IO2GResponse *data);
+};
+ 
+ responselistener.cpp
+#include &lt;stdio.h&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;map&gt;
+#include &lt;time.h&gt;
+#include &lt;math.h&gt;
+#include &quot;../../../../../../include/ForexConnect.h&quot;
+#include &quot;offer.h&quot;
+#include &quot;responselistener.h&quot;
+#include &quot;sessionstatus.h&quot;
+ 
+ResponseListener::ResponseListener(IO2GSession *session)
+{
+    mSession = session;
+    mSession-&gt;addRef();
+    mOffers = new OfferCollection();
+    mRefCount = 1;
+}
+ 
+ResponseListener::~ResponseListener()
+{
+    delete mOffers;
+    mSession-&gt;release();
+}
+ 
+/** Increase reference counter. */
+long ResponseListener::addRef()
+{
+    return InterlockedIncrement(&mRefCount);
+}
+ 
+/** Decrease reference counter. */
+long ResponseListener::release()
+{
+    long rc = InterlockedDecrement(&mRefCount);
+    if (rc == 0)
+        delete this;
+    return rc;
+}
+ 
+/** Request execution completed data handler. */
+void ResponseListener::onRequestCompleted(const char *requestId, IO2GResponse  *response)
+{
+    if (response != 0)
+    {
+        if (response-&gt;getType() == GetOffers)
+        {
+            //process updates
+            IO2GResponseReaderFactory *factory = mSession-&gt;getResponseReaderFactory();
+            if (factory == 0)
+                return;
+ 
+            IO2GOffersTableResponseReader *offersReader = factory-&gt;createOffersTableReader(response);
+            if (offersReader != 0)
+            {
+                mOffers-&gt;clear();
+                int size = offersReader-&gt;size();
+ 
+                for (int i = 0; i &lt; size; i++)
+                {
+                    IO2GOfferRow *offer_row = offersReader-&gt;getRow(i);
+                    const char *id = offer_row-&gt;getOfferID();
+                    if (offer_row-&gt;isBidValid() &amp;&amp; offer_row-&gt;isAskValid())
+                    {
+                        Offer *offer = new Offer(offer_row-&gt;getOfferID(), offer_row-&gt;getInstrument(),
+                                             offer_row-&gt;getDigits(), offer_row-&gt;getPointSize(),
+                                             offer_row-&gt;getTime(), offer_row-&gt;getBid(), offer_row-&gt;getAsk());
+                        mOffers-&gt;addOffer(offer);
+                        printOffer(offer);
+                    }
+                    offer_row-&gt;release();
+                 }
+                offersReader-&gt;release();
+            }
+            factory-&gt;release();
+        }
+    }
+}
+ 
+/** Request execution failed data handler. */
+void ResponseListener::onRequestFailed(const char *requestId , const char *error)
+{
+    printf(&quot;Request %s failed:\n%s\n&quot;, requestId, error);
+}
+ 
+/** Request update data received data handler. */
+void ResponseListener::onTablesUpdates(IO2GResponse *data)
+{
+    //process updates
+    IO2GResponseReaderFactory *factory = mSession-&gt;getResponseReaderFactory();
+    if (factory == 0)
+        return;
+ 
+    IO2GOffersTableResponseReader *offersReader = factory-&gt;createOffersTableReader(data);
+    if (offersReader != 0)
+    {
+        int size = offersReader-&gt;size();
+ 
+        for (int i = 0; i &lt; size; i++)
+        {
+            IO2GOfferRow *offer_row = offersReader-&gt;getRow(i);
+            const char *id = offer_row-&gt;getOfferID();
+ 
+            Offer *offer = mOffers-&gt;findOfferForUpdate(id);
+ 
+            if (offer != 0)
+            {
+                if (offer_row-&gt;isTimeValid() &amp;&amp; offer_row-&gt;isBidValid() &amp;&amp; offer_row-&gt;isAskValid())
+                {
+                    offer-&gt;setTime(offer_row-&gt;getTime());
+                    offer-&gt;setBid(offer_row-&gt;getBid());
+                    offer-&gt;setAsk(offer_row-&gt;getAsk());
+                    printOffer(offer);
+                }
+            }
+            offer_row-&gt;release();
+        }
+        offersReader-&gt;release();
+    }
+ 
+    factory-&gt;release();
+}
+ 
+/** Print offer to the console. */
+void ResponseListener::printOffer(Offer *offer)
+{
+    char sbid[32], sask[32], stime[64];
+    char format[32];
+    sprintf(format, &quot;%%.%if&quot;, offer-&gt;getPrecision());
+    sprintf(sbid, format, offer-&gt;getBid());
+    sprintf(sask, format, offer-&gt;getAsk());
+    formatDate(offer-&gt;getTime(), stime);
+    printf(&quot;%s %s bid:=%s ask:=%s\n&quot;, offer-&gt;getInstrument(), stime, sbid, sask);
+}
+ 
+/** Format date to print */
+void ResponseListener::formatDate(DATE d, char *buf)
+{
+ 
+    struct tm t1;
+    CO2GDateUtils::VariantTimeToUnixTime(d, &t1);
+    sprintf(buf, &quot;%04i/%02i/%02i %02i:%02i:%02i&quot;, t1.tm_year + 1900, t1.tm_mon + 1, t1.tm_mday, t1.tm_hour, t1.tm_min, t1.tm_sec);
+}
+</code>
+</pre>
+</div><p>The second way to get offers in your C++ application is to use response listener.
+In that case you should:</p><ol class="main">
+  <li><p>Create a session, a session status listener, subscribe the status listener to the session status
+(see <a href="login_logout_cpp.html"><code>this article</code></a>).
+<br></p></li>
+  <li><p>Implement the <a href="IO2GResponseListener.html"><code>IO2GResponseListener</code></a> interface
+in  a response listener class:<br></p><pre class="example"><code>class ResponseListener : public IO2GResponseListener{...}</code></pre><p><br></p></li>
+  <li><p>Create a response listener object: <br></p><pre class="example"><code>ResponseListener * responseListener = new ResponseListener(...);</code><br></pre><p>Subscribe an object of this class to the session response:<br></p><pre class="example"><code>pSession-&gt;subscribeResponse(responseListener);</code></pre><p><br></p></li>
+  <li><p>Log in (see <a href="login_logout_cpp.html"><code>this article</code></a>).
+<br></p></li>
+  <li><p>The events are coming asynchronously. They should come in another thread. When an event comes, a signal will be sent to the main thread.
+<br></p></li>
+  <li><p>Use the function <a href="IO2GSessionStatus.onSessionStatusChanged.0.html"><code>onSessionStatusChanged</code></a>
+of the session status listener to capture the <a href="O2GSessionStatus.Connected.0.html"><code>Connected</code></a> event.
+<br></p></li>
+  <li><p>Get <a href="IO2GLoginRules.html"><code>IO2GLoginRules</code></a>:<br></p><pre class="example"><code>IO2GLoginRules * loginRules = mSession-&gt;getLoginRules();</code></pre><p><br></p></li>
+  <li><p>Then you can get <a href="IO2GResponse.html"><code>IO2GResponse</code></a>:<br></p><pre class="example"><code>IO2GResponse * response = loginRules-&gt;getTableRefreshResponse(Offers);</code><br></pre><p>The response can be processed to extract necessary information.
+<br></p></li>
+  <li><p>You should also capture <a href="IO2GResponse.html"><code>IO2GResponse</code></a> in the
+<a href="IO2GResponseListener.onTablesUpdates.0.html"><code>onTablesUpdates</code></a>
+function of a response listener class.
+<br></p></li>
+  <li><p>To get information from the &quot;Offers&quot; table from <a href="IO2GResponse.html"><code>IO2GResponse</code></a>:<br>
+1. Create <a href="IO2GResponseReaderFactory.html"><code>IO2GResponseReaderFactory</code></a>:<br></p><pre class="example"><code>IO2GResponseReaderFactory * factory = mSession-&gt;getResponseReaderFactory();</code></pre><p><br>
+2. Create <a href="IO2GOffersTableResponseReader.html"><code>IO2GOffersTableResponseReader</code></a>:<br></p><pre class="example"><code>IO2GOffersTableResponseReader * offersReader = factory-&gt;createOffersTableReader(response);</code></pre><p><br>
+3. Process row by row:<br></p><pre class="example"><code>
+for (int i = 0; i &lt; offersReader-&gt;size(); i++)
+{
+      IO2GOfferRow * offer = offersReader-&gt;getRow(i);
+      // Information like
+      // offer-&gt;getInstrument(),
+      // offer-&gt;getOfferID(),
+      // offer-&gt;getBid(),
+      // offer-&gt;getAsk(),
+      // offer-&gt;getVolume()
+      // can be extracted now.
+}
+</code></pre></li>
+</ol><p>
+      <center><a href="howto.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

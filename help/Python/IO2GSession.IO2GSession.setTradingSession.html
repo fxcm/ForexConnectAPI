@@ -1,0 +1,164 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GSession.set_trading_session</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>O2GSession.set_trading_session</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Sets the trading session if a trading session is requested.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">Python</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"></td>
+    <td width="99%" valign="top"><code><b>set_trading_session</b>((str)session_id, (str)pin) -&gt; None</code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>session_id</code></td>
+    <td class="tmain" width="69%"><p>The identifier of the trading session. Must be one of the values returned by the
+<a href="IO2GSessionDescriptor.IO2GSessionDescriptor.getID.html"><code>O2GSessionDescriptor.id</code></a> method of one
+of the objects returned by the <a href="IO2GSession.IO2GSession.getTradingSessionDescriptors.html"><code>trading_session_descriptors</code></a>
+method.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>pin</code></td>
+    <td class="tmain" width="69%"><p>The PIN code. If no PIN is required, specify an empty string (&quot;&quot;).</p></td>
+  </tr>
+</table><p><b>Details</b></p><p>The method can be used only after the
+<a href="IO2GSessionStatus.O2GSessionStatus.O2GSessionStatus.TradingSessionRequested.html"><code>TRADING_SESSION_REQUESTED</code></a> session status
+is received. The subsession identifier must be one of the subsession identifiers returned by
+the <a href="IO2GSession.IO2GSession.getTradingSessionDescriptors.html"><code>trading_session_descriptors</code></a> method.</p>
+<p>The login process is suspended between receiving of the <a href="IO2GSessionStatus.O2GSessionStatus.O2GSessionStatus.TradingSessionRequested.html"><code>TRADING_SESSION_REQUESTED</code></a> session
+status and calling of the <code>setTradingSession</code> method, so you can, for example, show the dialog
+to choose the trading session to the user.</p>
+<p>When the trading session is specified using the <code>setTradingSession</code> method, the login process is
+resumed.</p><p>Declared in <a href="IO2GSession.html">O2GSession</a></p>
+<p>
+  <center><a href="IO2GSession.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'IO2GSession.html');</script></body>
+</html>

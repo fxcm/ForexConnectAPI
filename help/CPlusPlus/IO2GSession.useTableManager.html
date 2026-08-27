@@ -1,0 +1,192 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GSession.useTableManager</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>IO2GSession.useTableManager</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Defines usage of the table manager.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">C++</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code>virtual&nbsp;void&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>useTableManager</b> (<a href="O2GTableManagerMode.html">O2GTableManagerMode</a> mode, <a href="IO2GTableManagerListener.html">IO2GTableManagerListener</a> * tablesListener)  = 0</code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>mode</code></td>
+    <td class="tmain" width="69%"><p>The table manager mode.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>tableManagerListener</code></td>
+    <td class="tmain" width="69%"><p>The listener to the table manager status (tables readiness). If you application does not implement table manager listener, use <code>NULL</code>.</p></td>
+  </tr>
+</table><p><b>Details</b></p><p>This method must be called before logging in to ForexConnect. By default the table manager mode is <code>No</code>.</p><div id="open193" style="display:none">
+  <p>useTableManager - without table manager listener&nbsp;<a href="javascript: showdiv('close193'); hidediv('open193');" onclick="javascript: showdiv('close193'); hidediv('open193');">[show]</a></p>
+</div>
+<div id="close193" style="display:inline">
+  <p>useTableManager - without table manager listener&nbsp;<a href="javascript: showdiv('open193'); hidediv('close193');" onclick="javascript: showdiv('open193'); hidediv('close193');">[hide]</a></p>
+  <pre class="example"> session-&gt;useTableManager(::Yes, NULL);
+ session-&gt;login(user.c_str(), password.c_str(), url.c_str(), connection.c_str());
+ //...
+ IO2GTableManager *tableManager = session-&gt;getTableManager();
+ while (tableManager-&gt;getStatus() != TablesLoaded &amp;&amp; tableManager-&gt;getStatus() != TablesLoadFailed)
+     uni::Sleep(50);
+ if (tableManager-&gt;getStatus() == TablesLoaded)
+ {
+    //...
+ }
+ tableManager-&gt;release();</pre>
+</div><div id="open194" style="display:none">
+  <p>useTableManager - use table manager listener&nbsp;<a href="javascript: showdiv('close194'); hidediv('open194');" onclick="javascript: showdiv('close194'); hidediv('open194');">[show]</a></p>
+</div>
+<div id="close194" style="display:inline">
+  <p>useTableManager - use table manager listener&nbsp;<a href="javascript: showdiv('open194'); hidediv('close194');" onclick="javascript: showdiv('open194'); hidediv('close194');">[hide]</a></p>
+  <pre class="example"> TablesManagerStatusListener *tablesStatusListener = new TablesManagerStatusListener();
+ session-&gt;useTableManager(::Yes, tablesStatusListener);
+ session-&gt;login(user.c_str(), password.c_str(), url.c_str(), connection.c_str());
+ // ...
+ // wait for IO2GTableManagerListener.onStatusChanged
+ if (tablesStatusListener-&gt;isTablesLoaded()) // function checking whether table manager status is TablesLoaded
+ {
+   IO2GTableManager *tableManager = session-&gt;getTableManager();
+   //...
+   tableManager-&gt;release();
+ }
+ session-&gt;logout();
+ //...
+ tablesStatusListener-&gt;release();
+ 
+ 
+ // implement IO2GTableManagerListener
+ class TablesManagerStatusListener : public IO2GTableManagerListener  {...}</pre>
+</div><p>Declared in <a href="IO2GSession.html">IO2GSession</a></p>
+<p>
+  <center><a href="IO2GSession.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'IO2GSession.html');</script></body>
+</html>

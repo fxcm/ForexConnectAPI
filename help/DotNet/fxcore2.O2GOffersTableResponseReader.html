@@ -1,0 +1,242 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GOffersTableResponseReader</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>O2GOffersTableResponseReader</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="fxcore2.O2GGenericTableResponseReader.html"><code>O2GGenericTableResponseReader</code></a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The class reads a stream of offer rows coming from the trading server.</p>
+    <p><b>Details</b></p><p>All data from the trading server come in the form of responses. The type of the response depends on the type of the request.
+An <a href="fxcore2.O2GResponse.html"><code>O2GResponse</code></a> object of the <a href="fxcore2.O2GResponseType.GetOffers.0.html"><code>GetOffers</code></a> type
+comes from the trading server as a response to a request for the initial offer information.
+The response consists of the <a href="TTOffers.html">Offers</a> table rows. Every row is represented by an
+<a href="fxcore2.O2GOfferRow.html"><code>O2GOfferRow</code></a> object.
+In order to read this response you must use the <code>O2GOffersTableResponseReader</code>.</p>
+<p><b>Getting the response</b><br></p>
+<p>If your application uses the <a href="fxcore2.O2GTableManager.html"><code>O2GTableManager</code></a>, the <a href="TTOffers.html">Offers</a> table is
+always loaded during the login process.
+This information is kept in an <a href="fxcore2.O2GOffersTable.html"><code>O2GOffersTable</code></a> object.<br></p>
+<p>If your application does not use the <a href="fxcore2.O2GTableManager.html"><code>O2GTableManager</code></a>, the initial offer information needs to be requested.<br>
+Depending on the trading server settings, the <a href="TTOffers.html">Offers</a> table may or may not be loaded by the server automatically during the login process.
+To determine whether the table is loaded or not and what follow-up action is required to obtain the <a href="fxcore2.O2GResponseType.GetOffers.0.html"><code>GetOffers</code></a> response,
+use the returned value of the <a href="fxcore2.O2GLoginRules.html"><code>O2GLoginRules</code></a>.<a href="fxcore2.O2GLoginRules.isTableLoadedByDefault.0.html"><code>isTableLoadedByDefault</code></a> method
+with the <a href="fxcore2.O2GTableType.Offers.0.html">O2GTableType.Offers</a> argument:<br></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Returned Value</p></td>
+    <td class="thdr"><p>Follow-up action</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>true</code></p></td>
+    <td class="tmain"><p>Call the <a href="fxcore2.O2GLoginRules.html"><code>O2GLoginRules</code></a>.<a href="fxcore2.O2GLoginRules.getTableRefreshResponse.0.html"><code>getTableRefreshResponse</code></a> method.
+For example,<br></p>
+<p><code>O2GResponse offersResponse = loginRules.getTableRefreshResponse(O2GTableType.Offers);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>false</code></p></td>
+    <td class="tmain"><p>Create a request to get initial offer information by using the <a href="fxcore2.O2GRequestFactory.html"><code>O2GRequestFactory</code></a>.<a href="fxcore2.O2GRequestFactory.createRefreshTableRequest.0.html"><code>createRefreshTableRequest</code></a> method.
+For example,<br></p>
+<p><code>O2GRequest request = requestFactory.createRefreshTableRequest(O2GTableType.Offers);</code><br></p>
+<p>In this case, an instance of the <a href="fxcore2.O2GResponse.html"><code>O2GResponse</code></a> class is the <code>response</code> parameter in your implementation of the
+<a href="fxcore2.IO2GResponseListener.html"><code>IO2GResponseListener</code></a>.<a href="fxcore2.IO2GResponseListener.onRequestCompleted.0.html"><code>onRequestCompleted</code></a> method.</p></td>
+  </tr>
+</table><p><b>Instantiating the class</b></p>
+<p>After receiving the <a href="fxcore2.O2GResponseType.GetOffers.0.html"><code>GetOffers</code></a> response, an instance of the
+<code>O2GOffersTableResponseReader</code> class can be obtained by calling the
+<a href="fxcore2.O2GResponseReaderFactory.html"><code>O2GResponseReaderFactory</code></a>.<a href="fxcore2.O2GResponseReaderFactory.createOffersTableReader.0.html"><code>createOffersTableReader</code></a> method.
+For example:<br></p>
+<p><code>O2GResponseReaderFactory responseFactory = session.getResponseReaderFactory();<br>
+O2GOffersTableResponseReader offersReader = responseFactory.createOffersTableReader(offersResponse);</code></p>
+<p>The type defined in the <code>fxcore2.dll</code> assembly.
+The namespace is <a href="fxcore2.html"><code>fxcore2</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Properties</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOffersTableResponseReader.Columns.0.html">Columns</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets an instance of the class that provides access to the list of table columns.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOffersTableResponseReader.Count.0.html">Count</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the number of rows in the reader.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOffersTableResponseReader.Type.0.html">Type</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of a trading table.</p>
+    </td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOffersTableResponseReader.getCell.0.html">getCell</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p> Gets the value of a cell.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOffersTableResponseReader.getGenericRow.0.html">getGenericRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p> Gets a generic row by its index.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOffersTableResponseReader.getRow.0.html">getRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a row from the <a href="TTOffers.html">Offers</a> table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOffersTableResponseReader.isCellValid.0.html">isCellValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Checks whether the cell value can be used or not.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

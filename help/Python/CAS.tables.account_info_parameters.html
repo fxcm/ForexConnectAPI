@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>account_info_parameters Table</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b><code>account_info_parameters</code> Table</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article describes the report table containing account information.</p>
+    <p><b>Details</b></p><p>The table contains information about the account the report is requested for.
+The identifier of the table is <code>account_info_parameters</code>.</p><table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><p>Column identifier</p></td>
+    <td class="thdr"><p>Column data type</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>account_kind</code></p></td>
+    <td class="tmain"><p><code>INTEGER</code></p></td>
+    <td class="tmain"><p>The kind of the account. Possible values:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>32</code></p></td>
+    <td class="tmain"><p>Self-traded account, funds manager account (only LAMM), managed account (only LAMM)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>36</code></p></td>
+    <td class="tmain"><p>Funds manager account (only PAMM)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>38</code></p></td>
+    <td class="tmain"><p>Managed account (only PAMM)</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>account</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>The identifier of the account (as it is displayed in the Trading Station).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>open_date</code></p></td>
+    <td class="tmain"><p><code>DATE</code></p></td>
+    <td class="tmain"><p>The date and time when the account was opened. The open date has the format <code>YYYY-MM-DD hh:mm:ss</code>, where:</p><table class="tmain">
+  <tr>
+    <td class="tmain" width="1%"><p><code>YYYY</code></p></td>
+    <td class="tmain"><p>Year</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>MM</code></p></td>
+    <td class="tmain"><p>Month (01-12)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>DD</code></p></td>
+    <td class="tmain"><p>Day of month (01-31)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>hh</code></p></td>
+    <td class="tmain"><p>Hour (00-23)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>mm</code></p></td>
+    <td class="tmain"><p>Minute (00-59)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>ss</code></p></td>
+    <td class="tmain"><p>Second (00-59)</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>status</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>The status of the account. Possible values:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>Active</code></p></td>
+    <td class="tmain"><p>The account is fully operational.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>Locked</code></p></td>
+    <td class="tmain"><p>The account is locked for security reasons; trading is restricted.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>Closed</code></p></td>
+    <td class="tmain"><p>The account is closed.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>margin_call_flag</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>The account trading limitation state.
+Each state defines which trade operations can and cannot be
+performed on the account. Possible values:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>N</code></p></td>
+    <td class="tmain"><p>No limitations (no limitations are imposed on the account operations)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>Y</code></p></td>
+    <td class="tmain"><p>Margin call (all positions are liquidated, new positions cannot be
+opened)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>W</code></p></td>
+    <td class="tmain"><p>Warning of a possible margin call or aware margin (positions can be
+closed, new positions cannot be opened)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>Q</code></p></td>
+    <td class="tmain"><p>Equity stop (all positions are liquidated, new positions cannot be
+opened up to the end of the trading day)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>A</code></p></td>
+    <td class="tmain"><p>Equity alert (positions can be closed, new positions cannot be opened up
+to the end of the trading day)</p></td>
+  </tr>
+</table></td>
+  </tr>
+</table><div id="open44" style="display:inline">
+  <p>Example:&nbsp;<a href="javascript: showdiv('close44'); hidediv('open44');" onclick="javascript: showdiv('close44'); hidediv('open44');">[show]</a></p>
+</div>
+<div id="close44" style="display:none">
+  <p>Example:&nbsp;<a href="javascript: showdiv('open44'); hidediv('close44');" onclick="javascript: showdiv('open44'); hidediv('close44');">[hide]</a></p>
+  <pre class="example">&lt;rdf:table name=&quot;account_info_parameters&quot;&gt;
+   &lt;rdf:head&gt;
+       &lt;rdf:column name=&quot;account_kind&quot; type=&quot;INTEGER&quot;/&gt;
+       &lt;rdf:column name=&quot;account&quot; type=&quot;STRING&quot;/&gt;
+       &lt;rdf:column name=&quot;open_date&quot; type=&quot;DATE&quot; description=&quot;Created at:&quot;/&gt;
+       &lt;rdf:column name=&quot;status&quot; type=&quot;STRING&quot; description=&quot;Status:&quot;/&gt;
+       &lt;rdf:column name=&quot;margin_call_flag&quot; type=&quot;STRING&quot; description=&quot;Margin Call (as at end of statement period):&quot;/&gt;
+   &lt;/rdf:head&gt;
+   &lt;rdf:body&gt;
+       &lt;rdf:row&gt;
+           &lt;rdf:cell name=&quot;account_kind&quot;&gt;32&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;account&quot;&gt;05234024&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;open_date&quot;&gt;2016-09-12 07:17:02&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;status&quot;&gt;Active&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;margin_call_flag&quot;&gt;N&lt;/rdf:cell&gt;
+       &lt;/rdf:row&gt;
+   &lt;/rdf:body&gt;
+&lt;/rdf:table&gt;</pre>
+</div><p>
+      <center><a href="CAS.ReportView.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

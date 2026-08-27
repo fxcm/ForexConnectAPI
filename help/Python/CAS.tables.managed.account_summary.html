@@ -1,0 +1,423 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>account_summary Table</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b><code>account_summary</code> Table</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article describes the Account Summary table of the report.</p>
+    <p><b>Details</b></p><p>The <i>Account Summary</i> table contains summarized information about all transactions
+that were posted to the account during the report statement period as well as certain account
+information (further referred to as <i>account properties</i>) such as:</p><ul class="main">
+  <li><p>Account balance (at the start/end date of the report statement period)</p></li>
+  <li><p>Floating profit/loss (at the end date of the report statement period)</p></li>
+  <li><p>Equity (at the end date of the report statement period)</p></li>
+  <li><p>Used and usable margin (at the end date of the report statement period)</p></li>
+</ul><p>The identifier of the table is <code>account_summary</code>.</p><table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><p>Column identifier</p></td>
+    <td class="thdr"><p>Column data type</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>type_id</code></p></td>
+    <td class="tmain"><p><code>INTEGER</code></p></td>
+    <td class="tmain"><p>The unique identification number of the transaction type or account property (see the table below).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>code</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>The short (or abbreviated) localized code of the transaction type (see the table below).<br>
+For an account property, the value is empty.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>description</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>The default localized description of the transaction type or account property (see the table below).</p>
+<p>The default description may be accompanied by additional notes provided by the operator
+who performed the transaction.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>amount</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The total amount of funds credited or debited to the account during the report statement period
+or the total amount of the account property.</p>
+<p>The value can be either positive or negative. A positive value indicates that the amount
+was credited, a negative value indicates that the amount was debited.</p>
+<p>The amount is expressed in the account denomination currency.</p></td>
+  </tr>
+</table><p><b>Transaction Types/Account Properties</b></p>
+<p>The following table contains a complete list of transaction types/account properties, their identification numbers,
+localized codes and descriptions (for the English locale).</p><table class="tmain" width="100%">
+  <tr>
+    <td class="thdr" width="1%"><p><code>type_id</code></p></td>
+    <td class="thdr" width="15%"><p><code>code</code></p></td>
+    <td class="thdr" width="20%"><p><code>description</code></p></td>
+    <td class="thdr" width="10%"><p>Always in report</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>1,8,10,15</code></p></td>
+    <td class="tmain"><p><code>Comm</code></p></td>
+    <td class="tmain"><p><code>Trading Commission</code></p></td>
+    <td class="tmain"><p>No</p></td>
+    <td class="tmain"><p>The payment of the broker comission fee that is charged for handling the purchase or sale.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>2,11,16</code></p></td>
+    <td class="tmain"><p><code>Rollover</code></p></td>
+    <td class="tmain"><p><code>Rollover Fee</code></p></td>
+    <td class="tmain"><p>No</p></td>
+    <td class="tmain"><p>The payment of the rollover fee that is charged for holding positions overnight.
+The fee may be either credited or debited to the account depending on the interest rates that apply to the traded instrument.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>3</code></p></td>
+    <td class="tmain"><p><code>PnL</code></p></td>
+    <td class="tmain"><p><code>Profit/loss of Trade</code></p></td>
+    <td class="tmain"><p>No</p></td>
+    <td class="tmain"><p>The payment of profit/loss realized from trades.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>4</code></p></td>
+    <td class="tmain"><p><code>Depos</code></p></td>
+    <td class="tmain"><p><code>Deposit</code></p></td>
+    <td class="tmain"><p>No</p></td>
+    <td class="tmain"><p>The transfer of funds from the client's bank account to his/her trading account.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>5</code></p></td>
+    <td class="tmain"><p><code>Withd</code></p></td>
+    <td class="tmain"><p><code>Withdrawal</code></p></td>
+    <td class="tmain"><p>No</p></td>
+    <td class="tmain"><p>The transfer of funds from the client's trading account to his/her bank account.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>6</code></p></td>
+    <td class="tmain"><p><code>Bal.Adj</code></p></td>
+    <td class="tmain"><p><code>Balance Adjustment</code></p></td>
+    <td class="tmain"><p>No</p></td>
+    <td class="tmain"><p>The adjustment of the account balance.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>12</code></p></td>
+    <td class="tmain"><p><code>Tx</code></p></td>
+    <td class="tmain"><p><code>Funds Transfer</code></p></td>
+    <td class="tmain"><p>No</p></td>
+    <td class="tmain"><p>The transfer of funds between the client's trading accounts.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>13</code></p></td>
+    <td class="tmain"><p><code>Map</code></p></td>
+    <td class="tmain"><p><code>Account Mapping</code></p></td>
+    <td class="tmain"><p>No</p></td>
+    <td class="tmain"><p>The consolidation of the managed account funds with those of the associated manager account or the opposite operation.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>14</code></p></td>
+    <td class="tmain"><p><code>Other</code></p></td>
+    <td class="tmain"><p><code>Other Operation</code></p></td>
+    <td class="tmain"><p>No</p></td>
+    <td class="tmain"><p>Any other transaction not listed in this table.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>25</code></p></td>
+    <td class="tmain"><p><code>AdminFee</code></p></td>
+    <td class="tmain"><p><code>Administrative Fee</code></p></td>
+    <td class="tmain"><p>No</p></td>
+    <td class="tmain"><p>The payment of the administrative fee that is typically charged for making a deposit/withdrawal
+using a particular method of payment (for example, credit card or bank wire).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>26</code></p></td>
+    <td class="tmain"><p><code>MngFee</code></p></td>
+    <td class="tmain"><p><code>Management Fee</code></p></td>
+    <td class="tmain"><p>No</p></td>
+    <td class="tmain"><p>The payment of the management fee that is charged to compensate the funds (money) manager for
+handling the account on behalf of its owner. The fee is typically associated with managed accounts.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>27</code></p></td>
+    <td class="tmain"><p><code>PerfFee</code></p></td>
+    <td class="tmain"><p><code>Performance Fee</code></p></td>
+    <td class="tmain"><p>No</p></td>
+    <td class="tmain"><p>The payment of the performance fee that is charged to reward the funds (money) manager
+if the returns of his/her trading exceed a certain target level.
+The fee is typically associated with managed accounts.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>30</code></p></td>
+    <td class="tmain"><p><code>Void</code></p></td>
+    <td class="tmain"><p><code>Deposit Rollback</code></p></td>
+    <td class="tmain"><p>No</p></td>
+    <td class="tmain"><p>The return of funds due to a failed deposit.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>31</code></p></td>
+    <td class="tmain"><p><code>ASPComm</code></p></td>
+    <td class="tmain"><p><code>ASP Commission</code></p></td>
+    <td class="tmain"><p>No</p></td>
+    <td class="tmain"><p>The payment of the commission that is charged in special circumstances.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>32</code></p></td>
+    <td class="tmain"><p><code>MargInterest</code></p></td>
+    <td class="tmain"><p><code>Interest on Usable Margin</code></p></td>
+    <td class="tmain"><p>No</p></td>
+    <td class="tmain"><p>The payment of interest earned on the available funds (usable margin)
+that are kept on the trading account but are currently not in trading.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>-1</code></p></td>
+    <td class="tmain"><p>Empty value</p></td>
+    <td class="tmain"><p><code>Begining Balance</code></p></td>
+    <td class="tmain"><p>Yes</p></td>
+    <td class="tmain"><p>The amount of funds in the account at the start date of the report statement period.
+The beginning balance does not reflect floating (unrealized) profit/loss.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>-2</code></p></td>
+    <td class="tmain"><p>Empty value</p></td>
+    <td class="tmain"><p><code>Floating P/L</code></p></td>
+    <td class="tmain"><p>Yes</p></td>
+    <td class="tmain"><p>The amount of floating (unrealized) profit or loss at the end date of the report statement period.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>-3</code></p></td>
+    <td class="tmain"><p>Empty value</p></td>
+    <td class="tmain"><p><code>Necessary Margin</code></p></td>
+    <td class="tmain"><p>Yes</p></td>
+    <td class="tmain"><p>The amount of funds committed to maintain all open positions.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>-4</code></p></td>
+    <td class="tmain"><p>Empty value</p></td>
+    <td class="tmain"><p><code>Necessary Margin (Maintenance)</code></p></td>
+    <td class="tmain"><p>No</p></td>
+    <td class="tmain"><p>The amount of funds committed to maintain all open positions. This account property is displayed only
+in case of the 3-level margin.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>-5</code></p></td>
+    <td class="tmain"><p>Empty value</p></td>
+    <td class="tmain"><p><code>Ending Balance</code></p></td>
+    <td class="tmain"><p>Yes</p></td>
+    <td class="tmain"><p>The amount of funds in the account at the end date of the report statement period.
+The ending balance does not reflect floating (unrealized) profit/loss.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>-6</code></p></td>
+    <td class="tmain"><p>Empty value</p></td>
+    <td class="tmain"><p><code>Equity</code></p></td>
+    <td class="tmain"><p>Yes</p></td>
+    <td class="tmain"><p>The amount of funds in the account at the end date of the report statement period.
+The equity includes floating (unrealized) profit/loss.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>-7</code></p></td>
+    <td class="tmain"><p>Empty value</p></td>
+    <td class="tmain"><p><code>Usable Margin</code></p></td>
+    <td class="tmain"><p>Yes</p></td>
+    <td class="tmain"><p>The amount of funds available to open new positions or to absorb any losses on the existing positions.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>-8</code></p></td>
+    <td class="tmain"><p>Empty value</p></td>
+    <td class="tmain"><p><code>Usable Margin (Maintenance)</code></p></td>
+    <td class="tmain"><p>No</p></td>
+    <td class="tmain"><p>The amount of funds available to open new positions or to absorb any losses on the existing positions.
+This account property is displayed only in case of the 3-level margin.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>-9</code></p></td>
+    <td class="tmain"><p>Empty value</p></td>
+    <td class="tmain"><p><code>% change</code></p></td>
+    <td class="tmain"><p>No</p></td>
+    <td class="tmain"><p>The ratio of the account loss to the amount of funds invested in the account for the period
+from the account open date till the end date of the report statement period. The value can be zero or negative.
+A zero value indicates a ratio of less than 10 percent. A negative value indicates a ratio of 10 percent or greater.<br>
+The account property is displayed if the report account is subject to MIFID II (Directive on Markets in Financial Instruments repealing Directive 2004/39/EC
+and the Regulation on Markets in Financial Instruments) requirements.</p></td>
+  </tr>
+</table><p><b>Note:</b> Most of the transactions listed in the table are used in special circumstances.
+If you have an account that is affected by these transactions, you will be aware of what they relate to.
+Most accounts are not affected by any of these transactions.</p><div id="open92" style="display:inline">
+  <p>Example:&nbsp;<a href="javascript: showdiv('close92'); hidediv('open92');" onclick="javascript: showdiv('close92'); hidediv('open92');">[show]</a></p>
+</div>
+<div id="close92" style="display:none">
+  <p>Example:&nbsp;<a href="javascript: showdiv('open92'); hidediv('close92');" onclick="javascript: showdiv('open92'); hidediv('close92');">[hide]</a></p>
+  <pre class="example">&lt;rdf:table name=&quot;account_summary&quot; description=&quot;ACCOUNT SUMMARY&quot;&gt;
+   &lt;rdf:head&gt;
+       &lt;rdf:column name=&quot;type_id&quot; type=&quot;INTEGER&quot;/&gt;
+       &lt;rdf:column name=&quot;code&quot; type=&quot;STRING&quot;/&gt;
+       &lt;rdf:column name=&quot;description&quot; type=&quot;STRING&quot;/&gt;
+       &lt;rdf:column name=&quot;amount&quot; type=&quot;DOUBLE&quot;/&gt;
+   &lt;/rdf:head&gt;
+   &lt;rdf:body&gt;
+       &lt;rdf:row&gt;
+           &lt;rdf:cell name=&quot;type_id&quot;&gt;-1&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;code&quot;&gt; &lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;description&quot;&gt;Beginning Balance&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;amount&quot;&gt;1923735.09&lt;/rdf:cell&gt;
+       &lt;/rdf:row&gt;
+       &lt;rdf:row&gt;
+           &lt;rdf:cell name=&quot;type_id&quot;&gt;2&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;code&quot;&gt;Rollover&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;description&quot;&gt;Rollover Fee&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;amount&quot;&gt;245.96&lt;/rdf:cell&gt;
+       &lt;/rdf:row&gt;
+       &lt;rdf:row&gt;
+           &lt;rdf:cell name=&quot;type_id&quot;&gt;3&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;code&quot;&gt;PnL&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;description&quot;&gt;Profit/Loss of Trade&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;amount&quot;&gt;180.48&lt;/rdf:cell&gt;
+       &lt;/rdf:row&gt;
+       &lt;rdf:row&gt;
+           &lt;rdf:cell name=&quot;type_id&quot;&gt;-5&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;code&quot;/&gt;
+           &lt;rdf:cell name=&quot;description&quot;&gt;Ending Balance&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;amount&quot;&gt;1924161.53&lt;/rdf:cell&gt;
+       &lt;/rdf:row&gt;
+       &lt;rdf:row&gt;
+           &lt;rdf:cell name=&quot;type_id&quot;&gt;-2&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;code&quot;/&gt;
+           &lt;rdf:cell name=&quot;description&quot;&gt;Floating P/L&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;amount&quot;&gt;29.23&lt;/rdf:cell&gt;
+       &lt;/rdf:row&gt;
+       &lt;rdf:row&gt;
+           &lt;rdf:cell name=&quot;type_id&quot;&gt;-6&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;code&quot;/&gt;
+           &lt;rdf:cell name=&quot;description&quot;&gt;Equity&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;amount&quot;&gt;1924190.76&lt;/rdf:cell&gt;
+       &lt;/rdf:row&gt;
+       &lt;rdf:row&gt;
+           &lt;rdf:cell name=&quot;type_id&quot;&gt;-3&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;code&quot;&gt; &lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;description&quot;&gt;Necessary Margin&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;amount&quot;&gt;6.40&lt;/rdf:cell&gt;
+       &lt;/rdf:row&gt;
+       &lt;rdf:row&gt;
+           &lt;rdf:cell name=&quot;type_id&quot;&gt;-7&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;code&quot;/&gt;
+           &lt;rdf:cell name=&quot;description&quot;&gt;Usable Margin&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;amount&quot;&gt;1924184.36&lt;/rdf:cell&gt;
+       &lt;/rdf:row&gt;
+   &lt;/rdf:body&gt;
+&lt;/rdf:table&gt;</pre>
+</div><p>
+      <center><a href="CAS.managed.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

@@ -1,0 +1,367 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GOrdersTable</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>O2GOrdersTable</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="com.fxcore2.O2GTable.html"><code>O2GTable</code></a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The class keeps in memory the up-to-date information about orders.</p>
+    <p><b>Details</b></p><p>The class is an in-memory representation of the <a href="TTOrders.html">Orders</a> table.<br> To keep this representation
+in sync with the trading server, you must instantiate the class and listen to the updates coming from the trading server.
+The class provides methods to find individual orders, represented by the <a href="com.fxcore2.O2GOrderTableRow.html"><code>O2GOrderTableRow</code></a>.</p>
+<p><b>Prerequisites</b><br></p>
+<p>The class is available only through the use of the <a href="com.fxcore2.O2GTableManager.html"><code>O2GTableManager</code></a>. An <a href="com.fxcore2.O2GTableManager.html"><code>O2GTableManager</code></a>
+object must have the <a href="com.fxcore2.O2GTableManagerStatus.0.html">O2GTableManagerStatus</a>.<a href="com.fxcore2.O2GTableManagerStatus.0.TABLES_LOADED.0.html">TABLES_LOADED</a> status.<br>
+For complete instructions on the table manager usage, see the
+<a href="table_manager_use_java.html">How to use table manager in ForexConnect API</a> section.<br></p>
+<p><b>Instantiating the class</b></p>
+<p>To get orders information for the first time, you must obtain an instance of the class by calling the
+<a href="com.fxcore2.O2GTableManager.html"><code>O2GTableManager</code></a>.<a href="com.fxcore2.O2GTableManager.getTable.html"><code>getTable</code></a> method with the
+<a href="com.fxcore2.O2GTableType.ORDERS.html"><code>O2GTableType.ORDERS</code></a> argument. For example,<br></p>
+<p><code>O2GOrdersTable ordersTable = (O2GOrdersTable)tableManager.getTable(O2GTableType.ORDERS);</code><br></p>
+<p><b> Receiving notifications about the <a href="TTOrders.html">Orders</a> table updates</b></p>
+<p>To keep the <code>O2GOrdersTable</code> data current, your application must listen to the <a href="TTOrders.html">Orders</a> table updates coming from the trading server.
+These updates represent inserts into the table, changes of the order information, and deletions from the table.
+An instance of the class implementing the <a href="com.fxcore2.IO2GTableListener.html"><code>IO2GTableListener</code></a> interface
+must be subscribed to the table updates. Subscription to each update type is done individually. Before the logout, you must unsubscribe the listener from every update type separately.
+The table below shows the subscription/unsubsription syntax for the <code>O2GOrdersTable</code>:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Update type</p></td>
+    <td class="thdr"><p>Subscribe syntax</p></td>
+    <td class="thdr"><p>Unsubscribe syntax</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>INSERT</p></td>
+    <td class="tmain"><p><code>ordersTable.subscribeUpdate(O2GTableUpdateType.INSERT, tableListener);</code></p></td>
+    <td class="tmain"><p><code>ordersTable.unsubscribeUpdate(O2GTableUpdateType.INSERT, tableListener);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>UPDATE</p></td>
+    <td class="tmain"><p><code>ordersTable.subscribeUpdate(O2GTableUpdateType.UPDATE, tableListener);</code></p></td>
+    <td class="tmain"><p><code>ordersTable.unsubscribeUpdate(O2GTableUpdateType.UPDATE, tableListener);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>DELETE</p></td>
+    <td class="tmain"><p><code>ordersTable.subscribeUpdate(O2GTableUpdateType.DELETE, tableListener);</code></p></td>
+    <td class="tmain"><p><code>ordersTable.unsubscribeUpdate(O2GTableUpdateType.DELETE, tableListener);</code></p></td>
+  </tr>
+</table><p><b>Example</b></p><div id="open200" style="display:inline">
+  <p>Get Order ID and prices of associated stop/limit orders&nbsp;<a href="javascript: showdiv('close200'); hidediv('open200');" onclick="javascript: showdiv('close200'); hidediv('open200');">[show]</a></p>
+</div>
+<div id="close200" style="display:none">
+  <p>Get Order ID and prices of associated stop/limit orders&nbsp;<a href="javascript: showdiv('open200'); hidediv('close200');" onclick="javascript: showdiv('open200'); hidediv('close200');">[hide]</a></p>
+  <pre class="example">    <b>// Get the instance of table manager</b>
+    O2GTableManager tableManager = mSession.getTableManager();
+    while (tableManager.getStatus() != O2GTableManagerStatus.TABLES_LOADED &
+           tableManager.getStatus() != O2GTableManagerStatus.TABLES_LOAD_FAILED) {
+        Thread.sleep(50);
+    }
+    <b>// Get orders information</b>
+    if (tableManager.getStatus() == O2GTableManagerStatus.TABLES_LOADED) {
+        O2GOrdersTable orderTable = (O2GOrdersTable)tableManager.getTable(O2GTableType.ORDERS);
+        for (int i = 0; i &lt; orderTable.size(); i++) {
+            O2GOrderTableRow order = orderTable.getRow(i);
+            System.out.println(&quot;OrderID: &quot; + order.getOrderID() +
+                               &quot; Stop = &quot; + order.getStop() +
+                               &quot; Limit = &quot; + order.getLimit());
+        }
+ 
+        <b>// Subscribe table listener</b>
+        TableListener tableListener = new TableListener();
+        orderTable.subscribeUpdate(O2GTableUpdateType.INSERT, tableListener);
+        Thread.sleep(1000);
+        orderTable.unsubscribeUpdate(O2GTableUpdateType.INSERT, tableListener);
+    }
+ 
+    <b>// Implementation of IO2GTableListener interface public method onAdded</b>
+    public void onAdded(String rowID, O2GRow rowData) {
+    O2GOrderTableRow order = (O2GOrderTableRow)(rowData);
+    System.out.println(&quot;Order information added &quot; + rowID);
+    System.out.println(&quot;OrderID: &quot; + order.getOrderID() +
+                       &quot; Stop = &quot; + order.getStop() +
+                       &quot; Limit = &quot; + order.getLimit());
+    }</pre>
+</div><p>The namespace is <a href="com.fxcore2.html"><code>com.fxcore2</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GOrdersTable.findRow.html">findRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Finds a row in the <code>O2GOrdersTable</code> by an OrderID.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GOrdersTable.forEachRow.html">forEachRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Iterates through the rows of a table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GOrdersTable.getNextGenericRow.html">getNextGenericRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the next row from a table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GOrdersTable.getNextGenericRowByColumnValue.0.html">getNextGenericRowByColumnValue</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the next row from <code>O2GTable</code> based on the column value.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GOrdersTable.getNextGenericRowByColumnValues.0.html">getNextGenericRowByColumnValues</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the next row from <code>O2GTable</code> based on any of the column values.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GOrdersTable.getNextGenericRowByMultiColumnValues.0.html">getNextGenericRowByMultiColumnValues</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the next row from <code>O2GTable</code> based on multiple columns values.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GOrdersTable.getNextRow.html">getNextRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the next row from the <code>O2GOrdersTable</code>.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GOrdersTable.getNextRowByColumnValue.0.html">getNextRowByColumnValue</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the next row from <code>O2GOrdersTable</code> based on the column value.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GOrdersTable.getNextRowByColumnValues.0.html">getNextRowByColumnValues</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the next row from <code>O2GOrdersTable</code> based on any of the column values.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GOrdersTable.getNextRowByMultiColumnValues.0.html">getNextRowByMultiColumnValues</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the next row from <code>O2GOrdersTable</code> based on the multiple columns values.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GOrdersTable.getRow.html">getRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a row from the <code>O2GOrdersTable</code> by its index.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GOrdersTable.getStatus.html">getStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the status of a table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GOrdersTable.getTableEventsFilter.html">getTableEventsFilter</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>This method allows getting a filter value.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GOrdersTable.isCellChanged.html">isCellChanged</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Checks whether the value of a cell has changed on not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GOrdersTable.setTableEventsFilter.html">setTableEventsFilter</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>This method allows getting a filter value.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GOrdersTable.subscribeStatus.html">subscribeStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Subscribes a table listener to table status changes.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GOrdersTable.subscribeUpdate.html">subscribeUpdate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Subscribes a table listener to table updates.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GOrdersTable.unsubscribeStatus.html">unsubscribeStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Unsubscribes a table listener from table status changes.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GOrdersTable.unsubscribeUpdate.html">unsubscribeUpdate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Unsubscribes a table listener from table updates.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="com.fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

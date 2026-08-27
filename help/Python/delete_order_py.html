@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Deleting Order</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Deleting Order</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article explains how to delete an order.</p>
+    <p><b>Details</b></p><p>To delete an order in your Python script, you must perform the following steps:</p><ol class="main">
+  <li><p><a href="login_logout_py.html">Log in</a>.</p></li>
+  <li><p>Create a request for deleting an order by calling the <a href="forexconnect.ForexConnect.ForexConnect.createRequest.html"><code>Forexconnect.create_request</code></a> method.
+You must specify the following request parameters:</p><ul class="main">
+  <li><p><code>fxcorepy.O2GRequestParamsEnum.COMMAND</code> must be <code>fxcorepy.Constants.Commands.DELETE_ORDER</code></p></li>
+  <li><p><code>fxcorepy.O2GRequestParamsEnum.ACCOUNT_ID</code> must be the account ID of the account the order is created on.</p></li>
+  <li><p><code>fxcorepy.O2GRequestParamsEnum.ORDER_ID</code> must be the order ID of the order you want to delete.</p></li>
+</ul><p>For example:</p><pre class="example">    request = fx.create_request({
+        fxcorepy.O2GRequestParamsEnum.COMMAND: fxcorepy.Constants.Commands.DELETE_ORDER,
+        fxcorepy.O2GRequestParamsEnum.ACCOUNT_ID: &quot;account_id&quot;,
+        fxcorepy.O2GRequestParamsEnum.ORDER_ID: &quot;order_id&quot;
+    })
+</pre></li>
+  <li><p>When the order is deleted, it is deleted from the <a href="TTOrders.html">Orders table</a>.
+To make sure that the order has been deleted, i.e. a row with the corresponding order ID has been deleted
+from the table, you need to monitor Orders <a href="table_updates_py.html">table updates</a>.<br>
+For this, define the <code>on_delete_callback</code> callback function that will be called after you subscribe to the table updates,
+get the the <a href="TTOrders.html">Orders table</a>, create a table listener and subscribe it to the table updates.<br>
+The callback function will be called in a separate thread. You can synchronize its results with your main thread by setting an event.
+In the following example, <code>on_delete_callback</code> collects all rows deleted from the table and sets an event if an order row with the corresponding order ID is deleted.</p><pre class="example">  def on_delete_order(self, _, __, order_row):
+      order_id = order_row.order_id
+      self.__deleted_orders[order_id] = order_row
+      if self.__order_id == order_id:
+          self.__event.set()
+ 
+    orders_table = fx.get_table(ForexConnect.ORDERS)
+    orders_listener = Common.subscribe_table_updates(orders_table, on_delete_callback=on_deleted_order)</pre></li>
+  <li><p>Send the request for deleting the order by calling the method <a href="forexconnect.ForexConnect.ForexConnect.sendRequest.html"><code>ForexConnect.send_request</code></a>.</p><pre class="example">    try:
+        resp = fx.send_request(request)
+ 
+    except Exception as e:
+        print(&quot;Exception: &quot; + str(e))
+        orders_listener.unsubscribe()
+   ...</pre></li>
+  <li><p>Wait for the order to be deleted from the table. The order row might be deleted from the table before the response is received,
+so you need to check if an order row with the corresponding order ID has been already collected. For example:</p><pre class="example">  def wait(self, time, order_id):
+      self.__order_id = order_id
+ 
+      order_row = self.find_order(order_id)
+      if order_row is not None:
+          return order_row
+ 
+      self.__event.wait(time)
+ 
+      return self.find_order(order_id)
+ 
+  def find_order(self, order_id):
+      if order_id in self.__deleted_orders:
+          return self.__deleted_orders[order_id]
+      else:
+          return None
+ 
+ ...
+ 
+      is_deleted = orders_monitor.wait(30, order_id)
+      if not is_deleted:
+          print(&quot;Response waiting timeout expired.\n&quot;)
+      else:
+          print(&quot;The order has been deleted. Order ID: {0:s}&quot;.format(order_row.order_id))
+          sleep(1)</pre></li>
+  <li><p>Unsubscribe the table listener from table updates. For example:</p><pre class="example">      orders_listener.unsubscribe()</pre></li>
+  <li><p><a href="login_logout_py.html">Log out</a>.</p></li>
+</ol><p>Find a sample script demonstrating how to delete an order at https://github.com/gehtsoft/forex-connect/tree/master/samples:<br>
+<code>RemoveOrder.py</code> - this sample script shows how to remove an order by its order ID.</p><p>
+      <center><a href="orders_py.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

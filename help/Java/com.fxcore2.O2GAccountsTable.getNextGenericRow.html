@@ -1,0 +1,187 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GAccountsTable.getNextGenericRow</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>O2GAccountsTable.getNextGenericRow</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Gets the next row from a table.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">Java</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code><a href="com.fxcore2.O2GRow.html"><code>O2GRow</code></a>&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>getNextGenericRow</b> (<a href="com.fxcore2.O2GTableIterator.html"><code>O2GTableIterator</code></a> iterator) </code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>iterator</code></td>
+    <td class="tmain" width="69%"><p>An instance of the table iterator.</p></td>
+  </tr>
+</table><p><b>Details</b></p><p>If the row is not found, the method returns <code>null</code>.<br>
+If you develop a GUI application based on the ForexConnect API, the method is useful for drawing rows of any table.
+<br><b>Note:</b> The returned row contains the current values of fields. The values are not automatically updated. To monitor
+changes, use <a href="com.fxcore2.IO2GTableListener.onChanged.html"><code>IO2GTableListener.onChanged</code></a>.
+The row interface is thread-safe. One can use the returned row in different threads without synchronization.</p>
+<p><b>Example</b></p><div id="open124" style="display:none">
+  <p>Show complete rows of Accounts and Trades Tables&nbsp;<a href="javascript: showdiv('close124'); hidediv('open124');" onclick="javascript: showdiv('close124'); hidediv('open124');">[show]</a></p>
+</div>
+<div id="close124" style="display:inline">
+  <p>Show complete rows of Accounts and Trades Tables&nbsp;<a href="javascript: showdiv('open124'); hidediv('close124');" onclick="javascript: showdiv('open124'); hidediv('close124');">[hide]</a></p>
+  <pre class="example">    <b>// Get tables, create iterator, call printTable method</b>
+    if (tableManager.getStatus() == O2GTableManagerStatus.TABLES_LOADED) {
+        O2GAccountsTable accountsTable = (O2GAccountsTable)tableManager.getTable(O2GTableType.ACCOUNTS);
+        O2GTradesTable tradesTable = (O2GTradesTable)tableManager.getTable(O2GTableType.TRADES);
+        O2GTableIterator iterator = new O2GTableIterator();
+        printTable(accountsTable, iterator);
+        printTable(tradesTable, iterator);
+    }
+ 
+    <b>// Print table using getNextGenericRow</b>
+    public static void printTable(O2GTable table, O2GTableIterator iterator) {
+        O2GTableType tableType = table.getType();
+        if (table.size() == 0)
+            System.out.println(&quot;Table &quot; + tableType + &quot; is empty!&quot;);
+        else {
+            O2GRow row = table.getNextGenericRow(iterator);
+            while (row != null) {
+                System.out.println(&quot;\nPrinting a row from the &quot; + tableType + &quot; table.\n&quot;);
+                O2GTableColumnCollection collection = row.getColumns();
+                for (int i = 0; i &lt; collection.size(); i++) {
+                    O2GTableColumn column = collection.get(i);
+                    System.out.print(column.getId() + &quot;=&quot; + row.getCell(i) + &quot;;&quot;);
+                }
+                System.out.println();
+                row = table.getNextGenericRow(iterator);
+            }
+        }
+   }</pre>
+</div><p>Declared in <a href="com.fxcore2.O2GTable.html">O2GTable</a></p>
+<p>
+  <center><a href="com.fxcore2.O2GAccountsTable.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'com.fxcore2.O2GAccountsTable.html');</script></body>
+</html>

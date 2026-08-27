@@ -1,0 +1,165 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>QuotesManagerFactory.setProxy</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>static public method <b>QuotesManagerFactory.setProxy</b></code></font>
+    </p><p><b>Brief</b></p>
+<p><b>Deprecated method.</b> Sets the HTTP proxy parameters.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">C#</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code>void&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>setProxy</b> (string proxyHost, int port, string user, string password) </code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>proxyHost</code></td>
+    <td class="tmain" width="69%"><p>The host name or API address of the HTTP proxy host.</p>
+<p>Use <code>null</code> to force the direct connection instead of using proxy. If this value is <code>null</code>, all
+other parameters are ignored.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>port</code></td>
+    <td class="tmain" width="69%"><p>TCP port of the proxy host.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>user</code></td>
+    <td class="tmain" width="69%"><p>The user name to be used in case the proxy requires authentication.
+For anonymous proxy this parameter must be <code>null</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>password</code></td>
+    <td class="tmain" width="69%"><p>The password to be used in case the proxy requires authentication.
+For anonymous proxy this parameter must be <code>null</code>.</p></td>
+  </tr>
+</table><p><b>Details</b></p><p>The changes of the proxy configuration will take effect on all Quotes Manager instances created after calling this method.</p><p>Declared in <a href="Candleworks.QuotesMgr.QuotesManagerFactory.html">QuotesManagerFactory</a></p>
+<p>
+  <center><a href="Candleworks.QuotesMgr.QuotesManagerFactory.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'Candleworks.QuotesMgr.QuotesManagerFactory.html');</script></body>
+</html>

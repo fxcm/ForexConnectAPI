@@ -1,0 +1,187 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IAddRef</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>IAddRef</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>Manages the existence of an object. All objects created by ForexConnect API implement this interface.</p>
+    <p><b>Details</b></p><p>All objects created by ForexConnect API implement this interface.
+The ForexConnect listeners implemented by a client application and then passed to ForexConnect API must support the reference counter.
+This class is similar to the classic COM's IUnknown interface.<br>
+Every time an object is created or returned from the method, the reference counter is increased by using the <code>addRef()</code> method.
+The reference counter is increased by ForexConnect API.
+Every time an object is not required anymore, the reference counter must be decreased by using the <code>release()</code> method.<br>
+The  reference counter should be decreased by a client application.
+The rules of using the reference counter are as follows:</p><ol class="main">
+  <li><p>When you get an API object as a result of an API function call, API increases the reference counter of this object by 1.
+So you must call the <code>release()</code> method to decrease the value of its reference counter
+before the variable storing the object reference is out of the visibility scope.
+Or you can use the <a href="O2G2Ptr.html"><code>O2G2Ptr&lt;IAddRef&gt;</code></a> helper template class .
+Then, when the function execution is finished, <code>release()</code> is called from the destructor of the <a href="O2G2Ptr.html"><code>O2G2Ptr&lt;IAddRef&gt;</code></a> instance.<br>
+For example:<br>
+<code>
+void myFunc() <br>
+{
+IO2GSession* pSession = CO2GTransport::createSession(); <br>
+//... <br>
+pSession-&gt;release();<br>
+}<br>
+</code>
+or<br>
+<code>
+void myFunc()<br>
+{ <br>
+{<br>
+O2G2Ptr&lt;IO2GSession&gt; pSession = CO2GTransport::createSession();<br>
+//... <br>
+// release() is called here<br>
+}<br>
+}<br>
+</code></p></li>
+  <li><p>When you implement a virtual method (event handler) of your class which inherits the <a href="IO2GSessionStatus.html"><code>IO2GSessionStatus</code></a> listener,
+or  <a href="IO2GTableListener.html"><code>IO2GTableListener</code></a>, or
+<a href="IO2GResponseListener.html"><code>IO2GResponseListener</code></a> interface,
+you must not call <code>release()</code> for objects that are taken as parameters of these methods.
+Such objects are created and released in the caller of your event handler.</p></li>
+  <li><p>When you save an API object reference in a class-level variable for further usage, you must call <code>addRef()</code> immediately after the object reference has been assigned to this class-level variable.
+During the class destruction the <code>release()</code> method must be called for this object reference.
+The <code>release()</code> method must also be called if a new object reference is reassigned to the class-level variable.</p></li>
+</ol><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IAddRef.addRef.html">addRef</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Increments the reference count when the object is created or stored or returned from the method.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IAddRef.release.html">release</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Decrements the reference count when the object is not required anymore.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="forexconnect.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

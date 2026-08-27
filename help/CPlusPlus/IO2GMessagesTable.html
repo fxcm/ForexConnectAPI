@@ -1,0 +1,385 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GMessagesTable</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>IO2GMessagesTable</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="IO2GTable.html">IO2GTable</a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The class keeps in memory the up-to-date information about dealing desk messages received during the current trading day.</p>
+    <p><b>Details</b></p><p>The class is an in-memory representation of the <a href="TTMessages.html">Messages</a> table.<br> In order to keep this representation
+in sync with the trading server, you must instantiate the class and listen to the updates coming from the trading server.
+The class provides methods to find individual messages, represented by the <a href="IO2GMessageTableRow.html"><code>IO2GMessageTableRow</code></a>.</p>
+<p><b>Prerequisites</b><br></p>
+<p>The class is available only through the use of the <a href="IO2GTableManager.html"><code>IO2GTableManager</code></a>. An <a href="IO2GTableManager.html"><code>IO2GTableManager</code></a>
+object must have the <a href="O2GTableManagerStatus.html">O2GTableManagerStatus</a>.<a href="O2GTableManagerStatus.TablesLoaded.0.html">TablesLoaded</a> status.<br>
+For complete instructions on the table manager usage, see the
+<a href="table_manager_use_c.html">How to use table manager in ForexConnect API</a> section.<br></p>
+<p><b>Instantiating the class</b></p>
+<p>In order to get messages information for the first time, you must obtain an instance of the class by calling the
+<a href="IO2GTableManager.html"><code>IO2GTableManager</code></a>.<a href="IO2GTableManager.getTable.html"><code>getTable</code></a> method. For example,<br></p>
+<p><code>O2GMessagesTable messagesTable = (O2GMessagesTable)tableManager.getTable(O2GTable::Messages);</code><br></p>
+<p><b> Receiving notifications about the <a href="TTMessages.html">Messages</a> table updates</b></p>
+<p>In order to keep the <code>O2GMessagesTable</code> data current, your application must listen to the new messages coming from the trading server.
+An instance of the class implementing the <a href="IO2GTableListener.html"><code>IO2GTableListener</code></a> interface
+must be subscribed to the table update of the <a href="O2GTableUpdateType.Insert.0.html">O2GTableUpdateType.Insert</a> type.
+Before the logout, you must unsubscribe the listener from this update type.
+The table below shows the subscription/unsubsription syntax for the <code>O2GMessagesTable</code>:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Update type</p></td>
+    <td class="thdr"><p>Subscribe syntax</p></td>
+    <td class="thdr"><p>Unsubscribe syntax</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>INSERT</p></td>
+    <td class="tmain"><p><code>messagesTable.subscribeUpdate(O2GTableUpdateType.INSERT, tableListener);</code></p></td>
+    <td class="tmain"><p><code>messagesTable.unsubscribeUpdate(O2GTableUpdateType.INSERT, tableListener);</code></p></td>
+  </tr>
+</table><p><b>Note:</b> Messages are not changed or deleted during the trading session. Therefore, you
+do not receive updates of the <code>Update</code> or the <code>Delete</code> types during the trading session and there is no need to subscribe to them.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.columns.html">columns</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets an instance of the class that provides access to the list of table columns.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.findRow.html">findRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Finds a row in the <code>IO2GMessagesTable</code> by MsgID.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.forEachRow.html">forEachRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Iterates through the rows of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.getCell.html">getCell</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the value of a cell.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.getGenericRow.html">getGenericRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a generic row by its index.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.getNextGenericRow.html">getNextGenericRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the next row from the <code>IO2GTable</code>.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.getNextGenericRowByColumnValue.html">getNextGenericRowByColumnValue</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the next row from <code>IO2GTable</code> based on the column value.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.getNextGenericRowByColumnValues.html">getNextGenericRowByColumnValues</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the next row from <code>IO2GTable</code> based on any of the column values.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.getNextGenericRowByCondition.html">getNextGenericRowByCondition</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the next row from <code>IO2GTable</code> based on any of the condition.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.getNextGenericRowByMultiColumnValues.html">getNextGenericRowByMultiColumnValues</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the next row from <code>IO2GTable</code> based on the multiple columns values.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.getNextRow.html">getNextRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the next row from the <code>IO2GMessagesTable</code>.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.getNextRowByColumnValue.html">getNextRowByColumnValue</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the next row from <code>IO2GMessagesTable</code> based on the column value.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.getNextRowByColumnValues.html">getNextRowByColumnValues</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the next row from <code>IO2GMessagesTable</code> based on any of the column values.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.getNextRowByCondition.html">getNextRowByCondition</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the next row from <code>IO2GMessagesTableRow</code> based on any of the condition.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.getNextRowByMultiColumnValues.html">getNextRowByMultiColumnValues</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the next row from <code>IO2GMessagesTable</code> based on the multiple columns values.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.getRow.html">getRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a row from the <code>IO2GMessagesTable</code> by its index.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.getStatus.html">getStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the status of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.getTableEventsFilter.html">getTableEventsFilter</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>This method allows getting a filter value.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.getType.html">getType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of a trading table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.isCellChanged.html">isCellChanged</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Defines whether the cell is changed.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.isCellValid.html">isCellValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Checks whether the cell value can be used or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.setTableEventsFilter.html">setTableEventsFilter</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>This method allows setting a filter to receive only trading events and not receive events caused by data recalculation.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.size.html">size</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the number of rows in the reader.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.subscribeStatus.html">subscribeStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Subscribes table listener to changes in table status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.subscribeUpdate.html">subscribeUpdate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Subscribes table listener to table updates.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.unsubscribeStatus.html">unsubscribeStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Unsubscribes table listener from changes in table status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessagesTable.unsubscribeUpdate.html">unsubscribeUpdate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Unsubscribes table listener from table updates.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="forexconnect.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

@@ -1,0 +1,287 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GMarketDataSnapshotResponseReader</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>O2GMarketDataSnapshotResponseReader</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The class reads a stream of historical prices.</p>
+    <p><b>Details</b></p><p>If you need historical prices information, you must request it. The process of requesting historical prices consists of several steps that are
+described in the <a href="hist_prices_java.html">How to get historical prices</a> section.</p>
+<p>As an answer to the historical prices request, the trading server sends a response object
+of the <a href="com.fxcore2.O2GResponseType.MARKET_DATA_SNAPSHOT.html">MARKET_DATA_SNAPSHOT</a> type.
+This object is the <code>response</code> parameter in your implementation of the
+<a href="com.fxcore2.IO2GResponseListener.html"><code>IO2GResponseListener</code></a>.<a href="com.fxcore2.IO2GResponseListener.onRequestCompleted.html"><code>onRequestCompleted</code></a> method.
+To process the response contents you must use an instance of the <code>O2GMarketDataSnapshotResponseReader</code> class.</p>
+<p>To create an instance of the <code>O2GMarketDataSnapshotResponseReader</code> class, pass the response object as an argument to the
+<a href="com.fxcore2.O2GResponseReaderFactory.html"><code>O2GResponseReaderFactory</code></a>.<a href="com.fxcore2.O2GResponseReaderFactory.createMarketDataSnapshotReader.html"><code>createMarketDataSnapshotReader</code></a> method.
+For example,<br></p>
+<p><code>O2GMarketDataSnapshotResponseReader marketDataReader = factory.createMarketDataSnapshotReader(response);</code></p>
+<p><b>Example</b></p><div id="open162" style="display:inline">
+  <p>Get historical ask prices&nbsp;<a href="javascript: showdiv('close162'); hidediv('open162');" onclick="javascript: showdiv('close162'); hidediv('open162');">[show]</a></p>
+</div>
+<div id="close162" style="display:none">
+  <p>Get historical ask prices&nbsp;<a href="javascript: showdiv('open162'); hidediv('close162');" onclick="javascript: showdiv('open162'); hidediv('close162');">[hide]</a></p>
+  <pre class="example">   <b>// Implementation of IO2GResponseListener interface public method onRequestCompleted</b>
+   public void onRequestCompleted(String requestID, O2GResponse response) {
+        O2GResponseReaderFactory responseFactory = mSession.getResponseReaderFactory();
+        if (responseFactory != null) {
+            O2GMarketDataSnapshotResponseReader reader = responseFactory.createMarketDataSnapshotReader(response);
+            for (int i = 0; i &lt; reader.size(); i++) {
+                System.out.println(&quot;\n\tAskOpen =&quot; + reader.getAskOpen(i) +
+                                   &quot;\n\tAskHigh = &quot; + reader.getAskHigh(i) +
+                                   &quot;\n\tAskLow = &quot; + reader.getAskLow(i) +
+                                   &quot;\n\tAskClose = &quot; + reader.getAskClose(i));
+            }
+        }
+    }</pre>
+</div><p>The namespace is <a href="com.fxcore2.html"><code>com.fxcore2</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMarketDataSnapshotResponseReader.getAsk.html">getAsk</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the ask price of a tick.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMarketDataSnapshotResponseReader.getAskClose.html">getAskClose</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the close price of an ask bar.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMarketDataSnapshotResponseReader.getAskHigh.html">getAskHigh</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the highest price of an ask bar.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMarketDataSnapshotResponseReader.getAskLow.html">getAskLow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the lowest price of an ask bar.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMarketDataSnapshotResponseReader.getAskOpen.html">getAskOpen</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the open price of an ask bar.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMarketDataSnapshotResponseReader.getBid.html">getBid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the bid price of a tick.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMarketDataSnapshotResponseReader.getBidClose.html">getBidClose</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the close price of the bid bar.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMarketDataSnapshotResponseReader.getBidHigh.html">getBidHigh</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the highest price of a bid bar.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMarketDataSnapshotResponseReader.getBidLow.html">getBidLow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the lowest price of a bid bar.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMarketDataSnapshotResponseReader.getBidOpen.html">getBidOpen</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the open price of a bid bar.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMarketDataSnapshotResponseReader.getDate.html">getDate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets an instance of the calendar representing a tick's date/time or the beginning of a bar's date/time.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMarketDataSnapshotResponseReader.getLastBarTime.html">getLastBarTime</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a calendar instance representing the date and time of the last tick of the last bar.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMarketDataSnapshotResponseReader.getLastBarVolume.html">getLastBarVolume</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the last bar tick volume.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMarketDataSnapshotResponseReader.getVolume.html">getVolume</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the tick volume of a bar.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMarketDataSnapshotResponseReader.isBar.html">isBar</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Checks whether the historical prices in the response are represented as bars or ticks.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMarketDataSnapshotResponseReader.size.html">size</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the number of bars or ticks in the reader.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="com.fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

@@ -1,0 +1,258 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GTableManager</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>IO2GTableManager</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="IAddRef.html">IAddRef</a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The class creates and maintains trading tables in the ForexConnect memory.</p>
+    <p><b>Details</b></p><p>The <code>IO2GTableManager</code> allows creating and maintaining in-memory representations of the <a href="TradingTables.html">trading tables</a>.
+The tables updates are handled by the ForexConnect API automatically.
+For implementation details, refer to the <a href="class_hierarchy.html">ForexConnect API Class Hierarchy</a> section.</p>
+<p>Alternatively, you can:</p><ul class="main">
+  <li><p>Request the initial data from the trading server by calling the
+<a href="IO2GRequestFactory.html"><code>IO2GRequestFactory</code></a>.<a href="IO2GRequestFactory.createRefreshTableRequest.html"><code>createRefreshTableRequest</code></a> or
+the <a href="IO2GLoginRules.html"><code>IO2GLoginRules</code></a>.<a href="IO2GLoginRules.getTableRefreshResponse.html"><code>getTableRefreshResponse</code></a> methods.</p></li>
+  <li><p>Capture the <a href="O2GResponseType.TablesUpdates.0.html">TablesUpdates</a> responses.</p></li>
+  <li><p>Maintain the received data in user-created structures.</p></li>
+</ul><p><b>Advantages of the IO2GTableManager usage</b></p>
+<p>The following list summarizes the advantages that the <code>IO2GTableManager</code> usage provides:</p><ul class="main">
+  <li><p>In-memory representation of the trading tables with up-to-date values by the descendants of the <a href="IO2GTable.html">IO2GTable</a> class.</p></li>
+  <li><p>Access to the calculated fields (i.e. PipCost in the <a href="TTOffers.html">Offers</a> table is accessible through the
+<a href="IO2GOfferTableRow.getPipCost.html">getPipCost</a> method,
+UsableMargin in the <a href="TTAccounts.html">Accounts</a> table is accessible through the
+<a href="IO2GAccountTableRow.getUsableMargin.html">getUsableMargin</a> method, etc.). All calculated fields are updated automatically.</p></li>
+  <li><p>Access to the <a href="TTSummary.html">Summary</a> table information through the methods of the <a href="IO2GSummaryTableRow.html">IO2GSummaryTableRow</a> class.</p></li>
+  <li><p>Separate subscriptions to trading table events. The events are described in the <a href="IO2GTableListener.html">IO2GTableListener</a> interface documentation.</p></li>
+</ul><p><b>Note:</b> The disadvantage of the table manager usage is the decreased performance. It decreases because the values of the calculated fields are computed with every price change.
+If your application does not need the values of the calculated fields, the table manager usage is not recommended.</p>
+<p><b>Prerequisites</b></p>
+<p>Before the login, you must indicate that your session uses the table manager by calling the
+<a href="IO2GSession.html"><code>IO2GSession</code></a>.<a href="IO2GSession.useTableManager.html"><code>useTableManager</code></a> method. For example,<br></p>
+<p><code>mSession.useTableManager(Yes, NULL);</code></p>
+<p>After indicating the usage of the table manager for your session, you must log in to the trading server by calling the
+<a href="IO2GSession.html"><code>IO2GSession</code></a>.<a href="IO2GSession.login.html"><code>login</code></a> method. For example,</p>
+<p><code>mSession-&gt;login(mUserID, mPassword, mURL, mConnection);</code></p>
+<p><b>Instantiating the class</b></p>
+<p>An instance of the table manager can be obtained only after an <a href="IO2GSession.html">IO2GSession</a> object gets the <a href="O2GSessionStatus.Connected.0.html">Connected</a> status.<br></p>
+<p>You can track the <a href="TradingTables.html">trading tables</a> data for all your accounts or for each account individually.<br>
+To get an instance of the class that tracks the data for all accounts, call the <a href="IO2GSession.html"><code>IO2GSession</code></a>.<a href="IO2GSession.getTableManager.html"><code>getTableManager</code></a> method. For example,</p>
+<p><code>IO2GTableManager *tableManager = mSession-&gt;getTableManager();</code></p>
+<p>To get an instance of the class that tracks the data for a specific account, call the <a href="IO2GSession.html"><code>IO2GSession</code></a>.<a href="IO2GSession.getTableManagerByAccount.html"><code>getTableManagerByAccount</code></a> method. For example,</p>
+<p><code>IO2GTableManager *tableManager = mSession-&gt;getTableManagerByAccount(mAccountID);</code></p>
+<p>In order to use the trading tables data, an instance of the <code>IO2GTableManager</code> class must have the <a href="O2GTableManagerStatus.TablesLoaded.0.html">TablesLoaded</a> status.</p>
+<p><b>Note:</b> If the connection between the ForexConnect API and the trading server is lost, you may need to re-create an instance of the <code>IO2GTableManager</code> class.<br>
+In case restoration of a connection fails, the session status changes to <a href="O2GSessionStatus.Disconnected.0.html">Disconnected</a> and you must log in and create a new instance of the <code>IO2GTableManager</code> class.<br>
+In case the ForexConnect API restores the connection successfully, you can use the existing instance of the <code>IO2GTableManager</code> class.<br>
+For a detailed explanation of the session statuses, refer to the <a href="SessionStatus.html">Session Statuses</a> section.</p>
+<p>For complete details of the table manager usage, refer to the <a href="table_manager_use_c.html">How to use a table manager in ForexConnect API</a> section.</p>
+<p><b>Example</b></p><div id="open217" style="display:inline">
+  <p>Get close price and current profit/loss&nbsp;<a href="javascript: showdiv('close217'); hidediv('open217');" onclick="javascript: showdiv('close217'); hidediv('open217');">[show]</a></p>
+</div>
+<div id="close217" style="display:none">
+  <p>Get close price and current profit/loss&nbsp;<a href="javascript: showdiv('open217'); hidediv('close217');" onclick="javascript: showdiv('open217'); hidediv('close217');">[hide]</a></p>
+  <pre class="example"><b>// Create a session</b>
+mSession = CO2GTransport::createSession();
+ 
+<b>// Specify that your session uses a table manager</b>
+mSession-&gt;useTableManager(Yes, NULL);
+O2G2Ptr&lt;SessionStatusListener&gt; statusListener = new SessionStatusListener(mSession, mDBName, mPin);
+mSession-&gt;subscribeSessionStatus(statusListener);
+ 
+<b>// Login into the trading server</b>
+mSession-&gt;login(mUserID, mPassword, mURL, mConnection);
+while (!statusListener-&gt;isConnected() &amp;&amp; !statusListener-&gt;hasError())
+{
+    uni::Sleep(50);
+}
+ 
+if (!statusListener-&gt;hasError())
+{
+    <b>// Get an instance of table manager</b>
+    O2G2Ptr&lt;IO2GTableManager&gt; tableManager = mSession-&gt;getTableManager();
+ 
+    <b>// Check the table manager status</b>
+    while (tableManager-&gt;getStatus() != TablesLoaded &amp;&amp;
+           tableManager-&gt;getStatus() != TablesLoadFailed)
+    {
+        uni::Sleep(50);
+    }
+    if (tableManager-&gt;getStatus() == TablesLoaded)
+    {
+        <b>// Get an instance of the O2GTradesTable</b>
+        O2G2Ptr&lt;IO2GTradesTable&gt; tradeTable = dynamic_cast&lt;IO2GTradesTable*&gt;(tableManager-&gt;getTable(Trades));
+ 
+        <b>// Get row level information</b>
+        for (int i = 0; i &lt; tradeTable-&gt;size(); i++)
+        {
+            O2G2Ptr&lt;IO2GTradeTableRow&gt; trade = tradeTable-&gt;getRow(i);
+            std::cout &lt;&lt; &quot;TradeID: &quot; &lt;&lt; trade-&gt;getTradeID() &lt;&lt;
+                         &quot; Close = &quot; &lt;&lt;  trade-&gt;getClose() &lt;&lt;
+                         &quot; GrossPL = &quot; &lt;&lt; trade-&gt;getGrossPL() &lt;&lt; std::endl;
+        }
+    }
+}</pre>
+</div><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTableManager.getStatus.html">getStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a table manager status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTableManager.getTable.html">getTable</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets an instance of a trading table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTableManager.lockUpdates.html">lockUpdates</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Locks tables updates.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTableManager.unlockUpdates.html">unlockUpdates</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Unlocks tables updates.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="forexconnect.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

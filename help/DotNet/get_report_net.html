@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Getting Combined Account Statement Report</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Getting Combined Account Statement Report</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article explains how to get a Combined Account Statement (CAS) report.</p>
+    <p><b>Details</b></p><p>To get a CAS report in your .NET application, you must perform the following steps:</p><ol class="main">
+  <li><p>Create a session.</p></li>
+  <li><p>Create a session status listener.</p></li>
+  <li><p>Subscribe the listener to the session.</p></li>
+  <li><p>Log in.</p></li>
+  <li><p>Use the <a href="fxcore2.O2GSession.getReportURL.0.html"><code>getReportURL</code></a> method. The method will return the URL for the CAS report.</p></li>
+  <li><p>Unsubscribe the session status listener from session.</p></li>
+  <li><p>Load the report.</p></li>
+  <li><p>Log out.</p></li>
+</ol><p>For details, see <a href="login_logout_net.html">Logging in</a> and <a href="fxcore2.O2GAccountRow.html"><code>O2GAccountRow</code></a>.</p><div id="open53" style="display:inline">
+  <p>Example: Getting CAS report in HTML format for all accounts for the last month.&nbsp;<a href="javascript: showdiv('close53'); hidediv('open53');" onclick="javascript: showdiv('close53'); hidediv('open53');">[show]</a></p>
+</div>
+<div id="close53" style="display:none">
+  <p>Example: Getting CAS report in HTML format for all accounts for the last month.&nbsp;<a href="javascript: showdiv('open53'); hidediv('close53');" onclick="javascript: showdiv('open53'); hidediv('close53');">[hide]</a></p>
+  <pre class="example">    /// &lt;summary&gt;
+    /// Get reports for all accounts
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;session&quot;&gt;&lt;/param&gt;
+    public static void GetReports(O2GSession session)
+    {
+        O2GLoginRules loginRules = session.getLoginRules();
+        if (loginRules == null)
+        {
+            throw new Exception(&quot;Cannot get login rules&quot;);
+        }
+        O2GResponseReaderFactory responseFactory = session.getResponseReaderFactory();
+        O2GResponse accountsResponse = loginRules.getTableRefreshResponse(O2GTableType.Accounts);
+        O2GAccountsTableResponseReader accountsReader = responseFactory.createAccountsTableReader(accountsResponse);
+        System.Net.WebClient webClient = new System.Net.WebClient();
+        for (int i = 0; i &lt; accountsReader.Count; i++)
+        {
+            O2GAccountRow account = accountsReader.getRow(i);
+            string url = session.getReportURL(account.AccountID, DateTime.Now.AddMonths(-1), DateTime.Now, &quot;html&quot;, null);
+ 
+            Console.WriteLine(&quot;AccountID={0}; Balance={1}; Report URL={2}&quot;,
+                    account.AccountID, account.Balance, url);
+ 
+            string content = webClient.DownloadString(url);
+            string filename = account.AccountID + &quot;.html&quot;;
+            System.IO.File.WriteAllText(filename, content);
+            Console.WriteLine(&quot;Report is saved to {0}&quot;, filename);
+        }
+    }</pre>
+</div><p>
+      <center><a href="howto.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

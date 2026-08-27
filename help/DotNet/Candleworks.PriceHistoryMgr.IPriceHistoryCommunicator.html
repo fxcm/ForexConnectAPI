@@ -1,0 +1,248 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IPriceHistoryCommunicator</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>interface <b>IPriceHistoryCommunicator</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code>System.IDisposable</code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The interface to the Price History API communicator.</p>
+    <p><b>Details</b></p><p>This interface is used for performing all operations and activities required to get the price history data using this API.</p>
+<p>To create an instance of the communicator, use the
+<a href="Candleworks.PriceHistoryMgr.PriceHistoryCommunicatorFactory.createCommunicator.0.html"><code>PriceHistoryCommunicatorFactory.createCommunicator()</code></a>
+method.</p>
+<p>The instance of the communicator must be kept as a reference as long as the corresponding trading session is kept. Do not dispose of the
+instance until the trading session is successfully logged off and all listeners are unsubscribed.</p>
+<p>The type defined in the <code>pricehistorymgr_net.dll</code> assembly.
+The namespace is <a href="Candleworks.PriceHistoryMgr.html"><code>Candleworks.PriceHistoryMgr</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Properties</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.PriceHistoryMgr.IPriceHistoryCommunicator.TimeframeFactory .0.html">TimeframeFactory</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets an instance of the timeframe factory.</p>
+    </td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.PriceHistoryMgr.IPriceHistoryCommunicator.addListener.0.html">addListener</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Adds a request result listener.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.PriceHistoryMgr.IPriceHistoryCommunicator.addStatusListener.0.html">addStatusListener</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Adds a new status listener.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.PriceHistoryMgr.IPriceHistoryCommunicator.cancelRequest.0.html">cancelRequest</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Cancels requests.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.PriceHistoryMgr.IPriceHistoryCommunicator.createRequest.0.html">createRequest</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates a new price history request.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.PriceHistoryMgr.IPriceHistoryCommunicator.createResponseReader.0.html">createResponseReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates a reader for the Price History API response.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.PriceHistoryMgr.IPriceHistoryCommunicator.Dispose.1.html">Dispose</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Releases resources object have been using.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.PriceHistoryMgr.IPriceHistoryCommunicator.getQuotesManager.0.html">getQuotesManager</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets an instance of the Quotes Manager API.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.PriceHistoryMgr.IPriceHistoryCommunicator.isReady.0.html">isReady</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Checks whether the Price History API is completely initialized and is ready to use.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.PriceHistoryMgr.IPriceHistoryCommunicator.removeListener.0.html">removeListener</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Removes a previously added request result listener.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.PriceHistoryMgr.IPriceHistoryCommunicator.removeStatusListener.0.html">removeStatusListener</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Removes a previously added status listener.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.PriceHistoryMgr.IPriceHistoryCommunicator.sendRequest.0.html">sendRequest</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Sends the request to the server.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="Candleworks.PriceHistoryMgr.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

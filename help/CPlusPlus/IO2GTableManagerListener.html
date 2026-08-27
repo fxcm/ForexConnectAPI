@@ -1,0 +1,194 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GTableManagerListener</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>IO2GTableManagerListener</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="IAddRef.html">IAddRef</a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The interface provides a method signature to process notifications about table manager status changes.</p>
+    <p><b>Details</b></p><p>In order to work with the <a href="TradingTables.html">trading tables</a>, an <a href="IO2GTableManager.html"><code>IO2GTableManager</code></a>
+object must have the <a href="O2GTableManagerStatus.html">O2GTableManagerStatus</a>.<a href="O2GTableManagerStatus.TablesLoaded.0.html">TablesLoaded</a> status.<br></p>
+<p>You can track the <code>O2GTableManagerStatus</code> by using an instance of the class that implements the <code>IO2GTableManagerListener</code> interface.
+The table manager status is checked asynchronously. Therefore, your application can run without interruption the processes that are not
+directly dependent on the table manager status. For example, if your application requires loading of the
+GUI components, they are loaded without any interruptions.<br>
+<b>Note:</b> If you do not require any special processing and can afford a temporal suspension of the main thread, you can track the table manager status
+by using the <a href="IO2GTableManager.html">IO2GTableManager</a>.<a href="IO2GTableManager.getStatus.html">getStatus</a> method. In this case, the
+implementation of the <code>IO2GTableManagerListener</code> is not required.</p>
+<p>If you want to use the <code>IO2GTableManagerListener</code> interface to track the table manager status, you must create a class that implements the interface. For example,<br>
+<code>class TableManagerListener : public IO2GTableManagerListener { }</code><br></p>
+<p>Then, you must create an instance of the class, pass the instance to the <a href="IO2GSession.html"><code>IO2GSession</code></a>.<a href="IO2GSession.useTableManager.html"><code>useTableManager</code></a> method
+and wait for the <a href="O2GTableManagerStatus.TablesLoaded.0.html">TablesLoaded</a> status.</p><div id="open220" style="display:none">
+  <p>Waiting for the status&nbsp;<a href="javascript: showdiv('close220'); hidediv('open220');" onclick="javascript: showdiv('close220'); hidediv('open220');">[show]</a></p>
+</div>
+<div id="close220" style="display:inline">
+  <p>Waiting for the status&nbsp;<a href="javascript: showdiv('open220'); hidediv('close220');" onclick="javascript: showdiv('open220'); hidediv('close220');">[hide]</a></p>
+  <pre class="example">         O2G2Ptr&lt;TableManagerListener&gt; managerListener = new TableManagerListener();
+         mSession-&gt;useTableManager(Yes, managerListener);
+         //...
+         if(managerListener-&gt;waitForTablesLoad())
+         {
+             O2G2Ptr&lt;IO2GTableManager&gt; tableManager = mSession-&gt;getTableManager();
+             //...
+         }</pre>
+</div><p>For details of the <code>IO2GTableManagerListener</code> interface implementation, see the example below.</p>
+<p><b>Example</b></p><div id="open221" style="display:inline">
+  <p>TableManagerListener&nbsp;<a href="javascript: showdiv('close221'); hidediv('open221');" onclick="javascript: showdiv('close221'); hidediv('open221');">[show]</a></p>
+</div>
+<div id="close221" style="display:none">
+  <p>TableManagerListener&nbsp;<a href="javascript: showdiv('open221'); hidediv('close221');" onclick="javascript: showdiv('open221'); hidediv('close221');">[hide]</a></p>
+  <pre class="example">class TableManagerStatusListener : public IO2GTableManagerListener
+{
+ public:
+    /** Constructor*/
+    TableManagerStatusListener();
+    ~TableManagerStatusListener();
+    /** Status change*/
+    virtual void onStatusChanged(O2GTableManagerStatus status, IO2GTableManager *manager);
+ 
+    // Thread safe implementation.
+    virtual long addRef();
+    virtual long release();
+ private:
+    volatile long dwRef;
+};</pre>
+</div><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTableManagerListener.onStatusChanged.html">onStatusChanged</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Processes notifications about the table manager status changes.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="forexconnect.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

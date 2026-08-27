@@ -1,0 +1,638 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GOrderTableRow</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>O2GOrderTableRow</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="fxcore2.O2GOrderRow.html"><code>O2GOrderRow</code></a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The class provides access to the order information and calculated fields.</p>
+    <p><b>Details</b></p><p>The class represents a single row of the <a href="TTOrders.html">Orders</a> table. In addition to the methods of its parent class,
+the <code>O2GOrderTableRow</code> class provides methods to access calculated fields, such as prices of an associated stop/limit order,
+and trailing rate/step of an associated trailing stop order or a secondary entry stop order of an ELS order.</p>
+<p><b>Prerequisites</b></p>
+<p>The class is available only through the use of the <a href="fxcore2.O2GTableManager.html"><code>O2GTableManager</code></a>. An <a href="fxcore2.O2GTableManager.html"><code>O2GTableManager</code></a>
+object must have the <a href="fxcore2.O2GTableManagerStatus.html">O2GTableManagerStatus</a>.<a href="fxcore2.O2GTableManagerStatus.TablesLoaded.0.html">TablesLoaded</a> status.<br>
+For complete instructions on the table manager usage, see the <a href="table_manager_use_net.html">How to use table manager in ForexConnect API</a> section.<br>
+After tables are loaded, you must obtain an instance of the <a href="fxcore2.O2GOrdersTable.html"><code>O2GOrdersTable</code></a> class. For example,<br></p>
+<p><code>O2GOrdersTable ordersTable = (O2GOrdersTable)tableManager.getTable(O2GTableType.Orders);</code></p>
+<p><b>Instantiating the class</b></p>
+<p>If you need access to the current order information, get an instance of the class by calling any of the following methods of the <a href="fxcore2.O2GOrdersTable.html"><code>O2GOrdersTable</code></a> class:<br></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p><code>O2GOrdersTable</code> method</p></td>
+    <td class="thdr"><p>Syntax example</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GOrdersTable.getRow.0.html"><code>getRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GOrderTableRow order = ordersTable.getRow(i);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GOrdersTable.findRow.0.html"><code>findRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GOrderTableRow order;<br>
+bool bFound = ordersTable.findRow(mOrderID, out order);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GOrdersTable.getNextRow.0.html"><code>getNextRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GOrderTableRow order;<br>
+bool bFound = ordersTable.getNextRow(mIterator, out order);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GOrdersTable.getNextRowByColumnValue.0.html"><code>getNextRowByColumnValue</code></a></p></td>
+    <td class="tmain"><p><code>O2GOrderTableRow order;<br>
+bool bFound = ordersTable.getNextRowByColumnValue(&quot;RequestID&quot;, mRequestID, mIterator, out order);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GOrdersTable.getNextRowByColumnValues.0.html"><code>getNextRowByColumnValues</code></a></p></td>
+    <td class="tmain"><p><code>O2GOrderTableRow order;<br>
+bool bFound = ordersTable.getNextRowByColumnValues(&quot;Type&quot;, new object[] { &quot;L&quot;, &quot;S&quot; }, mIterator, out order);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GOrdersTable.getNextRowByMultiColumnValues.0.html"><code>getNextRowByMultiColumnValues</code></a></p></td>
+    <td class="tmain"><p><code>O2GOrderTableRow order;<br>
+bool bFound = ordersTable.getNextRowByMultiColumnValues(new string[] { &quot;RequestID&quot;, &quot;Type&quot; }, new object[] { mRequestID, mType }, mIterator, out order);</code></p></td>
+  </tr>
+</table><p>If you want to track the <a href="TTOrders.html">Orders</a> table updates, your application must have a listener class that implements the <a href="fxcore2.IO2GTableListener.html"><code>IO2GTableListener</code></a> interface.
+An instance of the listener class must be subscribed to the table updates. Subscription to each update type is done individually.
+Before the logout, you must unsubscribe the listener from each update type separately. The examples of the subscription/unsubscription syntax are listed below.</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p><code>IO2GTableListener</code> method</p></td>
+    <td class="thdr"><p>Subscribe syntax</p></td>
+    <td class="thdr"><p>Unsubscribe syntax</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.IO2GTableListener.onAdded.0.html"><code>onAdded</code></a></p></td>
+    <td class="tmain"><p><code>ordersTable.subscribeUpdate(O2GTableUpdateType.Insert, tableListener);</code></p></td>
+    <td class="tmain"><p><code>ordersTable.unsubscribeUpdate(O2GTableUpdateType.Insert, tableListener);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.IO2GTableListener.onChanged.0.html"><code>onChanged</code></a></p></td>
+    <td class="tmain"><p><code>ordersTable.subscribeUpdate(O2GTableUpdateType.Update, tableListener);</code></p></td>
+    <td class="tmain"><p><code>ordersTable.unsubscribeUpdate(O2GTableUpdateType.Update, tableListener);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.IO2GTableListener.onDeleted.0.html"><code>onDeleted</code></a></p></td>
+    <td class="tmain"><p><code>ordersTable.subscribeUpdate(O2GTableUpdateType.Delete, tableListener);</code></p></td>
+    <td class="tmain"><p><code>ordersTable.unsubscribeUpdate(O2GTableUpdateType.Delete, tableListener);</code></p></td>
+  </tr>
+</table><p>To instantiate the <code>O2GOrderTableRow</code> class, you must cast the <code>rowData</code> parameter of the above methods to the <code>O2GOrderTableRow</code> type. For example,</p>
+<p><code>O2GOrderTableRow row = (O2GOrderTableRow)(rowData);</code></p>
+<p><b>Example</b></p><div id="open215" style="display:inline">
+  <p>Get Order ID and prices of associated stop/limit orders&nbsp;<a href="javascript: showdiv('close215'); hidediv('open215');" onclick="javascript: showdiv('close215'); hidediv('open215');">[show]</a></p>
+</div>
+<div id="close215" style="display:none">
+  <p>Get Order ID and prices of associated stop/limit orders&nbsp;<a href="javascript: showdiv('open215'); hidediv('close215');" onclick="javascript: showdiv('open215'); hidediv('close215');">[hide]</a></p>
+  <pre class="example">        public void DoWork()
+        {
+            //...
+            mSession.useTableManager(O2GTableManagerMode.Yes, null);
+            //...
+            mTblMgr = mSession.getTableManager();
+ 
+            if (mTblMgr.getStatus() == O2GTableManagerStatus.TablesLoaded)
+            {
+                O2GOrdersTable orders = (O2GOrdersTable)mTblMgr.getTable(O2GTableType.Orders);
+                OrdersListener listener = new OrdersListener();
+                orders.subscribeUpdate(O2GTableUpdateType.Update, listener);
+                try
+                {
+                    mTblMgr.lockUpdates();
+                    for(int ii=0; ii&lt;orders.Count;ii++)
+                    {
+                        O2GOrderTableRow order = orders.getRow(ii);
+                        Console.WriteLine(&quot;OrderID={0}, Amount={1}, BuySell={2}, Status={3}, Stop={4}, Limit={5}&quot;, order.OrderID, order.Amount, order.BuySell, order.Status, order.Stop, order.Limit);
+                    }
+                }
+                finally
+                {
+                    mTblMgr.unlockUpdates();
+                }
+ 
+                Thread.Sleep(10000); //waiting 10 sec for tracing new closed trades
+ 
+                orders.unsubscribeUpdate(O2GTableUpdateType.Update, listener);
+            }
+        }
+ 
+        class OrdersListener : IO2GTableListener
+        {
+            public void onAdded(string rowID, O2GRow rowData)
+            {
+                O2GOrderTableRow order = (O2GOrderTableRow)rowData;
+                Console.WriteLine(&quot;OrderID={0}, Amount={1}, BuySell={2}, Status={3}, Stop={4}, Limit={5}&quot;, order.OrderID, order.Amount, order.BuySell, order.Status, order.Stop, order.Limit);
+            }
+ 
+            public void onChanged(string rowID, O2GRow rowData)
+            {
+                O2GOrderTableRow order = (O2GOrderTableRow)rowData;
+                Console.WriteLine(&quot;OrderID={0}, Amount={1}, BuySell={2}, Status={3}, Stop={4}, Limit={5}&quot;, order.OrderID, order.Amount, order.BuySell, order.Status, order.Stop, order.Limit);
+            }
+ 
+            public void onDeleted(string rowID, O2GRow rowData)
+            {
+                O2GOrderTableRow order = (O2GOrderTableRow)rowData;
+                Console.WriteLine(&quot;OrderID={0}, Amount={1}, BuySell={2}, Status={3}, Stop={4}, Limit={5}&quot;, order.OrderID, order.Amount, order.BuySell, order.Status, order.Stop, order.Limit);
+            }
+ 
+            public void onStatusChanged(O2GTableStatus status)
+            {
+ 
+            }
+        }
+</pre>
+</div><p>The type defined in the <code>fxcore2.dll</code> assembly.
+The namespace is <a href="fxcore2.html"><code>fxcore2</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Properties</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.AccountID.0.html">AccountID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the account the order is placed on.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.AccountKind.0.html">AccountKind</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of the account the order is placed from.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.AccountName.0.html">AccountName</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique name of the account the order is placed on.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.Amount.0.html">Amount</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the amount of the order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.AtMarket.0.html">AtMarket</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the distance from the current market price within which the trader allows the order to be executed.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.BuySell.0.html">BuySell</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the direction of the trade.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.Columns.0.html">Columns</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The columns of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.ContingencyType.0.html">ContingencyType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of the contingent order to which the order is linked.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.ContingentOrderID.0.html">ContingentOrderID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identifier of an existing contingency group which the order is linked to.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.ExecutionRate.0.html">ExecutionRate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the price the order is executed at.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.ExpireDate.0.html">ExpireDate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the expiration date and time of the order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.FilledAmount.0.html">FilledAmount</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the amount of the last order portion filled.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.Lifetime.0.html">Lifetime</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the time during which the trader must accept or reject the order requoted by the dealer.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.Limit.0.html">Limit</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the price of an associated limit order (the profit limit level).</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.NetQuantity.0.html">NetQuantity</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the Net Amount order flag.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.OfferID.0.html">OfferID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the instrument the order is placed for.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.OrderID.0.html">OrderID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.OriginAmount.0.html">OriginAmount</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the original amount of the order when it is placed.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.Parties.0.html">Parties</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identifier of the environment that is used to place the order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.PegOffset.0.html">PegOffset</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the offset to the pegged price.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.PegType.0.html">PegType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the price used to calculate the pegged order price.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.PrimaryID.0.html">PrimaryID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the primary order of the ELS or OTO contingent orders to which the order is linked.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.Rate.0.html">Rate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the price the order is placed at.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.RateMax.0.html">RateMax</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the maximum price at which the order can be filled.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.RateMin.0.html">RateMin</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the minimum price at which the order can be filled.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.RequestID.0.html">RequestID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the identifier of the request to create the order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.RequestTXT.0.html">RequestTXT</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the custom identifier of the order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.Stage.0.html">Stage</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the order action.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.Status.0.html">Status</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the state of the order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.StatusTime.0.html">StatusTime</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the date and time of the last update of the order state.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.Stop.0.html">Stop</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the price of an associated stop order (the loss limit level).</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.StopTrailRate.0.html">StopTrailRate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the trailing rate of an associated trailing stop order or a secondary entry stop order of an ELS order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.StopTrailStep.0.html">StopTrailStep</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the trailing step of an associated trailing stop order or a secondary entry stop order of an ELS order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.TableType.0.html">TableType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The type of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.TimeInForce.0.html">TimeInForce</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the time-in-force option of the order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.TradeID.0.html">TradeID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the position to be opened/closed by the order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.TrailRate.0.html">TrailRate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the market price at the time the order automatically moves following the market fluctuations.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.TrailStep.0.html">TrailStep</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the number of pips the market should move before the order moves the same number of pips after it.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.Type.0.html">Type</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of the order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.TypeLimit.0.html">TypeLimit</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the rate type of the limit order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.TypeStop.0.html">TypeStop</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the rate type of the stop order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.ValueDate.0.html">ValueDate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the simulated delivery date.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.WorkingIndicator.0.html">WorkingIndicator</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the working indicator flag.</p>
+    </td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.getCell.0.html">getCell</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a cell of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOrderTableRow.isCellChanged.0.html">isCellChanged</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a flag indicating whether the value of the cell is changed.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

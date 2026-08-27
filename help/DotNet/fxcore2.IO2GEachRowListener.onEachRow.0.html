@@ -1,0 +1,252 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GEachRowListener.onEachRow</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>IO2GEachRowListener.onEachRow</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Processes iteration through rows of a table.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">C#</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code>void&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>onEachRow</b> (string rowID, <a href="fxcore2.O2GRow.html"><code>O2GRow</code></a> rowData) </code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>rowID</code></td>
+    <td class="tmain" width="69%"><p>The identifier of a row. The parameter has the value of the row identifier for a specific <a href="TradingTables.html">trading table</a>.
+For example, for the <a href="TTAccounts.html">Accounts</a> table, it has the value of the AccountID field. The complete list of the identifiers is shown below.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>rowData</code></td>
+    <td class="tmain" width="69%"><p>The object representing a row of a table. In order to process the parameter, you need to know what table it belongs to. It can be accomplished by calling
+the <a href="fxcore2.O2GRow.html"><code>O2GRow</code></a>.<a href="fxcore2.O2GRow.TableType.0.html"><code>TableType</code></a> method. After that, you must cast the parameter to an appropriate class.
+For example, for a row of the <a href="TTAccounts.html">Accounts</a> table, use the <a href="fxcore2.O2GAccountTableRow.html"><code>O2GAccountTableRow</code></a> class.
+The complete list of the classes
+is shown below.</p></td>
+  </tr>
+</table><p><b>Details</b></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Table name</p></td>
+    <td class="thdr"><p><code>rowID</code></p></td>
+    <td class="thdr"><p>Cast <code>rowData</code> to</p></td>
+    <td class="thdr"><p>Casting syntax</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTAccounts.html">Accounts</a></p></td>
+    <td class="tmain"><p>AccountID</p></td>
+    <td class="tmain"><p><a href="fxcore2.O2GAccountTableRow.html"><code>O2GAccountTableRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GAccountTableRow row = (O2GAccountTableRow)(rowData);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTOffers.html">Offers</a></p></td>
+    <td class="tmain"><p>OfferID</p></td>
+    <td class="tmain"><p><a href="fxcore2.O2GOfferTableRow.html"><code>O2GOfferTableRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GOfferTableRow row = (O2GOfferTableRow)(rowData);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTTrades.html">Trades</a></p></td>
+    <td class="tmain"><p>TradeID</p></td>
+    <td class="tmain"><p><a href="fxcore2.O2GTradeTableRow.html"><code>O2GTradeTableRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GTradeTableRow row = (O2GTradeTableRow)(rowData);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTClosedTrades.html">ClosedTrades</a></p></td>
+    <td class="tmain"><p>TradeID</p></td>
+    <td class="tmain"><p><a href="fxcore2.O2GClosedTradeTableRow.html"><code>O2GClosedTradeTableRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GClosedTradeTableRow row = (O2GClosedTradeTableRow)(rowData);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTOrders.html">Orders</a></p></td>
+    <td class="tmain"><p>OrderID</p></td>
+    <td class="tmain"><p><a href="fxcore2.O2GOrderTableRow.html"><code>O2GOrderTableRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GOrderTableRow row = (O2GOrderTableRow)(rowData);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTMessages.html">Messages</a></p></td>
+    <td class="tmain"><p>MsgID</p></td>
+    <td class="tmain"><p><a href="fxcore2.O2GMessageTableRow.html"><code>O2GMessageTableRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GMessageTableRow row = (O2GMessageTableRow)(rowData);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTSummary.html">Summary</a></p></td>
+    <td class="tmain"><p>OfferID</p></td>
+    <td class="tmain"><p><a href="fxcore2.O2GSummaryTableRow.html"><code>O2GSummaryTableRow </code></a></p></td>
+    <td class="tmain"><p><code>O2GSummaryTableRow row = (O2GSummaryTableRow)(rowData);</code></p></td>
+  </tr>
+</table><p>To get notifications about iteration through each row of a specific table, an instance of the class implementing
+the <code>IO2GEachRowListener</code> interface must be passed to the <a href="fxcore2.O2GTable.html"><code>O2GTable</code></a>.<a href="fxcore2.O2GTable.forEachRow.0.html"><code>forEachRow</code></a> method as an argument.
+For example, if you want to get notifications about iteration through the rows of the <a href="TTTrades.html">Trades</a> table, write the following line:<br></p>
+<p><code>tradesTable.forEachRow(forEachListener);</code><br>
+<br><b>Note:</b> The returned row contains the current values of fields. The values are not automatically updated. To monitor changes, use <a href="fxcore2.IO2GTableListener.onChanged.0.html"><code>IO2GTableListener.onChanged</code></a>.
+The row interface is thread-safe. One can use the returned row in different threads without synchronization.</p>
+<p>For the method implementation details, see the example below.</p>
+<p><b>Example</b></p><div id="open109" style="display:none">
+  <p>Process iteration through the rows of the Trades table&nbsp;<a href="javascript: showdiv('close109'); hidediv('open109');" onclick="javascript: showdiv('close109'); hidediv('open109');">[show]</a></p>
+</div>
+<div id="close109" style="display:inline">
+  <p>Process iteration through the rows of the Trades table&nbsp;<a href="javascript: showdiv('open109'); hidediv('close109');" onclick="javascript: showdiv('open109'); hidediv('close109');">[hide]</a></p>
+  <pre class="example">    void Work()
+    {
+        //...
+        session.useTableManager(O2GTableManagerMode.Yes, null);
+        session.login(sUserID, sPassword, sURL, sConnection);
+        //...
+        //get table manager and wait for the end of loading for all tables
+        O2GTableManager tableMgr = session.getTableManager();
+        O2GTableManagerStatus managerStatus = tableMgr.getStatus();
+        while (managerStatus == O2GTableManagerStatus.TablesLoading)
+        {
+            Thread.Sleep(50);
+            managerStatus = tableMgr.getStatus();
+        }
+        if (managerStatus == O2GTableManagerStatus.TablesLoaded)
+        {
+            O2GTable ordersTable = tableMgr.getTable(O2GTableType.Orders);
+            EachRowListener eachRowListener = new EachRowListener();
+            ordersTable.forEachRow(eachRowListener);
+        }
+    }
+ 
+    class EachRowListener : IO2GEachRowListener
+    {
+        public void onEachRow(string rowID, O2GRow rowData)
+        {
+            O2GOrderTableRow orderTableRow = (O2GOrderTableRow)rowData;
+            Console.WriteLine(&quot;OrderID={0}; AccountID={1}; Type={2}; Status={3}; OfferID={4}; Amount={5}; BuySell={6}; Rate={7}; Stop={8}; Limit={9}&quot;,
+                sOrderID, orderTableRow.AccountID, orderTableRow.Type, orderTableRow.Status, orderTableRow.OfferID,
+orderTableRow.Amount, orderTableRow.BuySell, orderTableRow.Rate, orderTableRow.Stop, orderTableRow.Limit);
+        }
+    }</pre>
+</div><p>The type defined in the <code>fxcore2.dll</code> assembly.
+The namespace is <a href="fxcore2.html"><code>fxcore2</code></a>.</p><p>Declared in <a href="fxcore2.IO2GEachRowListener.html">IO2GEachRowListener</a></p>
+<p>
+  <center><a href="fxcore2.IO2GEachRowListener.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'fxcore2.IO2GEachRowListener.html');</script></body>
+</html>

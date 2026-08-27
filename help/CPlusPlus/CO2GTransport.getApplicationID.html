@@ -1,0 +1,169 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>CO2GTransport.getApplicationID</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>static public method <b>CO2GTransport.getApplicationID</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Gets an application id property.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">C++</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code>static&nbsp;void&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>getApplicationID</b> (char * applicationID, size_t & len) </code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>[in, out]applicationID</code></td>
+    <td class="tmain" width="69%"><p>Returns an applicationID string. In case the parameter is NULL, the len parameter will contain
+the size of the string after the method is called. A client application should allocate memory for
+the string. The memory size shall be equal to the returned len parameter.
+Then the client application should pass the buffer as this parameter. The returned
+string will be placed into the buffer.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>[in, out]len</code></td>
+    <td class="tmain" width="69%"><p>Len of the string passed in the applicationID parameter. In case the applicationID parameter
+is NULL or the size is not enough for copying the apllicationID value, the necessary size is returned.</p></td>
+  </tr>
+</table><p><b>Details</b></p><p>The method returns currently sent application id during the login procedure.<br></p><div id="open96" style="display:none">
+  <p>Get Application ID&nbsp;<a href="javascript: showdiv('close96'); hidediv('open96');" onclick="javascript: showdiv('close96'); hidediv('open96');">[show]</a></p>
+</div>
+<div id="close96" style="display:inline">
+  <p>Get Application ID&nbsp;<a href="javascript: showdiv('open96'); hidediv('close96');" onclick="javascript: showdiv('open96'); hidediv('close96');">[hide]</a></p>
+  <pre class="example"> size_t len;
+ CO2GTransport::getApplicationID(NULL, len);
+ char *appID = new char[len];
+ CO2GTransport::getApplicationID(appID, len);
+ printf(&quot;Application ID: %s\n&quot;, appID);
+ delete[] appID;</pre>
+</div><p>Declared in <a href="CO2GTransport.html">CO2GTransport</a></p>
+<p>
+  <center><a href="CO2GTransport.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'CO2GTransport.html');</script></body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Edit Order</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Edit Order</b></font>
+    </p><p>Only Entry Stop (SE), Entry Limit (LE), Stop (S) and Limit (L) orders (and all their modifications)
+in the Waiting (&quot;W&quot;) state can be changed.</p>
+<p>To edit an order, please fill the following values in the value map:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Parameter name</p></td>
+    <td class="thdr"><p>Datatype</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>COMMAND</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The command. Must be <a href="com.fxcore2.Constants.Commands.EditOrder.html"><code>EditOrder</code></a>.</p>
+<p>The field is obligatory.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>ORDER_ID</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The identifier of the order to be changed.</p>
+<p>The field is obligatory.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>ACCOUNT_ID</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The identifier of the account the order was placed for.
+The value must be obtained from the <a href="TTAccounts.html">Accounts</a> table, the <code>AccountID</code> column.</p>
+<p>Please note that the account identifier may not necessarily be equal to the account name
+which is shown in the FXCM Trading Station application.</p>
+<p>The field is obligatory.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>RATE</p></td>
+    <td class="tmain"><p>double</p></td>
+    <td class="tmain"><p>A new rate for the order.</p>
+<p>For sell stop and buy limit orders, the rate must be below the market.</p>
+<p>For sell limit and buy stop orders, the rate must be above the market.</p>
+<p>If you want to change the rate of the order, you must specify
+either <code>Rate</code> or a pair of <code>PegOffset</code> and <code>PegType</code> fields. If
+none of the three fields are specified, the price will not be changed.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>PEG_TYPE</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The type of the pegged (relative to market) price. Possible values:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.Constants.Peg.FromOpen.html"><code>O</code></a></p></td>
+    <td class="tmain"><p>Can be used only for stop and limit orders attached to the trade. In that case
+the offset will be added to the open price of the trade.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.Constants.Peg.FromClose.html"><code>M</code></a></p></td>
+    <td class="tmain"><p>Can be used for any order. In that case the offset will be added to the market price.</p></td>
+  </tr>
+</table><p>Please note that only stop and limit orders which are attached to the entry order can be
+kept in the pegged price. For all other kinds of the orders, the pegged price will
+be automatically converted to a regular price.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>PEG_OFFSET</p></td>
+    <td class="tmain"><p>double</p></td>
+    <td class="tmain"><p>An offset, expressed in pips, against the price specified in the <code>PegType</code> parameter.</p>
+<p>For sell stop and buy limit orders, the offset must be negative.</p>
+<p>For sell limit and buy stop orders, the offset must be positive.</p>
+<p>Price can be specified as an offset to the market only for Stop or Limit orders attached to
+an entry order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TRAIL_STEP</p></td>
+    <td class="tmain"><p>int</p></td>
+    <td class="tmain"><p>The value can be changed for an entry order or for a stop order.</p>
+<p>The value specifies the maximum change of the market price after which the rate of the order
+will be changed as well.</p>
+<p>The value is expressed in the units of the minimum change of the price  (see the <code>Digits</code> column of the <a href="TTOffers.html">Offers</a> table).
+For example, if the value of the <code>Digits</code> column is 3 and the value of <code>TrailStep</code> is 5, the maximum change of the market price will be
+<code>5 * 10<sup>-3</sup> = 0.005</code>.</p>
+<p>If the value is 1, it means that the dynamic trailing mode is used, i.e. the order rate is changed
+with every change of the market price. Please note that in some systems, only dynamic trailing mode is supported.</p>
+<p>By default, this value is 0. 0 means no-trailing order.</p>
+<p>If value is not specified, the trailing mode will not be changed.</p>
+<p>The trailing mode can be changed for the SE, LE and S orders only.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>AMOUNT</p></td>
+    <td class="tmain"><p>int</p></td>
+    <td class="tmain"><p>The amount of the order. In the case of FX instruments, the amount is expressed in the base currency of an instrument. In the case of CFD instruments, the amount is expressed in contracts.
+Must be divisible by the value of the lot size.</p>
+<p>The amount can be changed for entry orders which are not in the netting mode.</p>
+<p>If value is not specified, the order amount will not be changed.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>CUSTOM_ID</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The custom identifier of the order. This value will be populated into
+these columns of the trading tables:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Table</p></td>
+    <td class="thdr"><p>Column for opening order</p></td>
+    <td class="thdr"><p>Column for closing order</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTOrders.html">Orders</a></p></td>
+    <td class="tmain"><p><code>RequestTXT</code></p></td>
+    <td class="tmain"><p><code>RequestTXT</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTTrades.html">Trades</a></p></td>
+    <td class="tmain"><p><code>OpenOrderRequestTXT</code></p></td>
+    <td class="tmain"><p>N/A</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTClosedTrades.html">Closed Trades</a></p></td>
+    <td class="tmain"><p><code>OpenOrderRequestTXT</code></p></td>
+    <td class="tmain"><p><code>CloseOrderRequestTXT</code></p></td>
+  </tr>
+</table><p>If value is not specified, the custom identifier of the order will not be changed.</p></td>
+  </tr>
+</table><p>Not all combinations of the fields can be used. Please follow the rules below:</p>
+<p>1) Rate can be changed either using the RATE field or a pair of <code>PEG_TYPE</code> and <code>PEG_OFFSET</code> fields. Pegged price (a price
+expressed as a distance in pips) can be changed only for S or L orders attached to entry orders. For all other
+kinds of orders, the RATE must be used to change the order rate. If the rate is changed, TRAIL_STEP must be also specified.
+If you omit the TRAIL_STEP field, the trailing mode of the order will be reset, even if the order was trailing. Moreover, even
+if you need to change only the trailing mode, the rate must be specified.</p>
+<p>2) You can change both RATE (plus trailing mode) and AMOUNT, as well as only RATE or AMOUNT.</p><div id="open98" style="display:none">
+  <p>Example: Edit Order&nbsp;<a href="javascript: showdiv('close98'); hidediv('open98');" onclick="javascript: showdiv('close98'); hidediv('open98');">[show]</a></p>
+</div>
+<div id="close98" style="display:inline">
+  <p>Example: Edit Order&nbsp;<a href="javascript: showdiv('open98'); hidediv('close98');" onclick="javascript: showdiv('open98'); hidediv('close98');">[hide]</a></p>
+  <pre class="example">   public void editOrder(String sOrderID, String sAccountID, int iAmount, double dRate)
+   {
+       O2GRequestFactory factory = mSession.getRequestFactory();
+       if (factory != null) {
+           O2GValueMap valuemapChangeOrder = factory.createValueMap();
+           valuemapChangeOrder.setString(O2GRequestParamsEnum.COMMAND, Constants.Commands.EditOrder);
+           valuemapChangeOrder.setString(O2GRequestParamsEnum.ORDER_ID, sOrderID);
+           valuemapChangeOrder.setString(O2GRequestParamsEnum.ACCOUNT_ID, sAccountID);
+           valuemapChangeOrder.setDouble(O2GRequestParamsEnum.RATE, dRate);
+           valuemapChangeOrder.setInt(O2GRequestParamsEnum.AMOUNT, iAmount);
+           valuemapChangeOrder.setString(O2GRequestParamsEnum.CUSTOM_ID, &quot;EditOrder&quot;);
+ 
+           O2GRequest requestChangeOrder = factory.createOrderRequest(valuemapChangeOrder);
+           if (requestChangeOrder == null) {
+               System.out.println(&quot;Order's request can not be created: &quot; + factory.getLastError());
+           } else {
+               mSession.sendRequest(requestChangeOrder);
+           }
+       }
+   }</pre>
+</div><p>
+      <center><a href="JavaTradingCommandsCreateOrder.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

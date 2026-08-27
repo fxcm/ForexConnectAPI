@@ -1,0 +1,247 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GTableListener.onChanged</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>IO2GTableListener.onChanged</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Processes a notification about the row change in a table.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">Java</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code>void&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>onChanged</b> (String rowID, <a href="com.fxcore2.O2GRow.html"><code>O2GRow</code></a> rowData) </code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>rowID</code></td>
+    <td class="tmain" width="69%"><p>The identifier of a row. The parameter has the value of the row identifier for a specific <a href="TradingTables.html">trading table</a>.
+For example, for the <a href="TTAccounts.html">Accounts</a> table, it has the value of the AccountID field. The complete list of the identifiers is shown below.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>rowData</code></td>
+    <td class="tmain" width="69%"><p>The object representing a row of a table. In order to process the parameter, you need to know what table it belongs to. It can be accomplished by calling
+the <a href="com.fxcore2.O2GRow.html"><code>O2GRow</code></a>.<a href="com.fxcore2.O2GRow.getTableType.html"><code>getTableType</code></a> method. After that, you must cast the parameter to an appropriate class.
+For example, for a row of the <a href="TTAccounts.html">Accounts</a> table, use the <a href="com.fxcore2.O2GAccountTableRow.html"><code>O2GAccountTableRow</code></a> class. The complete list of the classes
+is shown below.<br>
+In case the update has been received from the server, the parameter contains a new instance of the object. In case the cause of the update is calculated fields, the
+instance of the object is equal to the previous call of this method, but calculated fields contain new values.<br>
+One can use <a href="com.fxcore2.O2GRow.isCellChanged.html"><code>O2GRow.isCellChanged</code></a> to find out if fields have been changed.</p></td>
+  </tr>
+</table><p><b>Details</b></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Table name</p></td>
+    <td class="thdr"><p><code>rowID</code></p></td>
+    <td class="thdr"><p>Cast <code>rowData</code> to</p></td>
+    <td class="thdr"><p>Casting syntax</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTAccounts.html">Accounts</a></p></td>
+    <td class="tmain"><p>AccountID</p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GAccountTableRow.html"><code>O2GAccountTableRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GAccountTableRow row = (O2GAccountTableRow)(rowData);<code></code></code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTOffers.html">Offers</a></p></td>
+    <td class="tmain"><p>OfferID</p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GOfferTableRow.html"><code>O2GOfferTableRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GOfferTableRow row = (O2GOfferTableRow)(rowData);<code></code></code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTTrades.html">Trades</a></p></td>
+    <td class="tmain"><p>TradeID</p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTradeTableRow.html"><code>O2GTradeTableRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GTradeTableRow row = (O2GTradeTableRow)(rowData);<code></code></code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTClosedTrades.html">ClosedTrades</a></p></td>
+    <td class="tmain"><p>TradeID</p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GClosedTradeTableRow.html"><code>O2GClosedTradeTableRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GClosedTradeTableRow row = (O2GClosedTradeTableRow)(rowData);<code></code></code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTOrders.html">Orders</a></p></td>
+    <td class="tmain"><p>OrderID</p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GOrderTableRow.html"><code>O2GOrderTableRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GOrderTableRow row = (O2GOrderTableRow)(rowData);<code></code></code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTMessages.html">Messages</a></p></td>
+    <td class="tmain"><p>MsgID</p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GMessageTableRow.html"><code>O2GMessageTableRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GMessageTableRow row = (O2GMessageTableRow)(rowData);<code></code></code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTSummary.html">Summary</a></p></td>
+    <td class="tmain"><p>OfferID</p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GSummaryTableRow.html"><code>O2GSummaryTableRow </code></a></p></td>
+    <td class="tmain"><p><code>O2GSummaryTableRow row = (O2GSummaryTableRow)(rowData);<code></code></code></p></td>
+  </tr>
+</table><p>To get notifications about row changes in a specific table, an instance of the class implementing the
+<a href="com.fxcore2.IO2GTableListener.html">IO2GTableListener</a> interface must be subscribed to the <code>UPDATE</code> operation of this table.
+It is accomplished by calling the <a href="com.fxcore2.O2GTable.html"><code>O2GTable</code></a>.<a href="com.fxcore2.O2GTable.subscribeUpdate.html"><code>subscribeUpdate</code></a>
+method with the <a href="com.fxcore2.O2GTableUpdateType.html"><code>O2GTableUpdateType</code></a>.<a href="com.fxcore2.O2GTableUpdateType.UPDATE.html"><code>UPDATE</code></a> parameter.
+For example, if you want to get notifications about the updates of the <a href="TTTrades.html">Trades</a> table, write the following line:<br></p>
+<p><code>tradesTable.subscribeUpdate(O2GTableUpdateType.UPDATE, tableListener);<code>
+In case the update has been received from the server, the parameter contains a new instance of the object. In case the cause of the update is calculated fields, the instance of the object is equal to the previous call of this method, but calculated fields contain new values.<br>
+One can use <a href="com.fxcore2.O2GRow.isCellChanged.html"><code>O2GRow.isCellChanged</code></a> to find out if fields have been changed.<br></code></code></p>
+<p>For the implementation details, please see the example below.</p>
+<p><b>Example</b></p><div id="open114" style="display:none">
+  <p>Process notification about updates of the Trades table&nbsp;<a href="javascript: showdiv('close114'); hidediv('open114');" onclick="javascript: showdiv('close114'); hidediv('open114');">[show]</a></p>
+</div>
+<div id="close114" style="display:inline">
+  <p>Process notification about updates of the Trades table&nbsp;<a href="javascript: showdiv('open114'); hidediv('close114');" onclick="javascript: showdiv('open114'); hidediv('close114');">[hide]</a></p>
+  <pre class="example"><b>// Create session which uses table manager</b>
+mSession = O2GTransport.createSession();
+mSession.useTableManager(O2GTableManagerMode.YES, null);
+ 
+<b>//...
+// After the login, get instances of the table manager and Trades table</b>
+O2GTableManager tableManager = mSession.getTableManager();
+O2GTradesTable tradesTable = (O2GTradesTable)tableManager.getTable(O2GTableType.TRADES);
+ 
+<b>// ...
+// Subscribe listener, listen to updates of the Trades table, unsubscribe listener</b>
+TableListener tableListener = new TableListener();
+tradesTable.subscribeUpdate(O2GTableUpdateType.UPDATE, tableListener);
+Thread.sleep(1000);
+offersTable.unsubscribeUpdate(O2GTableUpdateType.UPDATE, tableListener);
+
+ 
+<b>// Implementation of IO2GTableListener interface public method onChanged</b>
+public void onChanged(String rowID, O2GRow rowData) {
+    O2GTradeTableRow trade = (O2GTradeTableRow)(rowData);
+    System.out.println(&quot;Trade information changed &quot; + rowID);
+    System.out.println(&quot;TradeID: &quot; + trade.getTradeID() +
+                       &quot; Close = &quot; + trade.getClose());
+}</pre>
+</div><p>Declared in <a href="com.fxcore2.IO2GTableListener.html">IO2GTableListener</a></p>
+<p>
+  <center><a href="com.fxcore2.IO2GTableListener.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'com.fxcore2.IO2GTableListener.html');</script></body>
+</html>

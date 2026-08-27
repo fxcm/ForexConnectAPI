@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Create OCO Order</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Create OCO Order</b></font>
+    </p><p>You can create two or more entry orders and then join them into OCO using just one call.</p>
+<p>To create an OCO order:</p>
+<p>1) Create an <a href="fxcore2.O2GValueMap.html"><code>O2GValueMap</code></a> and specify only one parameter:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Parameter name</p></td>
+    <td class="thdr"><p>Datatype</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Command</p></td>
+    <td class="tmain"><p>string</p></td>
+    <td class="tmain"><p>The command. Must be <a href="fxcore2.Constants.Commands.CreateOCO.html"><code>CreateOCO</code></a>.</p>
+<p>The field is obligatory.</p></td>
+  </tr>
+</table><p>2) Create an <a href="fxcore2.O2GValueMap.html"><code>O2GValueMap</code></a> for each entry order you want to create and
+fill it as for a regular entry order.</p>
+<p>3) Append each entry order value map to the main value map using the <a href="fxcore2.O2GValueMap.appendChild.0.html"><code>O2GValueMap.appendChild</code></a>
+method.</p>
+<p>4) Pass the main <code>IO2GValueMap</code> to the <a href="fxcore2.O2GRequestFactory.createOrderRequest.0.html"><code>O2GRequestFactory.createOrderRequest</code></a> method.</p>
+<p>Limitations:</p>
+<p>1) Only entry orders can be joined into OCO. However, Entry orders with attached stop limits, either regular or ELS
+can be joined into OCO.</p>
+<p>2) All entry orders must be created for the same account.</p>
+<p>Returns:</p>
+<p>The <code>createOrderRequest</code> method will return the request object (see <code>O2GRequest</code> description) which has child requests for each entry order created. So, if 3 entry orders are created - there will be 3 child requests. Moreover, if any of the orders is an ELS order, 3 child requests will be returned per each ELS order inside the OCO.</p><div id="open94" style="display:none">
+  <p>Example: Create an OCO order&nbsp;<a href="javascript: showdiv('close94'); hidediv('open94');" onclick="javascript: showdiv('close94'); hidediv('open94');">[show]</a></p>
+</div>
+<div id="close94" style="display:inline">
+  <p>Example: Create an OCO order&nbsp;<a href="javascript: showdiv('open94'); hidediv('close94');" onclick="javascript: showdiv('open94'); hidediv('close94');">[hide]</a></p>
+  <pre class="example">   public void PrepareParamsFromLoginRules(O2GLoginRules loginRules)
+   {
+       mParams = new OrderCreationParameters();
+ 
+       O2GResponseReaderFactory factory = mSession.getResponseReaderFactory();
+       if (factory == null)
+           return;
+       // Gets first account from login.
+       O2GResponse accountsResponse = loginRules.getTableRefreshResponse(O2GTable.Accounts);
+       O2GAccountsTableResponseReader accountsReader = factory.createAccountsTableReader(accountsResponse);
+       O2GAccountRow account = accountsReader.getRow(0);
+       // Store account id
+       mParams.AccountID = account.AccountID;
+       // Store base iAmount
+          mParams.BaseAmount = account.BaseUnitSize;
+       // Get offers for eur/usd
+       O2GResponse offerResponse = loginRules.getTableRefreshResponse(O2GTable.Offers);
+       O2GOffersTableResponseReader offersReader = factory.createOffersTableReader(offerResponse);
+       for (int i = 0; i &lt; offersReader.Count; i++)
+       {
+           O2GOfferRow offer = offersReader.getRow(i);
+           if (string.Compare(offer.Instrument, &quot;EUR/USD&quot;, true) == 0)
+           {
+               mParams.OfferID = offer.OfferID;
+               mParams.Ask = offer.Ask;
+               mParams.Bid = offer.Bid;
+               mParams.PointSize = offer.PointSize;
+               break;
+           }
+       }
+   }
+ 
+   public void PrepareParamsAndCallOCOOrders(string sOfferID, string sAccountID, int iAmount, double dPointSize, string sBuySell)
+   {
+       bool bBuy = (sBuySell == Constants.Buy);
+       double dRate = bBuy ? mParams.Ask : mParams.Bid;
+       double dAmendment = 5 * dPointSize;
+       if (bBuy)
+           dRate -= dAmendment;
+       else
+           dRate += dAmendment;
+       CreateOCO(sOfferID, sAccountID, iAmount, dRate, sBuySell, 3);
+   }
+ 
+   public void CreateOCO(string sOfferID, string sAccountID, int iAmount, double dRate, string sBuySell, int iOrdersCount)
+   {
+       O2GRequestFactory factory = mSession.getRequestFactory();
+       if (factory != null)
+       {
+           O2GValueMap mainValueMap = factory.createValueMap();
+           mainValueMap.setString(O2GRequestParamsEnum.Command, Constants.Commands.CreateOCO);
+           for (int i = 0; i &lt; iOrdersCount; i++)
+           {
+               O2GValueMap valuemap = factory.createValueMap();
+               valuemap.setString(O2GRequestParamsEnum.Command, Constants.Commands.CreateOrder);
+               valuemap.setString(O2GRequestParamsEnum.OrderType, Constants.Orders.LimitEntry);
+               valuemap.setString(O2GRequestParamsEnum.AccountID, sAccountID);          // The identifier of the account the order should be placed for.
+               valuemap.setString(O2GRequestParamsEnum.OfferID, sOfferID);              // The identifier of the instrument the order should be placed for.
+               valuemap.setString(O2GRequestParamsEnum.BuySell, sBuySell);              // The order direction (Constants.Buy for buy, Constants.Sell for sell)
+               valuemap.setDouble(O2GRequestParamsEnum.Rate, dRate);                    // The dRate at which the order must be filled (below current dRate for Buy, above current dRate for Sell)
+               valuemap.setInt(O2GRequestParamsEnum.Amount, iAmount);                   // The quantity of the instrument to be bought or sold.
+ 
+               valuemap.setString(O2GRequestParamsEnum.CustomID, string.Format(&quot;OCO_LimitEntry_N{0}&quot;, i + 1)); // The custom identifier of the order.
+               mainValueMap.appendChild(valuemap);
+           }
+ 
+           O2GRequest request = factory.createOrderRequest(mainValueMap);
+           if (request == null)
+               Console.WriteLine(&quot;Order's request can not be created: &quot; + factory.getLastError());
+           else
+           {
+               for (int i = 0; i &lt; request.ChildrenCount; i++)
+               {
+                   O2GRequest childRequest = request.getChildRequest(i);
+                   mActions[childRequest.RequestID] = Action.DeleteOrder;
+               }
+               mSession.sendRequest(request);
+           }
+       }
+   }</pre>
+</div><p>
+      <center><a href="NetTradingCommandsCreateOrder.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

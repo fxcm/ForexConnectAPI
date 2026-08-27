@@ -1,0 +1,252 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GTimeframe</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>O2GTimeframe</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The class provides access to a time frame available for the historical prices request.</p>
+    <p><b>Details</b></p><p>The historical prices can be requested for different time frames. Every time frame has a unique identifier, size and unit of measurement.
+These properties of a time frame can be accessed by the methods of the class: <code>getId, getSize</code> and <code>getUnit</code> respectively.
+The table below shows properties of common time frames:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Identifier</p></td>
+    <td class="thdr"><p>Size</p></td>
+    <td class="thdr"><p>Unit of measurement</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>t1</code></p></td>
+    <td class="tmain"><p><code>1</code></p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTimeframeUnit.TICK.html">TICK</a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>m1</code></p></td>
+    <td class="tmain"><p><code>1</code></p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTimeframeUnit.MIN.html">MIN</a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>m5</code></p></td>
+    <td class="tmain"><p><code>5</code></p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTimeframeUnit.MIN.html">MIN</a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>m15</code></p></td>
+    <td class="tmain"><p><code>15</code></p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTimeframeUnit.MIN.html">MIN</a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>m30</code></p></td>
+    <td class="tmain"><p><code>30</code></p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTimeframeUnit.MIN.html">MIN</a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>H1</code></p></td>
+    <td class="tmain"><p><code>1</code></p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTimeframeUnit.HOUR.html">HOUR</a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>H2</code></p></td>
+    <td class="tmain"><p><code>2</code></p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTimeframeUnit.HOUR.html">HOUR</a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>H3</code></p></td>
+    <td class="tmain"><p><code>3</code></p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTimeframeUnit.HOUR.html">HOUR</a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>H4</code></p></td>
+    <td class="tmain"><p><code>4</code></p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTimeframeUnit.HOUR.html">HOUR</a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>H6</code></p></td>
+    <td class="tmain"><p><code>6</code></p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTimeframeUnit.HOUR.html">HOUR</a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>H8</code></p></td>
+    <td class="tmain"><p><code>8</code></p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTimeframeUnit.HOUR.html">HOUR</a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>D1</code></p></td>
+    <td class="tmain"><p><code>1</code></p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTimeframeUnit.DAY.html">DAY</a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>W1</code></p></td>
+    <td class="tmain"><p><code>1</code></p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTimeframeUnit.WEEK.html">WEEK</a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>M1</code></p></td>
+    <td class="tmain"><p><code>1</code></p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTimeframeUnit.MONTH.html">MONTH</a></p></td>
+  </tr>
+</table><p>The time frame identifier is used as an argument in the
+<a href="com.fxcore2.O2GRequestFactory.html"><code>O2GRequestFactory</code></a>.<a href="com.fxcore2.O2GRequestFactory.createMarketDataSnapshotRequestInstrument.html"><code>createMarketDataSnapshotRequestInstrument</code></a>
+method.</p>
+<p>To get an instance of the <code>O2GTimeframe</code> class, use one of the implementations of the <a href="com.fxcore2.O2GTimeframeCollection.html"><code>O2GTimeframeCollection</code></a> <code>get</code> methods.</p>
+<p><b>Example</b></p><div id="open243" style="display:none">
+  <p>Get time frame information&nbsp;<a href="javascript: showdiv('close243'); hidediv('open243');" onclick="javascript: showdiv('close243'); hidediv('open243');">[show]</a></p>
+</div>
+<div id="close243" style="display:inline">
+  <p>Get time frame information&nbsp;<a href="javascript: showdiv('open243'); hidediv('close243');" onclick="javascript: showdiv('open243'); hidediv('close243');">[hide]</a></p>
+  <pre class="example">O2GRequestFactory requestFactory = mSession.getRequestFactory();
+if (factory != null) {
+   O2GTimeframeCollection timeFrames = requestFactory.getTimeFrameCollection();
+   System.out.println(&quot; Available time frames are:&quot;);
+   for (int i = 0; i &lt; timeFrames.size(); i++) {
+       O2GTimeframe tF = timeFrames.get(i);
+       System.out.println(&quot; Timeframe: &quot; + tF.getId() +
+                          &quot; Size = &quot; + tF.getSize() +
+                          &quot; Unit of measure = &quot; + tF.getUnit());
+   }
+}</pre>
+</div><p>The namespace is <a href="com.fxcore2.html"><code>com.fxcore2</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GTimeframe.getID.html">getID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a unique identifier of a time frame.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GTimeframe.getSize.html">getSize</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the number of units in a time frame.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GTimeframe.getUnit.html">getUnit</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a unit of measurement for a time frame.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="com.fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

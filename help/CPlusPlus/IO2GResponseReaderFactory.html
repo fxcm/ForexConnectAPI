@@ -1,0 +1,342 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GResponseReaderFactory</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>IO2GResponseReaderFactory</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="IAddRef.html">IAddRef</a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The class creates readers to process the content of the trading server responses.</p>
+    <p><b>Details</b></p><p>An <a href="IO2GResponse.html">O2GResponse</a> object contains a response received from the trading server.
+To process the content of the response object, you must use an appropriate reader based on the response type.
+For the list of the response types, refer to the <a href="O2GResponseType.html">O2GResponseType</a> description.
+The <code>IO2GResponseReaderFactory</code> class provides methods to create readers for all the response types.</p>
+<p>To get an instance of the class, use the
+<a href="IO2GSession.html"><code>IO2GSession</code></a>.<a href="IO2GSession.getResponseReaderFactory.html"><code>getResponseReaderFactory</code></a>
+method. For example,<br></p>
+<p><code>IO2GResponseReaderFactory *responseFactory = mSession-&gt;getResponseReaderFactory();</code></p>
+<p><b>Example</b></p><div id="open191" style="display:inline">
+  <p>Get Account ID, Balance, and Used margin&nbsp;<a href="javascript: showdiv('close191'); hidediv('open191');" onclick="javascript: showdiv('close191'); hidediv('open191');">[show]</a></p>
+</div>
+<div id="close191" style="display:none">
+  <p>Get Account ID, Balance, and Used margin&nbsp;<a href="javascript: showdiv('open191'); hidediv('close191');" onclick="javascript: showdiv('open191'); hidediv('close191');">[hide]</a></p>
+  <pre class="example">#include &lt;ForexConnect.h&gt;
+ 
+class ResponseListener : public IO2GResponseListener
+{
+private:
+    volatile long mRef;
+    IO2GSession *mSession;
+    std::string mRequestID;
+ 
+public:
+    <b>// Constructor</b>
+    ResponseListener(IO2GSession *session)
+    {
+        mSession = session;
+        mSession-&gt;addRef();
+    }
+ 
+    <b>// Destructor</b>
+    ~ResponseListener()
+    {
+        mSession-&gt;release();
+    }
+ 
+    <b>// Implementation of IAddRef interface public method addRef</b>
+    long addRef()
+    {
+        return InterlockedIncrement(&mRef);
+    }
+ 
+    <b>// Implementation of IAddRef interface public method release</b>
+    long release()
+    {
+        long dwRes = InterlockedDecrement(&mRef);
+        if (dwRes == 0)
+            delete this;
+        return dwRes;
+    }
+ 
+    <b>//Set request</b>
+    void setRequest(const char * requestID)
+    {
+        mRequestID = requestID;
+    }
+ 
+    <b>// Implementation of IO2GResponseListener interface public method onRequestCompleted</b>
+    void onRequestCompleted(const char *requestID, IO2GResponse *response)
+    {
+        if (mRequestID == requestID)
+        {
+            O2G2Ptr&lt;IO2GResponseReaderFactory&gt; readerFactory = mSession-&gt;getResponseReaderFactory();
+            if (readerFactory != NULL)
+            {
+                O2G2Ptr&lt;IO2GOffersTableResponseReader&gt; reader = readerFactory-&gt;createOffersTableReader(response);
+                for (int i = 0; i &lt; reader-&gt;size(); ++i)
+                {
+                    O2G2Ptr&lt;IO2GOfferRow&gt; offer = reader-&gt;getRow(i);
+                    std::cout &lt;&lt; &quot; This is a response to your request: &quot; &lt;&lt; std::endl &lt;&lt;
+                                 &quot;Instrument = &quot; &lt;&lt; offer-&gt;getInstrument() &lt;&lt;
+                                 &quot; Bid = &quot; &lt;&lt; offer-&gt;getBid() &lt;&lt;
+                                 &quot; Ask = &quot; &lt;&lt; offer-&gt;getAsk() &lt;&lt; std::endl;
+                }
+            }
+        }
+    }
+ 
+    <b>// Implementation of IO2GResponseListener interface public method onRequestFailed</b>
+    void onRequestFailed(const char * requestID, const char * error)
+    {
+        std::cout &lt;&lt; &quot;Request failed. requestID = &quot; &lt;&lt; requestID &lt;&lt; &quot;; error = &quot; &lt;&lt; error &lt;&lt; std::endl;
+    }
+ 
+    <b>// Implementation of IO2GResponseListener interface public method onTablesUpdates</b>
+    void onTablesUpdates(IO2GResponse *response)
+    {
+        O2G2Ptr&lt;IO2GResponseReaderFactory&gt; factory = mSession-&gt;getResponseReaderFactory();
+        if (factory != NULL)
+        {
+            O2G2Ptr&lt;IO2GTablesUpdatesReader&gt; updatesReader = factory-&gt;createTablesUpdatesReader(response);
+            for (int i = 0; i &lt; updatesReader-&gt;size(); ++i)
+            {
+                O2GTable tableType = updatesReader-&gt;getUpdateTable(i);
+                if (tableType == Offers)
+                {
+                    O2G2Ptr&lt;IO2GOfferRow&gt; offer = updatesReader-&gt;getOfferRow(i);
+                    std::cout &lt;&lt; &quot;This is a live update: &quot; &lt;&lt; std::endl &lt;&lt;
+                                 &quot;Instrument = &quot; &lt;&lt; offer-&gt;getInstrument() &lt;&lt;
+                                 &quot; Bid = &quot; &lt;&lt; offer-&gt;getBid() &lt;&lt;
+                                 &quot; Ask = &quot; &lt;&lt; offer-&gt;getAsk() &lt;&lt; std::endl;
+                }
+            }
+        }
+    }
+};</pre>
+</div><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GResponseReaderFactory.createAccountsTableReader.html">createAccountsTableReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates a reader to process a response to a request for initial account information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GResponseReaderFactory.createClosedTradesTableReader.html">createClosedTradesTableReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates a reader to process a response to a request for initial closed position information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GResponseReaderFactory.createLastOrderUpdateResponseReader.html">createLastOrderUpdateResponseReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates a reader to process a response to the current state of an order request.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GResponseReaderFactory.createMarketDataSnapshotReader.html">createMarketDataSnapshotReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates a reader to process a response to a request for historical pricing information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GResponseReaderFactory.createMessagesTableReader.html">createMessagesTableReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates a reader to process a response to a request for initial message information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GResponseReaderFactory.createOffersTableReader.html">createOffersTableReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates a reader to process a response to a request for initial offer information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GResponseReaderFactory.createOrderResponseReader.html">createOrderResponseReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates a reader to process a response to a request for an order creation.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GResponseReaderFactory.createOrdersTableReader.html">createOrdersTableReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates a reader to process a response to a request for initial order information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GResponseReaderFactory.createSystemPropertiesReader.html">createSystemPropertiesReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates a reader to process a response to a request for system properties information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GResponseReaderFactory.createTablesUpdatesReader.html">createTablesUpdatesReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates a reader to process a table update response that is provided by the trading server automatically.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GResponseReaderFactory.createTradesTableReader.html">createTradesTableReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates a reader to process a response to a request for initial open position information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GResponseReaderFactory.processMarginRequirementsResponse.html">processMarginRequirementsResponse</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Checks whether margin requirements information is loaded or not.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="forexconnect.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

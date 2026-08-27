@@ -1,0 +1,178 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GSystemPropertiesReader</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>O2GSystemPropertiesReader</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The class reads a stream of the system properties.</p>
+    <p><b>Details</b></p><p>The system properties are requested by the ForexConnect API during the login process.</p>
+<p>A response object of the <a href="com.fxcore2.O2GResponseType.GET_SYSTEM_PROPERTIES.html">GET_SYSTEM_PROPERTIES</a> type is obtained by the
+<a href="com.fxcore2.O2GLoginRules.html">O2GLoginRules</a>.<a href="com.fxcore2.O2GLoginRules.getSystemPropertiesResponse.html">getSystemPropertiesResponse</a> method. For example,<br></p>
+<p><code>O2GResponse response = loginRules.getSystemPropertiesResponse();</code><br></p>
+<p>To create an instance of the <code>O2GSystemPropertiesReader</code> class, pass the response object as an argument to the
+<a href="com.fxcore2.O2GResponseReaderFactory.html"><code>O2GResponseReaderFactory</code></a>.<a href="com.fxcore2.O2GResponseReaderFactory.createSystemPropertiesReader.html"><code>createSystemPropertiesReader</code></a> method.
+For example,<br></p>
+<p><code>O2GSystemPropertiesReader systemResponseReader = factory.createSystemPropertiesReader(response);</code></p>
+<p>To get the names and values of the system properties, use the <a href="com.fxcore2.O2GSystemPropertiesReader.getProperties.html">getProperties</a> method of the class. For example,</p>
+<p><code>Map&lt;String, String&gt; properties = systemResponseReader.getProperties();</code></p>
+<p>For the list of the system properties, refer to the <a href="com.fxcore2.Constants.SystemProperties.html"><code>Constants.SystemProperties</code></a> description.</p>
+<p>For the complete details, see the example below.</p>
+<p><b>Example</b></p><div id="open230" style="display:none">
+  <p>Get System properties&nbsp;<a href="javascript: showdiv('close230'); hidediv('open230');" onclick="javascript: showdiv('close230'); hidediv('open230');">[show]</a></p>
+</div>
+<div id="close230" style="display:inline">
+  <p>Get System properties&nbsp;<a href="javascript: showdiv('open230'); hidediv('close230');" onclick="javascript: showdiv('open230'); hidediv('close230');">[hide]</a></p>
+  <pre class="example">    <b>// Get System properties</b>
+    public static void getProperties(O2GSession session, Map&lt;String, String&gt; properties) {
+        O2GLoginRules loginRules = session.getLoginRules();
+        O2GResponse response = loginRules.getSystemPropertiesResponse();
+        O2GResponseReaderFactory factory = session.getResponseReaderFactory();
+        if (factory != null) {
+            O2GSystemPropertiesReader systemResponseReader = factory.createSystemPropertiesReader(response);
+            if (systemResponseReader != null) {
+                properties = systemResponseReader.getProperties();
+                for (Map.Entry&lt;String, String&gt; entry : properties.entrySet()) {
+                    System.out.println(&quot;Property = &quot; + entry.getKey() + &quot; Value = &quot; + entry.getValue());
+                }
+            }
+        }
+    }</pre>
+</div><p>The namespace is <a href="com.fxcore2.html"><code>com.fxcore2</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GSystemPropertiesReader.getProperties.html">getProperties</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Returns the system properties.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GSystemPropertiesReader.size.html">size</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the number of the system properties.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="com.fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

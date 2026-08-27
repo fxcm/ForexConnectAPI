@@ -1,0 +1,135 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GResponseType.MarketDataSnapshot</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>static public field <b>O2GResponseType.MarketDataSnapshot</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>The constant represents the type of a response to a request for historical prices information.</p>
+<p><b>Details</b></p><p>Historical prices are requested by calling the <a href="fxcore2.O2GSession.html">O2GSession</a>.<a href="fxcore2.O2GSession.sendRequest.0.html">sendRequest</a> method.
+For example,<br></p>
+<p><code>mSession.sendRequest(request);</code></p>
+<p>The <code>request</code> argument is an instance of the <a href="fxcore2.O2GRequest.html">O2GRequest</a> class that must be created by using the
+<a href="fxcore2.O2GRequestFactory.html"><code>O2GRequestFactory</code></a>.<a href="fxcore2.O2GRequestFactory.createMarketDataSnapshotRequestInstrument.0.html"><code>createMarketDataSnapshotRequestInstrument</code></a> method
+and filled by using the <a href="fxcore2.O2GRequestFactory.html"><code>O2GRequestFactory</code></a>.<a href="fxcore2.O2GRequestFactory.fillMarketDataSnapshotRequestTime.0.html"><code>fillMarketDataSnapshotRequestTime</code></a> method.</p>
+<p>The response to this request is of the <code>MarketDataSnapshot</code> type. An instance of the
+<a href="fxcore2.O2GResponse.html"><code>O2GResponse</code></a> class is the <code>response</code> parameter in your implementation of the
+<a href="fxcore2.IO2GResponseListener.html"><code>IO2GResponseListener</code></a>.<a href="fxcore2.IO2GResponseListener.onRequestCompleted.0.html"><code>onRequestCompleted</code></a> method.</p>
+<p>To process the contents of a response object of the <code>MarketDataSnapshot</code> type, use an instance of the <a href="fxcore2.O2GMarketDataSnapshotResponseReader.html">O2GMarketDataSnapshotResponseReader</a> class.</p>
+<p>For complete details on requesting historical prices, refer to the <a href="hist_prices_net.html">How to get historic prices</a> section.</p><p>Declared in <a href="fxcore2.O2GResponseType.html">O2GResponseType</a></p>
+<p>
+  <center><a href="fxcore2.O2GResponseType.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'fxcore2.O2GResponseType.html');</script></body>
+</html>

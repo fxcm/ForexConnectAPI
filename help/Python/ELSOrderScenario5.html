@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Scenario 5</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Scenario 5</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>Two ELS contingent orders are placed and two position are opened. The secondary orders close the positions. The positions are partially closed by the market order during the ELS orders processing.</p>
+    <p><b>Details</b></p><p>The ELS contingent order is placed to enter the market. The order consists of a primary order and a
+secondary order. The amount of the order is equal 400,000. The primary order is executed, position is
+opened and secondary order is activated. After that the same ELS in the same instrument is placed, the
+second position is opened and secondary order is activated (this part of the scenario is not shown on the
+diagram).</p>
+<p>So there are two opened positions with net amount equals 800, and two secondary orders the amount of
+each equals 400,000. Then the market order is placed to reduce position amount by 200,000. The market
+order is executed and the first position (according to FIFO rules) is closed and a new position with remaining
+amount of 200,000 is opened. The amount of the secondary orders is remains unchanged because the net
+amount of two positions equals 600,000 that is greater than each secondary order amount (400,000). After
+that one more closing market order with amount equals 300,000 is placed. The market order is executed, and
+the first position is completely closed, and the second position is closed partially (300,000 remains opened).
+The amount of secondary orders is reduced by 100,000 and equals 300,000 that is not exceed the position
+amount. The market satisfies the criteria of the first secondary order, the order is successfully executed, the
+second position is closed, and the other secondary order is cancelled.</p>
+<p><b>Scenario Diagram</b><br>
+<img src="img/ELSScenario5.gif"></p><p>
+      <center><a href="ELSOrderExecScenarios.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

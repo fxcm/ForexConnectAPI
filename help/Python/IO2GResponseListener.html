@@ -1,0 +1,165 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>AO2GResponseListener</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>AO2GResponseListener</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The abstract class provides the method signatures to process notifications about request completions, request failures and tables updates.</p>
+    <p><b>Details</b></p><p>The class must be implemented by an application in order to process responses
+provided by the server as a result of <a href="TradingTables.html">trading tables</a> updates.
+To process these notifications, you must use the
+<a href="IO2GResponseListener.IO2GResponseListener.onTablesUpdates.html"><code>AO2GResponseListener.on_tables_updates</code></a> method.</p>
+<p>For complete details of processing the response contents, refer to the <a href="IO2GResponse.html"><code>O2GResponse</code></a> class documentation.</p>
+<p>If you want to use the methods of the <code>AO2GResponseListener</code> class, you must create a class that implements these abstract class.<br></p>
+<p>An instance of the class implementing the <code>AO2GResponseListener</code> abstract class must be subscribed to a session object. It is
+accomplished by calling the <a href="IO2GSession.IO2GSession.subscribeResponse.html"><code>O2GSession.subscribe_response</code></a> method.<br></p>
+<p>The subscribed instance must be unsubscribed from a session object after calling
+the <a href="IO2GSession.IO2GSession.logout.html"><code>O2GSession.logout</code></a> method. It is accomplished by calling the
+<a href="IO2GSession.IO2GSession.unsubscribeResponse.html"><code>O2GSession.unsubscribe_response</code></a> method.<br></p>
+<p>The module is <code>forexconnect.fxcorepy</code></p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GResponseListener.IO2GResponseListener.onRequestCompleted.html">on_request_completed</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Processes a notification about the successful request completion.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GResponseListener.IO2GResponseListener.onRequestFailed.html">on_request_failed</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Processes notification about a request failure.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GResponseListener.IO2GResponseListener.onTablesUpdates.html">on_tables_updates</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Processes notifications about tables updates.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="module_fxcorepy.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

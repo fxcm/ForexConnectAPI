@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Getting Historical Prices</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Getting Historical Prices</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article discusses how to get historic prices in C++ with ForexConnect.</p>
+    <p><b>Details</b></p><p>To get historic prices in your C++ application, you should:</p><ol class="main">
+  <li><p>Create a session, a session status listener, subscribe the listener to the session status
+(see <a href="login_logout_cpp.html"><code>this article</code></a>).
+<br><br></p></li>
+  <li><p>Implement the <a href="IO2GResponseListener.html"><code>IO2GResponseListener</code></a> interface
+in  a response listener class:<br></p><pre class="example"><code>class ResponseListener : public IO2GResponseListener{...}</code></pre></li>
+  <li><p>Create a response listener object: <br></p><pre class="example"><code>ResponseListener * responseListener = new ResponseListener(...);</code><br></pre><p>Subscribe the object of this class to the session response:<br></p><pre class="example"><code>pSession-&gt;subscribeResponse(responseListener);</code></pre></li>
+  <li><p>Log in (see <a href="login_logout_cpp.html"><code>this article</code></a>).
+<br><br></p></li>
+  <li><p>The events are coming asynchronously. They should come in another thread. When an event comes, a signal will be sent to the main thread.
+<br><br></p></li>
+  <li><p>Use the function <a href="IO2GSessionStatus.onSessionStatusChanged.0.html"><code>onSessionStatusChanged</code></a>
+of the session status listener to capture the <a href="O2GSessionStatus.Connected.0.html"><code>Connected</code></a> event.
+<br><br></p></li>
+  <li><p>Create <a href="IO2GRequestFactory.html"><code>IO2GRequestFactory</code></a>:<br></p><pre class="example"><code>IO2GRequestFactory * factory = mSession-&gt;getRequestFactory();</code></pre></li>
+  <li><p>Get <a href="IO2GTimeframeCollection.html"><code>IO2GTimeframeCollection</code></a>:<br></p><pre class="example"><code>IO2GTimeframeCollection * timeFrames = factory-&gt;getTimeFrameCollection();</code></pre></li>
+  <li><p>Get the <a href="IO2GTimeframe.html"><code>IO2GTimeframe</code></a> you need:<br></p><pre class="example"><code>IO2GTimeframe * timeFrame = timeFrames-&gt;get(&quot;m1&quot;);</code></pre></li>
+  <li><p>Create a market data snapshot request (<a href="IO2GRequest.html"><code>IO2GRequest</code></a>) using the instrument, time frame, and maximum number of bars as arguments:<br></p><pre class="example"><code>IO2GRequest * getMarketDataSnapshot = factory-&gt;createMarketDataSnapshotRequestInstrument(&quot;EUR/USD&quot;, timeFrame, 300);</code></pre></li>
+  <li><p><a href="IO2GRequestFactory.fillMarketDataSnapshotRequestTime.html"><code>Fill the market data snapshot request</code></a> using the request, date and time &quot;from&quot;, and date and time &quot;to&quot; as arguments:<br></p><pre class="example"><code>factory-&gt;fillMarketDataSnapshotRequestTime(getMarketDataSnapshot, dateFrom, dateTo);</code></pre></li>
+  <li><p><a href="IO2GSession.sendRequest.html"><code>Send the request</code></a>:<br></p><pre class="example"><code>mSession-&gt;sendRequest(getMarketDataSnapshot);</code></pre></li>
+  <li><p>Finally capture <a href="IO2GResponse.html"><code>IO2GResponse</code></a> in the
+<a href="IO2GResponseListener.onRequestCompleted.0.html"><code>onRequestCompleted</code></a>
+function of a response listener class.<br>
+If the type of response is
+<a href="O2GResponseType.MarketDataSnapshot.0.html"><code>MarketDataSnapshot</code></a>,
+process the response to extract necessary information.
+<br><br></p></li>
+  <li><p>Get <a href="IO2GResponseReaderFactory.html"><code>IO2GResponseReaderFactory</code></a>:<br></p><pre class="example"><code>IO2GResponseReaderFactory * factory = mSession-&gt;getResponseReaderFactory();</code></pre></li>
+  <li><p>Create <a href="IO2GMarketDataSnapshotResponseReader.html"><code>IO2GMarketDataSnapshotResponseReader</code></a>:<br></p><pre class="example"><code>IO2GMarketDataSnapshotResponseReader * marketSnapshotReader = factory-&gt;createMarketDataSnapshotReader(response);</code></pre></li>
+  <li><p>Process row by row:<br></p><pre class="example"><code>
+for (int i = 0; i &lt; marketSnapshotReader-&gt;size(); i++)
+{
+      // Information like
+      // marketSnapshotReader-&gt;getBidOpen(i)
+      // is now available.
+}
+</code></pre><p><br></p></li>
+  <li><p><a href="IO2GSession.unsubscribeResponse.html"><code>Unsubscribe the session from the response listener</code></a>.
+<br><br></p></li>
+  <li><p>Log out and unsubscribe session from session status listener(see <a href="login_logout_cpp.html"><code>this article</code></a>).
+<br><br></p></li>
+</ol><p>See also:</p><ul class="main">
+  <li><p>The <a href="img/seq2-request-response.png">simplified request/response sequence diagram</a>.</p></li>
+  <li><p><a href="whenUse.html">When to Use Each API to get prices?</a></p></li>
+</ul><p>
+      <center><a href="howto.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

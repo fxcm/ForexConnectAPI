@@ -1,0 +1,260 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Working with Trading Commands</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Working with Trading Commands</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The section describes trading commands that can be created and sent via <code>IO2GRequestFactory</code>.</p>
+    <p><b>Details</b></p><p>To request command creation (see <a href="IO2GRequestFactory.createOrderRequest.html"><code>IO2GRequestFactory.createOrderRequest</code></a>),
+you must fill an instance of <a href="IO2GValueMap.html"><code>IO2GValueMap</code></a> with command parameters.</p>
+<p>The first field is the command. For example, to create an order, fill the <code>Command</code> field of the value map with the
+&quot;CreateOrder&quot; value.</p>
+<p>Please refer to one of the articles below for details on how to fill the value map for each command.</p>
+<p>Note: Examples are available for the following commands:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><a href="TradingCommandsCreateOrder_OM.html">Create Order, Open Market</a></p></td>
+    <td class="tmain"><p>An open market order opens a position at any currently available market rate.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TradingCommandsCreateOrder_O.html">Create Order, Open</a></p></td>
+    <td class="tmain"><p>An open order opens a position at the specified market rate in case such rate is available on the market.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TradingCommandsCreateOrder_OR1.html">Create Order, Open Range</a></p></td>
+    <td class="tmain"><p>An open range order opens a position at the available market rate in case this rate is in the range specified in the command.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TradingCommandsCreateOrder_OL.html">Create Order, Open Limit</a></p></td>
+    <td class="tmain"><p>An open order opens a position at the specified market rate or at a more favorable rate in case such rate is available on the market.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TradingCommandsCreateOrder_CM.html">Create Order, Close Market</a></p></td>
+    <td class="tmain"><p>A close market order closes a position at any currently available market rate.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TradingCommandsCreateOrder_C.html">Create Order, Close</a></p></td>
+    <td class="tmain"><p>A close order closes a position at the specified market rate in case such rate is available on the market.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TradingCommandsCreateOrder_CR1.html">Create Order, Close Range</a></p></td>
+    <td class="tmain"><p>A close range order closes a position at the available market rate in case this rate is in the range specified in the command.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TradingCommandsCreateOrder_CL.html">Create Order, Close Limit</a></p></td>
+    <td class="tmain"><p>A close order closes a position at the specified market rate or at a more favorable price in case such rate is available on the market.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TradingCommandsCreateOrder_LE.html">Create Order, Limit Entry</a></p></td>
+    <td class="tmain"><p>A regular entry order opens a position when the specified market condition is met.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TradingCommandsCreateOrder_SE.html">Create Order, Stop Entry</a></p></td>
+    <td class="tmain"><p>A regular entry order opens a position when the specified market condition is met.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TradingCommandsCreateOrder_E.html">Create Order, Entry</a></p></td>
+    <td class="tmain"><p>A regular entry order opens a position when the specified market condition is met.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TradingCommandsCreateOrder_L.html">Create Order, Limit</a></p></td>
+    <td class="tmain"><p>A limit order is used for locking in profit of the existing position when the market condition is met.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TradingCommandsCreateOrder_S.html">Create Order, Stop</a></p></td>
+    <td class="tmain"><p>A stop order is used for limiting losses of the existing position when the market condition is met.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TradingCommandsEditOrder.html">Edit Order</a></p></td>
+    <td class="tmain"><p>Only Entry Stop (SE), Entry Limit (LE), Stop (S) and Limit (L) orders (and all their modifications) in the Waiting (&quot;W&quot;) state can be changed.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TradingCommandsCreateOrder_A.html">Attach Stop/Limit Orders</a></p></td>
+    <td class="tmain"><p>Orders which create a new position (OM, O, OR, SE and LE orders) may also have additional values in the value map, which forces creating associated stop and limit orders.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TradingCommandsDeleteOrder.html">Delete Order</a></p></td>
+    <td class="tmain"><p>Delete an order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="CreateOCO.html">Create OCO Order</a></p></td>
+    <td class="tmain"><p>Create two or more entry orders and then join them into OCO (one-cancels-others) order using just one call.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="CreateOTO.html">Create OTO Order</a></p></td>
+    <td class="tmain"><p>Create two or more entry orders and then join them into OTO (one-triggers-others) using just one call.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="CreateOTOCO.html">Create OTOCO Order</a></p></td>
+    <td class="tmain"><p>Create an OTO (one-triggers-others), where the primary order is an Entry order, and the secomdaary order is an OCO (one-cancels-others) order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="JoinToNewContingencyGroup.html">Create New Contingency Group</a></p></td>
+    <td class="tmain"><p>Join two or more existing entry orders into a new contingency (OCO, OTO or ELS) group.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="JoinToExistingContingencyGroup.html">Add Existing Orders into Existing Contingency Group</a></p></td>
+    <td class="tmain"><p>Add one or more existing entry order into an existing contingency (OCO, OTO or ELS) group.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="RemoveFromContingencyGroup.html">Remove Orders from Existing Contingency Group</a></p></td>
+    <td class="tmain"><p>Remove one or more orders from an existing contingency (OCO, OTO or ELS) group.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TradingCommandsSetSubscriptionStatus.html">Set Subscription Status</a></p></td>
+    <td class="tmain"><p>Set Subscription Status.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="UpdateMarginRequirements.html">Update Margin Requirements</a></p></td>
+    <td class="tmain"><p>Get margin requirements for an instrument after subscribing to it.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="AcceptOrder.html">Accept Order</a></p></td>
+    <td class="tmain"><p>Accept order requoted by the dealer.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="ChangePassword.html">Change Password</a></p></td>
+    <td class="tmain"><p>Change current password to new.</p></td>
+  </tr>
+</table><p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Articles</b></td>
+      </tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="TradingCommandsCreateOrder.html">Working with Orders</a></p>
+    <p></p>
+  </td>
+</tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="TradingCommandsSetSubscriptionStatus.html">Set Subscription Status</a></p>
+    <p></p>
+  </td>
+</tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="UpdateMarginRequirements.html">Update Margin Requirements</a></p>
+    <p></p>
+  </td>
+</tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="ChangePassword.html">Change Password</a></p>
+    <p>Change password.</p>
+  </td>
+</tr></table>
+    <p>
+      <center><a href="howto.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

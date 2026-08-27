@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>When to Use Each API to Get Historical Prices?</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>When to Use Each API to Get Historical Prices?</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article describes how to choose the proper API to get historical prices.</p>
+    <p><b>Details</b></p><p><b>Use the ForexConnect API if:</b></p><ul class="main">
+  <li><p>You need tick data histories.</p></li>
+  <li><p>You need to get only a limited amount of the most recent data (up to 1000 candles) and in the standard timeframes (m1, m5, m10, m15, m30, H1, H2, H4, H8, D1, W1).</p></li>
+  <li><p>You need to run your application on mobile platforms (iOS or Android).</p></li>
+</ul><p><b>Examples:</b></p><ul class="main">
+  <li><p>A host application for simple strategies or simple trading robots that do not use extensive history analysis.</p></li>
+  <li><p>Any mobile application.</p></li>
+</ul><p><b>Use the Quotes Manager API if:</b></p><ul class="main">
+  <li><p>You need a big amount of historical data (such as years of 1-minute history).</p></li>
+  <li><p>You do not need tick historical data.</p></li>
+</ul><p><b>Examples:</b></p><ul class="main">
+  <li><p>Backtesting/Strategy optimization applications.</p></li>
+</ul><p><b>Use the Price History API if:</b></p><ul class="main">
+  <li><p>You have to have a trading connection for other tasks in your application.</p></li>
+  <li><p>You need both, tick historical data and a big amount of bar historical data in the standard timeframes (m1, m5, m10, m15, m30, H1, H2, H4, H8, D1, W1).</p></li>
+  <li><p>You need to get the same data frequently.</p></li>
+  <li><p>You need to get data of custom timeframes.</p></li>
+  <li><p>You need to get account-specific data.</p></li>
+  <li><p>You need to get the latest data (today's data).</p></li>
+</ul><p><b>Examples:</b></p><ul class="main">
+  <li><p>Charting or technical analysis applications.</p></li>
+  <li><p>Complex trading robots that use extensive historical price analysis.</p></li>
+</ul><p>Please note that the ForexConnect API, the Price History API, and the Quotes Manager API accept and return all date/time parameters in the UTC time zone.</p><p>
+      <center><a href="references.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

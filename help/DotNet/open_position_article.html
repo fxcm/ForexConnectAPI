@@ -1,0 +1,2125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Opening Position on Hedging and Non-Hedging Accounts</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Opening Position on Hedging and Non-Hedging Accounts</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article describes how to open a position on hedging and non-hedging accounts.</p>
+    <p><b>Details</b></p><p></p>
+<h3>How to Open Position</h3>
+<p>Positions are opened by orders. So, to open a position, create a request to make an order.<br>
+When the order is created, it appears in the <a href="fxcore2.O2GOrdersTable.html"><code>Orders</code></a> table. It stays in the table until it is executed.  <br>
+Depending on market liquidity and position maintenance (that is, the way trade operations are performed on an account), there are a few possible results of the order execution. To process the results, it is necessary to monitor table events. <br>
+Section 1 of the article discusses how to process the basic case when the result of the order execution is a newly opened position. The section also discusses how to the process the case when the order is rejected.<br>
+Sections 2 and 3 discuss other cases that may happen on the Real market when the order is sent on external execution, namely, partial execution.<br>
+Section 4 discusses how to process all the possible results of the order execution.</p>
+<p></p>
+<h3>1.  Most Usual Case</h3>
+<p></p>
+<h4>1.1.    Create and Send Order Request</h4>
+<p>To request an order creation, you should fill an instance of <a href="fxcore2.O2GValueMap.html"><code>O2GValueMap</code></a> with corresponding parameters. <br>
+The set of parameters depends on a particular order type. Please refer to the <a href="NetTradingCommandsCreateOrder.html">list of order types</a> for the detailed description on how to fill the value map for each particular order type. <br>
+Below is an example of creating and sending a request for an <a href="FXCMOpenCloseMarketOrder.html">Open Market order</a>. <br></p><pre class="example"><code>
+public void CreateTrueMarketOrder(string sOfferID, string sAccountID, int iAmount, string sBuySell)
+{
+    O2GRequestFactory factory = Program.Session.getRequestFactory();
+    if (factory != null)
+    {
+       O2GValueMap valuemap = factory.createValueMap();
+       valuemap.setString(O2GRequestParamsEnum.Command, Constants.Commands.CreateOrder);
+       valuemap.setString(O2GRequestParamsEnum.OrderType, Constants.Orders.TrueMarketOpen);
+       // The identifier of the account the order should be placed for.
+       valuemap.setString(O2GRequestParamsEnum.AccountID, sAccountID);
+       // The identifier of the instrument the order should be placed for.
+       valuemap.setString(O2GRequestParamsEnum.OfferID, sOfferID);
+       // The order direction: Constants.Sell for &quot;Sell&quot;, Constants.Buy for &quot;Buy&quot;.
+       valuemap.setString(O2GRequestParamsEnum.BuySell, sBuySell);
+       // The quantity of the instrument to be bought or sold.
+       valuemap.setInt(O2GRequestParamsEnum.Amount, iAmount);
+       // The custom identifier of the order.
+       valuemap.setString(O2GRequestParamsEnum.CustomID, &quot;TrueMarketOrder&quot;);
+ 
+       O2GRequest request = factory.createOrderRequest(valuemap);
+       if (request != null)
+       {
+           mRequestID = request.RequestID;
+           Program.Session.sendRequest(request);
+       }
+       else
+       {
+           Console.WriteLine(&quot;Cannot create request; probably some arguments are missing or incorrect&quot;);
+       }
+    }
+}
+</code></pre><p><code>RequestID</code> should be saved. It is necessary to monitor the order creation.</p>
+<p></p>
+<h4>1.2.    Process Request Response</h4>
+<p>After sending a request for an order creation to the server, process results of request execution. Possible results are as follows:</p><ul class="main">
+  <li><p><b>Request completed</b><br>
+It means that the order has been validated and accepted.
+Actually, the <a href="fxcore2.IO2GResponseListener.onRequestCompleted.0.html"><code>onRequestCompleted</code></a> event does not mean that the order has been successfully executed.
+So you should monitor the execution of your order to know the results of the execution. <br>
+<b>Important:</b> The <a href="fxcore2.IO2GResponseListener.onRequestCompleted.0.html"><code>onRequestCompleted</code></a> event should not be used as the confirmation of an order creation.
+Instead, you should monitor appearance of the order in the <a href="fxcore2.O2GOrdersTable.html"><code>Orders</code></a> table (see the &quot;Monitor Appearing Order in Orders Table&quot; section below).</p></li>
+  <li><p><b>Request failed</b><br>
+It means that the order has not passed the initial verification. For example, an incorrect account was specified, there is insufficient margin, etc.</p></li>
+</ul><p>To process notifications about the request response, an instance of the class implementing the <a href="fxcore2.IO2GResponseListener.html"><code>IO2GResponseListener</code></a> interface should be subscribed to a session object by using the <a href="fxcore2.O2GSession.subscribeResponse.0.html"><code>subscribeResponse</code></a> method. To process notifications about request failures, you should use the <a href="fxcore2.IO2GResponseListener.onRequestFailed.0.html"><code>IO2GResponseListener.onRequestFailed</code></a> method. <br>
+Below is an example of the <a href="fxcore2.IO2GResponseListener.html"><code>IO2GResponseListener</code></a> interface implementation.</p><pre class="example">class ResponseListener : IO2GResponseListener
+{
+    public void onRequestCompleted(string requestId, O2GResponse response)
+    {
+        //the method should NOT be used as the confirmation of an order creation
+    }
+ 
+    public void onRequestFailed(string requestId, string error)
+    {
+        Program.CannotOpenPosition(error);
+    }
+ 
+    public void onTablesUpdates(O2GResponse data)
+    {
+        //the method should be implemented when table manager is not used
+    }
+}</pre><p></p>
+<h4>1.3.    Result of Request Execution: Order and Trade</h4>
+<p>When the order is created, it appears in the <a href="fxcore2.O2GOrdersTable.html"><code>Orders</code></a> table. It stays in the table until it is executed. When the order is executed, a position is opened and appears in the <a href="fxcore2.O2GTradesTable.html"><code>Trades</code></a> table. To monitor the appearance the order and the trade in the tables, it is necessary to subscribe to table events.</p>
+<p></p>
+<h5>1.3.1.  How to Subscribe to Table Events</h5>
+<p>There are two ways to subscribe for table events:</p><ul class="main">
+  <li><p><b>OnTableUpdates</b><br>
+You should handle table updates in the <a href="fxcore2.IO2GResponseListener.onTablesUpdates.0.html"><code>onTablesUpdates()</code></a> method by implementing the <a href="fxcore2.IO2GResponseListener.html"><code>IO2GResponseListener</code></a> interface.<br>
+You should create an instance of the <a href="fxcore2.O2GTablesUpdatesReader.html"><code>O2GTablesUpdatesReader</code></a> interface by using <a href="fxcore2.O2GResponseReaderFactory.html"><code>O2GResponseReaderFactory</code></a>.</p></li>
+  <li><p><b>TableListener</b><br>
+Create a table listener class that implements the <a href="fxcore2.IO2GTableListener.html"><code>IO2GTableListener</code></a> interface. Then create an object of that class and subscribe the table listener object to a table event. For details, please read &quot;<a href="table_manager_use_net.html">How to use table manager in ForexConnect API</a>&quot;.<br>
+You should subscribe to the following events: <br>
+<a href="fxcore2.IO2GTableListener.onAdded.0.html"><code>onAdded</code></a> for <a href="fxcore2.O2GOrdersTable.html">Orders</a> table (further it will be referred as <code>onOrderAdded</code> event),<br>
+<a href="fxcore2.IO2GTableListener.onAdded.0.html"><code>onAdded</code></a> for <a href="fxcore2.O2GTradesTable.html">Trades</a> table (furhter it will be referred as <code>onTradeAdded</code> event).</p></li>
+</ul><p></p>
+<h5>1.3.2.  How to Monitor Appearance of Order in Orders Table</h5>
+<p>As it has been said above, the <a href="fxcore2.IO2GResponseListener.onRequestCompleted.0.html"><code>onRequestCompleted</code></a> event cannot be used as the confirmation of the order creation. You should check if the order is actually added to the Orders table. To do so, check <code>OnOrderAdded</code> events for the <a href="fxcore2.O2GOrdersTable.html"><code>Orders</code></a> table. You should make sure that the event satisfies the following criteria:</p><ul class="main">
+  <li><p>The <a href="fxcore2.O2GOrderRow.RequestID.0.html"><code>RequestID</code></a> order field must be the same as the <code>RequestID</code> of the order request you have sent;</p></li>
+  <li><p>The <a href="fxcore2.O2GOrderRow.Type.0.html"><code>Type</code></a> order field must be  the same as the type of your order. It is important because the table can contain several orders with the same RequestID. For example, if a market order with stop and limit orders attached is created, the table contains several orders with the same <code>RequestID</code>. So you should use the <a href="fxcore2.O2GOrderRow.Type.0.html"><code>Type</code></a> field to uniquely identify the order.</p></li>
+</ul><p>Once you get such an event, you should retrieve <a href="fxcore2.O2GOrderRow.OrderID.0.html"><code>OrderID</code></a>. <code>OrderID</code> is necessary to monitor further order execution.</p>
+<p></p>
+<h5>1.3.3.  How to Monitor Appearance of Position in Trades Table</h5>
+<p>To monitor appearance of a position in the <a href="fxcore2.O2GTradesTable.html"><code>Trades</code></a> table, check <code>OnTradeAdded</code> events for the <a href="fxcore2.O2GTradesTable.html"><code>Trades</code></a> table.
+When the event occurs, it is necessary to check that the added trade is opened by your order. To do so, make sure that the <a href="fxcore2.O2GTradeRow.OpenOrderID.0.html"><code>OpenOrderID</code></a> field of the added trade is the same as the <code>OrderID</code> of your order.</p>
+<p></p>
+<h4>1.4.    Order Rejection</h4>
+<p>Sometimes there is no liquidity on the market. It may lead to failure to fill an order and consequently to the order rejection.
+There is also possible a case when the market price significantly moves away from the order price.
+For the Open Range and the Open Limit orders, it may also lead to the order rejection.<br>
+In case of rejection, a rejection message will appear in the Messages table. <br>
+To process this case, it is necessary to monitor <a href="fxcore2.IO2GTableListener.onAdded.0.html"><code>OnAdded</code></a> events of <a href="fxcore2.O2GMessagesTable.html">Messages</a> table (further it will be referred as <code>onMessageAdded</code> event).
+To make sure that an <code>OnMessageAdded</code> event occurs for your order,
+it is necessary to check that the <a href="fxcore2.O2GMessageRow.Feature.0.html"><code>Feature</code></a> field of the message is the same as &quot;Market conditions&quot; and
+the message <a href="fxcore2.O2GMessageRow.Text.0.html"><code>text</code></a> contains your <code>OrderID</code>.</p>
+<p></p>
+<h3>1.5.    Diagram and Sample for Processing Happy Day Case</h3>
+<p>Below is the state machine diagram that demonstrates what events should be processed to monitor the creation and the execution of an order and what actions should be performed depending on the order status.<br>
+<img src="img/open-order-happyday.png">
+<br></p>
+<p>Below is an example of the diagram implementation.</p><div id="open77" style="display:inline">
+  <p>&nbsp;<a href="javascript: showdiv('close77'); hidediv('open77');" onclick="javascript: showdiv('close77'); hidediv('open77');">[show]</a></p>
+</div>
+<div id="close77" style="display:none">
+  <p>&nbsp;<a href="javascript: showdiv('open77'); hidediv('close77');" onclick="javascript: showdiv('open77'); hidediv('close77');">[hide]</a></p>
+  <pre class="example"><code>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using fxcore2;
+ 
+namespace OrdersMonitor
+{
+    /// &lt;summary&gt;
+    /// Helper class for monitoring creation open positions using a open order.
+    /// On no dealing desk more than one position can be create. It is depends on
+    /// liquidity on forex market, The class stores all open positions
+    /// &lt;/summary&gt;
+    internal class OrderMonitor
+    {
+        static public bool IsOpeningOrder(O2GOrderRow order)
+        {
+            return order.Type.StartsWith(&quot;O&quot;);
+        }
+ 
+ 
+        private enum OrderState
+        {
+            OrderExecuting,
+            OrderExecuted,
+            OrderCanceled,
+            OrderRejected
+        }
+        private volatile OrderState mState;
+ 
+        private O2GTradeRow mTrade;
+        private volatile int mTotalAmount;
+        private volatile int mRejectAmount;
+        private O2GOrderRow mOrder;
+        private string mRejectMessage;
+ 
+        public enum ExecutionResult
+        {
+            Executing,
+            Executed,
+            PartialRejected,
+            FullyRejected,
+            Canceled
+        };
+ 
+        /// &lt;summary&gt;
+        /// ctor
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;order&quot;&gt;Order for monitoring of execution&lt;/param&gt;
+        public OrderMonitor(O2GOrderRow order)
+        {
+            mOrder = order;
+            mRejectAmount = 0;
+            mState = OrderState.OrderExecuting;
+            mResult = ExecutionResult.Executing;
+            mTrade = null;
+        }
+ 
+        /// &lt;summary&gt;
+        /// Process trade adding during order execution
+        /// &lt;/summary&gt;
+        public void OnTradeAdded(O2GTradeRow tradeRow)
+        {
+            String tradeOrderID = tradeRow.OpenOrderID;
+            String orderID = mOrder.OrderID;
+            if (tradeOrderID == orderID)
+            {
+                mTrade= tradeRow;
+ 
+                if (mState == OrderState.OrderExecuted ||
+                    mState == OrderState.OrderRejected ||
+                    mState == OrderState.OrderCanceled)
+                {
+                    if (IsAllTradeReceived())
+                        SetResult(true);
+                }
+            }
+        }
+ 
+        /// &lt;summary&gt;
+        /// Process order data changing during execution
+        /// &lt;/summary&gt;
+        public void OnOrderChanged(O2GOrderRow orderRow)
+        {
+            //STUB
+        }
+ 
+        /// &lt;summary&gt;
+        /// Process order deletion as result of execution
+        /// &lt;/summary&gt;
+        public void OnOrderDeleted(O2GOrderRow orderRow)
+        {
+            String deletedOrderID = orderRow.OrderID;
+            String orderID = mOrder.OrderID;
+ 
+ 
+            if (deletedOrderID == orderID)
+            {
+                // Store Reject amount
+                if (OrderRowStatus.Rejected.Equals(orderRow.Status))
+                {
+                    mState = OrderState.OrderRejected;
+                    mRejectAmount = orderRow.Amount;
+                    mTotalAmount = orderRow.OriginAmount - mRejectAmount;
+ 
+                    if (!string.IsNullOrEmpty(mRejectMessage) &amp;&amp; IsAllTradeReceived())
+                        SetResult(true);
+                }
+                else if (OrderRowStatus.Canceled.Equals(orderRow.Status))
+                {
+                    mState = OrderState.OrderCanceled;
+                    mRejectAmount = orderRow.Amount;
+                    mTotalAmount = orderRow.OriginAmount - mRejectAmount;
+                    if (IsAllTradeReceived())
+                        SetResult(false);
+                }
+                else
+                {
+                    mRejectAmount = 0;
+                    mTotalAmount = orderRow.OriginAmount;
+                    mState = OrderState.OrderExecuted;
+                    if (IsAllTradeReceived())
+                        SetResult(true);
+                }
+            }
+        }
+ 
+        /// &lt;summary&gt;
+        /// Process reject message as result of order execution
+        /// &lt;/summary&gt;
+        public void OnMessageAdded(O2GMessageRow messageRow)
+        {
+            if (mState == OrderState.OrderRejected ||
+                mState == OrderState.OrderExecuting)
+            {
+                bool IsRejectMessage = CheckAndStoreMessage(messageRow);
+                if (mState == OrderState.OrderRejected &amp;&amp; IsRejectMessage)
+                    SetResult(true);
+            }
+        }
+ 
+        /// &lt;summary&gt;
+        /// Event about order execution is completed and all affected trades as opened/closed, all reject/cancel processed
+        /// &lt;/summary&gt;
+        public event EventHandler OrderCompleted;
+ 
+        /// &lt;summary&gt;
+        /// Result of Order execution
+        /// &lt;/summary&gt;
+        public ExecutionResult Result
+        {
+            get
+            {
+                return mResult;
+            }
+        }
+        private volatile ExecutionResult mResult;
+ 
+        /// &lt;summary&gt;
+        /// Order execution is completed (with any result)
+        /// &lt;/summary&gt;
+        public bool IsOrderCompleted
+        {
+            get
+            {
+                return (mResult != ExecutionResult.Executing);
+            }
+        }
+ 
+        /// &lt;summary&gt;
+        /// Monitored order
+        /// &lt;/summary&gt;
+        public O2GOrderRow Order
+        {
+            get
+            {
+                return mOrder;
+            }
+        }
+ 
+        /// &lt;summary&gt;
+        /// List of Closed Trades which were opened as effects of order execution
+        /// &lt;/summary&gt;
+        public O2GTradeRow Trade
+        {
+            get
+            {
+                return mTrade;
+            }
+        }
+ 
+ 
+        /// &lt;summary&gt;
+        /// Amount of rejected part of order
+        /// &lt;/summary&gt;
+        public int RejectAmount
+        {
+            get
+            {
+                return mRejectAmount;
+            }
+        }
+ 
+        /// &lt;summary&gt;
+        /// Info message with a reason of reject
+        /// &lt;/summary&gt;
+        public string RejectMessage
+        {
+            get
+            {
+                return mRejectMessage;
+            }
+        }
+ 
+ 
+        private void SetResult(bool success)
+        {
+            if (success)
+            {
+                if (mRejectAmount == 0)
+                    mResult = ExecutionResult.Executed;
+                else
+                    mResult = (mTrade == null) ? ExecutionResult.FullyRejected : ExecutionResult.PartialRejected;
+            }
+            else
+                mResult = ExecutionResult.Canceled;
+ 
+            if (OrderCompleted != null)
+                OrderCompleted(this, EventArgs.Empty);
+ 
+        }
+ 
+        private bool IsAllTradeReceived()
+        {
+            if (mState == OrderState.OrderExecuting)
+                return false;
+            int currenTotalAmount = 0;
+            if (mTrade != null)
+            {
+                currenTotalAmount += mTrade.Amount;
+            }
+ 
+            return currenTotalAmount == mTotalAmount;
+        }
+ 
+        private bool CheckAndStoreMessage(O2GMessageRow message)
+        {
+            String feature;
+            feature = message.Feature;
+            if (MessageFeature.MarketCondition.Equals(feature))
+            {
+                String text = message.Text;
+                int findPos = text.IndexOf(mOrder.OrderID);
+                if (findPos &gt; -1)
+                {
+                    mRejectMessage = text;
+                    return true;
+                }
+            }
+            return false;
+        }
+ 
+    }
+ 
+    internal class OrderRowStatus
+    {
+        public static string Rejected = &quot;R&quot;;
+        public static string Canceled = &quot;C&quot;;
+        public static string Executed = &quot;F&quot;;
+        //...
+    }
+ 
+    internal class MessageFeature
+    {
+        public static String MarketCondition = &quot;5&quot;;
+        //...
+    }
+ 
+}
+ 
+</code></pre>
+</div><p>An example on how to subscribe the order monitor by using <a href="fxcore2.IO2GResponseListener.onTablesUpdates.0.html"><code>onTableUpdates</code></a> is given below.</p><div id="open78" style="display:inline">
+  <p>&nbsp;<a href="javascript: showdiv('close78'); hidediv('open78');" onclick="javascript: showdiv('close78'); hidediv('open78');">[show]</a></p>
+</div>
+<div id="close78" style="display:none">
+  <p>&nbsp;<a href="javascript: showdiv('open78'); hidediv('close78');" onclick="javascript: showdiv('open78'); hidediv('close78');">[hide]</a></p>
+  <pre class="example"><code>
+
+    class ResponseListener : IO2GResponseListener
+    {
+        private EventWaitHandle mEvent = null;
+        private OrderMonitor mOrderMonitor = null;
+        private O2GSession mSession;
+        private string mRequestID;
+ 
+        /// &lt;summary&gt;
+        /// ctor
+        /// &lt;/summary&gt;
+        public TableListener(O2GSession Session)
+        {
+            mSession = Session;
+            mEvent = new EventWaitHandle(false, EventResetMode.AutoReset);
+        }
+ 
+        /// &lt;summary&gt;
+        /// destructor
+        /// &lt;/summary&gt;
+        ~TableListener()
+        {
+            if (mEvent != null)
+            {
+                mEvent.Close();
+                mEvent = null;
+            }
+        }
+ 
+        /// &lt;summary&gt;
+        /// Wait for the event
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;timeout&quot;&gt;&lt;/param&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        public bool WaitForEvent(int timeout)
+        {
+            return mEvent.WaitOne(timeout);
+        }
+ 
+ 
+        #region IO2GResponseListener Members
+ 
+        public void onRequestCompleted(string requestId, O2GResponse response)
+        {
+        }
+ 
+        public void onRequestFailed(string requestId, string error)
+        {
+            Program.CannotOpenPosition(error);
+            mEvent.Set();
+        }
+ 
+        public void onTablesUpdates(O2GResponse data)
+        {
+            O2GResponseReaderFactory factory = mSession.getResponseReaderFactory();
+            if (factory != null)
+            {
+                O2GTablesUpdatesReader reader = factory.createTablesUpdatesReader(data);
+                for (int ii = 0; ii &lt; reader.Count; ii++)
+                {
+                    switch (reader.getUpdateTable(ii))
+                    {
+                        case O2GTableType.Accounts:
+                            O2GAccountRow account = reader.getAccountRow(ii);
+                            //Show balance updates
+                            Console.WriteLine(&quot;Balance: {0}&quot;, account.Balance);
+                            break;
+                        case O2GTableType.Orders:
+                            O2GOrderRow order = reader.getOrderRow(ii);
+                            switch (reader.getUpdateType(ii))
+                            {
+                                case O2GTableUpdateType.Insert:
+                                    if ((OrderMonitor.IsClosingOrder(order) || OrderMonitor.IsOpeningOrder(order)) &amp;&amp;
+                                            mOrderMonitor == null)
+                                    {
+                                        mOrderMonitor = new OrderMonitor(order);
+                                    }
+                                    break;
+                                case O2GTableUpdateType.Delete:
+                                    if (mOrderMonitor != null)
+                                    {
+                                        mOrderMonitor.OnOrderDeleted(order);
+                                        if (mOrderMonitor.IsOrderCompleted)
+                                        {
+                                            PrintResult();
+                                            mEvent.Set();
+                                        }
+                                    }
+                                    break;
+                            }
+                            break;
+                        case O2GTableType.Trades:
+                            O2GTradeRow trade = reader.getTradeRow(ii);
+                            if (reader.getUpdateType(ii) == O2GTableUpdateType.Insert)
+                            {
+                                if (mOrderMonitor != null)
+                                {
+                                    mOrderMonitor.OnTradeAdded(trade);
+                                    if (mOrderMonitor.IsOrderCompleted)
+                                    {
+                                        PrintResult();
+                                        mEvent.Set();
+                                    }
+                                }
+                            }
+                            break;
+                        case O2GTableType.Messages:
+                            O2GMessageRow message = reader.getMessageRow(ii);
+                            if (reader.getUpdateType(ii) == O2GTableUpdateType.Insert)
+                            {
+                                if (mOrderMonitor != null)
+                                {
+                                    mOrderMonitor.OnMessageAdded(message);
+                                    if (mOrderMonitor.IsOrderCompleted)
+                                    {
+                                        PrintResult();
+                                        mEvent.Set();
+                                    }
+                                }
+                            }
+                            break;
+                    }
+ 
+                }
+            }
+        }
+ 
+        #endregion
+ 
+ 
+        /// &lt;summary&gt;
+        /// Open a position
+        /// &lt;/summary&gt;
+        public void CreateTrueMarketOrder(string sOfferID, string sAccountID, int iAmount, string sBuySell)
+        {
+            O2GRequestFactory factory = Program.Session.getRequestFactory();
+            if (factory != null)
+            {
+               O2GValueMap valuemap = factory.createValueMap();
+               valuemap.setString(O2GRequestParamsEnum.Command, Constants.Commands.CreateOrder);
+               valuemap.setString(O2GRequestParamsEnum.OrderType, Constants.Orders.TrueMarketOpen);
+               // The identifier of the account the order should be placed for.
+               valuemap.setString(O2GRequestParamsEnum.AccountID, sAccountID);
+               // The identifier of the instrument the order should be placed for.
+               valuemap.setString(O2GRequestParamsEnum.OfferID, sOfferID);
+               // The order direction: Constants.Sell for &quot;Sell&quot;, Constants.Buy for &quot;Buy&quot;.
+               valuemap.setString(O2GRequestParamsEnum.BuySell, sBuySell);
+               // The quantity of the instrument to be bought or sold.
+               valuemap.setInt(O2GRequestParamsEnum.Amount, iAmount);
+               // The custom identifier of the order.
+               valuemap.setString(O2GRequestParamsEnum.CustomID, &quot;TrueMarketOrder&quot;);
+ 
+               O2GRequest request = factory.createOrderRequest(valuemap);
+               if (request != null)
+               {
+                   mRequestID = request.RequestID;
+                   Program.Session.sendRequest(request);
+                   mEvent.WaitOne(); //Infinite waiting
+               }
+               else
+               {
+                   Console.WriteLine(&quot;Cannot create request; probably some arguments are missing or incorrect&quot;);
+               }
+            }
+        }
+ 
+ 
+ 
+        void PrintResult()
+        {
+            if (mOrderMonitor != null)
+            {
+                OrderMonitor.ExecutionResult result = mOrderMonitor.Result;
+                O2GTradeRow trade = null;
+                O2GOrderRow order = mOrderMonitor.Order;
+                String orderID = order.OrderID;
+                trade = mOrderMonitor.Trade;
+ 
+                switch (result)
+                {
+                    case OrderMonitor.ExecutionResult.Canceled:
+                        if (trades.Count &gt; 0)
+                        {
+                            PrintTrade(trade, orderID);
+                            Console.WriteLine(&quot;A part of the order has been canceled. Amount = {0}&quot;, mOrderMonitor.RejectAmount);
+                        }
+                        else
+                        {
+                            Console.WriteLine(&quot;The order: OrderID = {0}  has been canceled.&quot;, orderID);
+                            Console.WriteLine(&quot;The cancel amount = {0}.&quot;, mOrderMonitor.RejectAmount);
+                        }
+                        break;
+                    case OrderMonitor.ExecutionResult.FullyRejected:
+                        Console.WriteLine(&quot;The order has been rejected. OrderID = {0}&quot;, orderID);
+                        Console.WriteLine(&quot;The rejected amount = {0}&quot;, mOrderMonitor.RejectAmount);
+                        Console.WriteLine(&quot;Rejection cause: {0}&quot;, mOrderMonitor.RejectMessage);
+                        break;
+                    case OrderMonitor.ExecutionResult.PartialRejected:
+                        PrintTrade(trade, orderID);
+                        Console.WriteLine(&quot;A part of the order has been rejected. Amount = {0}&quot;, mOrderMonitor.RejectAmount);
+                        Console.WriteLine(&quot;Rejection cause: {0} &quot;, mOrderMonitor.RejectMessage);
+                        break;
+                    case OrderMonitor.ExecutionResult.Executed:
+                        PrintTrade(trade, orderID);
+                        break;
+                }
+            }
+        }
+ 
+        void PrintTrade(O2GTradeRow trade, string orderID)
+        {
+            if (trade == null)
+                return;
+            Console.WriteLine(&quot;For the order: OrderID = {0} the following position have been opened:&quot;, orderID);
+ 
+            String tradeID = trade.TradeID;
+            int amount = trade.Amount;
+            double rate = trade.OpenRate;
+            Console.WriteLine(&quot;Trade ID: {0}; Amount: {1}; Rate: {2}&quot;, tradeID, amount, rate);
+        }
+ 
+ 
+    }
+</code></pre>
+</div><p>An example on how to subscribe the order monitor by using <a href="fxcore2.IO2GTableListener.html"><code>TableListener</code></a> can be found below.</p><div id="open79" style="display:inline">
+  <p>&nbsp;<a href="javascript: showdiv('close79'); hidediv('open79');" onclick="javascript: showdiv('close79'); hidediv('open79');">[show]</a></p>
+</div>
+<div id="close79" style="display:none">
+  <p>&nbsp;<a href="javascript: showdiv('open79'); hidediv('close79');" onclick="javascript: showdiv('open79'); hidediv('close79');">[hide]</a></p>
+  <pre class="example"><code>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+using fxcore2;
+using OrdersMonitor;
+ 
+namespace OpenPosition
+{
+    class TableListener : IO2GTableListener
+    {
+        private EventWaitHandle mEvent = null;
+        private OrderMonitor mOrderMonitor = null;
+        private O2GSession mSession;
+ 
+        private O2GAccountsTable mAccounts;
+        private O2GOrdersTable mOrders;
+        private O2GTradesTable mTrades;
+        private O2GMessagesTable mMessages;
+ 
+        private string mRequestID;
+ 
+        /// &lt;summary&gt;
+        /// ctor
+        /// &lt;/summary&gt;
+        public TableListener(O2GSession Session)
+        {
+            mSession = Session;
+            mEvent = new EventWaitHandle(false, EventResetMode.AutoReset);
+ 
+ 
+        }
+ 
+        /// &lt;summary&gt;
+        /// destructor
+        /// &lt;/summary&gt;
+        ~TableListener()
+        {
+            if (mEvent != null)
+            {
+                mEvent.Close();
+                mEvent = null;
+            }
+        }
+ 
+        /// &lt;summary&gt;
+        /// Wait for the event
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;timeout&quot;&gt;&lt;/param&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        public bool WaitForEvent(int timeout)
+        {
+            return mEvent.WaitOne(timeout);
+        }
+ 
+        #region IO2GTableListener Members
+ 
+        public void onAdded(string rowID, O2GRow rowData)
+        {
+            O2GTableType type = rowData.TableType;
+            switch (type)
+            {
+                case O2GTableType.Orders:
+                    O2GOrderRow orderRow = (O2GOrderRow)rowData;
+                    if (mRequestID == orderRow.RequestID)
+                    {
+                        Console.WriteLine(&quot;The order has been added. Order ID: {0}, Rate: {1}, Time In Force: {2}&quot;,
+                            orderRow.OrderID,
+                            orderRow.Rate,
+                            orderRow.TimeInForce);
+                        mOrderMonitor = new OrderMonitor(orderRow);
+                    }
+                    break;
+                case O2GTableType.Trades:
+                    O2GTradeRow tradeRow = (O2GTradeRow)rowData;
+                    if (mOrderMonitor != null)
+                    {
+                        mOrderMonitor.OnTradeAdded(tradeRow);
+                        if (mOrderMonitor.IsOrderCompleted)
+                        {
+                            PrintResult();
+                            mEvent.Set();
+                        }
+                    }
+                    break;
+                case O2GTableType.Messages:
+                    O2GMessageRow messageRow = (O2GMessageRow)rowData;
+                    if (mOrderMonitor != null)
+                    {
+                        mOrderMonitor.OnMessageAdded(messageRow);
+                        if (mOrderMonitor.IsOrderCompleted)
+                        {
+                            PrintResult();
+                            mEvent.Set();
+                        }
+                    }
+                    break;
+            }
+        }
+ 
+        public void onChanged(string rowID, O2GRow rowData)
+        {
+            if (rowData.TableType == O2GTableType.Accounts)
+            {
+                O2GAccountTableRow account = (O2GAccountTableRow)rowData;
+                Console.WriteLine(&quot;Balance: {0}, Equity: {1}&quot;, account.Balance, account.Equity);
+            }
+        }
+ 
+        public void onDeleted(string rowID, O2GRow rowData)
+        {
+            if (rowData.TableType == O2GTableType.Orders)
+            {
+                O2GOrderRow orderRow = (O2GOrderRow)rowData;
+                if (mRequestID == orderRow.RequestID)
+                {
+                    Console.WriteLine(&quot;The order has been deleted. Order ID: {0}&quot;, orderRow.OrderID);
+                    mOrderMonitor.OnOrderDeleted(orderRow);
+                    if (mOrderMonitor != null)
+                    {
+                        if (mOrderMonitor.IsOrderCompleted)
+                        {
+                            PrintResult();
+                            mEvent.Set();
+                        }
+                    }
+                }
+            }
+        }
+ 
+        public void onStatusChanged(O2GTableStatus status)
+        {
+        }
+ 
+        #endregion
+ 
+ 
+ 
+        /// &lt;summary&gt;
+        /// Open a position
+        /// &lt;/summary&gt;
+        public void CreateTrueMarketOrder(string sOfferID, string sAccountID, int iAmount, string sBuySell)
+        {
+            O2GRequestFactory factory = Program.Session.getRequestFactory();
+            if (factory != null)
+            {
+               O2GValueMap valuemap = factory.createValueMap();
+               valuemap.setString(O2GRequestParamsEnum.Command, Constants.Commands.CreateOrder);
+               valuemap.setString(O2GRequestParamsEnum.OrderType, Constants.Orders.TrueMarketOpen);
+               // The identifier of the account the order should be placed for.
+               valuemap.setString(O2GRequestParamsEnum.AccountID, sAccountID);
+               // The identifier of the instrument the order should be placed for.
+               valuemap.setString(O2GRequestParamsEnum.OfferID, sOfferID);
+               // The order direction: Constants.Sell for &quot;Sell&quot;, Constants.Buy for &quot;Buy&quot;.
+               valuemap.setString(O2GRequestParamsEnum.BuySell, sBuySell);
+               // The quantity of the instrument to be bought or sold.
+               valuemap.setInt(O2GRequestParamsEnum.Amount, iAmount);
+               // The custom identifier of the order.
+               valuemap.setString(O2GRequestParamsEnum.CustomID, &quot;TrueMarketOrder&quot;);
+ 
+               O2GRequest request = factory.createOrderRequest(valuemap);
+               if (request != null)
+               {
+                   mRequestID = request.RequestID;
+                   SubscribeEvents();
+                   Program.Session.sendRequest(request);
+                   mEvent.WaitOne(); //Infinite waiting
+                   Thread.Sleep(200); //wait account update receiving
+                   UnsubscribeEvents();
+               }
+               else
+               {
+                   Console.WriteLine(&quot;Cannot create request; probably some arguments are missing or incorrect&quot;);
+               }
+            }
+        }
+ 
+        public void CannotOpenPosition(string sError)
+        {
+            Console.WriteLine(&quot;Cannot open position, error: {0}&quot;, sError);
+            mEvent.Set();
+        }
+ 
+        void PrintResult()
+        {
+            if (mOrderMonitor != null)
+            {
+                OrderMonitor.ExecutionResult result = mOrderMonitor.Result;
+                O2GTradeRow trade;
+                O2GOrderRow order = mOrderMonitor.Order;
+                String orderID = order.OrderID;
+                trades = mOrderMonitor.Trade;
+ 
+                switch (result)
+                {
+                    case OrderMonitor.ExecutionResult.Canceled:
+                        if (trade != null)
+                        {
+                            PrintTrade(trade, orderID);
+                            Console.WriteLine(&quot;A part of the order has been canceled. Amount = {0}&quot;, mOrderMonitor.RejectAmount);
+                        }
+                        else
+                        {
+                            Console.WriteLine(&quot;The order: OrderID = {0}  has been canceled.&quot;, orderID);
+                            Console.WriteLine(&quot;The cancel amount = {0}.&quot;, mOrderMonitor.RejectAmount);
+                        }
+                        break;
+                    case OrderMonitor.ExecutionResult.FullyRejected:
+                        Console.WriteLine(&quot;The order has been rejected. OrderID = {0}&quot;, orderID);
+                        Console.WriteLine(&quot;The rejected amount = {0}&quot;, mOrderMonitor.RejectAmount);
+                        Console.WriteLine(&quot;Rejection cause: {0}&quot;, mOrderMonitor.RejectMessage);
+                        break;
+                    case OrderMonitor.ExecutionResult.PartialRejected:
+                        PrintTrade(trade, orderID);
+                        Console.WriteLine(&quot;A part of the order has been rejected. Amount = {0}&quot;, mOrderMonitor.RejectAmount);
+                        Console.WriteLine(&quot;Rejection cause: {0} &quot;, mOrderMonitor.RejectMessage);
+                        break;
+                    case OrderMonitor.ExecutionResult.Executed:
+                        PrintTrade(trade, orderID);
+                        break;
+                }
+            }
+        }
+ 
+        void PrintTrade(O2GTradeRow trade, string orderID)
+        {
+            if (trade == null)
+                return;
+            Console.WriteLine(&quot;For the order: OrderID = {0} the following position have been opened:&quot;, orderID);
+ 
+            String tradeID = trade.TradeID;
+            int amount = trade.Amount;
+            double rate = trade.OpenRate;
+            Console.WriteLine(&quot;Trade ID: {0}; Amount: {1}; Rate: {2}&quot;, tradeID, amount, rate);
+        }
+ 
+ 
+        void SubscribeEvents()
+        {
+            O2GTableManager manager = mSession.getTableManager();
+            mOrders = (O2GOrdersTable)manager.getTable(O2GTableType.Orders);
+            mTrades = (O2GTradesTable)manager.getTable(O2GTableType.Trades);
+            mMessages = (O2GMessagesTable)manager.getTable(O2GTableType.Messages);
+            mAccounts = (O2GAccountsTable)manager.getTable(O2GTableType.Accounts);
+            mAccounts.subscribeUpdate(O2GTableUpdateType.Update, this);
+            mOrders.subscribeUpdate(O2GTableUpdateType.Insert, this);
+            mOrders.subscribeUpdate(O2GTableUpdateType.Delete, this);
+            mTrades.subscribeUpdate(O2GTableUpdateType.Insert, this);
+            mMessages.subscribeUpdate(O2GTableUpdateType.Insert, this);
+        }
+ 
+        void UnsubscribeEvents()
+        {
+            if (mOrders != null)
+            {
+                mOrders.unsubscribeUpdate(O2GTableUpdateType.Insert, this);
+                mOrders.unsubscribeUpdate(O2GTableUpdateType.Delete, this);
+            }
+ 
+            if (mTrades != null)
+            {
+                mTrades.unsubscribeUpdate(O2GTableUpdateType.Insert, this);
+            }
+ 
+ 
+            if (mMessages != null)
+                mMessages.unsubscribeUpdate(O2GTableUpdateType.Insert, this);
+ 
+            if (mAccounts != null)
+                mAccounts.unsubscribeUpdate(O2GTableUpdateType.Update, this);
+ 
+        }
+ 
+    }
+ 
+ 
+    class ResponseListener : IO2GResponseListener
+    {
+        #region IO2GResponseListener Members
+ 
+        public void onRequestCompleted(string requestId, O2GResponse response)
+        {
+ 
+        }
+ 
+        public void onRequestFailed(string requestId, string error)
+        {
+            Program.CannotOpenPosition(error);
+        }
+ 
+        public void onTablesUpdates(O2GResponse data)
+        {
+ 
+        }
+ 
+        #endregion
+    }
+}
+ 
+</code></pre>
+</div><p></p>
+<h3>2.  What is Partial Execution</h3>
+<p></p>
+<h4>2.1.    No Dealing Desk</h4>
+<p>In the no dealing desk execution model, a broker passes on to his clients the best prices provided by one of the liquidity providers with a fixed mark-up
+for each currency pair. A broker relies on these external providers with regard to currency pricing.
+Although this model promotes efficiency and competition for market pricing,
+there are certain limitations on liquidity that can affect the final execution of an order.<br>
+A partial fill occurs when only a part of the order can be executed at the price requested due to the limited liquidity.
+The rest of the order will be filled at the next best available price or cancelled entirely depending on the order type (see the &quot;Order Time in Force&quot; section for details).<br>
+A partial fill is possible on Real accounts only.<br>
+Partial orders give a trader the opportunity to enter a part of the position instead of rejecting the entire order.</p>
+<p></p>
+<h4>2.2.    Order Time in Force</h4>
+<p>With different order types a trader has different time-in-force options that provide additional instructions on how long an order should remain active until it is executed or expires:</p><ul class="main">
+  <li><p>Fill Or Kill (FOK);</p></li>
+  <li><p>Immediate Or Cancel (IOC);</p></li>
+  <li><p>Good Till Cancelled (GTC);</p></li>
+  <li><p>Day (DAY);</p></li>
+  <li><p>Good Till Date (GTD).</p></li>
+</ul><p>Please see <a href="OrderStatuses.html">Orders State Machines</a> for the description of time-in-force options for different order types.
+An order with the <code>GTC</code> and the <code>IOC</code> time-in-force options can be executed partially. It means that one order may result in a number of positions opened/closed at different prices. A <code>GTC</code> order is filled in portions until it is completely executed. An <code>IOC</code> order is filled in portions to the maximum extent possible (until the liquidity pool dries up), the rest of the order is rejected. In case of partial closing, the system closes a position in the filled amount and opens a new position in the remaining amount. The system does so until the order is entirely filled (<code>GTC</code> orders) or the liquidity dries up (<code>IOC</code> orders).</p>
+<p></p>
+<h3>3.  Process Partial Execution</h3>
+<p>In case of partial filling, one order results in a number of positions opened at different prices. Depending on the order time in force, some part(s) of the order may also be rejected.<br>
+To monitor the partial execution, it is necessary to process the following events:</p><ul class="main">
+  <li><p><b>OnTradeAdded</b><br>
+The <a href="fxcore2.O2GTradeRow.OpenOrderID.0.html"><code>OpenOrderID</code></a> field of the added trade must be the same as the OrderID of your order.</p></li>
+  <li><p><b>OnMessageAdded</b><br>
+The <a href="fxcore2.O2GMessageRow.Feature.0.html"><code>Feature</code></a> field of the message must be the same as &quot;Market conditions&quot; and the message text must contain your OrderID.</p></li>
+</ul><p>To define whether or not the order execution is completed, you need to:</p><ul class="main">
+  <li><p>Process the <a href="fxcore2.IO2GTableListener.onDeleted.0.html"><code>onDeleted</code></a> event event of <a href="fxcore2.O2GOrdersTable.html">Orders</a> table (further it will be referred as <code>onOrderDeleted</code> event). When the order execution is completed, the order is deleted. In case of deletion, the order status is 'F' if the order is filled completely and 'R' if the order is rejected completely or partially. If the order is filled completely, a new trade(s) is inserted in the Trades table. If the order is rejected completely or partially, a rejection message is inserted in the <a href="fxcore2.O2GMessagesTable.html">Messages</a> table. The rejected amount is contained in the order amount field.<br>
+Note that the order deletion, the trade addition, and the message rejection notification can be received randomly.</p></li>
+  <li><p>Check if the total amount of resulting opened positions (including the amount of rejected order parts, if any) matches the amount of the order specified in the order request.</p></li>
+</ul><p></p>
+<h3>4.  All Variants of Order Execution</h3>
+<p>In addition to the described execution results (an opened position, a completely or partially rejected order), there is also possible a case when the order execution results in closure of the existing position(s).<br>
+This case is possible on accounts where hedging is not allowed. Note that hedging is not allowed on all the U.S. accounts. On such accounts, opening of a position for the symbol that already has an open position(s) of the opposite trade operation always causes closure of the open position(s). Note that if the amount of an open order exceeds the total amount of the currently opened positions on that symbol, the result of the order execution will be closure of the existing positions and opening of a new position in the rest of the amount. <br>
+For example, there are three long (buy) positions for EUR/USD totaling 50k. You create an open sell order in the amount of 70k for EUR/USD. The result of the order execution will be closure of the existing positions and opening of a new position in the amount of 20k. <br>
+To monitor the position(s) closure, it is necessary to check <a href="fxcore2.IO2GTableListener.onAdded.0.html"><code>onAdded</code></a> events of <a href="fxcore2.O2GClosedTradesTable.html">ClosedTrades</a> table (further it will be referred as <code>onClosedTradeAdded</code> event). The <a href="fxcore2.O2GClosedTradeRow.CloseOrderID.0.html"><code>CloseOrderID</code></a> field of the closed trade must be the same as the <code>OrderID</code> of your order. <br></p>
+<p><br>
+Please see below the summary table of all possible variants of the order execution and execution results.</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Variant of Order Execution</p></td>
+    <td class="thdr"><p>Execution Result</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>An opened position</p></td>
+    <td class="tmain"><p>A new position will appear in the <a href="fxcore2.O2GTradesTable.html"><code>Trades</code></a> table. The position amount must be equal to the amount specified in the order request.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>A closed position</p></td>
+    <td class="tmain"><p>A closed position will appear in the <a href="fxcore2.O2GClosedTradesTable.html"><code>Closed Trades</code></a> table. The position amount must not be less than the amount specified in the order request.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>A partially opened/closed position</p></td>
+    <td class="tmain"><p>Either a new position will appear in the <a href="fxcore2.O2GTradesTable.html"><code>Trades</code></a> table or a closed position will appear in the <a href="fxcore2.O2GClosedTradesTable.html"><code>Closed Trades</code></a> table. The position amount must be less than the amount specified in the order request.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>A completely rejected order</p></td>
+    <td class="tmain"><p>A rejection message will appear in the <a href="fxcore2.O2GMessagesTable.html"><code>Messages</code></a> table. An order with the &quot;<code>R</code>&quot; status will appear in the <a href="fxcore2.O2GOrdersTable.html"><code>Orders</code></a> table.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>A partially rejected order</p></td>
+    <td class="tmain"><p>Either a new position will appear in the <a href="fxcore2.O2GTradesTable.html"><code>Trades</code></a> table or a closed position will appear in the <a href="fxcore2.O2GClosedTradesTable.html"><code>Closed Trades</code></a> table (depending on the account type).<br>
+A rejection message will appear in the <a href="fxcore2.O2GMessagesTable.html"><code>Messages</code></a> table.</p></td>
+  </tr>
+</table><p>The state machine diagram below shows all possible execution variants and all events that must be processed to monitor the order execution. The diagram also shows what actions should be performed depending on the order status.<br>
+<img src="img/open-order-full.png">
+<br>
+Below is an example of the diagram implementation.</p><div id="open80" style="display:inline">
+  <p>&nbsp;<a href="javascript: showdiv('close80'); hidediv('open80');" onclick="javascript: showdiv('close80'); hidediv('open80');">[show]</a></p>
+</div>
+<div id="close80" style="display:none">
+  <p>&nbsp;<a href="javascript: showdiv('open80'); hidediv('close80');" onclick="javascript: showdiv('open80'); hidediv('close80');">[hide]</a></p>
+  <pre class="example"><code>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using fxcore2;
+ 
+namespace OrdersMonitor
+{
+    /// &lt;summary&gt;
+    /// Helper class for monitoring creation open positions using a open order.
+    /// On no dealing desk more than one position can be create. It is depends on
+    /// liquidity on forex market, The class stores all open positions
+    /// &lt;/summary&gt;
+    internal class OrderMonitor
+    {
+        static public bool IsOpeningOrder(O2GOrderRow order)
+        {
+            return order.Type.StartsWith(&quot;O&quot;);
+        }
+ 
+        static public bool IsClosingOrder(O2GOrderRow order)
+        {
+            return order.Type.StartsWith(&quot;C&quot;);
+        }
+ 
+ 
+        private enum OrderState
+        {
+            OrderExecuting,
+            OrderExecuted,
+            OrderCanceled,
+            OrderRejected
+        }
+        private volatile OrderState mState;
+ 
+        private List&lt;O2GTradeRow&gt; mTrades;
+        private List&lt;O2GClosedTradeRow&gt; mClosedTrades;
+        private volatile int mTotalAmount;
+        private volatile int mRejectAmount;
+        private O2GOrderRow mOrder;
+        private string mRejectMessage;
+ 
+        public enum ExecutionResult
+        {
+            Executing,
+            Executed,
+            PartialRejected,
+            FullyRejected,
+            Canceled
+        };
+ 
+        /// &lt;summary&gt;
+        /// ctor
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;order&quot;&gt;Order for monitoring of execution&lt;/param&gt;
+        public OrderMonitor(O2GOrderRow order)
+        {
+            mOrder = order;
+            mRejectAmount = 0;
+            mState = OrderState.OrderExecuting;
+            mResult = ExecutionResult.Executing;
+            mTrades = new List&lt;O2GTradeRow&gt;();
+            mClosedTrades = new List&lt;O2GClosedTradeRow&gt;();
+        }
+ 
+        /// &lt;summary&gt;
+        /// Process trade adding during order execution
+        /// &lt;/summary&gt;
+        public void OnTradeAdded(O2GTradeRow tradeRow)
+        {
+            String tradeOrderID = tradeRow.OpenOrderID;
+            String orderID = mOrder.OrderID;
+            if (tradeOrderID == orderID)
+            {
+                mTrades.Add(tradeRow);
+ 
+                if (mState == OrderState.OrderExecuted ||
+                    mState == OrderState.OrderRejected ||
+                    mState == OrderState.OrderCanceled)
+                {
+                    if (IsAllTradeReceived())
+                        SetResult(true);
+                }
+            }
+        }
+ 
+        /// &lt;summary&gt;
+        /// Process order data changing during execution
+        /// &lt;/summary&gt;
+        public void OnOrderChanged(O2GOrderRow orderRow)
+        {
+            //STUB
+        }
+ 
+        /// &lt;summary&gt;
+        /// Process order deletion as result of execution
+        /// &lt;/summary&gt;
+        public void OnOrderDeleted(O2GOrderRow orderRow)
+        {
+            String deletedOrderID = orderRow.OrderID;
+            String orderID = mOrder.OrderID;
+ 
+ 
+            if (deletedOrderID == orderID)
+            {
+                // Store Reject amount
+                if (OrderRowStatus.Rejected.Equals(orderRow.Status))
+                {
+                    mState = OrderState.OrderRejected;
+                    mRejectAmount = orderRow.Amount;
+                    mTotalAmount = orderRow.OriginAmount - mRejectAmount;
+ 
+                    if (!string.IsNullOrEmpty(mRejectMessage) &amp;&amp; IsAllTradeReceived())
+                        SetResult(true);
+                }
+                else if (OrderRowStatus.Canceled.Equals(orderRow.Status))
+                {
+                    mState = OrderState.OrderCanceled;
+                    mRejectAmount = orderRow.Amount;
+                    mTotalAmount = orderRow.OriginAmount - mRejectAmount;
+                    if (IsAllTradeReceived())
+                        SetResult(false);
+                }
+                else
+                {
+                    mRejectAmount = 0;
+                    mTotalAmount = orderRow.OriginAmount;
+                    mState = OrderState.OrderExecuted;
+                    if (IsAllTradeReceived())
+                        SetResult(true);
+                }
+            }
+        }
+ 
+        /// &lt;summary&gt;
+        /// Process reject message as result of order execution
+        /// &lt;/summary&gt;
+        public void OnMessageAdded(O2GMessageRow messageRow)
+        {
+            if (mState == OrderState.OrderRejected ||
+                mState == OrderState.OrderExecuting)
+            {
+                bool IsRejectMessage = CheckAndStoreMessage(messageRow);
+                if (mState == OrderState.OrderRejected &amp;&amp; IsRejectMessage)
+                    SetResult(true);
+            }
+        }
+ 
+        /// &lt;summary&gt;
+        /// Process trade closing during order execution
+        /// &lt;/summary&gt;
+        public void OnClosedTradeAdded(O2GClosedTradeRow closedTradeRow)
+        {
+            String orderID = mOrder.OrderID;
+            String closedTradeOrderID = closedTradeRow.CloseOrderID;
+            if (orderID == closedTradeOrderID)
+            {
+                mClosedTrades.Add(closedTradeRow);
+ 
+                if (mState == OrderState.OrderExecuted ||
+                    mState == OrderState.OrderRejected ||
+                    mState == OrderState.OrderCanceled)
+                {
+                    if (IsAllTradeReceived())
+                        SetResult(true);
+                }
+            }
+        }
+ 
+        /// &lt;summary&gt;
+        /// Event about order execution is completed and all affected trades as opened/closed, all reject/cancel processed
+        /// &lt;/summary&gt;
+        public event EventHandler OrderCompleted;
+ 
+        /// &lt;summary&gt;
+        /// Result of Order execution
+        /// &lt;/summary&gt;
+        public ExecutionResult Result
+        {
+            get
+            {
+                return mResult;
+            }
+        }
+        private volatile ExecutionResult mResult;
+ 
+        /// &lt;summary&gt;
+        /// Order execution is completed (with any result)
+        /// &lt;/summary&gt;
+        public bool IsOrderCompleted
+        {
+            get
+            {
+                return (mResult != ExecutionResult.Executing);
+            }
+        }
+ 
+        /// &lt;summary&gt;
+        /// Monitored order
+        /// &lt;/summary&gt;
+        public O2GOrderRow Order
+        {
+            get
+            {
+                return mOrder;
+            }
+        }
+ 
+        /// &lt;summary&gt;
+        /// List of Closed Trades which were opened as effects of order execution
+        /// &lt;/summary&gt;
+        public ReadOnlyList&lt;O2GTradeRow&gt; Trades
+        {
+            get
+            {
+                return new ReadOnlyList&lt;O2GTradeRow&gt;(mTrades);
+            }
+        }
+ 
+        /// &lt;summary&gt;
+        /// List of Closed Trades which were closed as effects of order execution
+        /// &lt;/summary&gt;
+        public ReadOnlyList&lt;O2GClosedTradeRow&gt; ClosedTrades
+        {
+            get
+            {
+                return new ReadOnlyList&lt;O2GClosedTradeRow&gt;(mClosedTrades);
+            }
+        }
+ 
+        /// &lt;summary&gt;
+        /// Amount of rejected part of order
+        /// &lt;/summary&gt;
+        public int RejectAmount
+        {
+            get
+            {
+                return mRejectAmount;
+            }
+        }
+ 
+        /// &lt;summary&gt;
+        /// Info message with a reason of reject
+        /// &lt;/summary&gt;
+        public string RejectMessage
+        {
+            get
+            {
+                return mRejectMessage;
+            }
+        }
+ 
+ 
+        private void SetResult(bool success)
+        {
+            if (success)
+            {
+                if (mRejectAmount == 0)
+                    mResult = ExecutionResult.Executed;
+                else
+                    mResult = (mTrades.Count == 0 &amp;&amp; mClosedTrades.Count == 0) ?  ExecutionResult.FullyRejected : ExecutionResult.PartialRejected;
+            }
+            else
+                mResult = ExecutionResult.Canceled;
+ 
+            if (OrderCompleted != null)
+                OrderCompleted(this, EventArgs.Empty);
+ 
+        }
+ 
+        private bool IsAllTradeReceived()
+        {
+            if (mState == OrderState.OrderExecuting)
+                return false;
+            int currenTotalAmount = 0;
+            for (int i = 0; i &lt; mTrades.Count; i++)
+            {
+                currenTotalAmount += mTrades[i].Amount;
+            }
+ 
+            for (int i = 0; i &lt; mClosedTrades.Count; i++)
+            {
+                currenTotalAmount += mClosedTrades[i].Amount;
+            }
+ 
+            return currenTotalAmount == mTotalAmount;
+        }
+ 
+        private bool CheckAndStoreMessage(O2GMessageRow message)
+        {
+            String feature;
+            feature = message.Feature;
+            if (MessageFeature.MarketCondition.Equals(feature))
+            {
+                String text = message.Text;
+                int findPos = text.IndexOf(mOrder.OrderID);
+                if (findPos &gt; -1)
+                {
+                    mRejectMessage = text;
+                    return true;
+                }
+            }
+            return false;
+        }
+ 
+    }
+ 
+    internal class OrderRowStatus
+    {
+        public static string Rejected = &quot;R&quot;;
+        public static string Canceled = &quot;C&quot;;
+        public static string Executed = &quot;F&quot;;
+        //...
+    }
+ 
+    internal class MessageFeature
+    {
+        public static String MarketCondition = &quot;5&quot;;
+        //...
+    }
+ 
+    internal class ReadOnlyList&lt;T&gt; : IEnumerable&lt;T&gt;
+    {
+        private List&lt;T&gt; mList;
+ 
+        /// &lt;summary&gt;
+        /// ctor
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;list&quot;&gt;&lt;/param&gt;
+        public ReadOnlyList(List&lt;T&gt; list)
+        {
+            mList = list;
+        }
+ 
+        public int Count
+        {
+            get
+            {
+                return mList.Count;
+            }
+        }
+ 
+        public T this[int index]
+        {
+            get
+            {
+                return mList[index];
+            }
+        }
+ 
+        #region IEnumerable&lt;T&gt; Members
+ 
+        public IEnumerator&lt;T&gt; GetEnumerator()
+        {
+            return (IEnumerator&lt;T&gt;)mList.GetEnumerator();
+        }
+ 
+        #endregion
+ 
+        #region IEnumerable Members
+ 
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return (System.Collections.IEnumerator)mList.GetEnumerator();
+        }
+ 
+        #endregion
+ 
+    }
+ 
+}
+ 
+</code></pre>
+</div><p>An example on how to subscribe the order monitor by using <a href="fxcore2.IO2GResponseListener.onTablesUpdates.0.html"><code>onTableUpdates</code></a> is provided below.</p><div id="open81" style="display:inline">
+  <p>&nbsp;<a href="javascript: showdiv('close81'); hidediv('open81');" onclick="javascript: showdiv('close81'); hidediv('open81');">[show]</a></p>
+</div>
+<div id="close81" style="display:none">
+  <p>&nbsp;<a href="javascript: showdiv('open81'); hidediv('close81');" onclick="javascript: showdiv('open81'); hidediv('close81');">[hide]</a></p>
+  <pre class="example"><code>
+    class ResponseListener : IO2GResponseListener
+    {
+        private EventWaitHandle mEvent = null;
+        private OrderMonitor mOrderMonitor = null;
+        private O2GSession mSession;
+        private string mRequestID;
+ 
+        /// &lt;summary&gt;
+        /// ctor
+        /// &lt;/summary&gt;
+        public TableListener(O2GSession Session)
+        {
+            mSession = Session;
+            mEvent = new EventWaitHandle(false, EventResetMode.AutoReset);
+        }
+ 
+        /// &lt;summary&gt;
+        /// destructor
+        /// &lt;/summary&gt;
+        ~TableListener()
+        {
+            if (mEvent != null)
+            {
+                mEvent.Close();
+                mEvent = null;
+            }
+        }
+ 
+        /// &lt;summary&gt;
+        /// Wait for the event
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;timeout&quot;&gt;&lt;/param&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        public bool WaitForEvent(int timeout)
+        {
+            return mEvent.WaitOne(timeout);
+        }
+ 
+ 
+        #region IO2GResponseListener Members
+ 
+        public void onRequestCompleted(string requestId, O2GResponse response)
+        {
+        }
+ 
+        public void onRequestFailed(string requestId, string error)
+        {
+            Program.CannotOpenPosition(error);
+            mEvent.Set();
+        }
+ 
+        public void onTablesUpdates(O2GResponse data)
+        {
+            O2GResponseReaderFactory factory = mSession.getResponseReaderFactory();
+            if (factory != null)
+            {
+                O2GTablesUpdatesReader reader = factory.createTablesUpdatesReader(data);
+                for (int ii = 0; ii &lt; reader.Count; ii++)
+                {
+                    switch (reader.getUpdateTable(ii))
+                    {
+                        case O2GTableType.Accounts:
+                            O2GAccountRow account = reader.getAccountRow(ii);
+                            //Show balance updates
+                            Console.WriteLine(&quot;Balance: {0}&quot;, account.Balance);
+                            break;
+                        case O2GTableType.Orders:
+                            O2GOrderRow order = reader.getOrderRow(ii);
+                            switch (reader.getUpdateType(ii))
+                            {
+                                case O2GTableUpdateType.Insert:
+                                    if ((OrderMonitor.IsClosingOrder(order) || OrderMonitor.IsOpeningOrder(order)) &amp;&amp;
+                                            mOrderMonitor == null)
+                                    {
+                                        mOrderMonitor = new OrderMonitor(order);
+                                    }
+                                    break;
+                                case O2GTableUpdateType.Delete:
+                                    if (mOrderMonitor != null)
+                                    {
+                                        mOrderMonitor.OnOrderDeleted(order);
+                                        if (mOrderMonitor.IsOrderCompleted)
+                                        {
+                                            PrintResult();
+                                            mEvent.Set();
+                                        }
+                                    }
+                                    break;
+                            }
+                            break;
+                        case O2GTableType.Trades:
+                            O2GTradeRow trade = reader.getTradeRow(ii);
+                            if (reader.getUpdateType(ii) == O2GTableUpdateType.Insert)
+                            {
+                                if (mOrderMonitor != null)
+                                {
+                                    mOrderMonitor.OnTradeAdded(trade);
+                                    if (mOrderMonitor.IsOrderCompleted)
+                                    {
+                                        PrintResult();
+                                        mEvent.Set();
+                                    }
+                                }
+                            }
+                            break;
+                        case O2GTableType.ClosedTrades:
+                            O2GClosedTradeRow closedTrade = reader.getClosedTradeRow(ii);
+                            if (reader.getUpdateType(ii) == O2GTableUpdateType.Insert)
+                            {
+                                if (mOrderMonitor != null)
+                                {
+                                    mOrderMonitor.OnClosedTradeAdded(closedTrade);
+                                    if (mOrderMonitor.IsOrderCompleted)
+                                    {
+                                        PrintResult();
+                                        mEvent.Set();
+                                    }
+                                }
+                            }
+                            break;
+                        case O2GTableType.Messages:
+                            O2GMessageRow message = reader.getMessageRow(ii);
+                            if (reader.getUpdateType(ii) == O2GTableUpdateType.Insert)
+                            {
+                                if (mOrderMonitor != null)
+                                {
+                                    mOrderMonitor.OnMessageAdded(message);
+                                    if (mOrderMonitor.IsOrderCompleted)
+                                    {
+                                        PrintResult();
+                                        mEvent.Set();
+                                    }
+                                }
+                            }
+                            break;
+                    }
+ 
+                }
+            }
+        }
+ 
+        #endregion
+ 
+ 
+        /// &lt;summary&gt;
+        /// Open a position
+        /// &lt;/summary&gt;
+        public void CreateTrueMarketOrder(string sOfferID, string sAccountID, int iAmount, string sBuySell)
+        {
+            O2GRequestFactory factory = Program.Session.getRequestFactory();
+            if (factory != null)
+            {
+               O2GValueMap valuemap = factory.createValueMap();
+               valuemap.setString(O2GRequestParamsEnum.Command, Constants.Commands.CreateOrder);
+               valuemap.setString(O2GRequestParamsEnum.OrderType, Constants.Orders.TrueMarketOpen);
+               // The identifier of the account the order should be placed for.
+               valuemap.setString(O2GRequestParamsEnum.AccountID, sAccountID);
+               // The identifier of the instrument the order should be placed for.
+               valuemap.setString(O2GRequestParamsEnum.OfferID, sOfferID);
+               // The order direction: Constants.Sell for &quot;Sell&quot;, Constants.Buy for &quot;Buy&quot;.
+               valuemap.setString(O2GRequestParamsEnum.BuySell, sBuySell);
+               // The quantity of the instrument to be bought or sold.
+               valuemap.setInt(O2GRequestParamsEnum.Amount, iAmount);
+               // The custom identifier of the order.
+               valuemap.setString(O2GRequestParamsEnum.CustomID, &quot;TrueMarketOrder&quot;);
+ 
+               O2GRequest request = factory.createOrderRequest(valuemap);
+               if (request != null)
+               {
+                   mRequestID = request.RequestID;
+                   Program.Session.sendRequest(request);
+                   mEvent.WaitOne(); //Infinite waiting
+               }
+               else
+               {
+                   Console.WriteLine(&quot;Cannot create request; probably some arguments are missing or incorrect&quot;);
+               }
+            }
+        }
+ 
+ 
+ 
+        void PrintResult()
+        {
+            if (mOrderMonitor != null)
+            {
+                OrderMonitor.ExecutionResult result = mOrderMonitor.Result;
+                ReadOnlyList&lt;O2GTradeRow&gt; trades;
+                ReadOnlyList&lt;O2GClosedTradeRow&gt; closedTrades;
+                O2GOrderRow order = mOrderMonitor.Order;
+                String orderID = order.OrderID;
+                trades = mOrderMonitor.Trades;
+                closedTrades = mOrderMonitor.ClosedTrades;
+ 
+                switch (result)
+                {
+                    case OrderMonitor.ExecutionResult.Canceled:
+                        if (trades.Count &gt; 0)
+                        {
+                            PrintTrades(trades, orderID);
+                            PrintClosedTrades(closedTrades, orderID);
+                            Console.WriteLine(&quot;A part of the order has been canceled. Amount = {0}&quot;, mOrderMonitor.RejectAmount);
+                        }
+                        else
+                        {
+                            Console.WriteLine(&quot;The order: OrderID = {0}  has been canceled.&quot;, orderID);
+                            Console.WriteLine(&quot;The cancel amount = {0}.&quot;, mOrderMonitor.RejectAmount);
+                        }
+                        break;
+                    case OrderMonitor.ExecutionResult.FullyRejected:
+                        Console.WriteLine(&quot;The order has been rejected. OrderID = {0}&quot;, orderID);
+                        Console.WriteLine(&quot;The rejected amount = {0}&quot;, mOrderMonitor.RejectAmount);
+                        Console.WriteLine(&quot;Rejection cause: {0}&quot;, mOrderMonitor.RejectMessage);
+                        break;
+                    case OrderMonitor.ExecutionResult.PartialRejected:
+                        PrintTrades(trades, orderID);
+                        PrintClosedTrades(closedTrades, orderID);
+                        Console.WriteLine(&quot;A part of the order has been rejected. Amount = {0}&quot;, mOrderMonitor.RejectAmount);
+                        Console.WriteLine(&quot;Rejection cause: {0} &quot;, mOrderMonitor.RejectMessage);
+                        break;
+                    case OrderMonitor.ExecutionResult.Executed:
+                        PrintTrades(trades, orderID);
+                        PrintClosedTrades(closedTrades, orderID);
+                        break;
+                }
+            }
+        }
+ 
+        void PrintTrades(ReadOnlyList&lt;O2GTradeRow&gt; trades, string orderID)
+        {
+            if (trades.Count == 0)
+                return;
+            Console.WriteLine(&quot;For the order: OrderID = {0} the following positions have been opened:&quot;, orderID);
+ 
+            for (int i = 0; i &lt; trades.Count; i++)
+            {
+                O2GTradeRow trade = trades[i];
+                String tradeID = trade.TradeID;
+                int amount = trade.Amount;
+                double rate = trade.OpenRate;
+                Console.WriteLine(&quot;Trade ID: {0}; Amount: {1}; Rate: {2}&quot;, tradeID, amount, rate);
+            }
+        }
+ 
+        void PrintClosedTrades(ReadOnlyList&lt;O2GClosedTradeRow&gt; closedTrades, string orderID)
+        {
+            if (closedTrades.Count == 0)
+                return;
+            Console.WriteLine(&quot;For the order: OrderID = {0} the following positions have been closed: &quot;, orderID);
+ 
+            for (int i = 0; i &lt; closedTrades.Count; i++)
+            {
+                O2GClosedTradeRow closedTrade = closedTrades[i];
+                String tradeID = closedTrade.TradeID;
+                int amount = closedTrade.Amount;
+                double rate = closedTrade.CloseRate;
+                Console.WriteLine(&quot;Closed Trade ID: {0}; Amount: {1}; Closed Rate: {2}&quot;, tradeID, amount, rate);
+            }
+        }
+ 
+    }
+
+</code></pre>
+</div><p>An example on how to subscribe the order monitor by using <a href="fxcore2.IO2GTableListener.html"><code>TableListener</code></a> can be studied below.</p><div id="open82" style="display:inline">
+  <p>&nbsp;<a href="javascript: showdiv('close82'); hidediv('open82');" onclick="javascript: showdiv('close82'); hidediv('open82');">[show]</a></p>
+</div>
+<div id="close82" style="display:none">
+  <p>&nbsp;<a href="javascript: showdiv('open82'); hidediv('close82');" onclick="javascript: showdiv('open82'); hidediv('close82');">[hide]</a></p>
+  <pre class="example"><code>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+using fxcore2;
+using OrdersMonitor;
+ 
+namespace OpenPosition
+{
+    class TableListener : IO2GTableListener
+    {
+        private EventWaitHandle mEvent = null;
+        private OrderMonitor mOrderMonitor = null;
+        private O2GSession mSession;
+ 
+        private O2GAccountsTable mAccounts;
+        private O2GOrdersTable mOrders;
+        private O2GTradesTable mTrades;
+        private O2GClosedTradesTable mClosedTrades;
+        private O2GMessagesTable mMessages;
+ 
+        private string mRequestID;
+ 
+        /// &lt;summary&gt;
+        /// ctor
+        /// &lt;/summary&gt;
+        public TableListener(O2GSession Session)
+        {
+            mSession = Session;
+            mEvent = new EventWaitHandle(false, EventResetMode.AutoReset);
+        }
+ 
+        /// &lt;summary&gt;
+        /// destructor
+        /// &lt;/summary&gt;
+        ~TableListener()
+        {
+            if (mEvent != null)
+            {
+                mEvent.Close();
+                mEvent = null;
+            }
+        }
+ 
+        /// &lt;summary&gt;
+        /// Wait for the event
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;timeout&quot;&gt;&lt;/param&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        public bool WaitForEvent(int timeout)
+        {
+            return mEvent.WaitOne(timeout);
+        }
+ 
+        #region IO2GTableListener Members
+ 
+        public void onAdded(string rowID, O2GRow rowData)
+        {
+            O2GTableType type = rowData.TableType;
+            switch (type)
+            {
+                case O2GTableType.Orders:
+                    O2GOrderRow orderRow = (O2GOrderRow)rowData;
+                    if (mRequestID == orderRow.RequestID)
+                    {
+                        if ((OrderMonitor.IsClosingOrder(orderRow) || OrderMonitor.IsOpeningOrder(orderRow)) &amp;&amp;
+                                mOrderMonitor == null)
+                        {
+                            Console.WriteLine(&quot;The order has been added. Order ID: {0}, Rate: {1}, Time In Force: {2}&quot;,
+                                orderRow.OrderID,
+                                orderRow.Rate,
+                                orderRow.TimeInForce);
+                            mOrderMonitor = new OrderMonitor(orderRow);
+                        }
+                    }
+                    break;
+                case O2GTableType.Trades:
+                    O2GTradeRow tradeRow = (O2GTradeRow)rowData;
+                    if (mOrderMonitor != null)
+                    {
+                        mOrderMonitor.OnTradeAdded(tradeRow);
+                        if (mOrderMonitor.IsOrderCompleted)
+                        {
+                            PrintResult();
+                            mEvent.Set();
+                        }
+                    }
+                    break;
+                case O2GTableType.ClosedTrades:
+                    O2GClosedTradeRow closedTradeRow = (O2GClosedTradeRow)rowData;
+                    if (mOrderMonitor != null)
+                    {
+                        mOrderMonitor.OnClosedTradeAdded(closedTradeRow);
+                        if (mOrderMonitor.IsOrderCompleted)
+                        {
+                            PrintResult();
+                            mEvent.Set();
+                        }
+                    }
+                    break;
+                case O2GTableType.Messages:
+                    O2GMessageRow messageRow = (O2GMessageRow)rowData;
+                    if (mOrderMonitor != null)
+                    {
+                        mOrderMonitor.OnMessageAdded(messageRow);
+                        if (mOrderMonitor.IsOrderCompleted)
+                        {
+                            PrintResult();
+                            mEvent.Set();
+                        }
+                    }
+                    break;
+            }
+        }
+ 
+        public void onChanged(string rowID, O2GRow rowData)
+        {
+            if (rowData.TableType == O2GTableType.Accounts)
+            {
+                O2GAccountTableRow account = (O2GAccountTableRow)rowData;
+                Console.WriteLine(&quot;Balance: {0}, Equity: {1}&quot;, account.Balance, account.Equity);
+            }
+        }
+ 
+        public void onDeleted(string rowID, O2GRow rowData)
+        {
+            if (rowData.TableType == O2GTableType.Orders)
+            {
+                O2GOrderRow orderRow = (O2GOrderRow)rowData;
+                if (mRequestID == orderRow.RequestID)
+                {
+                    Console.WriteLine(&quot;The order has been deleted. Order ID: {0}&quot;, orderRow.OrderID);
+                    mOrderMonitor.OnOrderDeleted(orderRow);
+                    if (mOrderMonitor != null)
+                    {
+                        if (mOrderMonitor.IsOrderCompleted)
+                        {
+                            PrintResult();
+                            mEvent.Set();
+                        }
+                    }
+                }
+            }
+        }
+ 
+        public void onStatusChanged(O2GTableStatus status)
+        {
+        }
+ 
+        #endregion
+ 
+ 
+ 
+        /// &lt;summary&gt;
+        /// Open a position
+        /// &lt;/summary&gt;
+        public void CreateTrueMarketOrder(string sOfferID, string sAccountID, int iAmount, string sBuySell)
+        {
+            O2GRequestFactory factory = Program.Session.getRequestFactory();
+            if (factory != null)
+            {
+               O2GValueMap valuemap = factory.createValueMap();
+               valuemap.setString(O2GRequestParamsEnum.Command, Constants.Commands.CreateOrder);
+               valuemap.setString(O2GRequestParamsEnum.OrderType, Constants.Orders.TrueMarketOpen);
+               // The identifier of the account the order should be placed for.
+               valuemap.setString(O2GRequestParamsEnum.AccountID, sAccountID);
+               // The identifier of the instrument the order should be placed for.
+               valuemap.setString(O2GRequestParamsEnum.OfferID, sOfferID);
+               // The order direction: Constants.Sell for &quot;Sell&quot;, Constants.Buy for &quot;Buy&quot;.
+               valuemap.setString(O2GRequestParamsEnum.BuySell, sBuySell);
+               // The quantity of the instrument to be bought or sold.
+               valuemap.setInt(O2GRequestParamsEnum.Amount, iAmount);
+               // The custom identifier of the order.
+               valuemap.setString(O2GRequestParamsEnum.CustomID, &quot;TrueMarketOrder&quot;);
+ 
+               O2GRequest request = factory.createOrderRequest(valuemap);
+               if (request != null)
+               {
+                   mRequestID = request.RequestID;
+                   SubscribeEvents();
+                   Program.Session.sendRequest(request);
+                   mEvent.WaitOne(); //Infinite waiting
+                   Thread.Sleep(200); //wait account update receiving
+                   UnsubscribeEvents();
+               }
+               else
+               {
+                   Console.WriteLine(&quot;Cannot create request; probably some arguments are missing or incorrect&quot;);
+               }
+            }
+        }
+ 
+        public void CannotOpenPosition(string sError)
+        {
+            Console.WriteLine(&quot;Cannot open position, error: {0}&quot;, sError);
+            mEvent.Set();
+        }
+ 
+        void PrintResult()
+        {
+            if (mOrderMonitor != null)
+            {
+                OrderMonitor.ExecutionResult result = mOrderMonitor.Result;
+                ReadOnlyList&lt;O2GTradeRow&gt; trades;
+                ReadOnlyList&lt;O2GClosedTradeRow&gt; closedTrades;
+                O2GOrderRow order = mOrderMonitor.Order;
+                String orderID = order.OrderID;
+                trades = mOrderMonitor.Trades;
+                closedTrades = mOrderMonitor.ClosedTrades;
+ 
+                switch (result)
+                {
+                    case OrderMonitor.ExecutionResult.Canceled:
+                        if (trades.Count &gt; 0)
+                        {
+                            PrintTrades(trades, orderID);
+                            PrintClosedTrades(closedTrades, orderID);
+                            Console.WriteLine(&quot;A part of the order has been canceled. Amount = {0}&quot;, mOrderMonitor.RejectAmount);
+                        }
+                        else
+                        {
+                            Console.WriteLine(&quot;The order: OrderID = {0}  has been canceled.&quot;, orderID);
+                            Console.WriteLine(&quot;The cancel amount = {0}.&quot;, mOrderMonitor.RejectAmount);
+                        }
+                        break;
+                    case OrderMonitor.ExecutionResult.FullyRejected:
+                        Console.WriteLine(&quot;The order has been rejected. OrderID = {0}&quot;, orderID);
+                        Console.WriteLine(&quot;The rejected amount = {0}&quot;, mOrderMonitor.RejectAmount);
+                        Console.WriteLine(&quot;Rejection cause: {0}&quot;, mOrderMonitor.RejectMessage);
+                        break;
+                    case OrderMonitor.ExecutionResult.PartialRejected:
+                        PrintTrades(trades, orderID);
+                        PrintClosedTrades(closedTrades, orderID);
+                        Console.WriteLine(&quot;A part of the order has been rejected. Amount = {0}&quot;, mOrderMonitor.RejectAmount);
+                        Console.WriteLine(&quot;Rejection cause: {0} &quot;, mOrderMonitor.RejectMessage);
+                        break;
+                    case OrderMonitor.ExecutionResult.Executed:
+                        PrintTrades(trades, orderID);
+                        PrintClosedTrades(closedTrades, orderID);
+                        break;
+                }
+            }
+        }
+ 
+        void PrintTrades(ReadOnlyList&lt;O2GTradeRow&gt; trades, string orderID)
+        {
+            if (trades.Count == 0)
+                return;
+            Console.WriteLine(&quot;For the order: OrderID = {0} the following positions have been opened:&quot;, orderID);
+ 
+            for (int i = 0; i &lt; trades.Count; i++)
+            {
+                O2GTradeRow trade = trades[i];
+                String tradeID = trade.TradeID;
+                int amount = trade.Amount;
+                double rate = trade.OpenRate;
+                Console.WriteLine(&quot;Trade ID: {0}; Amount: {1}; Rate: {2}&quot;, tradeID, amount, rate);
+            }
+        }
+ 
+        void PrintClosedTrades(ReadOnlyList&lt;O2GClosedTradeRow&gt; closedTrades, string orderID)
+        {
+            if (closedTrades.Count == 0)
+                return;
+            Console.WriteLine(&quot;For the order: OrderID = {0} the following positions have been closed: &quot;, orderID);
+ 
+            for (int i = 0; i &lt; closedTrades.Count; i++)
+            {
+                O2GClosedTradeRow closedTrade = closedTrades[i];
+                String tradeID = closedTrade.TradeID;
+                int amount = closedTrade.Amount;
+                double rate = closedTrade.CloseRate;
+                Console.WriteLine(&quot;Closed Trade ID: {0}; Amount: {1}; Closed Rate: {2}&quot;, tradeID, amount, rate);
+            }
+        }
+ 
+        void SubscribeEvents()
+        {
+            O2GTableManager manager = mSession.getTableManager();
+            mOrders = (O2GOrdersTable)manager.getTable(O2GTableType.Orders);
+            mTrades = (O2GTradesTable)manager.getTable(O2GTableType.Trades);
+            mMessages = (O2GMessagesTable)manager.getTable(O2GTableType.Messages);
+            mClosedTrades = (O2GClosedTradesTable)manager.getTable(O2GTableType.ClosedTrades);
+            mAccounts = (O2GAccountsTable)manager.getTable(O2GTableType.Accounts);
+            mAccounts.subscribeUpdate(O2GTableUpdateType.Update, this);
+            mOrders.subscribeUpdate(O2GTableUpdateType.Insert, this);
+            mOrders.subscribeUpdate(O2GTableUpdateType.Delete, this);
+            mTrades.subscribeUpdate(O2GTableUpdateType.Insert, this);
+            mClosedTrades.subscribeUpdate(O2GTableUpdateType.Insert, this);
+            mMessages.subscribeUpdate(O2GTableUpdateType.Insert, this);
+        }
+ 
+        void UnsubscribeEvents()
+        {
+            if (mOrders != null)
+            {
+                mOrders.unsubscribeUpdate(O2GTableUpdateType.Insert, this);
+                mOrders.unsubscribeUpdate(O2GTableUpdateType.Delete, this);
+            }
+ 
+            if (mTrades != null)
+            {
+                mTrades.unsubscribeUpdate(O2GTableUpdateType.Insert, this);
+            }
+ 
+            if (mClosedTrades != null)
+                mClosedTrades.unsubscribeUpdate(O2GTableUpdateType.Insert, this);
+ 
+            if (mMessages != null)
+                mMessages.unsubscribeUpdate(O2GTableUpdateType.Insert, this);
+ 
+            if (mAccounts != null)
+                mAccounts.unsubscribeUpdate(O2GTableUpdateType.Update, this);
+ 
+        }
+ 
+    }
+ 
+    class ResponseListener : IO2GResponseListener
+    {
+        #region IO2GResponseListener Members
+ 
+        public void onRequestCompleted(string requestId, O2GResponse response)
+        {
+        }
+ 
+        public void onRequestFailed(string requestId, string error)
+        {
+            Program.CannotOpenPosition(error);
+        }
+ 
+        public void onTablesUpdates(O2GResponse data)
+        {
+        }
+ 
+        #endregion
+    }
+}
+ 
+
+</code></pre>
+</div><p>
+      <center><a href="howto.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Get Order Update</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Get Order Update</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p> Get the up-to-date order information from the server.</p>
+    <p><b>Details</b></p><p>This command is used to request the latest available information on the order from the server.<br>
+The command is useful in case the trader wants to get the information about his order after the relogin or the automatic reconnection.<br>
+The method can be called in the &quot;logged in&quot; state.<br>
+If the request has been executed successfuly, the response will be received in
+<a href="com.fxcore2.IO2GResponseListener.html"><code>IO2GResponseListener</code></a>.<a href="com.fxcore2.IO2GResponseListener.onRequestCompleted.html"><code>onRequestCompleted</code></a>.
+The repsonse can be converted to <a href="com.fxcore2.O2GLastOrderUpdateResponseReader.html"><code>O2GLastOrderUpdateResponseReader</code></a>.<br>
+If the order has been executed, the server returns <a href="com.fxcore2.O2GLastOrderUpdateResponseReader.html"><code>O2GLastOrderUpdateResponseReader</code></a> with
+the 'Delete' type of the table update and the 'F' status ('Executed') in the order row.</p>
+<p>To get the updated order information, please fill the following values in the value map:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Parameter name</p></td>
+    <td class="thdr"><p>Datatype</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Command</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The command. Must be <a href="com.fxcore2.Constants.Commands.GetLastOrderUpdate.html">GetLastOrderUpdate</a>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Key</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The order field to search the order.</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>OrderID</code></p></td>
+    <td class="tmain"><p>Search by identification number of the order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>RequestID</code></p></td>
+    <td class="tmain"><p>Search by the identifier of the order request. Note that if the order has the attached stop and limit orders,
+all of them have the same RequestID. In this case the main order will be returned.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>RequestTXT</code></p></td>
+    <td class="tmain"><p>Search by the custom identifier of the order.
+In case there are a few orders with the same RequestTXT,
+the oldest order will be returned (the order which was created first).</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Id</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The value of the order field to search.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>AccountName</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The name of the account.
+Note that it is not AccountID.</p></td>
+  </tr>
+</table><p>To use the command:<br></p><ol class="main">
+  <li><p>Create a request and send it to the server.</p></li>
+  <li><p>Wait for the response using <a href="com.fxcore2.IO2GResponseListener.html"><code>IO2GResponseListener</code></a>.</p></li>
+</ol><div id="open100" style="display:none">
+  <p>Example: Get last order update&nbsp;<a href="javascript: showdiv('close100'); hidediv('open100');" onclick="javascript: showdiv('close100'); hidediv('open100');">[show]</a></p>
+</div>
+<div id="close100" style="display:inline">
+  <p>Example: Get last order update&nbsp;<a href="javascript: showdiv('open100'); hidediv('close100');" onclick="javascript: showdiv('open100'); hidediv('close100');">[hide]</a></p>
+  <pre class="example">import com.fxcore2.Constants;
+import com.fxcore2.O2GSession;
+import com.fxcore2.O2GTransport;
+import com.fxcore2.O2GLoginRules;
+import com.fxcore2.O2GResponseReaderFactory;
+import com.fxcore2.O2GResponse;
+import com.fxcore2.O2GOffersTableResponseReader;
+import com.fxcore2.O2GTableType;
+import com.fxcore2.O2GOfferRow;
+import com.fxcore2.O2GRequestFactory;
+import com.fxcore2.O2GValueMap;
+import com.fxcore2.O2GRequest;
+import com.fxcore2.O2GRequestParamsEnum;
+import com.fxcore2.O2GAccountsTableResponseReader;
+import com.fxcore2.O2GAccountRow;
+ 
+public class Main {
+    //...
+ 
+    public static void main(String[] args) {
+ 
+       O2GSession mSession = null;
+       String mUserID = &quot;XXXX&quot;;
+       String mPassword = &quot;XXXX&quot;;
+       String mURL = &quot;http://www.fxcorporate.com/Hosts.jsp&quot;;
+       String mConnection = &quot;Demo&quot;;
+       String mOrderID = &quot;XXXX&quot;;
+       String mAccountName = &quot;XXXX&quot;;
+ 
+       // Create a session, subscribe to session listener, login, open position, logout
+       try {
+           mSession = O2GTransport.createSession();
+           SessionStatusListener statusListener = new SessionStatusListener(mSession, mDBName, mPin);
+           mSession.subscribeSessionStatus(statusListener);
+           ResponseListener responseListener = new ResponseListener(mSession);
+           mSession.subscribeResponse(responseListener);
+           mSession.login(mUserID, mPassword, mURL, mConnection);
+           while (!statusListener.isConnected() &amp;&amp; !statusListener.hasError()) {
+                Thread.sleep(50);
+           }
+           if (!statusListener.hasError()) {
+               getLastOrderUpdate(mSession, responseListener, mOrderID, mAccountName);
+           }
+           mSession.logout();
+           while (!statusListener.isDisconnected()) {
+               Thread.sleep(50);
+           }
+ 
+           mSession.unsubscribeSessionStatus(statusListener);
+           mSession.unsubscribeResponse(responseListener);
+           mSession.dispose();
+           System.exit(1);
+       } catch (Exception e) {
+           System.out.println (&quot;Exception: &quot; + e.getMessage());
+           System.exit(1);
+       }
+   }
+ 
+   public static void getLastOrderUpdate(O2GSession session, ResponseListener responseListener, String orderID, String accountName) throws InterruptedException
+   {
+       O2GRequestFactory requestFactory = session.getRequestFactory();
+       if (requestFactory != null) {
+           O2GValueMap valuemap = requestFactory.createValueMap();
+           valuemap.setString(O2GRequestParamsEnum.COMMAND, Constants.Commands.GetLastOrderUpdate);
+           valuemap.setString(O2GRequestParamsEnum.ACCOUNT_NAME, accountName);
+           valuemap.setString(O2GRequestParamsEnum.KEY, Constants.KeyType.OrderID);
+           valuemap.setString(O2GRequestParamsEnum.ID, orderID);
+           O2GRequest request = requestFactory.createOrderRequest(valuemap);
+           if (request == null) {
+               System.out.println(&quot;Order's request can not be created: &quot; + requestFactory.getLastError());
+           } else {
+               responseListener.setRequest(request.getRequestId());
+               session.sendRequest(request);
+               Thread.sleep(1000);
+           }
+       }
+   }
+}
+ 
+public class ResponseListener implements IO2GResponseListener {
+ 
+   private boolean mError = false;
+   private boolean mRequestComplete = false;
+   private String mRequestID = &quot;&quot;;
+   private O2GSession mSession;
+ 
+   public ResponseListener(O2GSession session) {
+       mSession = session;
+   }
+ 
+   // Shows if there was an error during the request processing
+   public final boolean hasError() {
+       return mError;
+   }
+ 
+   public void setRequest(String requestID){
+       mRequestID = requestID;
+       mError = false;
+       mRequestComplete = false;
+   }
+ 
+    // Implementation of IO2GResponseListener interface public method onRequestCompleted
+    public void onRequestCompleted(String requestID, O2GResponse response) {
+       if (mRequestID.equals(requestID)) {
+           System.out.println(&quot;Request completed.\nrequestID= &quot; + requestID);
+           O2GResponseReaderFactory readerFactory = mSession.getResponseReaderFactory();
+           if (readerFactory == null) {
+               mError = true;
+               mRequestComplete = true;
+               return;
+           }
+           mError = false;
+           mRequestComplete = true;
+ 
+           if (response.getType() == O2GResponseType.GET_LAST_ORDER_UPDATE) {
+               O2GLastOrderUpdateResponseReader lastOrderUpdateResponseReader = readerFactory.createLastOrderUpdateResponseReader(response);
+               O2GOrderRow orderRow = lastOrderUpdateResponseReader.getOrder();
+               System.out.println(&quot;UpdateType: &quot; + lastOrderUpdateResponseReader.getUpdateType().toString() + &quot;; OrderID: &quot; + orderRow.getOrderID() + &quot;; Status: &quot; + orderRow.getStatus());
+           }
+       }
+   }
+ 
+   // Implementation of IO2GResponseListener interface public method onRequestFailed
+   public void onRequestFailed(String requestID, String error) {
+       if (mRequestID.equals(requestID)) {
+           System.out.println(&quot;Request failed.\nrequestID= &quot; + requestID + &quot;; error= &quot; + error);
+           mError = true;
+           mRequestComplete = false;
+       }
+   }
+ 
+   // Implementation of IO2GResponseListener interface public method onTablesUpdates
+   public void onTablesUpdates(O2GResponse response) {}</pre>
+</div><p>
+      <center><a href="JavaTradingCommandsCreateOrder.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>
