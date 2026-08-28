@@ -1,0 +1,2215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Opening Position on Hedging and Non-Hedging Accounts</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Opening Position on Hedging and Non-Hedging Accounts</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article describes how to open a position on hedging and non-hedging accounts.</p>
+    <p><b>Details</b></p><p></p>
+<h3>How to Open Position</h3>
+<p>Positions are opened by orders. So, to open a position, create a request to make an order.<br>
+When the order is created, it appears in the <a href="IO2GOrdersTable.html"><code>Orders</code></a> table. It stays in the table until it is executed.  <br>
+Depending on market liquidity and position maintenance (that is, the way trade operations are performed on an account), there are a few possible results of the order execution. To process the results, it is necessary to monitor table events. <br>
+Section 1 of the article discusses how to process the basic case when the result of the order execution is a newly opened position. The section also discusses how to the process the case when the order is rejected.<br>
+Sections 2 and 3 discuss other cases that may happen on the Real market when the order is sent on external execution, namely, partial execution.<br>
+Section 4 discusses how to process all the possible results of the order execution.</p>
+<p></p>
+<h3>1.  Most Usual Case</h3>
+<p></p>
+<h4>1.1.    Create and Send Order Request</h4>
+<p>To request an order creation, you should fill an instance of <a href="IO2GValueMap.html"><code>IO2GValueMap</code></a> with corresponding parameters. <br>
+The set of parameters depends on a particular order type. Please refer to the <a href="TradingCommands.html">list of order types</a> for the detailed description on how to fill the value map for each particular order type. <br>
+Below is an example of creating and sending a request for an <a href="FXCMOpenCloseMarketOrder.html">Open Market order</a>. <br></p><pre class="example"><code>
+   std::string sBuySell = O2G2::Buy;
+   std::string sLastRequestID;
+   IO2GRequestFactory *requestFactory = session-&gt;getRequestFactory();
+   if (requestFactory)
+   {
+       IO2GValueMap *valuemap = requestFactory-&gt;createValueMap();
+ 
+       valuemap-&gt;setString(Command, O2G2::Commands::CreateOrder);
+       valuemap-&gt;setString(OrderType, O2G2::Orders::OpenLimit);
+       valuemap-&gt;setString(AccountID, sAccountID.c_str());
+       valuemap-&gt;setString(OfferID, sOfferID.c_str());
+       valuemap-&gt;setString(BuySell, sBuySell.c_str());
+       valuemap-&gt;setDouble(Rate, dAskRate);
+       valuemap-&gt;setInt(Amount, iAmount);
+ 
+       IO2GRequest *request = requestFactory-&gt;createOrderRequest(valuemap);
+       valuemap-&gt;release();
+ 
+       ResponseListener *responseListener = new ResponseListener(session);
+       sLastRequestID = request-&gt;getRequestID();
+       responseListener-&gt;setRequest(sLastRequestID.c_str());
+       session-&gt;subscribeResponse(responseListener);
+ 
+       session-&gt;sendRequest(request);
+   }
+</code></pre><p><code>RequestID</code> should be saved. It is necessary to monitor the order creation.</p>
+<p></p>
+<h4>1.2.    Process Request Response</h4>
+<p>After sending a request for an order creation to the server, process results of request execution. Possible results are as follows:</p><ul class="main">
+  <li><p><b>Request completed</b><br>
+It means that the order has been validated and accepted.
+Actually, the <a href="IO2GResponseListener.onRequestCompleted.0.html"><code>onRequestCompleted</code></a> event does not mean that the order has been successfully executed.
+So you should monitor the execution of your order to know the results of the execution. <br>
+<b>Important:</b> The <a href="IO2GResponseListener.onRequestCompleted.0.html"><code>onRequestCompleted</code></a> event should not be used as the confirmation of an order creation.
+Instead, you should monitor appearance of the order in the <a href="IO2GOrdersTable.html"><code>Orders</code></a> table (see the &quot;Monitor Appearing Order in Orders Table&quot; section below).</p></li>
+  <li><p><b>Request failed</b><br>
+It means that the order has not passed the initial verification. For example, an incorrect account was specified, there is insufficient margin, etc.</p></li>
+</ul><p>To process notifications about the request response, an instance of the class implementing the <a href="IO2GResponseListener.html"><code>IO2GResponseListener</code></a> interface should be subscribed to a session object by using the <a href="IO2GSession.subscribeResponse.html"><code>subscribeResponse</code></a> method. To process notifications about request failures, you should use the <a href="IO2GResponseListener.onRequestFailed.0.html"><code>IO2GResponseListener.onRequestFailed</code></a> method. <br>
+Below is an example of the <a href="IO2GResponseListener.html"><code>IO2GResponseListener</code></a> interface implementation.</p><pre class="example">void ResponseListener::onRequestCompleted(const char *requestId, IO2GResponse  *response)
+{
+     //the method should not be used as the confirmation of an order creation
+}
+ 
+/** Request execution failed data handler. */
+void ResponseListener::onRequestFailed(const char *requestId , const char *error)
+{
+    std::cout &lt;&lt; &quot;Request failed. ID: &quot; &lt;&lt; requestId &lt;&lt; &quot; : &quot; &lt;&lt; error &lt;&lt; std::endl;
+    if (requestId != 0 &amp;&amp; mRequestID.length() &gt; 0 &amp;&amp; strcmp(requestId, mRequestID.c_str()) == 0)
+    {
+        mSuccess = false;
+        uni::SetEvent(mResponseEvent);
+    }
+}
+ 
+/** Request update data received data handler. */
+void ResponseListener::onTablesUpdates(IO2GResponse *data)
+{
+      //the method should be implemented when table manager is not used!
+}
+</pre><p></p>
+<h4>1.3.    Result of Request Execution: Order and Trade</h4>
+<p>When the order is created, it appears in the <a href="IO2GOrdersTable.html"><code>Orders</code></a> table. It stays in the table until it is executed. When the order is executed, a position is opened and appears in the <a href="IO2GTradesTable.html"><code>Trades</code></a> table. To monitor the appearance the order and the trade in the tables, it is necessary to subscribe to table events.</p>
+<p></p>
+<h5>1.3.1.  How to Subscribe to Table Events</h5>
+<p>There are two ways to subscribe for table events:</p><ul class="main">
+  <li><p><b>OnTableUpdates</b><br>
+You should handle table updates in the <a href="IO2GResponseListener.onTablesUpdates.0.html"><code>onTablesUpdates()</code></a> method by implementing the <a href="IO2GResponseListener.html"><code>IO2GResponseListener</code></a> interface.<br>
+You should create an instance of the <a href="IO2GTablesUpdatesReader.html"><code>IO2GTablesUpdatesReader</code></a> class by using <a href="IO2GResponseReaderFactory.html"><code>IO2GResponseReaderFactory</code></a>.</p></li>
+  <li><p><b>TableListener</b><br>
+Create a table listener class that implements the <a href="IO2GTableListener.html"><code>IO2GTableListener</code></a> interface. Then create an object of that class and subscribe the table listener object to a table event. For details, please read &quot;How to use table manager in ForexConnect API&quot;.<br>
+You should subscribe to the following events: <a href="IO2GTableListener.onAdded.html"><code>onAdded</code></a> (onOrderAdded) for the <a href="IO2GOrdersTable.html"><code>orders</code></a> table, <a href="IO2GTableListener.onAdded.html"><code>onAdded</code></a> (onTradeAdded) for the <a href="IO2GTradesTable.html"><code>trades</code></a> table.</p></li>
+</ul><p></p>
+<h5>1.3.2.  How to Monitor Appearance of Order in Orders Table</h5>
+<p>As it has been said above, the <a href="IO2GResponseListener.onRequestCompleted.0.html"><code>onRequestCompleted</code></a> event cannot be used as the confirmation of the order creation. You should check if the order is actually added to the Orders table. To do so, check <code>OnOrderAdded</code> events for the <a href="IO2GOrdersTable.html"><code>Orders</code></a> table. You should make sure that the event satisfies the following criteria:</p><ul class="main">
+  <li><p>The <a href="IO2GOrderRow.getRequestID.html"><code>RequestID</code></a> order field must be the same as the <code>RequestID</code> of the order request you have sent;</p></li>
+  <li><p>The <a href="IO2GOrderRow.getType.html"><code>Type</code></a> order field must be  the same as the type of your order. It is important because the table can contain several orders with the same RequestID. For example, if a market order with stop and limit orders attached is created, the table contains several orders with the same <code>RequestID</code>. So you should use the <a href="IO2GOrderRow.getType.html"><code>Type</code></a> field to uniquely identify the order.</p></li>
+</ul><p>Once you get such an event, you should retrieve <a href="IO2GOrderRow.getOrderID.html"><code>OrderID</code></a>. <code>OrderID</code> is necessary to monitor further order execution.</p>
+<p></p>
+<h5>1.3.3.  How to Monitor Appearance of Position in Trades Table</h5>
+<p>To monitor appearance of a position in the <a href="IO2GTradesTable.html"><code>Trades</code></a> table, check <code>onTradeAdded</code> events for the <a href="IO2GTradesTable.html"><code>Trades</code></a> table.
+When the event occurs, it is necessary to check that the added trade is opened by your order. To do so, make sure that the <a href="IO2GTradeRow.getOpenOrderID.html"><code>OpenOrderID</code></a> field of the added trade is the same as the <code>OrderID</code> of your order.</p>
+<p></p>
+<h4>1.4.    Order Rejection</h4>
+<p>Sometimes there is no liquidity on the market. It may lead to failure to fill an order and consequently to the order rejection. There is also possible a case when the market price significantly moves away from the order price. For the Open Range and the Open Limit orders, it may also lead to the order rejection.<br>
+In case of rejection, a rejection message will appear in the Messages table. <br>
+To process this case, it is necessary to monitor <a href="IO2GTableListener.onAdded.html"><code>onAdded</code></a> (onMessageAdded) events. To make sure that an <code>onMessageAdded</code> event occurs for your order, it is necessary to check that the <a href="IO2GMessageRow.getFeature.html"><code>Feature</code></a> field of the message is the same as &quot;Market conditions&quot; and the message <a href="IO2GMessageRow.getText.html"><code>text</code></a> contains your <code>OrderID</code>.</p>
+<p></p>
+<h3>1.5.    Diagram and Sample for Processing Happy Day Case</h3>
+<p>Below is the state machine diagram that demonstrates what events should be processed to monitor the creation and the execution of an order and what actions should be performed depending on the order status.<br>
+<img src="img/open-order-happyday.png"><br></p>
+<p>Below is an example of the diagram implementation.</p><div id="open60" style="display:inline">
+  <p>&nbsp;<a href="javascript: showdiv('close60'); hidediv('open60');" onclick="javascript: showdiv('close60'); hidediv('open60');">[show]</a></p>
+</div>
+<div id="close60" style="display:none">
+  <p>&nbsp;<a href="javascript: showdiv('open60'); hidediv('close60');" onclick="javascript: showdiv('open60'); hidediv('close60');">[hide]</a></p>
+  <pre class="example"><code>
+ <b>OpenOrderMonitor.h</b>
+ 
+#pragma once
+ 
+bool isOpeningOrder(IO2GOrderRow *order);
+bool isClosingOrder(IO2GOrderRow *order);
+/** Helper class for monitoring creation open positions using a open order.
+    On no dealing desk more than one position can be create. It is depends on
+    liquidity on forex market, The class stores all open positions
+*/
+class OrderMonitor
+{
+ public:
+    enum ExecutionResult
+    {
+        Executing,
+        Executed,
+        PartialRejected,
+        FullyRejected,
+        Canceled
+    };
+ 
+ 
+    OrderMonitor(IO2GOrderRow *order);
+    ~OrderMonitor();
+    void onTradeAdded(IO2GTradeRow* traderRow);
+    void onOrderDeleted(IO2GOrderRow *order);
+    void onMessageAdded(IO2GMessageRow *message);
+ 
+    ExecutionResult getResult();
+    bool isOrderCompleted();
+    IO2GOrderRow *getOrder();
+    int getRejectAmount();
+    void getTrade(IO2GTradeRow* &amp;trade);
+    std::string getRejectMessage();
+ private:
+    enum OrderState
+    {
+        OrderExecuting,
+        OrderExecuted,
+        OrderCanceled,
+        OrderRejected
+    };
+    /** Set result.*/
+    void setResult(bool success);
+    bool isAllTradeReceived();
+    bool checkAndStoreMessage(IO2GMessageRow *message);
+    OrderState mState;
+    std::string mRejectMessage;
+    IO2GTradeRow* mTrade;
+    int mTotal;
+    IO2GOrderRow* mOrder;
+    ExecutionResult mResult;
+    int mRejectAmount;
+};
+ 
+ 
+ <b>OpenOrderMonitor.cpp</b>
+ 
+#include &quot;stdafx.h&quot;
+#include &quot;OrderMonitor.h&quot;
+ 
+#define MarketCondition &quot;5&quot;
+bool isOpeningOrder(IO2GOrderRow *order)
+{
+    const char* type = order-&gt;getType();
+    return type[0] == 'O';
+}
+bool isClosingOrder(IO2GOrderRow *order)
+{
+    const char* type = order-&gt;getType();
+    return type[0] == 'C';
+}
+ 
+ 
+OrderMonitor::OrderMonitor(IO2GOrderRow *order)
+{
+    mOrder = order;
+    mOrder-&gt;addRef();
+    mRejectAmount = 0;
+    mState = OrderExecuting;
+    mResult = Executing;
+    mTrade = NULL;
+    mRejectAmount = 0;
+}
+ 
+OrderMonitor::~OrderMonitor()
+{
+    mTrade-&gt;release();
+    mOrder-&gt;release();
+}
+ 
+OrderMonitor::ExecutionResult OrderMonitor::getResult()
+{
+    return mResult;
+}
+ 
+void OrderMonitor::onTradeAdded(IO2GTradeRow* tradeRow)
+{
+    std::string tradeOrderID = tradeRow-&gt;getOpenOrderID();
+    std::string orderID = mOrder-&gt;getOrderID();
+    if (tradeOrderID == orderID)
+    {
+        mTrade = tradeRow;
+        mTrade-&gt;addRef();
+ 
+        if (mState == OrderExecuted ||
+            mState == OrderRejected ||
+            mState == OrderCanceled)
+        {
+            setResult(true);
+        }
+    }
+}
+ 
+void OrderMonitor::onOrderDeleted(IO2GOrderRow *order)
+{
+    std::string deletedOrderID = order-&gt;getOrderID();
+    std::string orderID = mOrder-&gt;getOrderID();
+ 
+ 
+    if (deletedOrderID == orderID)
+    {
+        if (*(order-&gt;getStatus()) == 'R')
+        {
+            mState = OrderRejected;
+            mRejectAmount = order-&gt;getAmount();
+ 
+            if (!mRejectMessage.empty())
+                setResult(true);
+        }
+        else if (*(order-&gt;getStatus()) == 'C')
+        {
+            mState = OrderCanceled;
+            mRejectAmount = order-&gt;getAmount();
+            setResult(false);
+        }
+        else
+        {
+            mRejectAmount = 0;
+            mState = OrderExecuted;
+            setResult(true);
+        }
+    }
+ 
+}
+ 
+void OrderMonitor::onMessageAdded(IO2GMessageRow *message)
+{
+    if (mState == OrderRejected ||
+        mState == OrderExecuting)
+    {
+        bool isRejectMessage = checkAndStoreMessage(message);
+        if (mState == OrderRejected &amp;&amp; isRejectMessage)
+            setResult(true);
+    }
+}
+ 
+bool OrderMonitor::checkAndStoreMessage(IO2GMessageRow *message)
+{
+    std::string feature;
+    feature = message-&gt;getFeature();
+    if (feature == MarketCondition)
+    {
+        std::string text = message-&gt;getText();
+        size_t findPos = text.find(mOrder-&gt;getOrderID());
+        if (findPos != std::string::npos)
+        {
+            mRejectMessage = message-&gt;getText();
+            return true;
+        }
+    }
+    return false;
+}
+ 
+IO2GOrderRow *OrderMonitor::getOrder()
+{
+    if (mOrder)
+        mOrder-&gt;addRef();
+    return mOrder;
+}
+/** */
+void OrderMonitor::getTrade(IO2GTradeRow* &amp;trade)
+{
+    if (mTrade)
+        mTrade-&gt;addRef();
+    trade = mTrade;
+}
+ 
+std::string OrderMonitor::getRejectMessage()
+{
+    return mRejectMessage;
+}
+ 
+void OrderMonitor::setResult(bool success)
+{
+    if (success)
+    {
+        if (mRejectAmount == 0)
+            mResult = Executed;
+        else
+        {
+            if (mTrade &amp;&amp; mTrade-&gt;getAmount() != 0)
+                mResult = PartialRejected;
+            else
+                mResult = FullyRejected;
+        }
+    }
+    else
+        mResult = Canceled;
+}
+ 
+bool OrderMonitor::isOrderCompleted()
+{
+    return mResult != Executing;
+}
+ 
+int OrderMonitor::getRejectAmount()
+{
+    return mRejectAmount;
+}
+ 
+</code></pre>
+</div><p>An example on how to subscribe the order monitor by using <a href="IO2GResponseListener.onTablesUpdates.0.html"><code>onTableUpdates</code></a> is given below.</p><div id="open61" style="display:inline">
+  <p>&nbsp;<a href="javascript: showdiv('close61'); hidediv('open61');" onclick="javascript: showdiv('close61'); hidediv('open61');">[show]</a></p>
+</div>
+<div id="close61" style="display:none">
+  <p>&nbsp;<a href="javascript: showdiv('open61'); hidediv('close61');" onclick="javascript: showdiv('open61'); hidediv('close61');">[hide]</a></p>
+  <pre class="example"><code>
+ <b>ResponseListener.h</b>
+ 
+#pragma once
+ 
+/** Response listener class. */
+class OfferCollection;
+class Offer;
+class OrderMonitor;
+ 
+class ResponseListener : public IO2GResponseListener
+{
+ protected:
+    /** Destructor. */
+    virtual ~ResponseListener();
+ 
+    /** Print offer to the console. */
+    void printOffer(Offer *offer);
+ 
+    /** Format date to print */
+    void formatDate(DATE d, std::string &amp;buf);
+ 
+ public:
+    ResponseListener(IO2GSession *session);
+ 
+    /** Increase reference counter. */
+    virtual long addRef();
+ 
+    /** Decrease reference counter. */
+    virtual long release();
+ 
+    /** Set request. */
+    void setRequest(const char *requestId);
+ 
+    /** Request execution completed data handler. */
+    virtual void onRequestCompleted(const char * requestId, IO2GResponse  *response = 0);
+ 
+    /** Request execution failed data handler. */
+    virtual void onRequestFailed(const char *requestId , const char *error);
+ 
+    /** Request update data received data handler. */
+    virtual void onTablesUpdates(IO2GResponse *data);
+ 
+    bool getRequestSuccess()
+    {
+        return mSuccess;
+    }
+ 
+    HANDLE getResponseEvent()
+    {
+        return mResponseEvent;
+    };
+ 
+    HANDLE getUpdateEvent()
+    {
+        return mUpdateEvent;
+    }
+ private:
+    void printResult();
+    void printTrade(IO2GTradeRow *trade, std::string &amp;orderID);
+ 
+    void checkResultAndNotify();
+    OrderMonitor *mOrderMonitor;
+ 
+    long mRefCount;
+    /** Session object. */
+    IO2GSession *mSession;
+    /** Request we are waiting for. */
+    std::string mRequestID;
+    /** Response Event handle. */
+    HANDLE mResponseEvent;
+    /** Update Event handle. */
+    HANDLE mUpdateEvent;
+    /** State of last request. */
+    bool mSuccess;
+};
+ 
+ 
+ <b>ResponseListener.cpp</b>
+ 
+#include &quot;stdafx.h&quot;
+#include &lt;string&gt;
+#include &quot;responselistener.h&quot;
+#include &quot;OrderMonitor.h&quot;
+ 
+ 
+ResponseListener::ResponseListener(IO2GSession *session)
+{
+    mSession = session;
+    mSession-&gt;addRef();
+    mSuccess = false;
+    mRefCount = 1;
+    mResponseEvent = uni::CreateEvent(0, FALSE, FALSE, 0);
+    mUpdateEvent = uni::CreateEvent(0, FALSE, FALSE, 0);
+    mOrderMonitor = NULL;
+}
+ 
+ResponseListener::~ResponseListener()
+{
+    if (mOrderMonitor)
+        delete mOrderMonitor;
+    mSession-&gt;release();
+    uni::CloseHandle(mResponseEvent);
+    uni::CloseHandle(mUpdateEvent);
+}
+ 
+/** Increase reference counter. */
+long ResponseListener::addRef()
+{
+    return InterlockedIncrement(&amp;mRefCount);
+}
+ 
+/** Decrease reference counter. */
+long ResponseListener::release()
+{
+    long rc = InterlockedDecrement(&amp;mRefCount);
+    if (rc == 0)
+        delete this;
+    return rc;
+}
+ 
+/** Set request. */
+void ResponseListener::setRequest(const char *requestId)
+{
+    mRequestID = requestId;
+    uni::ResetEvent(mResponseEvent);
+    uni::ResetEvent(mUpdateEvent);
+    mSuccess = false;
+}
+ 
+/** Request execution completed data handler. */
+void ResponseListener::onRequestCompleted(const char *requestId, IO2GResponse  *response)
+{
+    if (response != 0)
+    {
+        if (response-&gt;getType() == CreateOrderResponse &amp;&amp; mRequestID == requestId)
+        {
+            std::cout &lt;&lt; &quot;Request complete. ID: &quot; &lt;&lt; requestId &lt;&lt; std::endl;
+            mSuccess = true;
+            uni::SetEvent(mResponseEvent);
+        }
+    }
+}
+ 
+/** Request execution failed data handler. */
+void ResponseListener::onRequestFailed(const char *requestId , const char *error)
+{
+    std::cout &lt;&lt; &quot;Request failed. ID: &quot; &lt;&lt; requestId &lt;&lt; &quot; : &quot; &lt;&lt; error &lt;&lt; std::endl;
+    if (requestId != 0 &amp;&amp; mRequestID.length() &gt; 0 &amp;&amp; strcmp(requestId, mRequestID.c_str()) == 0)
+    {
+        mSuccess = false;
+        uni::SetEvent(mResponseEvent);
+        uni::SetEvent(mUpdateEvent);
+    }
+}
+ 
+void ResponseListener::checkResultAndNotify()
+{
+    if (mOrderMonitor-&gt;isOrderCompleted())
+    {
+        printResult();
+        uni::SetEvent(mUpdateEvent);
+    }
+}
+/** Request update data received data handler. */
+void ResponseListener::onTablesUpdates(IO2GResponse *data)
+{
+    if (data)
+    {
+        IO2GResponseReaderFactory *factory = mSession-&gt;getResponseReaderFactory();
+        IO2GTablesUpdatesReader *reader = factory-&gt;createTablesUpdatesReader(data);
+        if (reader)
+        {
+            for (int i = 0; i &lt; reader-&gt;size(); ++i)
+            {
+                switch (reader-&gt;getUpdateTable(i))
+                {
+                case  Orders:
+                {
+                    O2G2Ptr&lt;IO2GOrderRow&gt; orderRow = reader-&gt;getOrderRow(i);
+                    if (mRequestID != orderRow-&gt;getRequestID())
+                        break;
+                    if (reader-&gt;getUpdateType(i) == Insert)
+                    {
+                        if ((isClosingOrder(orderRow) || isOpeningOrder(orderRow)) &amp;&amp;
+                            mOrderMonitor == NULL)
+                        {
+                            std::cout &lt;&lt; &quot;The order has been added. Order ID: &quot; &lt;&lt; orderRow-&gt;getOrderID()
+                            &lt;&lt; &quot; Rate: &quot; &lt;&lt; orderRow-&gt;getRate()
+                            &lt;&lt; &quot; Time In Force:&quot; &lt;&lt;  orderRow-&gt;getTimeInForce() &lt;&lt; std::endl;
+ 
+                            mOrderMonitor = new OrderMonitor(orderRow);
+                        }
+                    }
+                    else if (reader-&gt;getUpdateType(i) == Delete)
+                    {
+                        std::cout &lt;&lt; &quot;The order has been deleted. Order ID: &quot; &lt;&lt; orderRow-&gt;getOrderID() &lt;&lt; std::endl;
+                        if (mOrderMonitor)
+                        {
+                            mOrderMonitor-&gt;onOrderDeleted(orderRow);
+                            checkResultAndNotify();
+                        }
+                    }
+                }
+                break;
+                case Trades:
+                {
+                    if (reader-&gt;getUpdateType(i) == Insert)
+                    {
+                        IO2GTradeRow *tradeRow = reader-&gt;getTradeRow(i);
+                        if (mOrderMonitor)
+                        {
+                            mOrderMonitor-&gt;onTradeAdded(tradeRow);
+                            checkResultAndNotify();
+                        }
+                    }
+                }
+                break;
+                case Messages:
+                {
+                    if (reader-&gt;getUpdateType(i) == Insert)
+                    {
+                        IO2GMessageRow *messageRow = reader-&gt;getMessageRow(i);
+                        if (mOrderMonitor)
+                        {
+                            mOrderMonitor-&gt;onMessageAdded(messageRow);
+                            checkResultAndNotify();
+                        }
+                    }
+                }
+                break;
+              }
+            }
+            reader-&gt;release();
+        }
+        factory-&gt;release();
+    }
+}
+ 
+void ResponseListener::printResult()
+{
+    if (mOrderMonitor)
+    {
+        OrderMonitor::ExecutionResult result = mOrderMonitor-&gt;getResult();
+        IO2GTradeRow *trade;
+        O2G2Ptr&lt;IO2GOrderRow&gt; order = mOrderMonitor-&gt;getOrder();
+        std::string orderID = order-&gt;getOrderID();
+        mOrderMonitor-&gt;getTrade(trade);
+ 
+        switch (result)
+        {
+            case OrderMonitor::Canceled:
+            {
+                if (trade != NULL)
+                {
+                    printTrade(trade, orderID);
+                    std::cout &lt;&lt; &quot;A part of the order has been canceled.&quot; &lt;&lt; &quot;Amount = &quot; &lt;&lt; mOrderMonitor-&gt;getRejectAmount() &lt;&lt; std::endl;
+                }
+                else
+                {
+                    std::cout &lt;&lt; &quot;The order: OrderID = &quot; &lt;&lt; orderID &lt;&lt; &quot; has been canceled.&quot;  &lt;&lt; std::endl;
+                    std::cout &lt;&lt; &quot;The cancel amount = &quot; &lt;&lt; mOrderMonitor-&gt;getRejectAmount() &lt;&lt; &quot;.&quot; &lt;&lt; std::endl;
+                }
+            }
+            break;
+            case OrderMonitor::FullyRejected:
+            {
+                std::cout &lt;&lt; &quot;The order has been rejected. OrderID = &quot; &lt;&lt; orderID &lt;&lt; std::endl;
+                std::cout &lt;&lt; &quot;The rejected amount = &quot; &lt;&lt; mOrderMonitor-&gt;getRejectAmount() &lt;&lt; std::endl;;
+                std::cout &lt;&lt; &quot;Rejection cause:  &quot; &lt;&lt; mOrderMonitor-&gt;getRejectMessage() &lt;&lt; std::endl;
+            }
+            break;
+            case OrderMonitor::Executed:
+                printTrade(trade, orderID);
+            break;
+        }
+    }
+}
+ 
+void ResponseListener::printTrade(IO2GTradeRow* trade, std::string &amp;orderID)
+{
+    if (trade == NULL)
+        return;
+    std::cout &lt;&lt; &quot;For the order: OrderID = &quot; &lt;&lt; orderID &lt;&lt; &quot; the following position has been opened: &quot;  &lt;&lt; std::endl;
+ 
+    std::string tradeID = trade-&gt;getTradeID();
+    int amount = trade-&gt;getAmount();
+    double rate = trade-&gt;getOpenRate();
+    std::cout &lt;&lt; &quot;Trade ID: &quot; &lt;&lt;  tradeID &lt;&lt; &quot;; Amount: &quot; &lt;&lt; amount &lt;&lt; &quot;; Rate: &quot; &lt;&lt; rate &lt;&lt; std::flush &lt;&lt; std::endl;
+}
+ 
+</code></pre>
+</div><p>An example on how to subscribe the order monitor by using <a href="IO2GTableListener.html"><code>TableListener</code></a> can be found below.</p><div id="open62" style="display:inline">
+  <p>&nbsp;<a href="javascript: showdiv('close62'); hidediv('open62');" onclick="javascript: showdiv('close62'); hidediv('open62');">[show]</a></p>
+</div>
+<div id="close62" style="display:none">
+  <p>&nbsp;<a href="javascript: showdiv('open62'); hidediv('close62');" onclick="javascript: showdiv('open62'); hidediv('close62');">[hide]</a></p>
+  <pre class="example"><code>
+<b>TableListener.h</b>
+#pragma once
+ 
+ 
+class OrderMonitor;
+class TableListener :
+    public IO2GTableListener
+{
+public:
+    long addRef(void);
+    long release();
+    void onStatusChanged(O2GTableStatus);
+    void onAdded(const char *,IO2GRow *);
+    void onChanged(const char *,IO2GRow *);
+    void onDeleted(const char *,IO2GRow *);
+ 
+    void setRequest(const char *requestID )
+    {
+        mRequestID = requestID;
+    };
+    TableListener(void);
+    HANDLE getEvent();
+    ~TableListener(void);
+private:
+    void printResult();
+    void printTrade(IO2GTradeRow *trades, std::string &amp;orderID);
+    HANDLE mEvent;
+    long mRef;
+    std::string mRequestID;
+    OrderMonitor *mOrderMonitor;
+ 
+};
+ 
+void subscribeTableListener(IO2GTableManager *manager, IO2GTableListener *listener);
+void unsubscribeTableListener(IO2GTableManager *manager, IO2GTableListener *listener);
+ 
+<b>TableListener.cpp</b>
+#include &quot;stdafx.h&quot;
+#include &quot;OrderMonitor.h&quot;
+#include &quot;tablelistener.h&quot;
+ 
+TableListener::TableListener(void)
+{
+    mEvent = uni::CreateEvent(0, FALSE, FALSE, 0);
+    mRef = 1;
+    mOrderMonitor = NULL;
+}
+ 
+TableListener::~TableListener(void)
+{
+    uni::CloseHandle(mEvent);
+}
+ 
+long TableListener::addRef()
+{
+    return InterlockedIncrement(&amp;mRef);
+}
+ 
+long TableListener::release()
+{
+    InterlockedDecrement(&amp;mRef);
+    if(mRef == 0)
+        delete this;
+    return mRef;
+}
+ 
+HANDLE TableListener::getEvent()
+{
+    return mEvent;
+}
+ 
+void TableListener::onStatusChanged(O2GTableStatus status)
+{
+}
+ 
+void TableListener::onAdded(const char *rowID, IO2GRow *row)
+{
+ 
+    O2GTable type = row-&gt;getTableType();
+    switch(type)
+    {
+    case Orders:
+    {
+        IO2GOrderRow *orderRow = static_cast&lt;IO2GOrderRow *&gt;(row);
+        if( mRequestID == orderRow-&gt;getRequestID() &amp;&amp;
+            (isClosingOrder(orderRow) || isOpeningOrder(orderRow)))
+        {
+            std::cout &lt;&lt; &quot;The order has been added. Order ID: &quot; &lt;&lt; orderRow-&gt;getOrderID()
+                      &lt;&lt; &quot; Rate: &quot; &lt;&lt; orderRow-&gt;getRate()
+                      &lt;&lt; &quot; Time In Force:&quot; &lt;&lt;  orderRow-&gt;getTimeInForce() &lt;&lt; std::endl;
+            mOrderMonitor = new OrderMonitor(orderRow);
+        }
+    }
+    break;
+    case Trades:
+    {
+        IO2GTradeRow *tradeRow = static_cast&lt;IO2GTradeRow *&gt;(row);
+        if (mOrderMonitor)
+        {
+            mOrderMonitor-&gt;onTradeAdded(tradeRow);
+            if (mOrderMonitor-&gt;isOrderCompleted())
+            {
+                printResult();
+                uni::SetEvent(mEvent);
+            }
+        }
+    }
+    break;
+    case Messages:
+    {
+        IO2GMessageRow *messageRow = static_cast&lt;IO2GMessageRow *&gt;(row);
+        if (mOrderMonitor)
+        {
+            mOrderMonitor-&gt;onMessageAdded(messageRow);
+            if (mOrderMonitor-&gt;isOrderCompleted())
+            {
+                printResult();
+                uni::SetEvent(mEvent);
+            }
+        }
+    }
+    break;
+    }
+ 
+}
+ 
+void TableListener::onChanged(const char *rowID, IO2GRow *row)
+{
+    O2GTable type = row-&gt;getTableType();
+    if (type == Accounts)
+    {
+        IO2GAccountTableRow *account = (IO2GAccountTableRow*)row;
+        std::cout.precision(2);
+        std::cout &lt;&lt; &quot;The balance has been changed AccountID=&quot; &lt;&lt; account-&gt;getAccountID() &lt;&lt;
+                      &quot; Balance=&quot; &lt;&lt; std::fixed &lt;&lt; account-&gt;getBalance() &lt;&lt;
+                      &quot; Equity=&quot; &lt;&lt; std::fixed &lt;&lt; account-&gt;getEquity() &lt;&lt; std::endl;
+        std::cout.precision(5);
+    }
+ 
+}
+ 
+void TableListener::onDeleted(const char *rowID, IO2GRow *row)
+{
+    IO2GOrderRow *orderRow = static_cast&lt;IO2GOrderRow *&gt;(row);
+    if( mRequestID == orderRow-&gt;getRequestID() )
+    {
+        std::cout &lt;&lt; &quot;The order has been deleted. Order ID: &quot; &lt;&lt; orderRow-&gt;getOrderID() &lt;&lt; std::endl;
+        mOrderMonitor-&gt;onOrderDeleted(orderRow);
+        if (mOrderMonitor)
+        {
+            if (mOrderMonitor-&gt;isOrderCompleted())
+            {
+                printResult();
+                uni::SetEvent(mEvent);
+            }
+        }
+    }
+}
+ 
+void TableListener::printResult()
+{
+    if (mOrderMonitor)
+    {
+        OrderMonitor::ExecutionResult result = mOrderMonitor-&gt;getResult();
+        IO2GTradeRow *trade;
+        O2G2Ptr&lt;IO2GOrderRow&gt; order = mOrderMonitor-&gt;getOrder();
+        std::string orderID = order-&gt;getOrderID();
+        mOrderMonitor-&gt;getTrade(trade);
+ 
+        switch (result)
+        {
+            case OrderMonitor::Canceled:
+            {
+                if (trade != NULL)
+                {
+                    printTrade(trade, orderID);
+                    std::cout &lt;&lt; &quot;A part of the order has been canceled.&quot; &lt;&lt; &quot;Amount = &quot; &lt;&lt; mOrderMonitor-&gt;getRejectAmount() &lt;&lt; std::endl;
+                }
+                else
+                {
+                    std::cout &lt;&lt; &quot;The order: OrderID = &quot; &lt;&lt; orderID &lt;&lt; &quot; has been canceled.&quot;  &lt;&lt; std::endl;
+                    std::cout &lt;&lt; &quot;The cancel amount = &quot; &lt;&lt; mOrderMonitor-&gt;getRejectAmount() &lt;&lt; &quot;.&quot; &lt;&lt; std::endl;
+                }
+            }
+            break;
+            case OrderMonitor::FullyRejected:
+            {
+                std::cout &lt;&lt; &quot;The order has been rejected. OrderID = &quot; &lt;&lt; orderID &lt;&lt; std::endl;
+                std::cout &lt;&lt; &quot;The rejected amount = &quot; &lt;&lt; mOrderMonitor-&gt;getRejectAmount() &lt;&lt; std::endl;;
+                std::cout &lt;&lt; &quot;Rejection cause:  &quot; &lt;&lt; mOrderMonitor-&gt;getRejectMessage() &lt;&lt; std::endl;
+            }
+            break;
+            case OrderMonitor::Executed:
+                printTrade(trade, orderID);
+            break;
+        }
+    }
+}
+ 
+void TableListener::printTrade(IO2GTradeRow* trade, std::string &amp;orderID)
+{
+    if (trade == NULL)
+        return;
+    std::cout &lt;&lt; &quot;For the order: OrderID = &quot; &lt;&lt; orderID &lt;&lt; &quot; the following position has been opened: &quot;  &lt;&lt; std::endl;
+ 
+    std::string tradeID = trade-&gt;getTradeID();
+    int amount = trade-&gt;getAmount();
+    double rate = trade-&gt;getOpenRate();
+    std::cout &lt;&lt; &quot;Trade ID: &quot; &lt;&lt;  tradeID &lt;&lt; &quot;; Amount: &quot; &lt;&lt; amount &lt;&lt; &quot;; Rate: &quot; &lt;&lt; rate &lt;&lt; std::flush &lt;&lt; std::endl;
+}
+ 
+void subscribeTableListener(IO2GTableManager *manager, IO2GTableListener *listener)
+{
+    O2G2Ptr&lt;IO2GAccountsTable&gt; accountsTable = (IO2GMessagesTable*)manager-&gt;getTable(Messages);
+    O2G2Ptr&lt;IO2GTradesTable&gt; tradesTable = (IO2GTradesTable*)manager-&gt;getTable(Trades);
+    O2G2Ptr&lt;IO2GOrdersTable&gt; ordersTable = (IO2GOrdersTable *)manager-&gt;getTable(Orders);
+    O2G2Ptr&lt;IO2GMessagesTable&gt; messageTable = (IO2GMessagesTable*)manager-&gt;getTable(Messages);
+ 
+    accountsTable-&gt;subscirbeUpdate(Update, listener);
+    ordersTable-&gt;subscribeUpdate(Insert, listener);
+    ordersTable-&gt;subscribeUpdate(Delete, listener);
+    tradesTable-&gt;subscribeUpdate(Insert, listener);
+    messageTable-&gt;subscribeUpdate(Insert, listener);
+}
+ 
+void unsubscribeTableListener(IO2GTableManager *manager, IO2GTableListener *listener)
+{
+    O2G2Ptr&lt;IO2GAccountsTable&gt; accountsTable = (IO2GMessagesTable*)manager-&gt;getTable(Messages);
+    O2G2Ptr&lt;IO2GTradesTable&gt; tradesTable = (IO2GTradesTable*)manager-&gt;getTable(Trades);
+    O2G2Ptr&lt;IO2GOrdersTable&gt; ordersTable = (IO2GOrdersTable *)manager-&gt;getTable(Orders);
+    O2G2Ptr&lt;IO2GMessagesTable&gt; messageTable = (IO2GMessagesTable*)manager-&gt;getTable(Messages);
+    accountsTable-&gt;unsubscirbeUpdate(Update, listener);
+    ordersTable-&gt;unsubscribeUpdate(Insert, listener);
+    ordersTable-&gt;unsubscribeUpdate(Delete, listener);
+    tradesTable-&gt;unsubscribeUpdate(Insert, listener);
+    messageTable-&gt;unsubscribeUpdate(Insert, listener);
+}
+ 
+<b>ResponseListener.h</b>
+#include &quot;stdafx.h&quot;
+ 
+/** Response listener class. */
+class ResponseListener : public IO2GResponseListener
+{
+ private:
+    long mRefCount;
+    /** Session object. */
+    IO2GSession *mSession;
+    /** Response Event handle. */
+    HANDLE mEvent;
+    /** Request ID to wait. */
+    std::string mRequestID;
+    bool mCompleted;
+ protected:
+    /** Destructor. */
+    virtual ~ResponseListener();
+ 
+ public:
+    /** Constructor */
+    ResponseListener();
+    /** Increase reference counter. */
+    virtual long addRef();
+ 
+    /** Decrease reference counter. */
+    virtual long release();
+ 
+    /** Set request. */
+    void setRequest(const char *requestId);
+ 
+    /** Request execution completed data handler. */
+    virtual void onRequestCompleted(const char * requestId, IO2GResponse  *response = 0);
+ 
+    /** Request execution failed data handler. */
+    virtual void onRequestFailed(const char *requestId , const char *error);
+ 
+    /** Request update data received data handler. */
+    virtual void onTablesUpdates(IO2GResponse *data);
+    bool isRequestCompleted();
+    HANDLE getEvent()
+    {
+        return mEvent;
+    }
+};
+ 
+<b>ResponseListener.cpp</b>
+#include &quot;stdafx.h&quot;
+#include &quot;responselistener.h&quot;
+ 
+ResponseListener::ResponseListener()
+{
+    mRefCount = 1;
+    mEvent = uni::CreateEvent(0, FALSE, FALSE, 0);
+    mCompleted = true;
+}
+ 
+ResponseListener::~ResponseListener()
+{
+    uni::CloseHandle(mEvent);
+}
+ 
+/** Increase reference counter. */
+long ResponseListener::addRef()
+{
+    return InterlockedIncrement(&amp;mRefCount);
+}
+ 
+/** Decrease reference counter. */
+long ResponseListener::release()
+{
+    long rc = InterlockedDecrement(&amp;mRefCount);
+    if (rc == 0)
+        delete this;
+    return rc;
+}
+ 
+/** Set request. */
+void ResponseListener::setRequest(const char *requestId)
+{
+    mRequestID = requestId;
+}
+ 
+/** Request execution completed data handler. */
+void ResponseListener::onRequestCompleted(const char *requestId, IO2GResponse  *response)
+{
+    if (requestId &amp;&amp; mRequestID == requestId)
+    {
+        std::cout &lt;&lt; &quot;The request has been completed ID &quot; &lt;&lt; requestId &lt;&lt; std::endl;
+        mCompleted = true;
+        uni::SetEvent(mEvent);
+    }
+}
+ 
+/** Request execution failed data handler. */
+void ResponseListener::onRequestFailed(const char *requestId , const char *error)
+{
+    if (requestId &amp;&amp; mRequestID == requestId)
+    {
+        std::cout &lt;&lt; &quot;The request has been failed ID: &quot; &lt;&lt; requestId &lt;&lt; &quot; :&quot; &lt;&lt; error &lt;&lt; std::endl;
+        mCompleted = false;
+        uni::SetEvent(mEvent);
+    }
+}
+ 
+/** Request update data received data handler. */
+void ResponseListener::onTablesUpdates(IO2GResponse *data)
+{
+}
+bool ResponseListener::isRequestCompleted()
+{
+    return mCompleted;
+}
+
+
+</code></pre>
+</div><p></p>
+<h3>2.  What is Partial Execution</h3>
+<p></p>
+<h4>2.1.    No Dealing Desk</h4>
+<p>In the no dealing desk execution model, a broker passes on to his clients the best prices provided by one of the liquidity providers with a fixed mark-up for each currency pair. A broker relies on these external providers with regard to currency pricing. Although this model promotes efficiency and competition for market pricing, there are certain limitations on liquidity that can affect the final execution of an order.<br>
+A partial fill occurs when only a part of the order can be executed at the price requested due to the limited liquidity. The rest of the order will be filled at the next best available price or cancelled entirely depending on the order type (see the &quot;Order Time in Force&quot; section for details).<br>
+A partial fill is possible on Real accounts only.<br>
+Partial orders give a trader the opportunity to enter a part of the position instead of rejecting the entire order.</p>
+<p></p>
+<h4>2.2.    Order Time in Force</h4>
+<p>With different order types a trader has different time-in-force options that provide additional instructions on how long an order should remain active until it is executed or expires:</p><ul class="main">
+  <li><p>Fill Or Kill (FOK);</p></li>
+  <li><p>Immediate Or Cancel (IOC);</p></li>
+  <li><p>Good Till Cancelled (GTC);</p></li>
+  <li><p>Day (DAY);</p></li>
+  <li><p>Good Till Date (GTD).</p></li>
+</ul><p>Please see <a href="OrderStatuses.html">Orders State Machines</a> for the description of time-in-force options for different order types.
+An order with the <code>GTC</code> and the <code>IOC</code> time-in-force options can be executed partially. It means that one order may result in a number of positions opened/closed at different prices. A <code>GTC</code> order is filled in portions until it is completely executed. An <code>IOC</code> order is filled in portions to the maximum extent possible (until the liquidity pool dries up), the rest of the order is rejected. In case of partial closing, the system closes a position in the filled amount and opens a new position in the remaining amount. The system does so until the order is entirely filled (<code>GTC</code> orders) or the liquidity dries up (<code>IOC</code> orders).</p>
+<p></p>
+<h3>3.  Process Partial Execution</h3>
+<p>In case of partial filling, one order results in a number of positions opened at different prices. Depending on the order time in force, some part(s) of the order may also be rejected.<br>
+To monitor the partial execution, it is necessary to process the following events:</p><ul class="main">
+  <li><p><b>OnTradeAdded</b><br>
+The <a href="IO2GTradeRow.getOpenOrderID.html"><code>OpenOrderID</code></a> field of the added trade must be the same as the OrderID of your order.</p></li>
+  <li><p><b>OnMessageAdded</b><br>
+The <a href="IO2GMessageRow.getFeature.html"><code>Feature</code></a> field of the message must be the same as &quot;Market conditions&quot; and the message text must contain your OrderID.</p></li>
+</ul><p>To define whether or not the order execution is completed, you need to:</p><ul class="main">
+  <li><p>Process the <a href="IO2GTableListener.onDeleted.html"><code>onDeleted</code></a> event of <a href="IO2GOrdersTable.html">Orders</a> table (further it will be referred as <code>onOrderDeleted</code> event). When the order execution is completed, the order is deleted. In case of deletion, the order status is 'F' if the order is filled completely and 'R' if the order is rejected completely or partially. If the order is filled completely, a new trade(s) is inserted in the Trades table. If the order is rejected completely or partially, a rejection message is inserted in the <a href="IO2GMessagesTable.html">Messages</a> table. The rejected amount is contained in the order amount field.<br>
+Note that the order deletion, the trade addition, and the message rejection notification can be received randomly.</p></li>
+  <li><p>Check if the total amount of resulting opened positions (including the amount of rejected order parts, if any) matches the amount of the order specified in the order request.</p></li>
+</ul><p></p>
+<h3>4.  All Variants of Order Execution</h3>
+<p>In addition to the described execution results (an opened position, a completely or partially rejected order), there is also possible a case when the order execution results in closure of the existing position(s).<br>
+This case is possible on accounts where hedging is not allowed. Note that hedging is not allowed on all the U.S. accounts. On such accounts, opening of a position for the symbol that already has an open position(s) of the opposite trade operation always causes closure of the open position(s). Note that if the amount of an open order exceeds the total amount of the currently opened positions on that symbol, the result of the order execution will be closure of the existing positions and opening of a new position in the rest of the amount. <br>
+For example, there are three long (buy) positions for EUR/USD totaling 50k. You create an open sell order in the amount of 70k for EUR/USD. The result of the order execution will be closure of the existing positions and opening of a new position in the amount of 20k. <br>
+To monitor the position(s) closure, it is necessary to check <a href="IO2GTableListener.onAdded.html"><code>onClosedTradeAdded</code></a> events. The <a href="IO2GClosedTradeRow.getCloseOrderID.html"><code>CloseOrderID</code></a> field of the closed trade must be the same as the <code>OrderID</code> of your order. <br></p>
+<p><br>
+Please see below the summary table of all possible variants of the order execution and execution results.</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Variant of Order Execution</p></td>
+    <td class="thdr"><p>Execution Result</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>An opened position</p></td>
+    <td class="tmain"><p>A new position will appear in the <a href="IO2GTradesTable.html"><code>Trades</code></a> table. The position amount must be equal to the amount specified in the order request.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>A closed position</p></td>
+    <td class="tmain"><p>A closed position will appear in the <a href="IO2GClosedTradesTable.html"><code>Closed Trades</code></a> table. The position amount must not be less than the amount specified in the order request.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>A partially opened/closed position</p></td>
+    <td class="tmain"><p>Either a new position will appear in the <a href="IO2GTradesTable.html"><code>Trades</code></a> table or a closed position will appear in the <a href="IO2GClosedTradesTable.html"><code>Closed Trades</code></a> table. The position amount must be less than the amount specified in the order request.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>A completely rejected order</p></td>
+    <td class="tmain"><p>A rejection message will appear in the <a href="IO2GMessagesTable.html"><code>Messages</code></a> table. An order with the &quot;<code>R</code>&quot; status will appear in the <a href="IO2GOrdersTable.html"><code>Orders</code></a> table.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>A partially rejected order</p></td>
+    <td class="tmain"><p>Either a new position will appear in the <a href="IO2GTradesTable.html"><code>Trades</code></a> table or a closed position will appear in the <a href="IO2GClosedTradesTable.html"><code>Closed Trades</code></a> table (depending on the account type).<br>
+A rejection message will appear in the <a href="IO2GMessagesTable.html"><code>Messages</code></a> table.</p></td>
+  </tr>
+</table><p>The state machine diagram below shows all possible execution variants and all events that must be processed to monitor the order execution. The diagram also shows what actions should be performed depending on the order status.<br>
+<img src="img/open-order-full.png"><br>
+Below is an example of the diagram implementation.</p><div id="open63" style="display:inline">
+  <p>&nbsp;<a href="javascript: showdiv('close63'); hidediv('open63');" onclick="javascript: showdiv('close63'); hidediv('open63');">[show]</a></p>
+</div>
+<div id="close63" style="display:none">
+  <p>&nbsp;<a href="javascript: showdiv('open63'); hidediv('close63');" onclick="javascript: showdiv('open63'); hidediv('close63');">[hide]</a></p>
+  <pre class="example"><code>
+<b>OrderMonitor.h</b>
+ 
+#pragma once
+ 
+bool isOpeningOrder(IO2GOrderRow *order);
+bool isClosingOrder(IO2GOrderRow *order);
+/** Helper class for monitoring creation open positions using a open order.
+    On no dealing desk more than one position can be create. It is depends on
+    liquidity on forex market, The class stores all opened and closed positions
+*/
+class OrderMonitor
+{
+ public:
+    enum ExecutionResult
+    {
+        Executing,
+        Executed,
+        PartialRejected,
+        FullyRejected,
+        Canceled
+    };
+ 
+ 
+    OrderMonitor(IO2GOrderRow *order);
+    ~OrderMonitor();
+    void onTradeAdded(IO2GTradeRow* traderRow);
+    void onOrderDeleted(IO2GOrderRow *order);
+    void onMessageAdded(IO2GMessageRow *message);
+    void onClosedTradeAdded(IO2GClosedTradeRow* closeTradeRow);
+ 
+    ExecutionResult getResult();
+    bool isOrderCompleted();
+    IO2GOrderRow *getOrder();
+    void getTrades(std::vector&lt;IO2GTradeRow*&gt; &amp;trades);
+    void getClosedTrades(std::vector&lt;IO2GClosedTradeRow*&gt; &amp;closedTrades);
+    int getRejectAmount();
+    std::string getRejectMessage();
+ private:
+    enum OrderState
+    {
+        OrderExecuting,
+        OrderExecuted,
+        OrderCanceled,
+        OrderRejected
+    };
+    /** Set result.*/
+    void setResult(bool success);
+    bool isAllTradeReceived();
+    bool checkAndStoreMessage(IO2GMessageRow *message);
+    OrderState mState;
+    std::string mRejectMessage;
+    std::vector&lt;IO2GTradeRow*&gt; mTrades;
+    std::vector&lt;IO2GClosedTradeRow*&gt; mClosedTrades;
+    int mTotalAmount;
+    int mRejectAmount;
+    IO2GOrderRow* mOrder;
+    ExecutionResult mResult;
+};
+ 
+<b>OrderMonitor.cpp</b>
+#include &quot;stdafx.h&quot;
+#include &quot;OrderMonitor.h&quot;
+ 
+#define MarketCondition &quot;5&quot;
+bool isOpeningOrder(IO2GOrderRow *order)
+{
+    const char* type = order-&gt;getType();
+    return type[0] == 'O';
+}
+bool isClosingOrder(IO2GOrderRow *order)
+{
+    const char* type = order-&gt;getType();
+    return type[0] == 'C';
+}
+ 
+ 
+OrderMonitor::OrderMonitor(IO2GOrderRow *order)
+{
+    mOrder = order;
+    mOrder-&gt;addRef();
+    mRejectAmount = 0;
+    mState = OrderExecuting;
+    mResult = Executing;
+}
+ 
+OrderMonitor::~OrderMonitor()
+{
+    for (size_t i = 0; i &lt; mTrades.size(); ++i)
+        mTrades[i]-&gt;release();
+    for (size_t i = 0; i &lt; mClosedTrades.size(); ++i)
+        mClosedTrades[i]-&gt;release();
+    mOrder-&gt;release();
+}
+ 
+OrderMonitor::ExecutionResult OrderMonitor::getResult()
+{
+    return mResult;
+}
+ 
+void OrderMonitor::onTradeAdded(IO2GTradeRow* tradeRow)
+{
+    std::string tradeOrderID= tradeRow-&gt;getOpenOrderID();
+    std::string orderID = mOrder-&gt;getOrderID();
+    if (tradeOrderID == orderID)
+    {
+        mTrades.push_back(tradeRow);
+ 
+        if (mState == OrderExecuted ||
+            mState == OrderRejected ||
+            mState == OrderCanceled)
+        {
+            if (isAllTradeReceived())
+                setResult(true);
+        }
+    }
+}
+ 
+ 
+ 
+void OrderMonitor::onClosedTradeAdded(IO2GClosedTradeRow* closedTradeRow)
+{
+    std::string orderID = mOrder-&gt;getOrderID();
+    std::string closedTradeOrderID = closedTradeRow-&gt;getCloseOrderID();
+    if (orderID == closedTradeOrderID)
+    {
+        mClosedTrades.push_back(closedTradeRow);
+ 
+        if (mState == OrderExecuted ||
+            mState == OrderRejected ||
+            mState == OrderCanceled)
+        {
+            if (isAllTradeReceived())
+                setResult(true);
+        }
+    }
+ }
+ 
+ 
+void OrderMonitor::onOrderDeleted(IO2GOrderRow *order)
+{
+    std::string deletedOrderID = order-&gt;getOrderID();
+    std::string orderID = mOrder-&gt;getOrderID();
+ 
+ 
+    if (deletedOrderID == orderID)
+    {
+        // Store Reject amount
+        if (*(order-&gt;getStatus()) == 'R')
+        {
+            mState = OrderRejected;
+            mRejectAmount = order-&gt;getAmount();
+            mTotalAmount = order-&gt;getOriginAmount() - mRejectAmount;
+ 
+            if (!mRejectMessage.empty() &amp;&amp; isAllTradeReceived())
+                setResult(true);
+        }
+        else if (*(order-&gt;getStatus()) == 'C')
+        {
+            mState = OrderCanceled;
+            mRejectAmount = order-&gt;getAmount();
+            mTotalAmount = order-&gt;getOriginAmount() - mRejectAmount;
+            if (isAllTradeReceived())
+                setResult(false);
+        }
+        else
+        {
+            mRejectAmount = 0;
+            mTotalAmount = order-&gt;getOriginAmount();
+            mState = OrderExecuted;
+            if (isAllTradeReceived())
+                setResult(true);
+        }
+    }
+ 
+}
+ 
+void OrderMonitor::onMessageAdded(IO2GMessageRow *message)
+{
+    if (mState == OrderRejected ||
+        mState == OrderExecuting)
+    {
+        bool isRejectMessage = checkAndStoreMessage(message);
+        if (mState == OrderRejected &amp;&amp; isRejectMessage)
+            setResult(true);
+    }
+}
+ 
+bool OrderMonitor::checkAndStoreMessage(IO2GMessageRow *message)
+{
+    std::string feature;
+    feature = message-&gt;getFeature();
+    if (feature == MarketCondition)
+    {
+        std::string text = message-&gt;getText();
+        size_t findPos = text.find(mOrder-&gt;getOrderID());
+        if (findPos != std::string::npos)
+        {
+            mRejectMessage = message-&gt;getText();
+            return true;
+        }
+    }
+    return false;
+}
+ 
+IO2GOrderRow *OrderMonitor::getOrder()
+{
+    mOrder-&gt;addRef();
+    return mOrder;
+}
+/** */
+void OrderMonitor::getTrades(std::vector&lt;IO2GTradeRow*&gt; &amp;trades)
+{
+    trades.clear();
+    trades.resize(mTrades.size());
+    std::copy(mTrades.begin(), mTrades.end(), trades.begin());
+    for (size_t i = 0; i &lt; mTrades.size(); ++i)
+        mTrades[i]-&gt;addRef();
+}
+ 
+void OrderMonitor::getClosedTrades(std::vector&lt;IO2GClosedTradeRow*&gt; &amp;closedTrades)
+{
+    closedTrades.clear();
+    closedTrades.resize(mClosedTrades.size());
+    std::copy(mClosedTrades.begin(), mClosedTrades.end(), closedTrades.begin());
+    for (size_t i = 0; i &lt; mClosedTrades.size(); ++i)
+        mClosedTrades[i]-&gt;addRef();
+}
+ 
+ 
+int OrderMonitor::getRejectAmount()
+{
+    return mRejectAmount;
+}
+ 
+std::string OrderMonitor::getRejectMessage()
+{
+    return mRejectMessage;
+}
+ 
+ 
+bool OrderMonitor::isAllTradeReceived()
+{
+    if (mState == Executing)
+        return false;
+    int currenTotalAmaount = 0;
+    for (size_t i = 0; i &lt; mTrades.size(); ++i)
+        currenTotalAmaount += mTrades[i]-&gt;getAmount();
+ 
+    for (size_t i = 0; i &lt; mClosedTrades.size(); ++i)
+        currenTotalAmaount += mClosedTrades[i]-&gt;getAmount();
+ 
+    return currenTotalAmaount == mTotalAmount;
+}
+ 
+void OrderMonitor::setResult(bool success)
+{
+    if (success)
+    {
+        if (mRejectAmount == 0)
+            mResult = Executed;
+        else
+            mResult = (mTrades.size() == 0 &amp;&amp; mClosedTrades.size()==0) ? FullyRejected : PartialRejected;
+    }
+    else
+        mResult = Canceled;
+}
+ 
+bool OrderMonitor::isOrderCompleted()
+{
+    return mResult !=  Executing;
+}
+
+</code></pre>
+</div><p>An example on how to subscribe the order monitor by using <a href="IO2GResponseListener.onTablesUpdates.0.html"><code>onTableUpdates</code></a> is provided below.</p><div id="open64" style="display:inline">
+  <p>&nbsp;<a href="javascript: showdiv('close64'); hidediv('open64');" onclick="javascript: showdiv('close64'); hidediv('open64');">[show]</a></p>
+</div>
+<div id="close64" style="display:none">
+  <p>&nbsp;<a href="javascript: showdiv('open64'); hidediv('close64');" onclick="javascript: showdiv('open64'); hidediv('close64');">[hide]</a></p>
+  <pre class="example"><code>
+<b>ResponseListener.h</b>
+/** Response listener class. */
+class OfferCollection;
+class Offer;
+class OrderMonitor;
+ 
+class ResponseListener : public IO2GResponseListener
+{
+ protected:
+    /** Destructor. */
+    virtual ~ResponseListener();
+ 
+    /** Print offer to the console. */
+    void printOffer(Offer *offer);
+ 
+    /** Format date to print */
+    void formatDate(DATE d, std::string &amp;buf);
+ 
+ public:
+    ResponseListener(IO2GSession *session);
+ 
+    /** Increase reference counter. */
+    virtual long addRef();
+ 
+    /** Decrease reference counter. */
+    virtual long release();
+ 
+    /** Set request. */
+    void setRequest(const char *requestId);
+ 
+    /** Request execution completed data handler. */
+    virtual void onRequestCompleted(const char * requestId, IO2GResponse  *response = 0);
+ 
+    /** Request execution failed data handler. */
+    virtual void onRequestFailed(const char *requestId , const char *error);
+ 
+    /** Request update data received data handler. */
+    virtual void onTablesUpdates(IO2GResponse *data);
+ 
+    bool getRequestSuccess()
+    {
+        return mSuccess;
+    }
+ 
+    HANDLE getResponseEvent()
+    {
+        return mResponseEvent;
+    };
+ 
+    HANDLE getUpdateEvent()
+    {
+        return mUpdateEvent;
+    }
+ private:
+    void printResult();
+    void printTrades(std::vector&lt;IO2GTradeRow*&gt; &amp;trades, std::string &amp;orderID);
+    void printClosedTrades(std::vector&lt;IO2GClosedTradeRow*&gt; &amp;trades, std::string &amp;orderID);
+ 
+    void checkResultAndNotify();
+    OrderMonitor *mOrderMonitor;
+ 
+    long mRefCount;
+    /** Session object. */
+    IO2GSession *mSession;
+    /** Request we are waiting for. */
+    std::string mRequestID;
+    /** Response Event handle. */
+    HANDLE mResponseEvent;
+    /** Update Event handle. */
+    HANDLE mUpdateEvent;
+    /** State of last request. */
+    bool mSuccess;
+};
+ 
+<b>ResponseListener.cpp</b>
+ 
+#include &quot;stdafx.h&quot;
+#include &lt;math.h&gt;
+#include &lt;time.h&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;map&gt;
+#include &quot;responselistener.h&quot;
+ 
+#include &lt;sstream&gt;
+#include &lt;iomanip&gt;
+#include &quot;OrderMonitor.h&quot;
+ 
+ 
+ResponseListener::ResponseListener(IO2GSession *session)
+{
+    mSession = session;
+    mSession-&gt;addRef();
+    mSuccess = false;
+    mRefCount = 1;
+    mResponseEvent = uni::CreateEvent(0, FALSE, FALSE, 0);
+    mUpdateEvent = uni::CreateEvent(0, FALSE, FALSE, 0);
+    mOrderMonitor = NULL;
+}
+ 
+ResponseListener::~ResponseListener()
+{
+    if (mOrderMonitor)
+        delete mOrderMonitor;
+    mSession-&gt;release();
+    uni::CloseHandle(mResponseEvent);
+    uni::CloseHandle(mUpdateEvent);
+}
+ 
+/** Increase reference counter. */
+long ResponseListener::addRef()
+{
+    return InterlockedIncrement(&amp;mRefCount);
+}
+ 
+/** Decrease reference counter. */
+long ResponseListener::release()
+{
+    long rc = InterlockedDecrement(&amp;mRefCount);
+    if (rc == 0)
+        delete this;
+    return rc;
+}
+ 
+/** Set request. */
+void ResponseListener::setRequest(const char *requestId)
+{
+    mRequestID = requestId;
+    uni::ResetEvent(mResponseEvent);
+    uni::ResetEvent(mUpdateEvent);
+    mSuccess = false;
+}
+ 
+/** Request execution completed data handler. */
+void ResponseListener::onRequestCompleted(const char *requestId, IO2GResponse  *response)
+{
+    if (response != 0)
+    {
+        if (response-&gt;getType() == CreateOrderResponse &amp;&amp; mRequestID == requestId)
+        {
+            std::cout &lt;&lt; &quot;Request complete. ID: &quot; &lt;&lt; requestId &lt;&lt; std::endl;
+            mSuccess = true;
+            uni::SetEvent(mResponseEvent);
+        }
+    }
+}
+ 
+/** Request execution failed data handler. */
+void ResponseListener::onRequestFailed(const char *requestId , const char *error)
+{
+    std::cout &lt;&lt; &quot;Request failed. ID: &quot; &lt;&lt; requestId &lt;&lt; &quot; : &quot; &lt;&lt; error &lt;&lt; std::endl;
+    if (requestId != 0 &amp;&amp; mRequestID.length() &gt; 0 &amp;&amp; strcmp(requestId, mRequestID.c_str()) == 0)
+    {
+        mSuccess = false;
+        uni::SetEvent(mResponseEvent);
+    }
+}
+ 
+void ResponseListener::checkResultAndNotify()
+{
+    if (mOrderMonitor-&gt;isOrderCompleted())
+    {
+        printResult();
+        uni::SetEvent(mUpdateEvent);
+    }
+}
+/** Request update data received data handler. */
+void ResponseListener::onTablesUpdates(IO2GResponse *data)
+{
+    if (data)
+    {
+        IO2GResponseReaderFactory *factory = mSession-&gt;getResponseReaderFactory();
+        IO2GTablesUpdatesReader *reader = factory-&gt;createTablesUpdatesReader(data);
+        if ( reader )
+        {
+            for ( int i = 0; i &lt; reader-&gt;size(); ++i )
+            {
+                switch (reader-&gt;getUpdateTable(i))
+                {
+                case  Orders:
+                {
+                    O2G2Ptr&lt;IO2GOrderRow&gt; orderRow = reader-&gt;getOrderRow(i);
+                    if (mRequestID != orderRow-&gt;getRequestID())
+                        break;
+                    if (reader-&gt;getUpdateType(i) == Insert)
+                    {
+                        if ((isClosingOrder(orderRow) || isOpeningOrder(orderRow)) &amp;&amp;
+                            mOrderMonitor == NULL)
+                        {
+                            std::cout &lt;&lt; &quot;The order has been added. Order ID: &quot; &lt;&lt; orderRow-&gt;getOrderID()
+                            &lt;&lt; &quot; Rate: &quot; &lt;&lt; orderRow-&gt;getRate()
+                            &lt;&lt; &quot; Time In Force:&quot; &lt;&lt;  orderRow-&gt;getTimeInForce() &lt;&lt; std::endl;
+ 
+                            mOrderMonitor = new OrderMonitor(orderRow);
+                        }
+                    }
+                    else if (reader-&gt;getUpdateType(i) == Delete)
+                    {
+                        std::cout &lt;&lt; &quot;The order has been deleted. Order ID: &quot; &lt;&lt; orderRow-&gt;getOrderID() &lt;&lt; std::endl;
+                        if (mOrderMonitor)
+                        {
+                            mOrderMonitor-&gt;onOrderDeleted(orderRow);
+                            checkResultAndNotify();
+                        }
+                    }
+                }
+                break;
+                case Trades:
+                {
+                    if (reader-&gt;getUpdateType(i) == Insert)
+                    {
+                        IO2GTradeRow *tradeRow = reader-&gt;getTradeRow(i);
+                        if (mOrderMonitor)
+                        {
+                            mOrderMonitor-&gt;onTradeAdded(tradeRow);
+                            checkResultAndNotify();
+                        }
+                    }
+                }
+                break;
+                case ClosedTrades:
+                    if (reader-&gt;getUpdateType(i) == Insert)
+                    {
+                        IO2GClosedTradeRow *closedTradeRow = reader-&gt;getClosedTradeRow(i);
+                        if (mOrderMonitor)
+                        {
+                            mOrderMonitor-&gt;onClosedTradeAdded(closedTradeRow);
+                            checkResultAndNotify();
+                        }
+                    }
+                break;
+                case Messages:
+                {
+                    if (reader-&gt;getUpdateType(i) == Insert)
+                    {
+                        IO2GMessageRow *messageRow = reader-&gt;getMessageRow(i);
+                        if (mOrderMonitor)
+                        {
+                            mOrderMonitor-&gt;onMessageAdded(messageRow);
+                            checkResultAndNotify();
+                        }
+                    }
+                }
+                break;
+              }
+            }
+            reader-&gt;release();
+        }
+        factory-&gt;release();
+    }
+}
+ 
+void ResponseListener::printResult()
+{
+    if (mOrderMonitor)
+    {
+        OrderMonitor::ExecutionResult result = mOrderMonitor-&gt;getResult();
+        std::vector&lt;IO2GTradeRow*&gt; trades;
+        std::vector&lt;IO2GClosedTradeRow*&gt; closedTrades;
+        O2G2Ptr&lt;IO2GOrderRow&gt; order = mOrderMonitor-&gt;getOrder();
+        std::string orderID = order-&gt;getOrderID();
+        mOrderMonitor-&gt;getTrades(trades);
+        mOrderMonitor-&gt;getClosedTrades(closedTrades);
+ 
+        switch (result)
+        {
+            case OrderMonitor::Canceled:
+            {
+                if (trades.size() &gt; 0)
+                {
+                    printTrades(trades, orderID);
+                    printClosedTrades(closedTrades, orderID);
+                    std::cout &lt;&lt; &quot;A part of the order has been canceled.&quot; &lt;&lt; &quot;Amount = &quot; &lt;&lt; mOrderMonitor-&gt;getRejectAmount() &lt;&lt; std::endl;
+                }
+                else
+                {
+                    std::cout &lt;&lt; &quot;The order: OrderID = &quot; &lt;&lt; orderID &lt;&lt; &quot; has been canceled.&quot;  &lt;&lt; std::endl;
+                    std::cout &lt;&lt; &quot;The cancel amount = &quot; &lt;&lt; mOrderMonitor-&gt;getRejectAmount() &lt;&lt; &quot;.&quot; &lt;&lt; std::endl;
+                }
+            }
+            break;
+            case OrderMonitor::FullyRejected:
+            {
+                std::cout &lt;&lt; &quot;The order has been rejected. OrderID = &quot; &lt;&lt; orderID &lt;&lt; std::endl;
+                std::cout &lt;&lt; &quot;The rejected amount = &quot; &lt;&lt; mOrderMonitor-&gt;getRejectAmount() &lt;&lt; std::endl;;
+                std::cout &lt;&lt; &quot;Rejection cause:  &quot; &lt;&lt; mOrderMonitor-&gt;getRejectMessage() &lt;&lt; std::endl;
+            }
+            break;
+            case OrderMonitor::PartialRejected:
+            {
+                printTrades(trades, orderID);
+                printClosedTrades(closedTrades, orderID);
+                std::cout &lt;&lt; &quot;A part of the order has been rejected. &quot; &lt;&lt; &quot;Amount = &quot; &lt;&lt; mOrderMonitor-&gt;getRejectAmount() &lt;&lt; std::endl;
+                std::cout &lt;&lt; &quot;Rejection cause: &quot; &lt;&lt; mOrderMonitor-&gt;getRejectMessage() &lt;&lt; std::endl;
+            }
+            break;
+            case OrderMonitor::Executed:
+                printTrades(trades, orderID);
+                printClosedTrades(closedTrades, orderID);
+            break;
+        }
+    }
+}
+void ResponseListener::printTrades(std::vector&lt;IO2GTradeRow*&gt; &amp;trades, std::string &amp;orderID)
+{
+    if (trades.size() == 0)
+        return;
+    std::cout &lt;&lt; &quot;For the order: OrderID = &quot; &lt;&lt; orderID &lt;&lt; &quot; the following positions have been opened: &quot;  &lt;&lt; std::endl;
+ 
+    for (size_t i = 0; i &lt; trades.size(); ++i)
+    {
+        IO2GTradeRow *trade = trades[i];
+        std::string tradeID = trade-&gt;getTradeID();
+        int amount = trade-&gt;getAmount();
+        double rate = trade-&gt;getOpenRate();
+        std::cout &lt;&lt; &quot;Trade ID: &quot; &lt;&lt;  tradeID &lt;&lt; &quot;; Amount: &quot; &lt;&lt; amount &lt;&lt; &quot;; Rate: &quot; &lt;&lt; rate &lt;&lt; std::endl;
+        trade-&gt;release();
+    }
+}
+ 
+void ResponseListener::printClosedTrades(std::vector&lt;IO2GClosedTradeRow*&gt; &amp;closedTrades, std::string &amp;orderID)
+{
+    if (closedTrades.size() == 0)
+        return;
+    std::cout &lt;&lt; &quot;For the order: OrderID = &quot; &lt;&lt; orderID &lt;&lt; &quot; the following positions have been closed: &quot;  &lt;&lt; std::endl;
+ 
+    for (size_t i = 0; i &lt; closedTrades.size(); ++i)
+    {
+        IO2GClosedTradeRow *closedTrade = closedTrades[i];
+        std::string tradeID = closedTrade-&gt;getTradeID();
+        int amount = closedTrade-&gt;getAmount();
+        double rate = closedTrade-&gt;getCloseRate();
+        std::cout &lt;&lt; &quot;Closed Trade ID: &quot; &lt;&lt;  tradeID &lt;&lt; &quot;; Amount: &quot; &lt;&lt; amount &lt;&lt; &quot;; Closed Rate: &quot; &lt;&lt; rate &lt;&lt; std::endl;
+        closedTrade-&gt;release();
+    }
+}
+
+</code></pre>
+</div><p>An example on how to subscribe the order monitor by using <a href="IO2GTableListener.html"><code>TableListener</code></a> can be studied below.</p><div id="open65" style="display:inline">
+  <p>&nbsp;<a href="javascript: showdiv('close65'); hidediv('open65');" onclick="javascript: showdiv('close65'); hidediv('open65');">[show]</a></p>
+</div>
+<div id="close65" style="display:none">
+  <p>&nbsp;<a href="javascript: showdiv('open65'); hidediv('close65');" onclick="javascript: showdiv('open65'); hidediv('close65');">[hide]</a></p>
+  <pre class="example"><code>
+<b>TableListener.h</b>
+#pragma once
+ 
+ 
+class OrderMonitor;
+class TableListener :
+    public IO2GTableListener
+{
+public:
+    long addRef(void);
+    long release();
+    void onStatusChanged(O2GTableStatus);
+    void onAdded(const char *,IO2GRow *);
+    void onChanged(const char *,IO2GRow *);
+    void onDeleted(const char *,IO2GRow *);
+ 
+    void setRequest(const char *requestID )
+    {
+        mRequestID = requestID;
+    };
+    TableListener(void);
+    HANDLE getEvent();
+    ~TableListener(void);
+private:
+    void printResult();
+    void printTrades(std::vector&lt;IO2GTradeRow*&gt; &amp;trades, std::string &amp;orderID);
+    void printClosedTrades(std::vector&lt;IO2GClosedTradeRow*&gt; &amp;trades, std::string &amp;orderID);
+    HANDLE mEvent;
+    long mRef;
+    std::string mRequestID;
+    OrderMonitor *mOrderMonitor;
+ 
+};
+ 
+void subscribeTableListener(IO2GTableManager *manager, IO2GTableListener *listener);
+void unsubscribeTableListener(IO2GTableManager *manager, IO2GTableListener *listener);
+ 
+<b>TableListener.cpp</b>
+#include &quot;stdafx.h&quot;
+#include &quot;OrderMonitor.h&quot;
+#include &quot;tablelistener.h&quot;
+ 
+TableListener::TableListener(void)
+{
+    mEvent = uni::CreateEvent(0, FALSE, FALSE, 0);
+    mRef = 1;
+    mOrderMonitor = NULL;
+}
+ 
+TableListener::~TableListener(void)
+{
+    uni::CloseHandle(mEvent);
+}
+ 
+long TableListener::addRef()
+{
+    return InterlockedIncrement(&amp;mRef);
+}
+ 
+long TableListener::release()
+{
+    InterlockedDecrement(&amp;mRef);
+    if(mRef == 0)
+        delete this;
+    return mRef;
+}
+ 
+HANDLE TableListener::getEvent()
+{
+    return mEvent;
+}
+ 
+void TableListener::onStatusChanged(O2GTableStatus status)
+{
+}
+ 
+void TableListener::onAdded(const char *rowID, IO2GRow *row)
+{
+ 
+    O2GTable type = row-&gt;getTableType();
+    switch(type)
+    {
+    case Orders:
+    {
+        IO2GOrderRow *orderRow = static_cast&lt;IO2GOrderRow *&gt;(row);
+        if( mRequestID == orderRow-&gt;getRequestID() &amp;&amp;
+            (isClosingOrder(orderRow) || isOpeningOrder(orderRow)))
+        {
+            std::cout &lt;&lt; &quot;The order has been added. Order ID: &quot; &lt;&lt; orderRow-&gt;getOrderID()
+                      &lt;&lt; &quot; Rate: &quot; &lt;&lt; orderRow-&gt;getRate()
+                      &lt;&lt; &quot; Time In Force:&quot; &lt;&lt;  orderRow-&gt;getTimeInForce() &lt;&lt; std::endl;
+            mOrderMonitor = new OrderMonitor(orderRow);
+        }
+    }
+    break;
+    case Trades:
+    {
+        IO2GTradeRow *tradeRow = static_cast&lt;IO2GTradeRow *&gt;(row);
+        if (mOrderMonitor)
+        {
+            mOrderMonitor-&gt;onTradeAdded(tradeRow);
+            if (mOrderMonitor-&gt;isOrderCompleted())
+            {
+                printResult();
+                uni::SetEvent(mEvent);
+            }
+        }
+    }
+    break;
+    case ClosedTrades:
+    {
+        IO2GClosedTradeRow *closedTradeRow = static_cast&lt;IO2GClosedTradeRow *&gt;(row);
+        if (mOrderMonitor)
+        {
+            mOrderMonitor-&gt;onClosedTradeAdded(closedTradeRow);
+            if (mOrderMonitor-&gt;isOrderCompleted())
+            {
+                printResult();
+                uni::SetEvent(mEvent);
+            }
+        }
+    }
+    break;
+    case Messages:
+    {
+        IO2GMessageRow *messageRow = static_cast&lt;IO2GMessageRow *&gt;(row);
+        if (mOrderMonitor)
+        {
+            mOrderMonitor-&gt;onMessageAdded(messageRow);
+            if (mOrderMonitor-&gt;isOrderCompleted())
+            {
+                printResult();
+                uni::SetEvent(mEvent);
+            }
+        }
+    }
+    break;
+    }
+ 
+}
+ 
+void TableListener::onChanged(const char *rowID, IO2GRow *row)
+{
+    O2GTable type = row-&gt;getTableType();
+    if (type == Accounts)
+    {
+        IO2GAccountTableRow *account = (IO2GAccountTableRow*)row;
+        std::cout.precision(2);
+        std::cout &lt;&lt; &quot;The balance has been changed AccountID=&quot; &lt;&lt; account-&gt;getAccountID() &lt;&lt;
+                      &quot; Balance=&quot; &lt;&lt; std::fixed &lt;&lt; account-&gt;getBalance() &lt;&lt;
+                      &quot; Equity=&quot; &lt;&lt; std::fixed &lt;&lt; account-&gt;getEquity() &lt;&lt; std::endl;
+        std::cout.precision(5);
+    }
+ 
+}
+ 
+void TableListener::onDeleted(const char *rowID, IO2GRow *row)
+{
+    IO2GOrderRow *orderRow = static_cast&lt;IO2GOrderRow *&gt;(row);
+    if( mRequestID == orderRow-&gt;getRequestID() )
+    {
+        std::cout &lt;&lt; &quot;The order has been deleted. Order ID: &quot; &lt;&lt; orderRow-&gt;getOrderID() &lt;&lt; std::endl;
+        mOrderMonitor-&gt;onOrderDeleted(orderRow);
+        if (mOrderMonitor)
+        {
+            if (mOrderMonitor-&gt;isOrderCompleted())
+            {
+                printResult();
+                uni::SetEvent(mEvent);
+            }
+        }
+    }
+}
+ 
+void TableListener::printResult()
+{
+    if (mOrderMonitor)
+    {
+        OrderMonitor::ExecutionResult result = mOrderMonitor-&gt;getResult();
+        std::vector&lt;IO2GTradeRow*&gt; trades;
+        std::vector&lt;IO2GClosedTradeRow*&gt; closedTrades;
+        O2G2Ptr&lt;IO2GOrderRow&gt; order = mOrderMonitor-&gt;getOrder();
+        std::string orderID = order-&gt;getOrderID();
+        mOrderMonitor-&gt;getTrades(trades);
+        mOrderMonitor-&gt;getClosedTrades(closedTrades);
+ 
+        switch (result)
+        {
+            case OrderMonitor::Canceled:
+            {
+                if (trades.size() &gt; 0)
+                {
+                    printTrades(trades, orderID);
+                    printClosedTrades(closedTrades, orderID);
+                    std::cout &lt;&lt; &quot;A part of the order has been canceled.&quot; &lt;&lt; &quot;Amount = &quot; &lt;&lt; mOrderMonitor-&gt;getRejectAmount() &lt;&lt; std::endl;
+                }
+                else
+                {
+                    std::cout &lt;&lt; &quot;The order: OrderID = &quot; &lt;&lt; orderID &lt;&lt; &quot; has been canceled.&quot;  &lt;&lt; std::endl;
+                    std::cout &lt;&lt; &quot;The cancel amount = &quot; &lt;&lt; mOrderMonitor-&gt;getRejectAmount() &lt;&lt; &quot;.&quot; &lt;&lt; std::endl;
+                }
+            }
+            break;
+            case OrderMonitor::FullyRejected:
+            {
+                std::cout &lt;&lt; &quot;The order has been rejected. OrderID = &quot; &lt;&lt; orderID &lt;&lt; std::endl;
+                std::cout &lt;&lt; &quot;The rejected amount = &quot; &lt;&lt; mOrderMonitor-&gt;getRejectAmount() &lt;&lt; std::endl;;
+                std::cout &lt;&lt; &quot;Rejection cause:  &quot; &lt;&lt; mOrderMonitor-&gt;getRejectMessage() &lt;&lt; std::endl;
+            }
+            break;
+            case OrderMonitor::PartialRejected:
+            {
+                printTrades(trades, orderID);
+                printClosedTrades(closedTrades, orderID);
+                std::cout &lt;&lt; &quot;A part of the order has been rejected. &quot; &lt;&lt; &quot;Amount = &quot; &lt;&lt; mOrderMonitor-&gt;getRejectAmount() &lt;&lt; std::endl;
+                std::cout &lt;&lt; &quot;Rejection cause: &quot; &lt;&lt; mOrderMonitor-&gt;getRejectMessage() &lt;&lt; std::endl;
+            }
+            break;
+            case OrderMonitor::Executed:
+                printTrades(trades, orderID);
+                printClosedTrades(closedTrades, orderID);
+            break;
+        }
+    }
+}
+void TableListener::printTrades(std::vector&lt;IO2GTradeRow*&gt; &amp;trades, std::string &amp;orderID)
+{
+    if (trades.size() == 0)
+        return;
+    std::cout &lt;&lt; &quot;For the order: OrderID = &quot; &lt;&lt; orderID &lt;&lt; &quot; the following positions have been opened: &quot;  &lt;&lt; std::endl;
+ 
+    for (size_t i = 0; i &lt; trades.size(); ++i)
+    {
+        IO2GTradeRow *trade = trades[i];
+        std::string tradeID = trade-&gt;getTradeID();
+        int amount = trade-&gt;getAmount();
+        double rate = trade-&gt;getOpenRate();
+        std::cout &lt;&lt; &quot;Trade ID: &quot; &lt;&lt;  tradeID &lt;&lt; &quot;; Amount: &quot; &lt;&lt; amount &lt;&lt; &quot;; Rate: &quot; &lt;&lt; rate &lt;&lt; std::endl;
+        trade-&gt;release();
+    }
+}
+ 
+void TableListener::printClosedTrades(std::vector&lt;IO2GClosedTradeRow*&gt; &amp;closedTrades, std::string &amp;orderID)
+{
+    if (closedTrades.size() == 0)
+        return;
+    std::cout &lt;&lt; &quot;For the order: OrderID = &quot; &lt;&lt; orderID &lt;&lt; &quot; the following positions have been closed: &quot;  &lt;&lt; std::endl;
+ 
+    for (size_t i = 0; i &lt; closedTrades.size(); ++i)
+    {
+        IO2GClosedTradeRow *closedTrade = closedTrades[i];
+        std::string tradeID = closedTrade-&gt;getTradeID();
+        int amount = closedTrade-&gt;getAmount();
+        double rate = closedTrade-&gt;getCloseRate();
+        std::cout &lt;&lt; &quot;Closed Trade ID: &quot; &lt;&lt;  tradeID &lt;&lt; &quot;; Amount: &quot; &lt;&lt; amount &lt;&lt; &quot;; Closed Rate: &quot; &lt;&lt; rate &lt;&lt; std::endl;
+        closedTrade-&gt;release();
+    }
+}
+ 
+ 
+void subscribeTableListener(IO2GTableManager *manager, IO2GTableListener *listener)
+{
+    O2G2Ptr&lt;IO2GAccountsTable&gt; accountsTable = (IO2GMessagesTable*)manager-&gt;getTable(Messages);
+    O2G2Ptr&lt;IO2GOrdersTable&gt; ordersTable = (IO2GOrdersTable *)manager-&gt;getTable(Orders);
+    O2G2Ptr&lt;IO2GTradesTable&gt; tradesTable = (IO2GTradesTable*)manager-&gt;getTable(Trades);
+    O2G2Ptr&lt;IO2GMessagesTable&gt; messageTable = (IO2GMessagesTable*)manager-&gt;getTable(Messages);
+    O2G2Ptr&lt;IO2GClosedTradesTable&gt; closeTradesTable = (IO2GClosedTradesTable*)manager-&gt;getTable(ClosedTrades);
+ 
+    accountsTable-&gt;subscirbeUpdate(Update, listener);
+    ordersTable-&gt;subscribeUpdate(Insert, listener);
+    ordersTable-&gt;subscribeUpdate(Delete, listener);
+    tradesTable-&gt;subscribeUpdate(Insert, listener);
+    closeTradesTable-&gt;subscribeUpdate(Insert, listener);
+    messageTable-&gt;subscribeUpdate(Insert, listener);
+}
+ 
+void unsubscribeTableListener(IO2GTableManager *manager, IO2GTableListener *listener)
+{
+    O2G2Ptr&lt;IO2GAccountsTable&gt; accountsTable = (IO2GMessagesTable*)manager-&gt;getTable(Messages);
+    O2G2Ptr&lt;IO2GTradesTable&gt; tradesTable = (IO2GTradesTable*)manager-&gt;getTable(Trades);
+    O2G2Ptr&lt;IO2GOrdersTable&gt; ordersTable = (IO2GOrdersTable *)manager-&gt;getTable(Orders);
+    O2G2Ptr&lt;IO2GMessagesTable&gt; messageTable = (IO2GMessagesTable*)manager-&gt;getTable(Messages);
+    O2G2Ptr&lt;IO2GClosedTradesTable&gt; closeTradesTable = (IO2GClosedTradesTable*)manager-&gt;getTable(ClosedTrades);
+    accountsTable-&gt;unsubscirbeUpdate(Update, listener);
+    ordersTable-&gt;unsubscribeUpdate(Insert, listener);
+    ordersTable-&gt;unsubscribeUpdate(Delete, listener);
+    tradesTable-&gt;unsubscribeUpdate(Insert, listener);
+    closeTradesTable-&gt;unsubscribeUpdate(Insert, listener);
+    messageTable-&gt;unsubscribeUpdate(Insert, listener);
+}
+ 
+<b>ResponseListener.h</b>
+#include &quot;stdafx.h&quot;
+ 
+/** Response listener class. */
+class ResponseListener : public IO2GResponseListener
+{
+ private:
+    long mRefCount;
+    /** Session object. */
+    IO2GSession *mSession;
+    /** Response Event handle. */
+    HANDLE mEvent;
+    /** Request ID to wait. */
+    std::string mRequestID;
+    bool mCompleted;
+ protected:
+    /** Destructor. */
+    virtual ~ResponseListener();
+ 
+ public:
+    /** Constructor */
+    ResponseListener();
+    /** Increase reference counter. */
+    virtual long addRef();
+ 
+    /** Decrease reference counter. */
+    virtual long release();
+ 
+    /** Set request. */
+    void setRequest(const char *requestId);
+ 
+    /** Request execution completed data handler. */
+    virtual void onRequestCompleted(const char * requestId, IO2GResponse  *response = 0);
+ 
+    /** Request execution failed data handler. */
+    virtual void onRequestFailed(const char *requestId , const char *error);
+ 
+    /** Request update data received data handler. */
+    virtual void onTablesUpdates(IO2GResponse *data);
+    bool isRequestCompleted();
+    HANDLE getEvent()
+    {
+        return mEvent;
+    }
+};
+ 
+<b>ResponseListener.cpp</b>
+#include &quot;stdafx.h&quot;
+#include &quot;responselistener.h&quot;
+ 
+ResponseListener::ResponseListener()
+{
+    mRefCount = 1;
+    mEvent = uni::CreateEvent(0, FALSE, FALSE, 0);
+    mCompleted = true;
+}
+ 
+ResponseListener::~ResponseListener()
+{
+    uni::CloseHandle(mEvent);
+}
+ 
+/** Increase reference counter. */
+long ResponseListener::addRef()
+{
+    return InterlockedIncrement(&amp;mRefCount);
+}
+ 
+/** Decrease reference counter. */
+long ResponseListener::release()
+{
+    long rc = InterlockedDecrement(&amp;mRefCount);
+    if (rc == 0)
+        delete this;
+    return rc;
+}
+ 
+/** Set request. */
+void ResponseListener::setRequest(const char *requestId)
+{
+    mRequestID = requestId;
+}
+ 
+/** Request execution completed data handler. */
+void ResponseListener::onRequestCompleted(const char *requestId, IO2GResponse  *response)
+{
+    if (requestId &amp;&amp; mRequestID == requestId)
+    {
+        std::cout &lt;&lt; &quot;The request has been completed ID &quot; &lt;&lt; requestId &lt;&lt; std::endl;
+        mCompleted = true;
+        uni::SetEvent(mEvent);
+    }
+}
+ 
+/** Request execution failed data handler. */
+void ResponseListener::onRequestFailed(const char *requestId , const char *error)
+{
+    if (requestId &amp;&amp; mRequestID == requestId)
+    {
+        std::cout &lt;&lt; &quot;The request has been failed ID: &quot; &lt;&lt; requestId &lt;&lt; &quot; :&quot; &lt;&lt; error &lt;&lt; std::endl;
+        mCompleted = false;
+        uni::SetEvent(mEvent);
+    }
+}
+ 
+/** Request update data received data handler. */
+void ResponseListener::onTablesUpdates(IO2GResponse *data)
+{
+}
+bool ResponseListener::isRequestCompleted()
+{
+    return mCompleted;
+}
+</code></pre>
+</div><p>
+      <center><a href="howto.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

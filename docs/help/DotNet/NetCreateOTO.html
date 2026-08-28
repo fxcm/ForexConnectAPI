@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Create OTO Order</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Create OTO Order</b></font>
+    </p><p>You can create two or more entry orders and then join them into OTO (one-triggers-others) using just one call.</p>
+<p>The first of the orders specified is a root order of the OTO group. This is the only order which becomes active
+immediately. All other orders are inactive until the root order is executed.</p>
+<p>To create an OTO order group:</p>
+<p>1) Create an <a href="fxcore2.O2GValueMap.html"><code>O2GValueMap</code></a> and fill only one field:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Valuemap field</p></td>
+    <td class="thdr"><p>Datatype</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Command</p></td>
+    <td class="tmain"><p>string</p></td>
+    <td class="tmain"><p>The command. Must be <a href="fxcore2.Constants.Commands.CreateOTO.html"><code>CreateOTO</code></a>.</p>
+<p>The field is obligatory.</p></td>
+  </tr>
+</table><p>2) Create an <a href="fxcore2.O2GValueMap.html"><code>O2GValueMap</code></a> for each entry order you want to create and
+fill it as for a regular entry order.</p>
+<p>3) Append each entry order valuemap to the main valuemap using the <a href="fxcore2.O2GValueMap.appendChild.0.html"><code>O2GValueMap.appendChild</code></a>
+method. Always append the root order first. Instead of any of dependent orders you can also create another &quot;CreateOTO&quot;
+command. In this case the root order of this additional OTO will become a dependent order of the root OTO, so, you can
+create a tree of OTO orders of any level of hierarchy.</p>
+<p>4) Pass the main <code>valuemap</code> table to the createOrderRequest method.</p>
+<p>Limitations:</p>
+<p>1) Only entry orders or other OTO groups can be joined into OTO. However, entry orders with attached stops/limits,
+either regular or ELS, can be joined into OTO.</p>
+<p>2) All entry orders must be created for the same account.</p>
+<p>Returns:</p>
+<p>The createOrderRequest method will return an O2GRequest (the main request) containing child requests.
+If 3 entry orders are created, 3 child requests will be returned. Note that you will receive responses
+to the child requests and will not receive a response to the main request.</p><div id="open95" style="display:none">
+  <p>Example: Create an OTO order&nbsp;<a href="javascript: showdiv('close95'); hidediv('open95');" onclick="javascript: showdiv('close95'); hidediv('open95');">[show]</a></p>
+</div>
+<div id="close95" style="display:inline">
+  <p>Example: Create an OTO order&nbsp;<a href="javascript: showdiv('open95'); hidediv('close95');" onclick="javascript: showdiv('open95'); hidediv('close95');">[hide]</a></p>
+  <pre class="example">    struct sOrderParams
+    {
+        public string offerID;
+        public int amount;
+        public double rate;
+        public string buySell;
+        public string orderType;
+    };
+ 
+    static bool PrepareParamsFromLoginRules(out string sAccountID, out string sOfferID, out int iBaseAmount, out double dPointSize, out double dAskRate, out double dBidRate)
+    {
+        bool bOK = false;
+        O2GResponseReaderFactory factory = session.getResponseReaderFactory();
+        if (factory == null)
+            return bOK;
+        O2GLoginRules loginRules = session.getLoginRules();
+        // get first account from login
+        O2GResponse accountResponse = loginRules.getTableRefreshResponse(O2GTable.Accounts);
+        O2GAccountsTableResponseReader accountsReader = factory.createAccountsTableReader(accountResponse);
+        O2GAccountRow account = accountsReader.getRow(0);
+        // get account id
+        sAccountID = account.AccountID;
+        // get base amount
+        iBaseAmount = account.BaseUnitSize;
+        sOfferID = &quot;&quot;;
+        dAskRate = 0;
+        dBidRate = 0;
+        dPointSize = 0;
+        // Get offers for EUR/USD
+        O2GResponse offersResponse = loginRules.getTableRefreshResponse(O2GTable.Offers);
+        O2GOffersTableResponseReader offersReader = factory.createOffersTableReader(offersResponse);
+        for (int i = 0; i &lt; offersReader.Count; i++)
+        {
+            O2GOfferRow offer = offersReader.getRow(i);
+            if (String.Equals(offer.Instrument, &quot;EUR/USD&quot;))
+            {
+                sOfferID = offer.OfferID;
+                dAskRate = offer.Ask;
+                dBidRate = offer.Bid;
+                dPointSize = offer.PointSize;
+                bOK = true;
+                break;
+            }
+        }
+        return bOK;
+    }
+ 
+    static O2GValueMap CreateOrder(string sAccountID, string sOfferID, double dRate, int iAmount, string sBuySell, string sOrderType)
+    {
+        O2GRequestFactory factory = session.getRequestFactory();
+        if (factory != null)
+        {
+           O2GValueMap valuemap = factory.createValueMap();
+           valuemap.setString(O2GRequestParamsEnum.Command, Constants.Commands.CreateOrder);
+           valuemap.setString(O2GRequestParamsEnum.OrderType, sOrderType);
+           valuemap.setString(O2GRequestParamsEnum.AccountID, sAccountID);
+           valuemap.setString(O2GRequestParamsEnum.OfferID, sOfferID);
+           valuemap.setString(O2GRequestParamsEnum.BuySell, sBuySell);
+           valuemap.setDouble(O2GRequestParamsEnum.Rate, dRate);
+           valuemap.setInt(O2GRequestParamsEnum.Amount, iAmount);
+ 
+           return valuemap;
+        }
+    }
+ 
+    // Helper method for creating valueMap for one order
+    static  O2GValueMap CreateOrder(string sAccountID, sOrderParams orderParams)
+    {
+        return CreateOrder(sAccountID, orderParams.offerID, orderParams.rate, orderParams.amount, orderParams.buySell, orderParams.orderType);
+    }
+ 
+    static void PrepareAndCreateOTO()
+    {
+        string sAccountID, sOfferID;
+        int iBaseAmount;
+        double dPointSize, dAskRate, dBidRate;
+        bool bParamsOK = PrepareParamsFromLoginRules(out sAccountID, out sOfferID, out iBaseAmount, out dPointSize, out dAskRate, out dBidRate);
+        if (!bParamsOK)
+        {
+            return;
+        }
+        double dRate = dAskRate;
+        sOrderParams[] orders = new sOrderParams[3];
+        orders[0].amount = orders[1].amount = orders[2].amount = 10 * iBaseAmount;
+        orders[0].offerID = orders[1].offerID = orders[2].offerID = sOfferID;
+ 
+        orders[0].buySell = Constants.Buy;
+        orders[0].orderType = Constants.Orders.LimitEntry;
+        orders[0].rate = dRate - 50 * dPointSize;
+ 
+        orders[1].buySell = Constants.Sell;
+        orders[1].orderType = Constants.Orders.StopEntry;
+        orders[1].rate = orders[0].rate - 10 * dPointSize;
+ 
+        orders[2].buySell = Constants.Buy;
+        orders[2].orderType = Constants.Orders.StopEntry;
+        orders[2].rate = orders[0].rate + 20 * dPointSize;
+ 
+        O2GValueMap primary = CreateOrder(sAccountID, orders[0]);
+        O2GValueMap secondary1 = CreateOrder(sAccountID, orders[1]);
+        O2GValueMap secondary2 = CreateOrder(sAccountID, orders[2]);
+        CreateOTO(primary, secondary1, secondary2);
+    }
+ 
+    static void CreateOTO(O2GValueMap primary, O2GValueMap secondary1, O2GValueMap secondary2)
+    {
+        O2GRequestFactory factory = mSession.getRequestFactory();
+        if (factory != null)
+        {
+           // create OTO command
+           O2GValueMap valuemap = factory.createValueMap();
+           valuemap.setString(O2GRequestParamsEnum.Command, Constants.Commands.CreateOTO);
+ 
+           // create primary order
+           valuemap.appendChild(primary);
+ 
+           // create 2 secondary orders
+           valuemap.appendChild(secondary1);
+           valuemap.appendChild(secondary2);
+ 
+           // create request from valueMap
+           O2GRequest request = factory.createOrderRequest(valuemap);
+           if (request == null)
+           {
+               Console.WriteLine(&quot;Order's request can not be created: &quot; + factory.getLastError());
+           }
+           else
+           {
+               mSession.sendRequest(request);
+           }
+        }
+    }</pre>
+</div><p>
+      <center><a href="NetTradingCommandsCreateOrder.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

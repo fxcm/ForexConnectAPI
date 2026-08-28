@@ -1,0 +1,310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Attach Stop and/or Limit Order to Command</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Attach Stop and/or Limit Order to Command</b></font>
+    </p><p>Orders which create a new position (OM, O, OR, SE and LE orders)
+may also have additional values in the value map, which forces creating associated
+stop and limit orders.</p>
+<p>Please note that close orders must be permitted for the account in order to be
+used.</p>
+<p>Please note that stop and limit orders cannot be attached to netting entry orders.</p>
+<p>You can create either regular stop and limit orders (for non-FIFO accounts) or ELS (entry stop limit) orders for FIFO
+accounts. ELS is a pair of entry stop and entry limit orders which are joined into OCO (one-cancel-other) group, so when one
+of the orders is executed, the other order is cancelled. Also, the orders only close the existing opposite positions
+and never open a position. Also, the orders are cancelled when there is no opposite position existing at the moment.
+However, because of the FIFO rule, these orders close the oldest positions first, not the position you
+have attached the orders to. So, in case you recognize the whole amount on particular instrument/account as one netting
+position, these orders works good enough. ELS orders cannot be used on non-FIFO accounts.</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Parameter name</p></td>
+    <td class="thdr"><p>Datatype</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>RateStop</p></td>
+    <td class="tmain"><p>double</p></td>
+    <td class="tmain"><p>The price level of the stop order.</p>
+<p>The stop order must be below the trade price for the position created using a buy order (long position)
+and above the trade price for the position created using a sell order (short position).</p>
+<p>Either <code>RateStop</code> or a pair of <code>PegOffsetStop</code> and <code>PegTypeStop</code> fields must
+be used to specify the associated stop order. If none of these fields are specified, the stop
+order will not be created.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>PegTypeStop</p></td>
+    <td class="tmain"><p>const char *</p></td>
+    <td class="tmain"><p>&quot;Pegged&quot; means that the price is specified as an offset (in pips) against the market price.</p>
+<p>The field specifies which price should be used to calculate the order price:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>O</code></p></td>
+    <td class="tmain"><p>The open price of the related trade.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>M</code></p></td>
+    <td class="tmain"><p>The close price (the current market price) of the related trade.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>PegOffsetStop</p></td>
+    <td class="tmain"><p>double</p></td>
+    <td class="tmain"><p>The offset to the price specified in the <code>PegTypeStop</code> field. The offset must be expressed in pips.</p>
+<p>The offset must be positive for a sell position and negative for a buy position.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TrailStepStop</p></td>
+    <td class="tmain"><p>int</p></td>
+    <td class="tmain"><p>The trailing stop order follows the market in case the market moves in the
+profitable direction for the position.</p>
+<p>The value specifies the maximum change of the market price after which the rate of the order
+will be changed as well.</p>
+<p>The value is expressed in the units of the minimum change of the
+price (see the <code>Digits</code> column of the <a href="TTOffers.html">Offers</a> table).</p>
+<p>For example, if the value of the <code>Digits</code> column is 3 and the value of this field is 5, the maximum change of the market
+price will be <code>5 * 10<sup>-3</sup> = 0.005</code>.</p>
+<p>If the value is 1, that means that the dynamic trailing mode is used, i.e. the order rate is changed
+with every change of the market price. Please note that in some systems, only dynamic
+trailing mode is supported.</p>
+<p>The value is optional. By default, this value is 0. 0, it means a non-trailing order.</p>
+<p>If the value is specified, the order type in the <a href="TTOrders.html">Orders</a> table will be <code>ST</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>RateLimit</p></td>
+    <td class="tmain"><p>double</p></td>
+    <td class="tmain"><p>The price level of the limit order.</p>
+<p>The limit order must be above the trade price for the position created using a buy order (long position)
+and below the trade price for the position created using a sell order (short position).</p>
+<p>Either <code>RateLimit</code> or a pair of <code>PegOffsetLimit</code> and <code>PegTypeLimit</code> fields must
+be used to specify the associated limit order. If none of these fields are specified, the limit
+order will not be created.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>PegTypeLimit</p></td>
+    <td class="tmain"><p>const char *</p></td>
+    <td class="tmain"><p>&quot;Pegged&quot; means that the price is specified as an offset (in pips) against the market price.</p>
+<p>The field specifies which price should be used to calculate the order price:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>O</code></p></td>
+    <td class="tmain"><p>The open price of the related trade.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>M</code></p></td>
+    <td class="tmain"><p>The close price (the current market price) of the related trade.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>PegOffsetLimit</p></td>
+    <td class="tmain"><p>double</p></td>
+    <td class="tmain"><p>The offset to the price specified in the <code>PegTypeLimit</code> field. The offset must be expressed in pips.</p>
+<p>The offset must be negative for a sell position and positive for a buy position.</p></td>
+  </tr>
+</table><div id="open85" style="display:none">
+  <p>Example: Create an Entry Order and attach Stop/Limit orders&nbsp;<a href="javascript: showdiv('close85'); hidediv('open85');" onclick="javascript: showdiv('close85'); hidediv('open85');">[show]</a></p>
+</div>
+<div id="close85" style="display:inline">
+  <p>Example: Create an Entry Order and attach Stop/Limit orders&nbsp;<a href="javascript: showdiv('open85'); hidediv('close85');" onclick="javascript: showdiv('open85'); hidediv('close85');">[hide]</a></p>
+  <pre class="example">  void CreateOrderSample::prepareParamsFromLoginRules(IO2GLoginRules *loginRules)
+  {
+      mParams = new OrderCreationParam();
+ 
+      O2G2Ptr&lt;IO2GResponseReaderFactory&gt; factory = mSession-&gt;getResponseReaderFactory();
+      // Gets first account from login.
+      O2G2Ptr&lt;IO2GResponse&gt; accountsResponse = loginRules-&gt;getTableRefreshResponse(Accounts);
+      O2G2Ptr&lt;IO2GAccountsTableResponseReader&gt; accountsReader = factory-&gt;createAccountsTableReader(accountsResponse);
+      O2G2Ptr&lt;IO2GAccountRow&gt; account = accountsReader-&gt;getRow(0);
+      // Store account id
+      mParams-&gt;mAccountID = account-&gt;getAccountID();
+      // Store base amount
+      mParams-&gt;mBaseAmount = account-&gt;getBaseUnitSize();
+      // Get offers for eur/usd
+      O2G2Ptr&lt;IO2GResponse&gt; offerResponse = loginRules-&gt;getTableRefreshResponse(Offers);
+      O2G2Ptr&lt;IO2GOffersTableResponseReader&gt; offersReader = factory-&gt;createOffersTableReader(offerResponse);
+      for (int i = 0; i &lt; offersReader-&gt;size(); i++)
+      {
+          O2G2Ptr&lt;IO2GOfferRow&gt; offer = offersReader-&gt;getRow(i);
+          if (_stricmp(offer-&gt;getInstrument(), &quot;EUR/USD&quot;) == 0)
+          {
+              mParams-&gt;mOfferID = offer-&gt;getOfferID();
+              mParams-&gt;mAsk = offer-&gt;getAsk();
+              mParams-&gt;mBid = offer-&gt;getBid();
+              mParams-&gt;mPointSize = offer-&gt;getPointSize();
+              break;
+          }
+      }
+  }
+ 
+  void CreateOrderSample::prepareParamsAndCallEntryLimitOrderWithStopLimit(const char *offerID, const char *accountID, int amount, double pointSize, int numPoints, const char * buySell)
+  {
+      double distance = 10.0; // Distance in pips
+      double pegStop = 0;
+      double pegLimit = 0;
+      double orderRate = 0;
+      double curRate = 0;
+      if (!strcmp(buySell, O2G2::Buy))
+      {
+          curRate = mParams-&gt;mAsk;
+          orderRate = curRate - pointSize * numPoints;  // The buy order rate must be below the market.
+          pegStop = -distance;
+          pegLimit = distance;
+      }
+      else                        // BuySell = O2G2::Sell
+      {
+          curRate = mParams-&gt;mBid;
+          orderRate = curRate + pointSize * (numPoints + distance);  // The sell order rate must be above the market.
+          pegStop = distance;
+          pegLimit = -distance;
+      }
+      createEntryLimitOrderWithStopLimit(offerID, accountID, amount, orderRate, buySell, pegStop, pegLimit);
+  }
+ 
+  void CreateOrderSample::createEntryLimitOrderWithStopLimit(const char *offerID, const char *accountID, int amount, double rate, const char * buySell, double stopOffset, double limitOffset)
+  {
+      using namespace O2G2;
+      O2G2Ptr&lt;IO2GRequestFactory&gt; factory = mSession-&gt;getRequestFactory();
+      if (factory)
+      {
+           O2G2Ptr&lt;IO2GValueMap&gt; valuemap = factory-&gt;createValueMap();
+           valuemap-&gt;setString(Command, Commands::CreateOrder);
+           valuemap-&gt;setString(OrderType, Orders::LimitEntry);
+           valuemap-&gt;setString(AccountID, accountID);          // The identifier of the account the order should be placed for.
+           valuemap-&gt;setString(OfferID, offerID);              // The identifier of the instrument the order should be placed for.
+           valuemap-&gt;setString(BuySell, buySell);              // The order direction (O2G2::Buy for buy, O2G2::Sell for sell)
+           valuemap-&gt;setDouble(Rate, rate);                    // The rate at which the order must be filled (below current rate for Buy, above current rate for Sell)
+           valuemap-&gt;setInt(Amount, amount);                   // The quantity of the instrument to be bought or sold.
+           valuemap-&gt;setString(CustomID, &quot;LimitEntryOrderWithStopLimit&quot;); // The custom identifier of the order.
+           valuemap-&gt;setString(PegTypeStop, O2G2::Peg::FromClose);   // The peg offset type
+           valuemap-&gt;setDouble(PegOffsetStop, stopOffset);
+           valuemap-&gt;setString(PegTypeLimit, O2G2::Peg::FromOpen);     // The peg limit type
+           valuemap-&gt;setDouble(PegOffsetLimit, limitOffset);
+ 
+           O2G2Ptr&lt;IO2GRequest&gt; request = factory-&gt;createOrderRequest(valuemap);
+           if (request == NULL)
+               std::cout &lt;&lt; &quot;Order's request can not be created: &quot; &lt;&lt; factory-&gt;getLastError() &lt;&lt; std::endl;
+           else
+           {
+               mSession-&gt;sendRequest(request);
+               // Store request ID and set the order for further editing. After the order has been created,
+               // the order rate and amount will be changed.
+               mActions[request-&gt;getRequestID()] = editOrderAction;
+           }
+      }
+  }</pre>
+</div><p>
+      <center><a href="TradingCommandsCreateOrder.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

@@ -1,0 +1,277 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>QuotesManager</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>QuotesManager</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code>System.IDisposable</code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The main class of the API.</p>
+    <p><b>Details</b></p><p>This class is used for getting all information as well as creating and executing all tasks with the Quotes Manager API.</p>
+<p>To get an instance of this class, use the <a href="Candleworks.PriceHistoryMgr.IPriceHistoryCommunicator.getQuotesManager.0.html"><code>IPriceHistoryCommunicator.getQuotesManager()</code></a> method.</p>
+<p><b>It must be the only instance of QuotesManager in the application.</b></p>
+<p>The type defined in the <code>quotesmgr2_net.dll</code> assembly.
+The namespace is <a href="Candleworks.QuotesMgr.html"><code>Candleworks.QuotesMgr</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Properties</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.QuotesMgr.QuotesManager.mode.0.html">mode</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets or sets the mode of handling prices inside regular non-trading periods.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.QuotesMgr.QuotesManager.openPriceCandlesMode.0.html">openPriceCandlesMode</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets or sets the mode of open price candles.</p>
+    </td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.QuotesMgr.QuotesManager.areInstrumentsUpdated.0.html">areInstrumentsUpdated</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Checks whether Quotes Manager has already successfully received or updated the instruments list.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.QuotesMgr.QuotesManager.areQuotesPrepared.0.html">areQuotesPrepared</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Checks whether the data, required to load the history of the specified timeframe of the specified instrument in the specified range, is already loaded into the cache.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.QuotesMgr.QuotesManager.cancelTask.0.html">cancelTask</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Cancels execution of the task.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.QuotesMgr.QuotesManager.createPrepareQuotesTask.0.html">createPrepareQuotesTask</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates the task to load the quotes into the cache.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.QuotesMgr.QuotesManager.createReceiveBarQuotesTask.0.html">createReceiveBarQuotesTask</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates the task to get quotes from the cache.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.QuotesMgr.QuotesManager.createRemoveQuotesTask.0.html">createRemoveQuotesTask</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates the task to remove quotes from the cache.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.QuotesMgr.QuotesManager.createUpdateInstrumentsTask.0.html">createUpdateInstrumentsTask</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates the task to update the instruments catalog.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.QuotesMgr.QuotesManager.createUpdateQuotesCatalogTask.0.html">createUpdateQuotesCatalogTask</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates the task to update the catalog of the quotes for the specified instrument.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.QuotesMgr.QuotesManager.Dispose.0.html">Dispose</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Releases resources object have been using.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.QuotesMgr.QuotesManager.executeTask.0.html">executeTask</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Starts execution of the task.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.QuotesMgr.QuotesManager.getBaseTimeframes.0.html">getBaseTimeframes</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the list of base timeframes.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.QuotesMgr.QuotesManager.getDataSize.0.html">getDataSize</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the amount of data used by the cache for the specified instrument, base timeframe and year.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.QuotesMgr.QuotesManager.getInstruments.0.html">getInstruments</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the list of the instruments.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.QuotesMgr.QuotesManager.isQuotesCatalogUpdated.0.html">isQuotesCatalogUpdated</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Checks whether Quotes Manager has already successfully received or updated the catalog of quotes for the specified instrument.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="Candleworks.QuotesMgr.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

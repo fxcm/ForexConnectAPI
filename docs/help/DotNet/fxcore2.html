@@ -1,0 +1,1029 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>fxcore2 namespace</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>fxcore2 namespace</b></font>
+    </p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Classes</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.Constants.html">Constants</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Constants for ForexConnect API</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.Constants.Commands.html">Constants.Commands</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Constants for ForexConnect API commands</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.Constants.KeyType.html">Constants.KeyType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Constants for the Key parameter used to search the order with the GetLastOrderUpdate command.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.Constants.Orders.html">Constants.Orders</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Constants for ForexConnect API order types</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.Constants.Peg.html">Constants.Peg</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Constants for ForexConnect API pegged price</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.Constants.SubscriptionStatuses.html">Constants.SubscriptionStatuses</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Constants for subscription statuses</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.Constants.SystemProperties.html">Constants.SystemProperties</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Constants for ForexConnect API system properties</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.Constants.TIF.html">Constants.TIF</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Constants for ForexConnect API time-in-force</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.IO2GChartSessionStatus.html">IO2GChartSessionStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The interface provides method signatures to process notifications about chart session status changes and login failures.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.IO2GCommissionProviderListener.html">IO2GCommissionProviderListener</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The interface provides the method signature to process notifications about commissions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.IO2GEachRowListener.html">IO2GEachRowListener</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The interface provides the method signature to process notifications about iteration through rows of a table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.IO2GResponseListener.html">IO2GResponseListener</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The interface provides method signatures to process notifications about request completions, request failures and tables updates.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.IO2GRolloverProviderListener.html">IO2GRolloverProviderListener</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The interface provides the method signature to process notifications about rollover updating.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.IO2GSessionStatus.html">IO2GSessionStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The interface provides method signatures to process notifications about session status changes and login failures.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.IO2GTableListener.html">IO2GTableListener</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The interface provides method signatures to process notifications about trading tables events: adding/updating/deleting of rows, and changes in a table status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.IO2GTableManagerListener.html">IO2GTableManagerListener</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The interface provides a method signature to process notifications about table manager status changes.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.LoginFailedEventArgs.html">LoginFailedEventArgs</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The arguments of the LoginFailed event.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GAccountRow.html">O2GAccountRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to account information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GAccountsTable.html">O2GAccountsTable</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class keeps up-to-date information about accounts in memory.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GAccountsTableResponseReader.html">O2GAccountsTableResponseReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class reads a stream of account rows coming from the trading server.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GAccountTableRow.html">O2GAccountTableRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to the account information and calculated fields.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GClosedTradeRow.html">O2GClosedTradeRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to information about a position closed during the current trading day.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GClosedTradesTable.html">O2GClosedTradesTable</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class keeps in memory the up-to-date information about positions closed during the current trading day.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GClosedTradesTableResponseReader.html">O2GClosedTradesTableResponseReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class reads a stream of closed position rows coming from the trading server.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GClosedTradeTableRow.html">O2GClosedTradeTableRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to the closed position information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GCommissionDescription.html">O2GCommissionDescription</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A trading commissions descripton</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GCommissionDescriptionsCollection.html">O2GCommissionDescriptionsCollection</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A collection of commission descriptors.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GCommissionsProvider.html">O2GCommissionsProvider</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Checks commissions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GGenericTableResponseReader.html">O2GGenericTableResponseReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides methods to read a stream of trading table rows coming from the trading server.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GHtmlContentUtils.html">O2GHtmlContentUtils</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class converts relative paths specified as tag parameters to absolute paths.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GLastOrderUpdateResponseReader.html">O2GLastOrderUpdateResponseReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class reads a response to a request for the current state of an order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GLoginRules.html">O2GLoginRules</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Provides information about the rules used during the login in the currently established session.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GMarketDataSnapshotResponseReader.html">O2GMarketDataSnapshotResponseReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class reads a stream of historical prices.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GMessageRow.html">O2GMessageRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to a message that is intended for the user.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GMessagesTable.html">O2GMessagesTable</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class keeps in memory the up-to-date information about dealing desk messages received during the current trading day.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GMessagesTableResponseReader.html">O2GMessagesTableResponseReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class reads a stream of message rows coming from the trading server.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GMessageTableRow.html">O2GMessageTableRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to the message information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GOfferRow.html">O2GOfferRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to offer information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GOffersTable.html">O2GOffersTable</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class keeps in memory the up-to-date information about offers.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GOffersTableResponseReader.html">O2GOffersTableResponseReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class reads a stream of offer rows coming from the trading server.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GOfferTableRow.html">O2GOfferTableRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to the offer information and calculated fields.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GOrderResponseReader.html">O2GOrderResponseReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A reader of a response belonging to CreateOrderResponse type.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GOrderRow.html">O2GOrderRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to order information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GOrdersTable.html">O2GOrdersTable</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class keeps in memory the up-to-date information about orders.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GOrdersTableResponseReader.html">O2GOrdersTableResponseReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class reads a stream of order rows coming from the trading server.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GOrderTableRow.html">O2GOrderTableRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to the order information and calculated fields.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GPermissionChecker.html">O2GPermissionChecker</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Checks permissions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GRequest.html">O2GRequest</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A request to be sent to the server.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GRequestFactory.html">O2GRequestFactory</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A request factory.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GResponse.html">O2GResponse</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class contains a response received from the trading server.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GResponseReaderFactory.html">O2GResponseReaderFactory</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class creates readers to process the content of the trading server responses.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GRolloverProvider.html">O2GRolloverProvider</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class is used for obtaining the information about rollovers.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GRow.html">O2GRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>An abstract interface to a row of a table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GSession.html">O2GSession</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A session object. This object should be <a href="fxcore2.O2GSession.Dispose.0.html"><code>disposed</code></a> after disconnecting.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GSessionDescriptor.html">O2GSessionDescriptor</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A trading session descriptor.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GSessionDescriptorCollection.html">O2GSessionDescriptorCollection</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A collection of trading session descriptors.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GSummaryRow.html">O2GSummaryRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Summary information about a particular traded instrument in a response object.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GSummaryTable.html">O2GSummaryTable</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class keeps in memory the up-to-date summary information per the instrument traded.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GSummaryTableRow.html">O2GSummaryTableRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to the summary information of the instrument traded.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GSystemPropertiesReader.html">O2GSystemPropertiesReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A reader of the system properties.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GTable.html">O2GTable</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>An abstract interface to a table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GTableColumn.html">O2GTableColumn</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to a column of a trading table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GTableColumnCollection.html">O2GTableColumnCollection</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to the list of table columns.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GTableIterator.html">O2GTableIterator</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class iterates through rows of a table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GTableManager.html">O2GTableManager</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class creates and maintains trading tables in the ForexConnect memory.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GTablesUpdatesReader.html">O2GTablesUpdatesReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class reads a stream of table updates coming from the trading server.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GTimeConverter.html">O2GTimeConverter</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides a method to convert datetime values between the time zones.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GTimeframe.html">O2GTimeframe</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A description for a time frame.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GTimeframeCollection.html">O2GTimeframeCollection</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A collection of time frames available for the session.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GTradeRow.html">O2GTradeRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to open position information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GTradesTable.html">O2GTradesTable</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class keeps in memory the up-to-date information about open positions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GTradesTableResponseReader.html">O2GTradesTableResponseReader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class reads a stream of open position rows coming from the trading server.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GTradeTableRow.html">O2GTradeTableRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The class provides access to the open position information and calculated fields.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GTradingSettingsProvider.html">O2GTradingSettingsProvider</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Checks trading settings.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GTransport.html">O2GTransport</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The main class which is used to configure the transport and to create sessions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GValueMap.html">O2GValueMap</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A value map containing order parameters.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.RequestCompletedEventArgs.html">RequestCompletedEventArgs</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The arguments of the <code>RequestCompleted</code> event.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.RequestFailedEventArgs.html">RequestFailedEventArgs</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The arguments of the <code>RequestFailed</code> event.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GTable.RowDelegate.html">RowDelegate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The delegate is called when the next row in the table is found during the <a href="fxcore2.O2GTable.html">O2GTable</a>.<a href="fxcore2.O2GTable.forEachRow.1.html">forEachRow</a> method call.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.RowEventArgs.html">RowEventArgs</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The arguments of table events: <code>RowAdded</code>, <code>RowChanged</code>, and <code>RowDeleted</code>.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.SessionStatusEventArgs.html">SessionStatusEventArgs</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The arguments of the <code>SessionStatusChanged</code> event.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.StatusChangedEventArgs.html">StatusChangedEventArgs</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The arguments of the <code>StatusChanged</code> event (event when table's status changes).</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.TableManagerStatusChangedEventArgs.html">TableManagerStatusChangedEventArgs</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The argument of the <code>TableManagerStatusChanged</code> event.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.TablesUpdatesEventArgs.html">TablesUpdatesEventArgs</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The arguments of the <code>TablesUpdates</code> event.</p>
+    </td>
+  </tr>
+</table>
+<p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Enumerations</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GCandleOpenPriceMode.html">O2GCandleOpenPriceMode</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the candles open price mode that indicates how the open price is determined.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GChartSessionMode.html">O2GChartSessionMode</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the chart session modes.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GChartSessionStatusCode.html">O2GChartSessionStatusCode</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the chart session status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GCommissionStage.html">O2GCommissionStage</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing stages when commission is incurred.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GCommissionStatus.html">O2GCommissionStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the commission status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GCommissionUnitType.html">O2GCommissionUnitType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the commission unit type.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GContingencyType.html">O2GContingencyType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the contingency type.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GInstrumentType.html">O2GInstrumentType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the instrument type.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GLogicOperators.html">O2GLogicOperators</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of logical operators.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GMarketStatus.html">O2GMarketStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the market status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GPermissionStatus.html">O2GPermissionStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum provides a set of constants specifying the status of permissions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GPriceUpdateMode.html">O2GPriceUpdateMode</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the price update mode that indicates whether a session receives prices or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GRateType.html">O2GRateType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the rate type of stop or limit orders.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GRelationalOperators.html">O2GRelationalOperators</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of relational operators.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GRequestParamsEnum.html">O2GRequestParamsEnum</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The request parameters.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GResponseType.html">O2GResponseType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum defines a set of constants representing the types of the trading server responses.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GRolloverStatus.html">O2GRolloverStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum provides a set of constants specifying the status of rollovers.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GSessionStatusCode.html">O2GSessionStatusCode</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the session status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GTableColumnType.html">O2GTableColumnType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum sepcifies a set of constants representing the data type of a table column.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GTableEventsFilter.html">O2GTableEventsFilter</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the type of events filtering.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GTableManagerMode.html">O2GTableManagerMode</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the table manager mode that indicates whether a session uses a table manager or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GTableManagerStatus.html">O2GTableManagerStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the table manager status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GTableStatus.html">O2GTableStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the trading table load status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GTableType.html">O2GTableType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the trading table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GTableUpdateType.html">O2GTableUpdateType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the type of the trading table update.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GTimeConverterTimeZone.html">O2GTimeConverterTimeZone</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the time zone.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="fxcore2.O2GTimeframeUnit.html">O2GTimeframeUnit</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the unit of measurement of the historical prices time frame.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="O2GUserKind.html">O2GUserKind</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The enum specifies a set of constants representing the user kind.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="forexconnect.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

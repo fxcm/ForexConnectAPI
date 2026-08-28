@@ -1,0 +1,173 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>ForexConnect.create_request</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>ForexConnect.create_request</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Creates a request.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">Python</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"></td>
+    <td width="99%" valign="top"><code><b>create_request</b>((typing.Dict[<a href="O2GRequestParamsEnum.html"><code>O2GRequestParamsEnum</code></a>, str])params, (<a href="IO2GRequestFactory.html"><code>O2GRequestFactory</code></a>)request_factory = None, (bool)root = True) -&gt; <a href="IO2GRequest.html"><code>O2GRequest</code></a></code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>params</code></td>
+    <td class="tmain" width="69%"><p>The request parameters. See <a href="O2GRequestParamsEnum.html"><code>O2GRequestParamsEnum</code></a>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>request_factory</code></td>
+    <td class="tmain" width="69%"><p>An instance of <a href="IO2GRequestFactory.html"><code>O2GRequestFactory</code></a>.
+The default value of the parameter is <code>None</code>, in this case an instance of the request factory of the current session is used.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>root</code></td>
+    <td class="tmain" width="69%"><p>Defines whether the request is root. The default value of the parameter is <code>True</code>.</p></td>
+  </tr>
+</table><p><b>Details</b></p><p>To send a request, use the method <a href="forexconnect.ForexConnect.ForexConnect.sendRequest.html"><code>ForexConnect.send_request</code></a> or
+<a href="forexconnect.ForexConnect.ForexConnect.sendRequestAsync.html"><code>ForexConnect.send_request_async</code></a>.
+<br>
+<br>
+If you use the method <a href="forexconnect.ForexConnect.ForexConnect.sendRequest.html"><code>ForexConnect.send_request</code></a>,
+the method returns the execution result or raises an exception <code>RequestFailedError</code> if an error occurs.</p>
+<p>If you use the method <a href="forexconnect.ForexConnect.ForexConnect.sendRequestAsync.html"><code>ForexConnect.send_request_async</code></a>,
+to get a request execution result, you need to specify a <a href="forexconnect.ResponseListener.html"><code>ResponseListener</code></a>
+in the method.</p>
+<p>The method uses the methods of <a href="IO2GRequestFactory.html"><code>O2GRequestFactory</code></a>.</p>
+<p>To create a request, use
+<a href="IO2GRequestFactory.IO2GRequestFactory.createValueMap.html"><code>O2GRequestFactory.create_value_map</code></a>
+and fill the result <a href="IO2GValueMap.html"><code>O2GValueMap</code></a> with request parameters.
+<br>
+Then use
+<a href="IO2GRequestFactory.IO2GRequestFactory.createOrderRequest.html"><code>O2GRequestFactory.create_order_request</code></a>.</p><p>Declared in <a href="forexconnect.ForexConnect.html">ForexConnect</a></p>
+<p>
+  <center><a href="forexconnect.ForexConnect.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'forexconnect.ForexConnect.html');</script></body>
+</html>

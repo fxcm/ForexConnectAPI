@@ -1,0 +1,479 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Content</title>
+    <style type="text/css">
+
+/* Put this inside a @media qualifier so Netscape 4 ignores it */
+@media screen, print {
+    /* Turn off list bullets */
+    ul.mktree  li { list-style: none; }
+    /* Control how "spaced out" the tree is */
+    ul.mktree, ul.mktree ul , ul.mktree li { margin-left:10px; padding:0px; font-family : Trebuchet MS, Arial; }
+    /* Provide space for our own "bullet" inside the LI */
+    ul.mktree  li           .bullet { padding-left: 15px; }
+    /* Show "bullets" in the links, depending on the class of the LI that the link's in */
+    ul.mktree  li.liOpen    .bullet { cursor: pointer; background: url(menu/minus.png)  center left no-repeat; }
+    ul.mktree  li.liClosed  .bullet { cursor: pointer; background: url(menu/plus.png)   center left no-repeat; }
+    ul.mktree  li.liBullet  .bullet { cursor: default; background: url(menu/bullet.png) center left no-repeat; }
+    /* Sublists are visible or not based on class of parent LI */
+    ul.mktree  li.liOpen    ul { display: block; }
+    ul.mktree  li.liClosed  ul { display: none; }
+
+    a.select {font-weight:bold;}
+}
+body
+{
+    background-color: #f1f1f1;
+    font-size: 13px;
+}
+div.HelpCaption
+{
+    background-image: url(pageImages/header-bg.gif);
+    height: 43px;
+}
+A:link
+{
+    color:#0068be;
+}
+
+</style>
+  </head><script language="javascript" type="text/javascript">
+function getQueryParam(name) {
+
+
+  var query = window.parent.location.search.substring(1);
+  var params = query.split("&");
+  for (var i = 0;i < params.length; i++) {
+    var pair = params[i].split("=");
+    if (pair[0] == name) {
+      return pair[1];
+    }
+  }
+  return null;
+}
+addEvent(window,"load",convertTrees);
+var src = getQueryParam('key') || 'index.html';
+parent.docframe.location = src;
+
+// ===================================================================
+// Author: Matt Kruse <matt@mattkruse.com>
+// WWW: http://www.mattkruse.com/
+//
+// NOTICE: You may use this code for any purpose, commercial or
+// private, without any further permission from the author. You may
+// remove this notice from your final code if you wish, however it is
+// appreciated by the author if at least my web site address is kept.
+//
+// You may *NOT* re-distribute this code in any way except through its
+// use. That means, you can include it in your product, or your web
+// site, or any other form where the code is actually being used. You
+// may not put the plain javascript up on your site for download or
+// include it in your javascript libraries for download.
+// If you wish to share this code with others, please just point them
+// to the URL instead.
+// Please DO NOT link directly to my .js files from your site. Copy
+// the files to your server and use them there. Thank you.
+// ===================================================================
+
+// HISTORY
+// ------------------------------------------------------------------
+// December 9, 2003: Added script to the Javascript Toolbox
+// December 10, 2003: Added the preProcessTrees variable to allow user
+//      to turn off automatic conversion of UL's onLoad
+// March 1, 2004: Changed it so if a <li> has a class already attached
+//      to it, that class won't be erased when initialized. This allows
+//      you to set the state of the tree when painting the page simply
+//      by setting some <li>'s class name as being "liOpen" (see example)
+/*
+This code is inspired by and extended from Stuart Langridge's aqlist code:
+        http://www.kryogenix.org/code/browser/aqlists/
+        Stuart Langridge, November 2002
+        sil@kryogenix.org
+        Inspired by Aaron's labels.js (http://youngpup.net/demos/labels/)
+        and Dave Lindquist's menuDropDown.js (http://www.gazingus.org/dhtml/?id=109)
+*/
+function addEvent(o,e,f){if(o.addEventListener){o.addEventListener(e,f,true);return true;}else if(o.attachEvent){return o.attachEvent("on"+e,f);}else{return false;}}
+function setDefault(name,val){if(typeof(window[name])=="undefined" || window[name]==null){window[name]=val;}}
+function expandTree(treeId){var ul = document.getElementById(treeId);if(ul == null){return false;}expandCollapseList(ul,nodeOpenClass);}
+function collapseTree(treeId){var ul = document.getElementById(treeId);if(ul == null){return false;}expandCollapseList(ul,nodeClosedClass);}
+function expandToItem(treeId,itemId){var ul = document.getElementById(treeId);if(ul == null){return false;}var ret = expandCollapseList(ul,nodeOpenClass,itemId);if(ret){var o = document.getElementById(itemId);if(o.scrollIntoView){o.scrollIntoView(false);}}}
+function expandCollapseList(ul,cName,itemId){if(!ul.childNodes || ul.childNodes.length==0){return false;}for(var itemi=0;itemi<ul.childNodes.length;itemi++){var item = ul.childNodes[itemi];if(itemId!=null && item.id==itemId){return true;}if(item.nodeName == "LI"){var subLists = false;for(var sitemi=0;sitemi<item.childNodes.length;sitemi++){var sitem = item.childNodes[sitemi];if(sitem.nodeName=="UL"){subLists = true;var ret = expandCollapseList(sitem,cName,itemId);if(itemId!=null && ret){item.className=cName;return true;}}}if(subLists && itemId==null){item.className = cName;}}}}
+function convertTrees(){setDefault("treeClass","mktree");setDefault("nodeClosedClass","liClosed");setDefault("nodeOpenClass","liOpen");setDefault("nodeBulletClass","liBullet");setDefault("nodeLinkClass","bullet");setDefault("preProcessTrees",true);if(preProcessTrees){if(!document.createElement){return;}uls = document.getElementsByTagName("ul");for(var uli=0;uli<uls.length;uli++){var ul=uls[uli];if(ul.nodeName=="UL" && ul.className==treeClass){processList(ul);}}}}
+function processList(ul){if(!ul.childNodes || ul.childNodes.length==0){return;}for(var itemi=0;itemi<ul.childNodes.length;itemi++){var item = ul.childNodes[itemi];if(item.nodeName == "LI"){var subLists = false;for(var sitemi=0;sitemi<item.childNodes.length;sitemi++){var sitem = item.childNodes[sitemi];if(sitem.nodeName=="UL"){subLists = true;processList(sitem);}}var s= document.createElement("SPAN");var t= '\u00A0';s.className = nodeLinkClass;if(subLists){if(item.className==null || item.className==""){item.className = nodeClosedClass;}if(item.firstChild.nodeName=="#text"){t = t+item.firstChild.nodeValue;item.removeChild(item.firstChild);}s.onclick = function(){this.parentNode.className =(this.parentNode.className==nodeOpenClass) ? nodeClosedClass : nodeOpenClass;return false;}}else{item.className = nodeBulletClass;s.onclick = function(){return false;}}s.appendChild(document.createTextNode(t));item.insertBefore(s,item.firstChild);}}}
+
+// Auxilary function to support "expand tree on right frame navigation" functionality
+var selectedItem = null;
+
+function getFileFromURL(url) {var f = url.split('/');return f[f.length - 1];}
+function createIds() {var lis = document.getElementsByTagName("li");for(var lisi=0;lisi<lis.length;lisi++) {var li = lis[lisi];if (li.firstChild.nodeName == "A") {var h = li.firstChild.href;if (h) {li.id = getFileFromURL(h);}}}var as = document.getElementsByTagName("a");for(var asi=0;asi<as.length;asi++) {var a = as[asi];a.onclick = function(event) {event = event || window.event;selectLink(event.target);}}}
+function selectLink(lnk) {if (selectedItem) {selectedItem.className='';}lnk.className="select";selectedItem=lnk;}
+function selectItem(fid, tid) {var id  = getFileFromURL(fid);var tid = tid || id;expandToItem('hhc_tree', tid);window.parent.parent.location.hash = id;var childs = document.getElementById(tid).childNodes;for(var ci=0;ci<childs.length;ci++) {if (childs[ci].nodeName == "A") {selectLink(childs[ci]);}}}
+
+</script><body>
+    <ul class="mktree" id="hhc_tree">
+      <li><a href="index.html" target="docframe">ForexConnect API User Guide</a><ul>
+          <li><a href="forexconnect.html" target="docframe">ForexConnect API</a><ul>
+              <li><a href="intro.html" target="docframe">Introduction</a></li>
+              <li><a href="howto.html" target="docframe">How-to</a><ul>
+                  <li><a href="order2go2_Java.html" target="docframe">Including ForexConnect API in Java to Your Application</a></li>
+                  <li><a href="login_logout_java.html" target="docframe">Logging in</a></li>
+                  <li><a href="offers_Java.html" target="docframe">Getting Offers</a></li>
+                  <li><a href="hist_prices_java.html" target="docframe">Getting Historical Prices</a></li>
+                  <li><a href="get_report_java.html" target="docframe">Getting Combined Account Statement Report</a></li>
+                  <li><a href="table_manager_use_java.html" target="docframe">Using Table Manager</a></li>
+                  <li><a href="open_position_article.html" target="docframe">Opening Position on Hedging and Non-Hedging Accounts</a></li>
+                  <li><a href="JavaTradingCommands.html" target="docframe">Working with Trading Commands</a><ul>
+                      <li><a href="JavaTradingCommandsCreateOrder.html" target="docframe">Working with Orders</a><ul>
+                          <li><a href="JavaTradingCommandsCreateOrder_OM.html" target="docframe">Create Open Market Order</a></li>
+                          <li><a href="JavaTradingCommandsCreateOrder_O.html" target="docframe">Create Open Order</a></li>
+                          <li><a href="JavaTradingCommandsCreateOrder_OL.html" target="docframe">Create Open Limit Order</a></li>
+                          <li><a href="JavaTradingCommandsCreateOrder_OR1.html" target="docframe">Create Open Range Order</a></li>
+                          <li><a href="JavaTradingCommandsCreateOrder_CM.html" target="docframe">Create Close Market Order</a></li>
+                          <li><a href="JavaTradingCommandsCreateOrder_C.html" target="docframe">Create Close Order</a></li>
+                          <li><a href="JavaTradingCommandsCreateOrder_CL.html" target="docframe">Create Close Limit Order</a></li>
+                          <li><a href="JavaTradingCommandsCreateOrder_CR1.html" target="docframe">Create Close Range Order</a></li>
+                          <li><a href="JavaTradingCommandsCreateOrder_LE.html" target="docframe">Create Entry Limit Order</a></li>
+                          <li><a href="JavaTradingCommandsCreateOrder_SE.html" target="docframe">Create Entry Stop Order</a></li>
+                          <li><a href="JavaTradingCommandsCreateOrder_E.html" target="docframe">Create Entry Order</a></li>
+                          <li><a href="JavaTradingCommandsCreateOrder_L.html" target="docframe">Create Limit Order</a></li>
+                          <li><a href="JavaTradingCommandsCreateOrder_S.html" target="docframe">Create Stop Order</a></li>
+                          <li><a href="JavaTradingCommandsCreateOrder_A.html" target="docframe">Attach Stop and/or Limit Orders to Command</a></li>
+                          <li><a href="JavaCreateOCO.html" target="docframe">Create OCO Order</a></li>
+                          <li><a href="JavaCreateOTO.html" target="docframe">Create OTO Order</a></li>
+                          <li><a href="JavaCreateOTOCO.html" target="docframe">Create OTOCO Order</a></li>
+                          <li><a href="JavaJoinToNewContingencyGroup.html" target="docframe">Create Contingency Group</a></li>
+                          <li><a href="JavaJoinToExistingContingencyGroup.html" target="docframe">Add Order to Contingency Group</a></li>
+                          <li><a href="JavaRemoveFromContingencyGroup.html" target="docframe">Remove Order from Contingency Group</a></li>
+                          <li><a href="JavaTradingCommandsEditOrder.html" target="docframe">Edit Order</a></li>
+                          <li><a href="JavaTradingCommandsDeleteOrder.html" target="docframe">Delete Order</a></li>
+                          <li><a href="GetLastOrderUpdate.html" target="docframe">Get Order Update</a></li>
+                        </ul>
+                      </li>
+                      <li><a href="JavaTradingCommandsSetSubscriptionStatus.html" target="docframe">Set Subscription Status</a></li>
+                      <li><a href="JavaUpdateMarginRequirements.html" target="docframe">Update Margin Requirements</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><a href="com.fxcore2.html" target="docframe">Namespace com.fxcore2</a><ul>
+                  <li>Classes<ul>
+                      <li><a href="com.fxcore2.Constants.html" target="docframe">Constants</a></li>
+                      <li><a href="com.fxcore2.Constants.Commands.html" target="docframe">Constants.Commands</a></li>
+                      <li><a href="com.fxcore2.Constants.KeyType.html" target="docframe">Constants.KeyType</a></li>
+                      <li><a href="com.fxcore2.Constants.Orders.html" target="docframe">Constants.Orders</a></li>
+                      <li><a href="com.fxcore2.Constants.Peg.html" target="docframe">Constants.Peg</a></li>
+                      <li><a href="com.fxcore2.Constants.SubscriptionStatuses.html" target="docframe">Constants.SubscriptionStatuses</a></li>
+                      <li><a href="com.fxcore2.Constants.SystemProperties.html" target="docframe">Constants.SystemProperties</a></li>
+                      <li><a href="com.fxcore2.Constants.TIF.html" target="docframe">Constants.TIF</a></li>
+                      <li><a href="com.fxcore2.IO2GChartSessionStatus.html" target="docframe">IO2GChartSessionStatus</a></li>
+                      <li><a href="com.fxcore2.IO2GCommissionProviderListener.html" target="docframe">IO2GCommissionProviderListener</a></li>
+                      <li><a href="com.fxcore2.IO2GEachRowListener.html" target="docframe">IO2GEachRowListener</a></li>
+                      <li><a href="com.fxcore2.IO2GResponseListener.html" target="docframe">IO2GResponseListener</a></li>
+                      <li><a href="com.fxcore2.IO2GRolloverProviderListener.html" target="docframe">IO2GRolloverProviderListener</a></li>
+                      <li><a href="com.fxcore2.IO2GSessionStatus.html" target="docframe">IO2GSessionStatus</a></li>
+                      <li><a href="com.fxcore2.IO2GTableListener.html" target="docframe">IO2GTableListener</a></li>
+                      <li><a href="com.fxcore2.IO2GTableManagerListener.0.html" target="docframe">IO2GTableManagerListener</a></li>
+                      <li><a href="com.fxcore2.O2GAccountRow.html" target="docframe">O2GAccountRow</a></li>
+                      <li><a href="com.fxcore2.O2GAccountsTable.html" target="docframe">O2GAccountsTable</a></li>
+                      <li><a href="com.fxcore2.O2GAccountsTableResponseReader.html" target="docframe">O2GAccountsTableResponseReader</a></li>
+                      <li><a href="com.fxcore2.O2GAccountTableRow.html" target="docframe">O2GAccountTableRow</a></li>
+                      <li><a href="com.fxcore2.O2GClosedTradeRow.html" target="docframe">O2GClosedTradeRow</a></li>
+                      <li><a href="com.fxcore2.O2GClosedTradesTable.html" target="docframe">O2GClosedTradesTable</a></li>
+                      <li><a href="com.fxcore2.O2GClosedTradesTableResponseReader.html" target="docframe">O2GClosedTradesTableResponseReader</a></li>
+                      <li><a href="com.fxcore2.O2GClosedTradeTableRow.html" target="docframe">O2GClosedTradeTableRow</a></li>
+                      <li><a href="com.fxcore2.O2GCommissionDescriptor.html" target="docframe">O2GCommissionDescription</a></li>
+                      <li><a href="com.fxcore2.O2GCommissionDescriptorCollection.html" target="docframe">O2GCommissionDescriptionsCollection</a></li>
+                      <li><a href="com.fxcore2.O2GCommissionsProvider.html" target="docframe">O2GCommissionsProvider</a></li>
+                      <li><a href="com.fxcore2.O2GGenericTableResponseReader.html" target="docframe">O2GGenericTableResponseReader</a></li>
+                      <li><a href="com.fxcore2.O2GHtmlContentUtils.html" target="docframe">O2GHtmlContentUtils</a></li>
+                      <li><a href="com.fxcore2.O2GLastOrderUpdateResponseReader.html" target="docframe">O2GLastOrderUpdateResponseReader</a></li>
+                      <li><a href="com.fxcore2.O2GLoginRules.html" target="docframe">O2GLoginRules</a></li>
+                      <li><a href="com.fxcore2.O2GMargin.html" target="docframe">O2GMargin</a></li>
+                      <li><a href="com.fxcore2.O2GMarketDataSnapshotResponseReader.html" target="docframe">O2GMarketDataSnapshotResponseReader</a></li>
+                      <li><a href="com.fxcore2.O2GMessageRow.html" target="docframe">O2GMessageRow</a></li>
+                      <li><a href="com.fxcore2.O2GMessagesTable.html" target="docframe">O2GMessagesTable</a></li>
+                      <li><a href="com.fxcore2.O2GMessagesTableResponseReader.html" target="docframe">O2GMessagesTableResponseReader</a></li>
+                      <li><a href="com.fxcore2.O2GMessageTableRow.html" target="docframe">O2GMessageTableRow</a></li>
+                      <li><a href="com.fxcore2.O2GOfferRow.html" target="docframe">O2GOfferRow</a></li>
+                      <li><a href="com.fxcore2.O2GOffersTable.html" target="docframe">O2GOffersTable</a></li>
+                      <li><a href="com.fxcore2.O2GOffersTableResponseReader.html" target="docframe">O2GOffersTableResponseReader</a></li>
+                      <li><a href="com.fxcore2.O2GOfferTableRow.html" target="docframe">O2GOfferTableRow</a></li>
+                      <li><a href="com.fxcore2.O2GOrderResponseReader.html" target="docframe">O2GOrderResponseReader</a></li>
+                      <li><a href="com.fxcore2.O2GOrderRow.html" target="docframe">O2GOrderRow</a></li>
+                      <li><a href="com.fxcore2.O2GOrdersTable.html" target="docframe">O2GOrdersTable</a></li>
+                      <li><a href="com.fxcore2.O2GOrdersTableResponseReader.html" target="docframe">O2GOrdersTableResponseReader</a></li>
+                      <li><a href="com.fxcore2.O2GOrderTableRow.html" target="docframe">O2GOrderTableRow</a></li>
+                      <li><a href="com.fxcore2.O2GPermissionChecker.html" target="docframe">O2GPermissionChecker</a></li>
+                      <li><a href="com.fxcore2.O2GProgressiveMarginLevels.html" target="docframe">O2GProgressiveMarginLevels</a></li>
+                      <li><a href="com.fxcore2.O2GRequest.html" target="docframe">O2GRequest</a></li>
+                      <li><a href="com.fxcore2.O2GRequestFactory.html" target="docframe">O2GRequestFactory</a></li>
+                      <li><a href="com.fxcore2.O2GResponse.html" target="docframe">O2GResponse</a></li>
+                      <li><a href="com.fxcore2.O2GResponseReaderFactory.html" target="docframe">O2GResponseReaderFactory</a></li>
+                      <li><a href="com.fxcore2.O2GRolloverProvider.html" target="docframe">O2GRolloverProvider</a></li>
+                      <li><a href="com.fxcore2.O2GRow.html" target="docframe">O2GRow</a></li>
+                      <li><a href="com.fxcore2.O2GSession.html" target="docframe">O2GSession</a></li>
+                      <li><a href="com.fxcore2.O2GSessionDescriptor.html" target="docframe">O2GSessionDescriptor</a></li>
+                      <li><a href="com.fxcore2.O2GSessionDescriptorCollection.html" target="docframe">O2GSessionDescriptorCollection</a></li>
+                      <li><a href="com.fxcore2.O2GSummaryRow.html" target="docframe">O2GSummaryRow</a></li>
+                      <li><a href="com.fxcore2.O2GSummaryTable.html" target="docframe">O2GSummaryTable</a></li>
+                      <li><a href="com.fxcore2.O2GSummaryTableRow.html" target="docframe">O2GSummaryTableRow</a></li>
+                      <li><a href="com.fxcore2.O2GSystemPropertiesReader.html" target="docframe">O2GSystemPropertiesReader</a></li>
+                      <li><a href="com.fxcore2.O2GTable.html" target="docframe">O2GTable</a></li>
+                      <li><a href="com.fxcore2.O2GTableColumn.html" target="docframe">O2GTableColumn</a></li>
+                      <li><a href="com.fxcore2.O2GTableColumnCollection.html" target="docframe">O2GTableColumnCollection</a></li>
+                      <li><a href="com.fxcore2.O2GTableIterator.html" target="docframe">O2GTableIterator</a></li>
+                      <li><a href="com.fxcore2.O2GTableManager.html" target="docframe">O2GTableManager</a></li>
+                      <li><a href="com.fxcore2.O2GTablesUpdatesReader.html" target="docframe">O2GTablesUpdatesReader</a></li>
+                      <li><a href="com.fxcore2.O2GTimeConverter.html" target="docframe">O2GTimeConverter</a></li>
+                      <li><a href="com.fxcore2.O2GTimeframe.html" target="docframe">O2GTimeframe</a></li>
+                      <li><a href="com.fxcore2.O2GTimeframeCollection.html" target="docframe">O2GTimeframeCollection</a></li>
+                      <li><a href="com.fxcore2.O2GTradeRow.html" target="docframe">O2GTradeRow</a></li>
+                      <li><a href="com.fxcore2.O2GTradesTable.html" target="docframe">O2GTradesTable</a></li>
+                      <li><a href="com.fxcore2.O2GTradesTableResponseReader.html" target="docframe">O2GTradesTableResponseReader</a></li>
+                      <li><a href="com.fxcore2.O2GTradeTableRow.html" target="docframe">O2GTradeTableRow</a></li>
+                      <li><a href="com.fxcore2.O2GTradingSettingsProvider.html" target="docframe">O2GTradingSettingsProvider</a></li>
+                      <li><a href="com.fxcore2.O2GTransport.html" target="docframe">O2GTransport</a></li>
+                      <li><a href="com.fxcore2.O2GValueMap.html" target="docframe">O2GValueMap</a></li>
+                    </ul>
+                  </li>
+                  <li>Enumerations<ul>
+                      <li><a href="com.fxcore2.O2GCandleOpenPriceMode.html" target="docframe">O2GCandleOpenPriceMode</a></li>
+                      <li><a href="com.fxcore2.O2GChartSessionMode.html" target="docframe">O2GChartSessionMode</a></li>
+                      <li><a href="com.fxcore2.O2GChartSessionStatusCode.html" target="docframe">O2GChartSessionStatusCode</a></li>
+                      <li><a href="com.fxcore2.O2GCommissionStageCode.html" target="docframe">O2GCommissionStageCode</a></li>
+                      <li><a href="com.fxcore2.O2GCommissionStatusCode.html" target="docframe">O2GCommissionStatusCode</a></li>
+                      <li><a href="com.fxcore2.O2GCommissionUnitTypeCode.html" target="docframe">O2GCommissionUnitTypeCode</a></li>
+                      <li><a href="O2GContingencyType.html" target="docframe">O2GContingencyType</a></li>
+                      <li><a href="O2GInstrumentType.html" target="docframe">O2GInstrumentType</a></li>
+                      <li><a href="com.fxcore2.O2GLogicalOperators.html" target="docframe">O2GLogicalOperators</a></li>
+                      <li><a href="com.fxcore2.O2GMarketStatus.html" target="docframe">O2GMarketStatus</a></li>
+                      <li><a href="com.fxcore2.O2GPermissionStatus.html" target="docframe">O2GPermissionStatus</a></li>
+                      <li><a href="com.fxcore2.O2GPriceUpdateMode.html" target="docframe">O2GPriceUpdateMode</a></li>
+                      <li><a href="O2GRateType.html" target="docframe">O2GRateType</a></li>
+                      <li><a href="com.fxcore2.O2GRelationalOperators.html" target="docframe">O2GRelationalOperators</a></li>
+                      <li><a href="com.fxcore2.O2GRequestParamsEnum.html" target="docframe">O2GRequestParamsEnum</a></li>
+                      <li><a href="com.fxcore2.O2GResponseType.html" target="docframe">O2GResponseType</a></li>
+                      <li><a href="com.fxcore2.O2GRolloverStatus.html" target="docframe">O2GRolloverStatus</a></li>
+                      <li><a href="com.fxcore2.O2GSessionStatusCode.html" target="docframe">O2GSessionStatusCode</a></li>
+                      <li><a href="com.fxcore2.O2GSystemProperty.html" target="docframe">O2GSystemProperty</a></li>
+                      <li><a href="com.fxcore2.O2GTableColumnType.html" target="docframe">O2GTableColumnType</a></li>
+                      <li><a href="com.fxcore2.O2GTableEventsFilter.html" target="docframe">O2GTableEventsFilter</a></li>
+                      <li><a href="com.fxcore2.O2GTableManagerMode.html" target="docframe">O2GTableManagerMode</a></li>
+                      <li><a href="com.fxcore2.O2GTableManagerStatus.0.html" target="docframe">O2GTableManagerStatus</a></li>
+                      <li><a href="com.fxcore2.O2GTableStatus.html" target="docframe">O2GTableStatus</a></li>
+                      <li><a href="com.fxcore2.O2GTableType.html" target="docframe">O2GTableType</a></li>
+                      <li><a href="com.fxcore2.O2GTableUpdateType.html" target="docframe">O2GTableUpdateType</a></li>
+                      <li><a href="com.fxcore2.O2GTimeConverterTimeZone.html" target="docframe">O2GTimeConverterTimeZone</a></li>
+                      <li><a href="com.fxcore2.O2GTimeframeUnit.html" target="docframe">O2GTimeframeUnit</a></li>
+                      <li><a href="O2GUserKind.html" target="docframe">O2GUserKind</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><a href="pricehistory.html" target="docframe">Price History API</a><ul>
+              <li><a href="howto_pricehistory.html" target="docframe">How-to</a><ul>
+                  <li><a href="includePriceHistoryJava.html" target="docframe">Including Price History API in Java to Your Application</a></li>
+                  <li><a href="usePriceHistory.html" target="docframe">Getting Historical Prices</a></li>
+                  <li><a href="keepUpToDate.html" target="docframe">Keeping Bar History Up to Date</a></li>
+                </ul>
+              </li>
+              <li><a href="pricehistorymgr.html" target="docframe">Package com.candleworks.pricehistorymgr</a><ul>
+                  <li>Classes<ul>
+                      <li><a href="pricehistorymgr.IPriceHistoryCommunicator.html" target="docframe">IPriceHistoryCommunicator</a></li>
+                      <li><a href="pricehistorymgr.IPriceHistoryCommunicatorListener.html" target="docframe">IPriceHistoryCommunicatorListener</a></li>
+                      <li><a href="pricehistorymgr.IPriceHistoryCommunicatorRequest.html" target="docframe">IPriceHistoryCommunicatorRequest</a></li>
+                      <li><a href="pricehistorymgr.IPriceHistoryCommunicatorResponse.html" target="docframe">IPriceHistoryCommunicatorResponse</a></li>
+                      <li><a href="pricehistorymgr.IPriceHistoryCommunicatorStatusListener.html" target="docframe">IPriceHistoryCommunicatorStatusListener</a></li>
+                      <li><a href="pricehistorymgr.ITimeframeFactory.html" target="docframe">ITimeframeFactory</a></li>
+                      <li><a href="pricehistorymgr.PriceHistoryCommunicatorFactory.html" target="docframe">PriceHistoryCommunicatorFactory</a></li>
+                      <li><a href="pricehistorymgr.PriceHistoryError.html" target="docframe">PriceHistoryError</a></li>
+                    </ul>
+                  </li>
+                  <li>Enumerations<ul>
+                      <li><a href="pricehistorymgr.PriceHistoryError.Code.html" target="docframe">PriceHistoryError.Code</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><a href="quotesmanager.html" target="docframe">Quotes Manager API</a><ul>
+              <li><a href="quotesmanager_intro.html" target="docframe">Introduction</a><ul>
+                  <li><a href="qmbasics_bus.html" target="docframe">How does Quotes Manager Work (Business Logic)?</a></li>
+                  <li><a href="qmbasics_dev.html" target="docframe">How does Quotes Manager Work (Programming Logic)?</a></li>
+                </ul>
+              </li>
+              <li><a href="howto_quotesmgr.html" target="docframe">How-to</a><ul>
+                  <li><a href="includeQuotesManagerJava.html" target="docframe">Including Quotes Manager API in Java to Your Application</a></li>
+                  <li><a href="quotesmanager_java_auth.html" target="docframe">Using Quotes Manager API with Trading Connection</a></li>
+                </ul>
+              </li>
+              <li><a href="quotesmgr.html" target="docframe">Package com.candleworks.quotesmgr</a><ul>
+                  <li>Classes<ul>
+                      <li><a href="quotesmgr.BaseTimeframes.html" target="docframe">BaseTimeframes</a></li>
+                      <li><a href="quotesmgr.CandlePeriod.html" target="docframe">CandlePeriod</a></li>
+                      <li><a href="quotesmgr.Instrument.html" target="docframe">Instrument</a></li>
+                      <li><a href="quotesmgr.Instruments.html" target="docframe">Instruments</a></li>
+                      <li><a href="quotesmgr.IPrepareQuotesCallback.html" target="docframe">IPrepareQuotesCallback</a></li>
+                      <li><a href="quotesmgr.IReceiveBarQuotesCallback.html" target="docframe">IReceiveBarQuotesCallback</a></li>
+                      <li><a href="quotesmgr.IRemoveQuotesCallback.html" target="docframe">IRemoveQuotesCallback</a></li>
+                      <li><a href="quotesmgr.IUpdateInstrumentsCallback.html" target="docframe">IUpdateInstrumentsCallback</a></li>
+                      <li><a href="quotesmgr.IUpdateQuotesCatalogCallback.html" target="docframe">IUpdateQuotesCatalogCallback</a></li>
+                      <li><a href="quotesmgr.PrepareQuotesTask.html" target="docframe">PrepareQuotesTask</a></li>
+                      <li><a href="quotesmgr.QuotesManager.html" target="docframe">QuotesManager</a></li>
+                      <li><a href="quotesmgr.QuotesManagerError.html" target="docframe">QuotesManagerError</a></li>
+                      <li><a href="quotesmgr.QuotesManagerFactory.html" target="docframe">QuotesManagerFactory</a></li>
+                      <li><a href="quotesmgr.ReceiveBarQuotesTask.html" target="docframe">ReceiveBarQuotesTask</a></li>
+                      <li><a href="quotesmgr.RemoveQuotesTask.html" target="docframe">RemoveQuotesTask</a></li>
+                      <li><a href="quotesmgr.Task.html" target="docframe">Task</a></li>
+                      <li><a href="quotesmgr.UpdateInstrumentsTask.html" target="docframe">UpdateInstrumentsTask</a></li>
+                      <li><a href="quotesmgr.UpdateQuotesCatalogTask.html" target="docframe">UpdateQuotesCatalogTask</a></li>
+                    </ul>
+                  </li>
+                  <li>Enumerations<ul>
+                      <li><a href="quotesmgr.CandlePeriod.Unit.html" target="docframe">CandlePeriod.Unit</a></li>
+                      <li><a href="quotesmgr.InstrumentType.html" target="docframe">InstrumentType</a></li>
+                      <li><a href="quotesmgr.OpenPriceCandlesMode.html" target="docframe">OpenPriceCandlesMode</a></li>
+                      <li><a href="quotesmgr.QuotesManagerError.ErrorCode.html" target="docframe">QuotesManagerError.ErrorCode</a></li>
+                      <li><a href="quotesmgr.Task.Type.html" target="docframe">Task.Type</a></li>
+                      <li><a href="quotesmgr.WeekendCandleMode.html" target="docframe">WeekendCandleMode</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><a href="references.html" target="docframe">Reference Articles</a><ul>
+              <li><a href="Trading.html" target="docframe">Trading</a><ul>
+                  <li><a href="TradingTables.html" target="docframe">Trading Tables</a><ul>
+                      <li><a href="TTAccounts.html" target="docframe">Accounts (table)</a></li>
+                      <li><a href="TTOrders.html" target="docframe">Orders (table)</a></li>
+                      <li><a href="TTOffers.html" target="docframe">Offers (table)</a></li>
+                      <li><a href="TTTrades.html" target="docframe">Trades (table)</a></li>
+                      <li><a href="TTClosedTrades.html" target="docframe">Closed Trades (table)</a></li>
+                      <li><a href="TTMessages.html" target="docframe">Messages (table)</a></li>
+                      <li><a href="TTSummary.html" target="docframe">Summary (table)</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="OrdersSys.html" target="docframe">Orders in the FXCM's trading system</a><ul>
+                      <li><a href="OrderTypes.html" target="docframe">Order Types</a><ul>
+                          <li><a href="ImmediateOrders.html" target="docframe">Immediate Orders</a></li>
+                          <li><a href="ConditionalOrders.html" target="docframe">Conditional Orders</a></li>
+                          <li><a href="MarginEquityOrders.html" target="docframe">Margin Call and Equity Stop Orders</a></li>
+                          <li><a href="OCOOrders.html" target="docframe">OCO Orders</a></li>
+                          <li><a href="ELSOrders.html" target="docframe">ELS Orders</a></li>
+                          <li><a href="OTOOrders.html" target="docframe">OTO Orders</a></li>
+                          <li><a href="OTOCOOrders.html" target="docframe">OTOCO Orders</a></li>
+                        </ul>
+                      </li>
+                      <li><a href="OrderStatuses.html" target="docframe">Orders State Machines</a><ul>
+                          <li><a href="FXCMOpenCloseMarketOrder.html" target="docframe">Open/Close Market Order</a><ul>
+                              <li><a href="OpenCloseMarketOrder.html" target="docframe">Open/Close Market Order</a></li>
+                              <li><a href="OpenCloseMarketOrderExecScenarios.html" target="docframe">Open/Close Market Order Execution Scenarios</a><ul>
+                                  <li><a href="OpenCloseMarketOrderScenario1.html" target="docframe">Scenario 1</a></li>
+                                  <li><a href="OpenCloseMarketOrderScenario2.html" target="docframe">Scenario 2</a></li>
+                                  <li><a href="OpenCloseMarketOrderScenario3.html" target="docframe">Scenario 3</a></li>
+                                  <li><a href="OpenCloseMarketOrderScenario4.html" target="docframe">Scenario 4</a></li>
+                                  <li><a href="OpenCloseMarketOrderScenario5.html" target="docframe">Scenario 5</a></li>
+                                  <li><a href="OpenCloseMarketOrderScenario6.html" target="docframe">Scenario 6</a></li>
+                                  <li><a href="OpenCloseMarketOrderScenario7.html" target="docframe">Scenario 7</a></li>
+                                  <li><a href="OpenCloseMarketOrderScenario8.html" target="docframe">Scenario 8</a></li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                          <li><a href="FXCMOpenCloseOrder.html" target="docframe">Open/Close, Open/Close Range Orders</a><ul>
+                              <li><a href="OpenCloseOrder.html" target="docframe">Open/Close, Open/Close Range Orders</a></li>
+                              <li><a href="OpenCloseOrderExecScenarios.html" target="docframe">Open/Close, Open/Close Range Orders Execution Scenarios</a><ul>
+                                  <li><a href="OpenCloseOrderScenario1.html" target="docframe">Scenario 1</a></li>
+                                  <li><a href="OpenCloseOrderScenario2.html" target="docframe">Scenario 2</a></li>
+                                  <li><a href="OpenCloseOrderScenario3.html" target="docframe">Scenario 3</a></li>
+                                  <li><a href="OpenCloseOrderScenario4.html" target="docframe">Scenario 4</a></li>
+                                  <li><a href="OpenCloseOrderScenario5.html" target="docframe">Scenario 5</a></li>
+                                  <li><a href="OpenCloseOrderScenario6.html" target="docframe">Scenario 6</a></li>
+                                  <li><a href="OpenCloseOrderScenario7.html" target="docframe">Scenario 7</a></li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                          <li><a href="FXCMStopEntryStopOrders.html" target="docframe">Stop/Entry Stop Orders</a><ul>
+                              <li><a href="StopEntryStopOrders.html" target="docframe">Stop/Entry Stop Orders</a></li>
+                              <li><a href="StopEntryStopOrderExecScenarios.html" target="docframe">Stop/Entry Stop Order Execution Scenarios</a><ul>
+                                  <li><a href="StopEntryStopOrderScenario1.html" target="docframe">Scenario 1</a></li>
+                                  <li><a href="StopEntryStopOrderScenario2.html" target="docframe">Scenario 2</a></li>
+                                  <li><a href="StopEntryStopOrderScenario3.html" target="docframe">Scenario 3</a></li>
+                                  <li><a href="StopEntryStopOrderScenario4.html" target="docframe">Scenario 4</a></li>
+                                  <li><a href="StopEntryStopOrderScenario5.html" target="docframe">Scenario 5</a></li>
+                                  <li><a href="StopEntryStopOrderScenario6.html" target="docframe">Scenario 6</a></li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                          <li><a href="FXCMLimitEntryLimitOrders.html" target="docframe">Limit/Entry Limit Orders</a><ul>
+                              <li><a href="LimitEntryLimitOrders.html" target="docframe">Limit/Entry Limit Orders</a></li>
+                              <li><a href="LimitEntryLimitOrderExecScenarios.html" target="docframe">Limit/Entry Limit Order Execution Scenarios</a><ul>
+                                  <li><a href="LimitEntryLimitOrderScenario1.html" target="docframe">Scenario 1</a></li>
+                                  <li><a href="LimitEntryLimitOrderScenario2.html" target="docframe">Scenario 2</a></li>
+                                  <li><a href="LimitEntryLimitOrderScenario3.html" target="docframe">Scenario 3</a></li>
+                                  <li><a href="LimitEntryLimitOrderScenario4.html" target="docframe">Scenario 4</a></li>
+                                  <li><a href="LimitEntryLimitOrderScenario5.html" target="docframe">Scenario 5</a></li>
+                                  <li><a href="LimitEntryLimitOrderScenario6.html" target="docframe">Scenario 6</a></li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                          <li><a href="FXCMELSOrder.html" target="docframe">ELS (Entry-with-Limit-and-Stop) Contingent Order</a><ul>
+                              <li><a href="ELSContingentOrder.html" target="docframe">ELS (Entry-with-Limit-and-Stop) Contingent Order</a></li>
+                              <li><a href="ELSOrderExecScenarios.html" target="docframe">ELS (Entry-with-Limit-and-Stop) Order Execution Scenarios</a><ul>
+                                  <li><a href="ELSOrderScenario1.html" target="docframe">Scenario 1</a></li>
+                                  <li><a href="ELSOrderScenario2.html" target="docframe">Scenario 2</a></li>
+                                  <li><a href="ELSOrderScenario3.html" target="docframe">Scenario 3</a></li>
+                                  <li><a href="ELSOrderScenario4.html" target="docframe">Scenario 4</a></li>
+                                  <li><a href="ELSOrderScenario5.html" target="docframe">Scenario 5</a></li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                          <li><a href="FXCMOCOOrder.html" target="docframe">OCO (One-Cancels-the-Other) Contingent Order</a><ul>
+                              <li><a href="OCOContingentOrder.html" target="docframe">OCO (One-Cancels-the-Other) Contingent Order</a></li>
+                              <li><a href="OCOOrderExecScenarios.html" target="docframe">OCO (One-Cancels-the-Other) Contingent Order Execution Scenarios</a><ul>
+                                  <li><a href="OCOOrderScenario1.html" target="docframe">Scenario 1</a></li>
+                                  <li><a href="OCOOrderScenario2.html" target="docframe">Scenario 2</a></li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                          <li><a href="FXCMOTOOrder.html" target="docframe">OTO (One-Triggers-the-Other) Contingent Order</a><ul>
+                              <li><a href="OTOContingentOrder.html" target="docframe">OTO (One-Triggers-the-Other) Contingent Order</a></li>
+                              <li><a href="OTOOrderExecScenarios.html" target="docframe">OTO (One-Triggers-the-Other) Order Execution Scenarios</a><ul>
+                                  <li><a href="OTOOrderScenario1.html" target="docframe">Scenario 1</a></li>
+                                  <li><a href="OTOOrderScenario2.html" target="docframe">Scenario 2</a></li>
+                                  <li><a href="OTOOrderScenario3.html" target="docframe">Scenario 3</a></li>
+                                  <li><a href="OTOOrderScenario4.html" target="docframe">Scenario 4</a></li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a href="ReferenceMaterials.OrderExecutionErrors.html" target="docframe">Order Execution Errors</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="Trading_Commissions.html" target="docframe">Trading Commissions</a></li>
+                </ul>
+              </li>
+              <li><a href="class_hierarchy.html" target="docframe">ForexConnect API Class Hierarchy</a></li>
+              <li><a href="SessionStatus.html" target="docframe">Session Statuses</a></li>
+              <li><a href="whenUse.html" target="docframe">When to Use Each API to Get Historical Prices?</a></li>
+              <li><a href="whatisPrice.html" target="docframe">What is Price History?</a></li>
+              <li><a href="whatisTF.html" target="docframe">What is Timeframe?</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="web-hhk.html" target="docframe">Keywords Index</a></li>
+    </ul><script language="javascript" type="text/javascript">createIds();</script></body>
+</html>

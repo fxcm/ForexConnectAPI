@@ -1,0 +1,206 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>PriceHistoryCommunicatorFactory.createCommunicator</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>static public method <b>PriceHistoryCommunicatorFactory.createCommunicator</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Creates an instance of the Price History API communicator.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">Java</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code>static&nbsp;<a href="pricehistorymgr.IPriceHistoryCommunicator.html"><code>IPriceHistoryCommunicator</code></a>&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>createCommunicator</b> (<a href="com.fxcore2.O2GSession.html"><code>O2GSession</code></a> o2gSession, String quotesManagerDataPath)  throws java.lang.IllegalArgumentException, <a href="pricehistorymgr.PriceHistoryError.html"><code>PriceHistoryError</code></a></code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>o2gSession</code></td>
+    <td class="tmain" width="69%"><p>An instance of the ForexConnect trading session.</p>
+<p>The session must not be logged in yet at the moment this method is called.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>quotesManagerDataPath</code></td>
+    <td class="tmain" width="69%"><p>The local path where the Quotes Manager API must store its cache data.</p></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Exceptions</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>java.lang.IllegalArgumentException</code></td>
+    <td class="tmain" width="69%"><p>The exception is thrown if any parameter is <code>null</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>PriceHistoryError</code></td>
+    <td class="tmain" width="69%"><p>The exception is thrown in case the price communicator failed to create.</p></td>
+  </tr>
+</table>
+<p><b>Details</b></p><p>The instance of the price history communicator does not become ready immediately upon creation. In order to make it usable, the application
+must:</p><ul class="main">
+  <li><p>Log in the trading session.</p></li>
+  <li><p>Then wait until the price communicator object switches into the ready state.</p></li>
+</ul><div id="open272" style="display:inline">
+  <p>Example&nbsp;<a href="javascript: showdiv('close272'); hidediv('open272');" onclick="javascript: showdiv('close272'); hidediv('open272');">[show]</a></p>
+</div>
+<div id="close272" style="display:none">
+  <p>Example&nbsp;<a href="javascript: showdiv('open272'); hidediv('close272');" onclick="javascript: showdiv('open272'); hidediv('close272');">[hide]</a></p>
+  <pre class="example">import com.fxcore2.*;
+import com.candleworks.pricehistorymgr.*;
+ 
+public class MyClass implements IO2GSessionStatus, IPriceHistoryCommunicatorListener
+{
+    ...
+    private O2GSession mTradingSession;
+    private IPriceHistoryCommunicator mPriceHistoryCommunicator;
+ 
+    ...
+    void initialize(String userName, String password, String url, String terminal, String cachePath)
+    {
+        try {
+            //create the trading session and subscribe for it's event
+            mTradingSession = O2GTransport.createSession();
+            mTradingSession.subscribeSessionStatus(this);
+ 
+            //create a price history communicator and subscribe for its events
+            mPriceHistoryCommunicator = PriceHistoryCommunicatorFactory.createCommunicator(mTradingSession, cachePath);
+            mPriceHistoryCommunicator.addListener(this);
+ 
+            //Start login process
+            mTradingSession.login(userName, password, url, terminal);
+        } catch(Exception e) {
+            //process error
+ 
+        }
+    }
+}</pre>
+</div><p>Declared in <a href="pricehistorymgr.PriceHistoryCommunicatorFactory.html">PriceHistoryCommunicatorFactory</a></p>
+<p>
+  <center><a href="pricehistorymgr.PriceHistoryCommunicatorFactory.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'pricehistorymgr.PriceHistoryCommunicatorFactory.html');</script></body>
+</html>

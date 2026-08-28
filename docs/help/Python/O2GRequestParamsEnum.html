@@ -1,0 +1,378 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GRequestParamsEnum</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>enum <b>O2GRequestParamsEnum</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The enum specifies a set of values representing the request parameters.</p>
+    <p><b>Details</b></p><p>The module is <code>forexconnect.fxcorepy</code></p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Static Public Fields</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.AccountID.html">ACCOUNT_ID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The unique number of the account the order is placed from.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.AccountName.html">ACCOUNT_NAME</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The unique name of the account (it should not be confused with Account ID).</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.Amount.html">AMOUNT</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The amount of the order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.BuySell.html">BUY_SELL</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The order trade operation.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.Command.html">COMMAND</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The command. See possible values in details.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.ContingencyGroupType.html">CONTINGENCY_GROUP_TYPE</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The type of the contingent order which the order is linked to.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.ContingencyID.html">CONTINGENCY_ID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The unique identifier of an existing contingency group which the order is linked to.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.CustomID.html">CUSTOM_ID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The custom identifier of the order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.ExpireDateTime.html">EXPIRE_DATE_TIME</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The date and time up to which the order should stay live.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.Id.html">ID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The value of the <code>Key</code> request parameter to search the order with the <code>GET_LAST_ORDER_UPDATE</code> command request.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.Key.html">KEY</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The type of the order field to search the order with the <code>GET_LAST_ORDER_UPDATE</code> command request.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.NetQuantity.html">NET_QUANTITY</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Defines whether the order is a netting order or not (use <code>Y</code> for netting order).</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.OfferID.html">OFFER_ID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The unique number of the instrument the order is placed for.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.OrderID.html">ORDER_ID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The unique number of the order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.OrderType.html">ORDER_TYPE</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The type of the order. See possible values in details.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.PegOffset.html">PEG_OFFSET</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The offset to the price specified in the <code>PEG_TYPE</code> field.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.PegOffsetLimit.html">PEG_OFFSET_LIMIT</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The field specifies which price should be used to calculate the pegged limit order price.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.PegOffsetStop.html">PEG_OFFSET_STOP</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The offset to the price specified in the <code>PEG_TYPR_STOP</code> field.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.PegType.html">PEG_TYPE</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The field specifies which price should be used to calculate the pegged order price.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.PegTypeLimit.html">PEG_TYPE_LIMIT</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The field specifies which price should be used to calculate the limit order price.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.PegTypeStop.html">PEG_TYPE_STOP</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The field specifies which price should be used to calculate the pegged stop order price.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.Rate.html">RATE</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The price the order is placed at.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.RateLimit.html">RATE_LIMIT</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The price of the limit order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.RateMax.html">RATE_MAX</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The maximum rate at which the order can be filled.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.RateMin.html">RATE_MIN</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The minimum rate at which the order can be filled.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.RateStop.html">RATE_STOP</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The price of the stop order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.SubscriptionStatus.html">SUBSCRIPTION_STATUS</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Subscription status for the instrument.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.TimeInForce.html">TIME_IN_FORCE</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The Time In Force of the order. See possible values in details.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.TradeID.html">TRADE_ID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The unique number of the position to be opened or closed by the order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.TrailStep.html">TRAIL_STEP</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The number of pips the market should move before the order moves the same amount.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2GRequestParamsEnum.O2GRequestParamsEnum.TrailStepStop.html">TRAIL_STEP_STOP</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The number of pips the market should move in trader's favor before the trailing stop order moves the same amount.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="module_fxcorepy.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

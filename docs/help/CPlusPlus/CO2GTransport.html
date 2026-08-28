@@ -1,0 +1,199 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>CO2GTransport</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>CO2GTransport</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The class is used to create sessions and  to configure the transport parameters.</p>
+    <p><b>Details</b></p><p>All methods of the class are static. One does not need to have an instance of the class.
+The class is the entry point to ForexConnect API.
+To start working with API, you should create an instance of the <a href="IO2GSession.html"><code>IO2Ssssion</code></a> object.
+The class provides the factory method for creating this object.
+Other class methods provide configuration transport parameters for the <a href="IO2GSession.html"><code>IO2Ssssion</code></a> object.
+These parameters will be used during the next call of the <a href="IO2GSession.login.html"><code>IO2GSession.login</code></a> method.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Static Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="CO2GTransport.createSession.html">createSession</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates a transport session.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="CO2GTransport.getApplicationID.html">getApplicationID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets an application id property.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="CO2GTransport.getClosedHistorySize.html">getClosedHistorySize</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the maximum number of recent Closed Trades stored in the Closed Trades table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="CO2GTransport.setApplicationID.html">setApplicationID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Sets an application id property.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="CO2GTransport.setCAInfo.html">setCAInfo</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Sets the certificate authority to check the server certificate which ForexConnect connects to</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="CO2GTransport.setClosedHistorySize.html">setClosedHistorySize</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Sets the maximum number of recent Closed Trades stored in the Closed Trades table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="CO2GTransport.setNumberOfReconnections.html">setNumberOfReconnections</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Sets the number of attempts to reconnect.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="CO2GTransport.setProxy.html">setProxy</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Configures the proxy server settings.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="forexconnect.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

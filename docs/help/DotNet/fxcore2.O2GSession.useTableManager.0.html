@@ -1,0 +1,205 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GSession.useTableManager</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>O2GSession.useTableManager</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Defines usage of the table manager.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">C#</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code>void&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>useTableManager</b> (<a href="fxcore2.O2GTableManagerMode.html"><code>O2GTableManagerMode</code></a> mode, <a href="fxcore2.IO2GTableManagerListener.html"><code>IO2GTableManagerListener</code></a> listener) </code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>mode</code></td>
+    <td class="tmain" width="69%"><p>The table manager mode.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>listener</code></td>
+    <td class="tmain" width="69%"><p>The listener to the table manager status (tables readiness).  If you application does not implement table manager listener, use <code>null</code>.</p></td>
+  </tr>
+</table><p><b>Details</b></p><p>This method must be called before logging in to ForexConnect. By default the table manager mode is <code>No</code>.</p>
+<p>If you application does not implement <a href="fxcore2.IO2GTableManagerListener.html"><code>IO2GTableManagerListener</code></a>,
+use <code>null</code> as <code>listener</code> parameter in <code>useTableManager</code> method.
+You should get <a href="fxcore2.O2GTableManager.html"><code>O2GTableManager</code></a>
+and wait for <a href="fxcore2.O2GTableManagerStatus.TablesLoaded.0.html"><code>TablesLoaded</code></a> status.</p><div id="open222" style="display:none">
+  <p>useTableManager without table manager status listener&nbsp;<a href="javascript: showdiv('close222'); hidediv('open222');" onclick="javascript: showdiv('close222'); hidediv('open222');">[show]</a></p>
+</div>
+<div id="close222" style="display:inline">
+  <p>useTableManager without table manager status listener&nbsp;<a href="javascript: showdiv('open222'); hidediv('close222');" onclick="javascript: showdiv('open222'); hidediv('close222');">[hide]</a></p>
+  <pre class="example"> session.useTableManager(O2GTableManagerMode.Yes, null);
+ statusListener.login(sUserID, sPassword, sURL, sConnection);
+ //...
+ O2GTableManager tableMgr = session.getTableManager();
+ O2GTableManagerStatus managerStatus = tableMgr.getStatus();
+ while (managerStatus == O2GTableManagerStatus.TablesLoading)
+ {
+    Thread.Sleep(50);
+    managerStatus = tableMgr.getStatus();
+ }
+ if (managerStatus == O2GTableManagerStatus.TablesLoadFailed)
+    return;</pre>
+</div><p>The other way for using table manager involves
+<a href="fxcore2.IO2GTableManagerListener.html"><code>IO2GTableManagerListener</code></a>.
+Implement <a href="fxcore2.IO2GTableManagerListener.html"><code>IO2GTableManagerListener</code></a> interface
+and create an object of implementing class.
+Use that object as <code>listener</code> parameter in <code>useTableManager</code> method.
+Catch changing <a href="fxcore2.O2GTableManager.html"><code>O2GTableManager</code></a> status
+to <a href="fxcore2.O2GTableManagerStatus.TablesLoaded.0.html"><code>TablesLoaded</code></a>
+in <a href="fxcore2.IO2GTableManagerListener.onStatusChanged.0.html"><code>onStatusChanged</code></a> method.</p><div id="open223" style="display:none">
+  <p>useTableManager with IO2GTableManagerListener implementation&nbsp;<a href="javascript: showdiv('close223'); hidediv('open223');" onclick="javascript: showdiv('close223'); hidediv('open223');">[show]</a></p>
+</div>
+<div id="close223" style="display:inline">
+  <p>useTableManager with IO2GTableManagerListener implementation&nbsp;<a href="javascript: showdiv('open223'); hidediv('close223');" onclick="javascript: showdiv('open223'); hidediv('close223');">[hide]</a></p>
+  <pre class="example"> TableManagerStatusListener tableManagerListener = new TableManagerStatusListener();
+ session.useTableManager(O2GTableManagerMode.Yes, tableManagerListener);
+ statusListener.login(sUserID, sPassword, sURL, sConnection);
+ //...
+ if (tablesStatusListener.isTablesLoaded()) // function checking whether table manager status is TablesLoaded
+ {
+   O2GTableManager tableMgr = session.getTableManager();
+   //...
+ }
+ 
+ 
+  class TableManagerStatusListener : IO2GTableManagerListener
+  {
+       public void onStatusChanged(O2GTableManagerStatus status, O2GTableManager tableManager)
+       {
+            // ...
+       }
+        //...
+  }</pre>
+</div><p>Declared in <a href="fxcore2.O2GSession.html">O2GSession</a></p>
+<p>
+  <center><a href="fxcore2.O2GSession.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'fxcore2.O2GSession.html');</script></body>
+</html>

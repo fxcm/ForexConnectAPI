@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Keeping Bar History Up to Date</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Keeping Bar History Up to Date</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article describes how to keep a bar history up to date.</p>
+    <p><b>Details</b></p><p>When the price history is requested &quot;up to now&quot;, &quot;now&quot; is the moment when the server has received the
+request. If the application needs to keep that history up to date, it must use updates of the offers table
+in ForexConnect and build further history using tick data.</p>
+<p><b>Adding new ticks</b></p>
+<p>The algorithm of adding new ticks to a bar history is quite simple. When a new tick arrives (i.e. offers
+table is updated for a particular instrument):</p><ul class="main">
+  <li><p>Check whether the new tick belongs to the last bar of the history. The application can use
+the <a href="quotesmgr.CandlePeriod.html"><code>CandlePeriod</code></a> class to calculate the date and time
+of a bar of a specified size to which the tick date and time belong.</p>
+<p>To do that, you need to:</p></li>
+  <ul class="main">
+    <li><p>Calculate the bar start and end time using the <a href="quotesmgr.CandlePeriod.getCandle.0.html"><code>CandlePeriod.getCandle()</code></a>
+method and passing the date/time of a tick and timeframe of the bar collection as the parameters.</p></li>
+    <li><p>The tick belongs to a bar if the bar (or candle, which is the same in this context) start time returned by the <code>getCandle()</code> method
+is equal to the start time of the last bar.</p></li>
+  </ul>
+  <li><p>If the tick belongs to the current bar, the high, low, and close prices of the bar must be updated as follows:</p></li>
+  <ul class="main">
+    <li><p>The close price is set to the tick value.</p></li>
+    <li><p>If the tick value is greater than the high value, the high value is set to the tick value.</p></li>
+    <li><p>If the tick value is less than the low value, the low value is set to the tick value.</p></li>
+  </ul>
+  <li><p>If the tick does not belong to the current bar, a new bar must be created as follows:</p></li>
+  <ul class="main">
+    <li><p>The date and time of the bar must be equal to the date and time
+of the bar start returned by the <code>getCandle()</code> method.</p></li>
+    <li><p>The high, low, and close prices must be equal to the tick price.</p></li>
+    <li><p>The open price calculation depends on the application and/or server settings. There are two options:</p></li>
+    <ul class="main">
+      <li><p>The open price of the bar is equal to the close price of the previous bar (this option is default for all servers).</p></li>
+      <li><p>The open price is equal to the first tick that occurred inside the bar.</p></li>
+    </ul>
+  </ul>
+</ul><p><b>Handling the gap between the time the server received the request and the time the response is handled on the client's side</b></p>
+<p>Preparing the requested data, delivering it to the client and parsing the data on the client's side can take some time. As the server
+takes the data only to the moment when the request is received, a number of ticks can occur before the client gets the result.</p>
+<p>To avoid this:</p><ul class="main">
+  <li><p>At the same moment when the request is sent to the server, the application should start collecting all ticks for the instrument.</p></li>
+  <li><p>When the response is handled by the client, all of the collected ticks must be added to the history by the algorithm described above.</p></li>
+  <li><p>And then all forthcoming will be handled in a regular manner.</p></li>
+</ul><p><b>Tick filtering and tick volume handling</b></p>
+<p>Because of a huge amount of ticks, unreliable nature of the client connection and big diversity of the performance of the client
+equipment, every single tick cannot be delivered to the client. The whole system is designed to provide the most fresh ticks rather than all
+ticks to the client. The filtering algorithm, however, keeps the first and the last ticks of every minute, the current minute maximum and
+the current minute minimum ticks, so the algorithm described above will produce the correct open, high, low, and close prices of any bar even
+if a few ticks have been filtered out.</p>
+<p>The problem is the tick volume. As some ticks are filtered out, the client application can not simply count updates of the offers table
+in order to calculate the tick volume. To make this algorithm work, the server also broadcasts accumulated tick volume for a minute to
+which the tick belongs (see the <code>volume</code> column of the offers table or the <code>IO2GOfferRow.getVolume()</code> method).</p>
+<p>To update a 1-minute tick volume of a candle, the application should simply replace the tick volume value with the value received in the
+offer table update.</p>
+<p>To update larger candles, the application must use the following algorithm:</p><ul class="main">
+  <li><p>For the last candle, the application must keep the latest received accumulated volume for the last minute and date/time of a minute.</p></li>
+  <li><p>If a new offer update belongs to the same minute as the previous offer update, the previously received
+accumulated volume must be subtracted from the tick volume of the bar and newly received accumulated volume
+should be added.</p></li>
+  <li><p>If a new offer update belongs to the new minute, the accumulated volume must be simply added to the bar volume.</p></li>
+</ul><p>In order to get the initial data for the collections that are just received from the server, use the
+<a href="com.fxcore2.O2GMarketDataSnapshotResponseReader.getLastBarVolume.html"><code>getLastBarVolume()</code></a> and
+<a href="com.fxcore2.O2GMarketDataSnapshotResponseReader.getLastBarTime.html"><code>getLastBarTime()</code></a> methods of the reader.
+These methods return the latest minute at the moment the collection is calculated on the server and the accumulated
+minute volume at this moment.</p><p>
+      <center><a href="howto_pricehistory.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

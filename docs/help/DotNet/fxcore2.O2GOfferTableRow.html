@@ -1,0 +1,653 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GOfferTableRow</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>O2GOfferTableRow</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="fxcore2.O2GOfferRow.html"><code>O2GOfferRow</code></a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The class provides access to the offer information and calculated fields.</p>
+    <p><b>Details</b></p><p>The class represents a single row of the <a href="TTOffers.html">Offers</a> table. In addition to the methods of its parent class,
+the <code>O2GOfferTableRow</code> class provides methods to access calculated fields, such as cost of one pip per lot.<br></p>
+<p><b>Prerequisites</b></p>
+<p>The class is available only through the use of the <a href="fxcore2.O2GTableManager.html"><code>O2GTableManager</code></a>. An <a href="fxcore2.O2GTableManager.html"><code>O2GTableManager</code></a>
+object must have the <a href="fxcore2.O2GTableManagerStatus.html">O2GTableManagerStatus</a>.<a href="fxcore2.O2GTableManagerStatus.TablesLoaded.0.html">TablesLoaded</a> status.<br>
+For complete instructions on the table manager usage, see the
+<a href="table_manager_use_net.html">How to use table manager in ForexConnect API</a> section.<br>
+After tables are loaded, you must obtain an instance of the <a href="fxcore2.O2GOffersTable.html"><code>O2GOffersTable</code></a> class. For example,<br></p>
+<p><code>O2GOffersTable offersTable = (O2GOffersTable)tableManager.getTable(O2GTableType.Offers);</code></p>
+<p><b>Instantiating the class</b></p>
+<p>If you need access to the current offer information, get an instance of the class by calling any of the following methods of the <a href="fxcore2.O2GOffersTable.html"><code>O2GOffersTable</code></a> class:<br></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p><code>O2GOffersTable</code> method</p></td>
+    <td class="thdr"><p>Syntax example</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GOffersTable.getRow.0.html"><code>getRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GOfferTableRow offer = offersTable.getRow(i);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GOffersTable.findRow.0.html"><code>findRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GOfferTableRow offer;<br>
+bool bFound = offersTable.findRow(mOfferID, out offer);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GOffersTable.getNextRow.0.html"><code>getNextRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GOfferTableRow offer;<br>
+bool bFound = offersTable.getNextRow(mIterator, out offer);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GOffersTable.getNextRowByColumnValue.0.html"><code>getNextRowByColumnValue</code></a></p></td>
+    <td class="tmain"><p><code>O2GOfferTableRow offer;<br>
+bool bFound = offersTable.getNextRowByColumnValue(&quot;InstrumentType&quot;, mInstrumentType, mIterator, out offer);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GOffersTable.getNextRowByColumnValues.0.html"><code>getNextRowByColumnValues</code></a></p></td>
+    <td class="tmain"><p><code>O2GOfferTableRow offer;<br>
+bool bFound = offersTable.getNextRowByColumnValues(&quot;PointSize&quot;, new object[] { 0.1, 0.01, 0.001 }, mIterator, out offer);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GOffersTable.getNextRowByMultiColumnValues.0.html"><code>getNextRowByMultiColumnValues</code></a></p></td>
+    <td class="tmain"><p><code>O2GOfferTableRow offer;<br>
+bool bFound = offersTable.getNextRowByMultiColumnValues(new string[] { &quot;InstrumentType&quot;, &quot;TradingStatus&quot; }, new object[] { mInstrumentType, mTradingStatus }, mIterator, out offer);</code></p></td>
+  </tr>
+</table><p>If you want to track the <a href="TTOffers.html">Offers</a> table updates, your application must have a listener class that implements the
+<a href="fxcore2.IO2GTableListener.html"><code>IO2GTableListener</code></a> interface.
+An instance of the listener class must be subscribed to the table updates. Subscription to each update type is done individually.
+Before the logout, you must unsubscribe the listener from each update type separately. The examples of the subscription/unsubscription syntax are listed below.</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p><code>IO2GTableListener</code> method</p></td>
+    <td class="thdr"><p>Subscribe syntax</p></td>
+    <td class="thdr"><p>Unsubscribe syntax</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.IO2GTableListener.onAdded.0.html"><code>onAdded</code></a></p></td>
+    <td class="tmain"><p><code>offersTable.subscribeUpdate(O2GTableUpdateType.Insert, tableListener);</code></p></td>
+    <td class="tmain"><p><code>offersTable.unsubscribeUpdate(O2GTableUpdateType.Insert, tableListener);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.IO2GTableListener.onChanged.0.html"><code>onChanged</code></a></p></td>
+    <td class="tmain"><p><code>offersTable.subscribeUpdate(O2GTableUpdateType.Update, tableListener);</code></p></td>
+    <td class="tmain"><p><code>offersTable.unsubscribeUpdate(O2GTableUpdateType.Update, tableListener);</code></p></td>
+  </tr>
+</table><p>To instantiate the <code>O2GOfferTableRow</code> class, you must cast the <code>rowData</code> parameter of the above methods to the
+<code>O2GOfferTableRow</code> type. For example,</p>
+<p><code>O2GOfferTableRow row = (O2GOfferTableRow)(rowData);</code></p>
+<p><b>Example</b></p><div id="open198" style="display:inline">
+  <p>Get Instrument, Bid/Ask prices and Pip cost&nbsp;<a href="javascript: showdiv('close198'); hidediv('open198');" onclick="javascript: showdiv('close198'); hidediv('open198');">[show]</a></p>
+</div>
+<div id="close198" style="display:none">
+  <p>Get Instrument, Bid/Ask prices and Pip cost&nbsp;<a href="javascript: showdiv('open198'); hidediv('close198');" onclick="javascript: showdiv('open198'); hidediv('close198');">[hide]</a></p>
+  <pre class="example">        public void DoWork()
+        {
+            //...
+            mSession.useTableManager(O2GTableManagerMode.Yes, null);
+            //...
+            while (mTblMgr.getStatus() == O2GTableManagerStatus.TablesLoading)
+                Thread.Sleep(50);
+ 
+            mTblMgr = mSession.getTableManager();
+ 
+            if (mTblMgr.getStatus() == O2GTableManagerStatus.TablesLoaded)
+            {
+                O2GOffersTable offers = (O2GOffersTable)mTblMgr.getTable(O2GTableType.Offers);
+                OffersListener listener = new OffersListener();
+                offers.subscribeUpdate(O2GTableUpdateType.Update, listener);
+                try
+                {
+                    mTblMgr.lockUpdates();
+                    for(int ii=0; ii&lt;offers.Count;ii++)
+                    {
+                        O2GOfferTableRow offer = offers.getRow(ii);
+                        Console.WriteLine(&quot;OfferID={0}, Instrument={1}, Ask={2}, Bid={3}, PipCost={4}&quot;, offer.OfferID, offer.Instrument, offer.Ask, offer.Bid, offer.PipCost);
+                    }
+                }
+                finally
+                {
+                    mTblMgr.unlockUpdates();
+                }
+ 
+                Thread.Sleep(10000); //waiting 10 sec for tracing new closed trades
+ 
+                offers.unsubscribeUpdate(O2GTableUpdateType.Update, listener);
+            }
+            //...
+        }
+ 
+        class OffersListener : IO2GTableListener
+        {
+            public void onAdded(string rowID, O2GRow rowData)
+            {
+ 
+            }
+ 
+            public void onChanged(string rowID, O2GRow rowData)
+            {
+                O2GOfferTableRow offer = (O2GOfferTableRow)rowData;
+                Console.WriteLine(&quot;OfferID={0}, Instrument={1}, Ask={2}, Bid={3}, PipCost={4}&quot;, offer.OfferID, offer.Instrument, offer.Ask, offer.Bid, offer.PipCost);
+            }
+ 
+            public void onDeleted(string rowID, O2GRow rowData)
+            {
+ 
+            }
+ 
+            public void onStatusChanged(O2GTableStatus status)
+            {
+ 
+            }
+        }
+ </pre>
+</div><p>The type defined in the <code>fxcore2.dll</code> assembly.
+The namespace is <a href="fxcore2.html"><code>fxcore2</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Properties</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.Ask.0.html">Ask</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the current market price an instrument can be bought at.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.AskTradable.0.html">AskTradable</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the usage of an ask price.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.Bid.0.html">Bid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the current market price an instrument can be sold at.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.BidTradable.0.html">BidTradable</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the usage of a bid price.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.BuyInterest.0.html">BuyInterest</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the interest amount applied to the account balance for holding a one-lot long (buy) position opened overnight.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.Columns.0.html">Columns</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The columns of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.ContractCurrency.0.html">ContractCurrency</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Depending on the instrument type: Forex or CFD, the method returns base currency for the Forex instrument and the counter currency for the CFD instrument. For example, EUR for EUR/USD and GBP for UK100/GBP.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.ContractMultiplier.0.html">ContractMultiplier</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the contract multiplier for some CFD instruments only.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.Digits.0.html">Digits</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the instrument price precision.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.High.0.html">High</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the highest ask price (buy price) of an instrument for the current trading day.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.Instrument.0.html">Instrument</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the symbol of an instrument.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.InstrumentType.0.html">InstrumentType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of the instrument.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.isAskTradableValid.0.html">isAskTradableValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the AskTradable field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.isAskValid.0.html">isAskValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the Ask field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.isBidTradableValid.0.html">isBidTradableValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the BidTradable field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.isBidValid.0.html">isBidValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the Bid field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.isBuyInterestValid.0.html">isBuyInterestValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the BuyInterest field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.isContractCurrencyValid.0.html">isContractCurrencyValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the ContractCurrency field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.isContractMultiplierValid.0.html">isContractMultiplierValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the ContractMultiplier field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.isDigitsValid.0.html">isDigitsValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the Digits field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.isHighValid.0.html">isHighValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the High field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.isInstrumentTypeValid.0.html">isInstrumentTypeValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the InstrumentType field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.isInstrumentValid.0.html">isInstrumentValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the Instrument field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.isLowValid.0.html">isLowValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the Low field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.isOfferIDValid.0.html">isOfferIDValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the OfferID field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.isPointSizevalid.0.html">isPointSizeValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the PointSize field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.isQuoteIDValid.0.html">isQuoteIDValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the QuoteID field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.isSellInterestValid.0.html">isSellInterestValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the SellInterest field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.isSubscriptionStatusValid.0.html">isSubscriptionStatusValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the SubscriptionStatus field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.isTimeValid.0.html">isTimeValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the date and time of the last instrument update are valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.isTradingStatusValid.0.html">isTradingStatusValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the TradingStatus field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.isValueDateValid.0.html">isValueDateValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the ValueDate field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.isVolumeValid.0.html">isVolumeValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the Volume field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.Low.0.html">Low</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the lowest bid price (sell price) of an instrument for the current trading day.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.OfferID.0.html">OfferID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of an instrument.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.PipCost.0.html">PipCost</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the cost of one pip per lot.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.PointSize.0.html">PointSize</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the size of one pip.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.QuoteID.0.html">QuoteID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identifier of the pair of prices (bid and ask) an instrument can be traded at.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.SellInterest.0.html">SellInterest</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the interest amount applied to the account balance for holding a one-lot short (sell) position opened overnight.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.SubscriptionStatus.0.html">SubscriptionStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the subscription status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.TableType.0.html">TableType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The type of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.Time.0.html">Time</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the date and time of the last instrument update.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.TradingStatus.0.html">TradingStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the trading status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.ValueDate.0.html">ValueDate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the simulated delivery date.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.Volume.0.html">Volume</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a tick volume of the current minute.</p>
+    </td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.getCell.0.html">getCell</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a cell of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GOfferTableRow.isCellChanged.0.html">isCellChanged</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a flag indicating whether the value of the cell is changed.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

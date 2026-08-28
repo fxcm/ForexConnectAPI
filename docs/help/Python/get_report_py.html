@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Getting Combined Account Statement Report</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Getting Combined Account Statement Report</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article explains how to get a Combined Account Statement report.</p>
+    <p><b>Details</b></p><p><a href="cas.html">Combined Account Statement</a> (also known as CAS) aggregates all information pertinent to an account.
+The report includes details on all trades, orders, and transactions on the account during the report statement period.<br><br></p>
+<p>To get a CAS report in your Python script, you must perform the following steps:<br><br></p><ol class="main">
+  <li><p><a href="login_logout_py.html">Log in</a>.</p></li>
+  <li><p>Get the URL for the CAS report by calling the <a href="IO2GSession.IO2GSession.getReportURL.html"><code>O2GSession.get_report_URL</code></a> method.</p></li>
+  <li><p>Load the report.</p></li>
+  <li><p><a href="login_logout_py.html">Log out</a>.</p></li>
+</ol><p><br></p><div id="open10" style="display:none">
+  <p>Example: Getting a CAS report in the HTML format.&nbsp;<a href="javascript: showdiv('close10'); hidediv('open10');" onclick="javascript: showdiv('close10'); hidediv('open10');">[show]</a></p>
+</div>
+<div id="close10" style="display:inline">
+  <p>Example: Getting a CAS report in the HTML format.&nbsp;<a href="javascript: showdiv('open10'); hidediv('close10');" onclick="javascript: showdiv('open10'); hidediv('close10');">[hide]</a></p>
+  <pre class="example">import os
+from urllib.request import urlopen
+import datetime
+ 
+from forexconnect import fxcorepy, ForexConnect
+ 
+ 
+def session_status_changed(session: fxcorepy.O2GSession,
+                           status: fxcorepy.AO2GSessionStatus.O2GSessionStatus):
+    print(&quot;Trading session status: &quot; + str(status))
+ 
+ 
+def main():
+ 
+    with ForexConnect() as fx:
+        try:
+            fx.login(&quot;user_id&quot;, &quot;password&quot;, &quot;fxcorporate.com/Hosts.jsp&quot;,
+                     &quot;Demo&quot;, session_status_callback=session_status_changed)
+ 
+            url = fx.session.get_report_url(&quot;str_account_id&quot;,
+                                            datetime.datetime.strptime(&quot;MM.DD.YYYY HH:MM:SS&quot;, '%m.%d.%Y %H:%M:%S').replace(tzinfo=datetime.timezone.utc),
+                                            datetime.datetime.strptime(&quot;MM.DD.YYYY HH:MM:SS&quot;, '%m.%d.%Y %H:%M:%S').replace(tzinfo=datetime.timezone.utc),
+                                            &quot;html&quot;, None)
+ 
+            file_name = os.path.join(os.getcwd(), &quot;account_id&quot;)
+            file_name += &quot;.html&quot;
+ 
+            response = urlopen(url)
+ 
+            with open(file_name, 'wb') as file:
+                file.write(response.read())
+ 
+        except Exception as e:
+            print(&quot;Exception: &quot; + str(e))
+ 
+        try:
+            fx.logout()
+        except Exception as e:
+            print(&quot;Exception: &quot; + str(e))
+ 
+ 
+if __name__ == &quot;__main__&quot;:
+    main()</pre>
+</div><p>
+      <center><a href="howto.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

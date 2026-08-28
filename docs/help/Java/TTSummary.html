@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Summary (table)</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Summary (table)</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>This section describes the Summary table that contains summarized information such as the average entry price, profit/loss, and so on for every instrument currently traded. <b>Note:</b> The Summary table is available only through the Table Manager.</p>
+    <p><b>Details</b></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Name</p></td>
+    <td class="thdr"><p>Type</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>OfferID</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identification number of the instrument traded.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>DefaultSortOrder</p></td>
+    <td class="tmain"><p>Integer</p></td>
+    <td class="tmain"><p>The sequence number of the instrument. It defines the instrument place in the dealing rates list of
+the FXCM Trading Station.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Instrument</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The symbol of the instrument traded. For example, <code>EUR/USD, USD/JPY, GBP/USD</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>SellNetPL</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The current profit/loss of all short (sell) positions. It is expressed in the account currency. It does not include commissions, interest
+and dividends. If no short positions exist for the instrument, the value of this field is <code>0.0</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>SellAmount</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The amount of short (sell) positions. In the case of FX instruments, it is expressed in
+the instrument base currency. In the case of CFD instruments, it is expressed in contracts.
+If short positions exist for the instrument traded, the value of this field is positive. Otherwise, the value of this field is <code>0.0</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>SellAvgOpen</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The average open price of short (sell) positions. In the case of FX instruments, it is expressed in the instrument counter currency per one unit of base currency.
+In the case of CFD instruments, it is expressed in the instrument native currency per one contract.
+If no short positions exist for the instrument, the value of this field is <code>0.0</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>BuyClose</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The current market price, at which short (sell) positions can be closed. In the case of FX instruments, it is expressed in the instrument counter currency
+per one unit of base currency. In the case of CFD instruments, it is expressed in the instrument native currency per one contract.
+If no short positions exist for the instrument, the value of this field is <code>0.0</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>SellClose</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The current market price, at which long (buy) positions can be closed. In the case of FX instruments, it is expressed in the instrument counter currency
+per one unit of base currency. In the case of CFD instruments, it is expressed in the instrument native currency per one contract.
+If no long positions exist for the instrument, the value of this field is <code>0.0</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>BuyAvgOpen</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The average open price of long (buy) positions. In the case of FX instruments, it is expressed in the instrument counter currency per one unit of base currency.
+In the case of CFD instruments, it is expressed in the instrument native currency per one contract.
+If no long positions exist for the instrument, the value of this field is <code>0.0</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>BuyAmount</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The amount of long (buy) positions. In the case of FX instruments, it is expressed in
+the instrument base currency. In the case of CFD instruments, it is expressed in contracts.
+If long positions exist for the instrument traded, the value of this field is positive. Otherwise, the value of this field is <code>0.0</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>BuyNetPL</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The current profit/loss of all long (buy) positions. It is expressed in the account currency. It does not include commissions, interest
+and dividends. If no long positions exist for the instrument, the value of this field is <code>0.0</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Amount</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The amount of all positions (both long and short). In the case of FX instruments, it is expressed in
+the instrument base currency. In the case of CFD instruments, it is expressed in contracts. If the amount of long positions exceeds the amount
+of short positions for the instrument traded, the value of this field is positive. If the amount of short positions exceeds the amount
+of long positions for the instrument traded, the value of this field is negative.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>GrossPL</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The current profit/loss of all positions (both long and short). It is expressed in the account currency. It does not include commissions, interest
+and dividends.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>NetPL</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The current profit/loss of all positions (both long and short). It is expressed in the account currency. It includes commissions, interest
+and dividends.</p></td>
+  </tr>
+</table><p>
+      <center><a href="TradingTables.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

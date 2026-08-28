@@ -1,0 +1,584 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Getting offers</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Getting offers</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article discusses how to get offers in .Net.</p>
+    <p><b>Details</b></p><p>There are different ways to get offers in your .NET application.<br></p>
+<p><b>Using Table Manager and .NET Events</b></p><ol class="main">
+  <li><p>Create a session, a session status listener, subscribe the listener to the session status
+(see <a href="login_logout_net.html"><code>this article</code></a>).</p></li>
+  <li><p>Allow the use of table manager:<br></p><pre class="example"><code>mSession.useTableManager(O2GTableManagerMode.Yes, null);</code><br></pre><p>It should be done before the login.</p></li>
+  <li><p>Log in (see <a href="login_logout_net.html"><code>this article</code></a>).</p></li>
+  <li><p>Get <a href="fxcore2.O2GTableManager.html"><code>O2GTableManager</code></a>
+and wait for <a href="fxcore2.O2GTableManagerStatus.TablesLoaded.0.html"><code>TablesLoaded</code></a> status:<br></p><pre class="example"><code>
+O2GTableManager tableMgr = mSession.getTableManager();
+managerStatus = tableMgr.getStatus();
+while (managerStatus == O2GTableManagerStatus.TablesLoading)
+{
+    Thread.Sleep(50);
+    managerStatus = tableMgr.getStatus();
+}
+if (managerStatus == O2GTableManagerStatus.TablesLoadFailed)
+    return;
+</code></pre></li>
+  <li><p>Get &quot;Offers&quot; table:<br></p><pre class="example"><code>O2GOffersTable offersTable = (O2GOffersTable)tableMgr.getTable(O2GTableType.Offers);</code></pre></li>
+  <li><p>Specify the method that will be triggered by the <a href="fxcore2.O2GTable.RowChanged.0.html"><code>RowChanged</code></a> event.<br></p><pre class="example"><code>offersTable.RowChanged +=new EventHandler&lt;RowEventArgs&gt;(offersTable_RowChanged);</code></pre></li>
+  <li><p>Get information about a new offer in that method.<br></p><pre class="example"><code>
+static void offersTable_RowChanged(object sender, RowEventArgs e)
+{
+    O2GOfferTableRow offerTableRow = (O2GOfferTableRow)e.RowData;
+    if (offerTableRow != null)
+    {
+        Console.WriteLine(&quot;Instrument {0}, Bid={1}, Ask = {2}&quot;, offerTableRow.Instrument, offerTableRow.Bid, offerTableRow.Ask);
+    }
+}
+</code></pre></li>
+  <li><p>Log out, unsubscribe from the session status listener, and dispose the session when you are done:<br></p><pre class="example"><code>
+mSession.logout();
+mSession.unsubscribeSessionStatus(statusListener);
+mSession.Dispose();
+</code></pre></li>
+</ol><div id="open21" style="display:inline">
+  <p>Get offers using table manager example:&nbsp;<a href="javascript: showdiv('close21'); hidediv('open21');" onclick="javascript: showdiv('close21'); hidediv('open21');">[show]</a></p>
+</div>
+<div id="close21" style="display:none">
+  <p>Get offers using table manager example:&nbsp;<a href="javascript: showdiv('open21'); hidediv('close21');" onclick="javascript: showdiv('open21'); hidediv('close21');">[hide]</a></p>
+  <pre class="example"><code>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+using System.Runtime.InteropServices;
+using fxcore2;
+ 
+namespace GetOffers
+{
+    class Program
+    {
+        static O2GSession mSession;
+        private static string sSessionID = &quot;&quot;;
+        public static string SessionID
+        {
+            get { return sSessionID; }
+        }
+        private static string sPin = &quot;&quot;;
+        public static string Pin
+        {
+            get { return sPin; }
+        }
+        private static string sInstrument = &quot;&quot;;
+ 
+ 
+        static void Main(string[] args)
+        {
+            if (args.Length &lt; 4)
+            {
+                Console.WriteLine(&quot;Not Enough Parameters!&quot;);
+                Console.WriteLine(&quot;USAGE: [application].exe [user ID] [password] [URL] [connection] [session ID (if needed or empty strinig)] [pin (if needed or empty string)] [instrument (optional)]&quot;);
+                Console.WriteLine(&quot;\nPress any key to close the program&quot;);
+                Console.ReadKey();
+                return;
+            }
+            string sUserID = args[0];
+            string sPassword = args[1];
+            string sURL = args[2];
+            string sConnection = args[3];
+            if (args.Length &gt; 4)
+                sSessionID = args[4];
+            if (args.Length &gt; 5)
+                sPin = args[5];
+            if (args.Length &gt; 6)
+                sInstrument = args[6];
+ 
+            try
+            {
+                mSession = O2GTransport.createSession();
+ 
+                SessionStatusListener statusListener = new SessionStatusListener(mSession);
+                mSession.subscribeSessionStatus(statusListener);
+                mSession.useTableManager(O2GTableManagerMode.Yes, null);
+                mSession.login(sUserID, sPassword, sURL, sConnection);
+                while (statusListener.Status != O2GSessionStatusCode.Connected &amp;&amp; statusListener.Status != O2GSessionStatusCode.Disconnected)
+                    Thread.Sleep(50);
+                if (statusListener.Status == O2GSessionStatusCode.Connected)
+                {
+                    O2GTableManager manager = mSession.getTableManager();
+                    while (manager.getStatus() == O2GTableManagerStatus.TablesLoading)
+                        Thread.Sleep(50);
+                    O2GOffersTable offers = null;
+                    if (manager.getStatus() == O2GTableManagerStatus.TablesLoaded)
+                    {
+                        offers = (O2GOffersTable)manager.getTable(O2GTableType.Offers);
+                        printOffers(offers);
+                        offers.RowChanged += new EventHandler&lt;RowEventArgs&gt;(offers_RowChanged);
+                    }
+                    else
+                    {
+                        Console.WriteLine(&quot;Tables loading failed!&quot;);
+                    }
+                    Console.WriteLine(&quot;Press enter to stop!&quot;);
+                    Console.ReadLine();
+ 
+                    if (offers != null)
+                    {
+                        offers.RowChanged -= new EventHandler&lt;RowEventArgs&gt;(offers_RowChanged);
+                    }
+ 
+                    mSession.logout();
+                }
+                mSession.unsubscribeSessionStatus(statusListener);
+                mSession.Dispose();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(&quot;Exception: {0}&quot;, e.ToString());
+            }
+        }
+ 
+        static void offers_RowChanged(object sender, RowEventArgs e)
+        {
+            O2GOfferTableRow row = (O2GOfferTableRow)e.RowData;
+            string sCurrentInstrument = row.Instrument;
+            if ((sInstrument.Equals(&quot;&quot;)) || (sInstrument.Equals(sCurrentInstrument)))
+                PrintOffer(row);
+        }
+ 
+        public static void printOffers(O2GOffersTable offers)
+        {
+            O2GOfferTableRow row = null;
+            O2GTableIterator iterator = new O2GTableIterator();
+            while(offers.getNextRow(iterator, out row))
+            {
+                string sCurrentInstrument = row.Instrument;
+                if ((sInstrument.Equals(&quot;&quot;)) || (sInstrument.Equals(sCurrentInstrument)))
+                    PrintOffer(row);
+            }
+        }
+ 
+        public static void PrintOffer(O2GOfferTableRow row)
+        {
+            Console.WriteLine(&quot;OfferID: {0}, Instrument: {1}, Bid: {2}, Ask: {3}, PipCost: {4}&quot;, row.OfferID, row.Instrument, row.Bid, row.Ask, row.PipCost);
+        }
+ 
+    }
+ 
+ 
+    class SessionStatusListener : IO2GSessionStatus
+    {
+        private O2GSessionStatusCode mCode = O2GSessionStatusCode.Unknown;
+        private O2GSession mSession = null;
+ 
+        public O2GSessionStatusCode Status
+        {
+            get
+            {
+                return mCode;
+            }
+        }
+ 
+        public SessionStatusListener(O2GSession session)
+        {
+            mSession = session;
+        }
+ 
+        public void onSessionStatusChanged(O2GSessionStatusCode code)
+        {
+            mCode = code;
+            Console.WriteLine(code.ToString());
+            if (code == O2GSessionStatusCode.TradingSessionRequested)
+            {
+                if (Program.SessionID == &quot;&quot;)
+                    Console.WriteLine(&quot;Argument for trading session ID is missing&quot;);
+                else
+                    mSession.setTradingSession(Program.SessionID, Program.Pin);
+            }
+        }
+ 
+        public void onLoginFailed(string error)
+        {
+            Console.WriteLine(&quot;Login error &quot; + error);
+        }
+    }
+ 
+}
+ 
+ 
+</code></pre>
+</div><p><b>Using Table Manager and Table Listener</b></p><ol class="main">
+  <li><p>Create a session, a session status listener, subscribe the listener to the session status
+(see <a href="login_logout_net.html"><code>this article</code></a>).</p></li>
+  <li><p>Implement the <a href="fxcore2.IO2GTableListener.html"><code>IO2GTableListener</code></a> interface
+in  a table listener class:<br></p><pre class="example"><code>class TableListener : IO2GTableListener{...}</code></pre></li>
+  <li><p>Allow the use of table manager:<br></p><pre class="example"><code>mSession.useTableManager(O2GTableManagerMode.Yes, null);</code></pre><p><br>
+It should be done before the login.</p></li>
+  <li><p>Log in (see <a href="login_logout_net.html"><code>this article</code></a>).</p></li>
+  <li><p>Get <a href="fxcore2.O2GTableManager.html"><code>O2GTableManager</code></a>
+and wait for <a href="fxcore2.O2GTableManagerStatus.TablesLoaded.0.html"><code>TablesLoaded</code></a> status:<br></p><pre class="example"><code>
+O2GTableManager tableMgr = mSession.getTableManager();
+managerStatus = tableMgr.getStatus();
+while (managerStatus == O2GTableManagerStatus.TablesLoading)
+{
+    Thread.Sleep(50);
+    managerStatus = tableMgr.getStatus();
+}
+if (managerStatus == O2GTableManagerStatus.TablesLoadFailed)
+    return;
+</code></pre></li>
+  <li><p>Get &quot;Offers&quot; table:<br></p><pre class="example"><code>O2GOffersTable offersTable = (O2GOffersTable)tableMgr.getTable(O2GTableType.Offers);</code></pre></li>
+  <li><p>The table can be processed to get information about offers:<br></p><pre class="example"><code>
+O2GTableIterator iterator = new O2GTableIterator();
+O2GOfferTableRow offerTableRow;
+while (offersTable.getNextRow(iterator, out offerTableRow) == true)
+{
+    Console.WriteLine(&quot;Instrument = {0}, Bid = {1}, Ask = {2}&quot;,
+    offerTableRow.Instrument, offerTableRow.Bid, offerTableRow.Ask);
+}
+</code></pre></li>
+  <li><p>To capture updates of &quot;Offers&quot; table create table listener and subscribe it to &quot;Update&quot; event of &quot;Offers&quot; table:<br></p><pre class="example"><code>
+TableListener tableListener = new TableListener();
+offersTable.subscribeUpdate(O2GTableUpdateType.Update, tableListener);
+</code></pre></li>
+  <li><p>Process table updates in &quot;onChanged&quot; event of <a href="fxcore2.IO2GTableListener.html"><code>IO2GTableListener</code></a><br></p><pre class="example"><code>
+public void onChanged(string rowID, O2GRow rowData)
+{
+    O2GOfferTableRow offerTableRow = (O2GOfferTableRow)rowData;
+    if (offerTableRow != null)
+    {
+        Console.WriteLine(&quot;Instrument = {0}, Bid = {1}, Ask = {2}&quot;,
+        offerTableRow.Instrument, offerTableRow.Bid, offerTableRow.Ask);
+    }
+}
+</code></pre></li>
+  <li><p>Unsubscribe from table listener, log out, unsubscribe from the session status listener, and dispose the session when you are done:<br></p><pre class="example"><code>
+offersTable.unsubscribeUpdate(O2GTableUpdateType.Update, tableListener);
+mSession.logout();
+mSession.unsubscribeSessionStatus(statusListener);
+mSession.Dispose();
+</code></pre></li>
+</ol><p><b>Using Response Listener</b></p><ol class="main">
+  <li><p>Create a session, a session status listener, subscribe the listener to the session status
+(see <a href="login_logout_net.html"><code>this article</code></a>).</p></li>
+  <li><p>Implement the <a href="fxcore2.IO2GResponseListener.html"><code>IO2GResponseListener</code></a> interface
+in  a response listener class:<br></p><pre class="example"><code>public class MyResponseListener : IO2GResponseListener{...}</code></pre></li>
+  <li><p>Subscribe an object of this class to the session response:<br></p><pre class="example"><code>
+MyResponseListener responseListener = new MyResponseListener();
+mSession.subscribeResponse(responseListener);
+</code></pre></li>
+  <li><p>Log in (see <a href="login_logout_net.html"><code>this article</code></a>).</p></li>
+  <li><p>Use the listener <a href="fxcore2.IO2GSessionStatus.onSessionStatusChanged.0.html"><code>onSessionStatusChanged</code></a>
+function to capture the <a href="fxcore2.O2GSessionStatusCode.Connected.0.html"><code>Connected</code></a> event.<br></p></li>
+  <li><p>Get <a href="fxcore2.O2GLoginRules.html"><code>O2GLoginRules</code></a>:<br></p><pre class="example"><code>O2GLoginRules rules = mSession.getLoginRules();</code></pre></li>
+  <li><p>Then you can get <a href="fxcore2.O2GResponse.html"><code>O2GResponse</code></a>:<br></p><pre class="example"><code>O2GResponse response = rules.getTableRefreshResponse(O2GTableType.Offers);</code></pre><p><br>
+The response can be processed to extract necessary information.</p></li>
+  <li><p>You should also capture <a href="fxcore2.O2GResponse.html"><code>O2GResponse</code></a> in the
+<a href="fxcore2.IO2GResponseListener.onTablesUpdates.0.html"><code>onTablesUpdates</code></a>
+function of a response listener class and
+process the response.</p></li>
+  <li><p>To get information from the &quot;Offers&quot; table from <a href="fxcore2.O2GResponse.html"><code>O2GResponse</code></a>:<br>
+1. Create <a href="fxcore2.O2GResponseReaderFactory.html"><code>O2GResponseReaderFactory</code></a>:<br></p><pre class="example"><code>O2GResponseReaderFactory respReaderFactory = session.getResponseReaderFactory();</code><br></pre><p>2. Create <a href="fxcore2.O2GOffersTableResponseReader.html"><code>O2GOffersTableResponseReader</code></a>:<br></p><pre class="example"><code>O2GOffersTableResponseReader reader = respReaderFactory.createOffersTableReader(response);</code><br></pre><p>3. Process row by row:<br></p><pre class="example"><code>
+for (i = 0; i &lt; reader.Count; i++)
+{
+    O2GOfferRow row = reader.getRow(i);
+    //information like row.OfferID, row.Instrument, row.Bid, row.Ask could be extracted now
+}
+</code></pre></li>
+  <li><p>Log out, unsubscribe from the session status listener and response listener, and dispose the session when you are done:<br></p><pre class="example"><code>
+mSession.unsubscribeResponse(responseListener);
+mSession.logout();
+mSession.unsubscribeSessionStatus(statusListener);
+mSession.Dispose();
+</code></pre></li>
+</ol><div id="open38" style="display:inline">
+  <p>Get offers example:&nbsp;<a href="javascript: showdiv('close38'); hidediv('open38');" onclick="javascript: showdiv('close38'); hidediv('open38');">[show]</a></p>
+</div>
+<div id="close38" style="display:none">
+  <p>Get offers example:&nbsp;<a href="javascript: showdiv('open38'); hidediv('close38');" onclick="javascript: showdiv('open38'); hidediv('close38');">[hide]</a></p>
+  <pre class="example"><code>
+ 
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+using System.Runtime.InteropServices;
+using fxcore2;
+ 
+namespace GetOffers
+{
+    class Program
+    {
+        static O2GSession mSession;
+        private static string sSessionID = &quot;&quot;;
+        public static string SessionID
+        {
+            get { return sSessionID; }
+        }
+        private static string sPin = &quot;&quot;;
+        public static string Pin
+        {
+            get { return sPin; }
+        }
+        private static string sInstrument = &quot;&quot;;
+ 
+ 
+        static void Main(string[] args)
+        {
+ 
+            if (args.Length &lt; 4)
+            {
+                Console.WriteLine(&quot;Not Enough Parameters!&quot;);
+                Console.WriteLine(&quot;USAGE: [application].exe [user ID] [password] [URL] [connection] [session ID (if needed or empty strinig)] [pin (if needed or empty string)] [instrument (optional)]&quot;);
+                Console.WriteLine(&quot;\nPress enter to close the program&quot;);
+                Console.ReadLine();
+                return;
+            }
+            string sUserID = args[0];
+            string sPassword = args[1];
+            string sURL = args[2];
+            string sConnection = args[3];
+            if (args.Length &gt; 4)
+                sSessionID = args[4];
+            if (args.Length &gt; 5)
+                sPin = args[5];
+            if (args.Length &gt; 6)
+                sInstrument = args[6];
+ 
+            try
+            {
+                mSession = O2GTransport.createSession();
+ 
+                SessionStatusListener statusListener = new SessionStatusListener(mSession);
+                ResponseListener responseListener = new ResponseListener();
+                mSession.subscribeResponse(responseListener);
+                mSession.subscribeSessionStatus(statusListener);
+                mSession.login(sUserID, sPassword, sURL, sConnection);
+                while (statusListener.Status != O2GSessionStatusCode.Connected &amp;&amp; statusListener.Status != O2GSessionStatusCode.Disconnected) ;
+                Thread.Sleep(10000);
+                mSession.logout();
+                mSession.unsubscribeSessionStatus(statusListener);
+                mSession.unsubscribeResponse(responseListener);
+                mSession.Dispose();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(&quot;Exception: {0}&quot;, e.ToString());
+            }
+        }
+ 
+        public static void printOffers(O2GResponse response)
+        {
+            O2GResponseReaderFactory readerFactory = mSession.getResponseReaderFactory();
+            if (readerFactory != null)
+            {
+                O2GOffersTableResponseReader reader = readerFactory.createOffersTableReader(response);
+                int i;
+                for (i = 0; i &lt; reader.Count; i++)
+                {
+                    O2GOfferRow row = reader.getRow(i);
+                    if (row.isBidValid &amp;&amp; row.isAskValid)
+                    {
+                        string sCurrentInstrument = row.Instrument;
+                        if ((sInstrument.Equals(&quot;&quot;)) || (sInstrument.Equals(sCurrentInstrument)))
+                            Console.WriteLine(&quot;{0} {1} {2} {3}&quot;, row.OfferID, row.Instrument, row.Bid, row.Ask);
+                    }
+                }
+            }
+        }
+    }
+ 
+    class ResponseListener : IO2GResponseListener
+    {
+        public void onRequestCompleted(string requestID, O2GResponse response)
+        {
+            if (response.Type == O2GResponseType.GetOffers)
+                Program.printOffers(response);
+        }
+ 
+        public void onRequestFailed(string requestID, string error)
+        {
+        }
+ 
+        public void onTablesUpdates(O2GResponse response)
+        {
+            if (response.Type == O2GResponseType.GetOffers || response.Type == O2GResponseType.TablesUpdates)
+               Program.printOffers(response);
+        }
+    }
+ 
+    class SessionStatusListener : IO2GSessionStatus
+    {
+        private O2GSessionStatusCode mCode = O2GSessionStatusCode.Unknown;
+        private O2GSession mSession = null;
+ 
+        public O2GSessionStatusCode Status
+        {
+            get
+            {
+                return mCode;
+            }
+        }
+ 
+        public SessionStatusListener(O2GSession session)
+        {
+            mSession = session;
+        }
+ 
+        public void onSessionStatusChanged(O2GSessionStatusCode code)
+        {
+            mCode = code;
+            if (code == O2GSessionStatusCode.Connected)
+            {
+                O2GLoginRules rules = mSession.getLoginRules();
+                if (rules.isTableLoadedByDefault(O2GTableType.Offers))
+                {
+                    Program.printOffers(rules.getTableRefreshResponse(O2GTableType.Offers));
+                }
+                else
+                {
+                    O2GRequestFactory requestFactory = mSession.getRequestFactory();
+                    if (requestFactory != null)
+                    {
+                        mSession.sendRequest(requestFactory.createRefreshTableRequest(O2GTableType.Offers));
+                    }
+                }
+            }
+            else if (code == O2GSessionStatusCode.TradingSessionRequested)
+            {
+                if (Program.SessionID == &quot;&quot;)
+                {
+                    Console.WriteLine(&quot;Argument for trading session ID is missing&quot;);
+                }
+                else
+                {
+                    mSession.setTradingSession(Program.SessionID, Program.Pin);
+                }
+            }
+        }
+ 
+        public void onLoginFailed(string error)
+        {
+            Console.WriteLine(&quot;Login error &quot; + error);
+        }
+    }
+}
+ 
+</code></pre>
+</div><p>
+      <center><a href="howto.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

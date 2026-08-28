@@ -1,0 +1,281 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GTable</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>O2GTable</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="IO2GGenericTableResponseReader.html"><code>O2GGenericTableResponseReader</code></a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The class provides access to a table.</p>
+    <p><b>Details</b></p><p>The module is <code>forexconnect.fxcorepy</code></p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Properties</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTable.IO2GGenericTableResponseReader.columns.html">columns</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets an instance of the class that provides access to the list of table columns.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTable.IO2GGenericTableResponseReader.size.html">size</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the number of rows in the reader.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTable.IO2GTable.getStatus.html">status</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the status of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTable.IO2GTable.getTableEventsFilter.html">table_events_filter</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets or sets a filter to receive trading events only and not receive events caused by data recalculation.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTable.IO2GGenericTableResponseReader.getType.html">type</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of a trading table.</p>
+    </td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTable.IO2GTable.forEachRow.html">for_each_row</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Iterates through the rows of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTable.IO2GGenericTableResponseReader.getRow.html">get_row</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a row by its index.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTable.IO2GTable.getRowsByColumnValue.html">get_rows_by_column_value</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets rows containing a specified column value.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTable.IO2GTable.getRowsByColumnValues.html">get_rows_by_column_values</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets rows containing any of the specified column values.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTable.IO2GTable.getRowsByCondition.html">get_rows_by_condition</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets rows containing column values that satisfy a specified condition.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTable.IO2GTable.getRowsByMultiColumnValues.html">get_rows_by_multi_column_values</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets rows containing a number of specified column values that satisfy specified conditions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTable.IO2GTable.isCellChanged.html">is_cell_changed</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Defines whether the cell is changed.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTable.IO2GGenericTableResponseReader.isCellValid.html">is_cell_valid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Checks whether the cell value can be used or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTable.IO2GTable.subscribeStatus.html">subscribe_status</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Subscribes table listener to changes in table status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTable.IO2GTable.subscribeUpdate.html">subscribe_update</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Subscribes table listener to table updates.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTable.IO2GTable.unsubscribeStatus.html">unsubscribe_status</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Unsubscribes table listener from changes in table status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTable.IO2GTable.unsubscribeUpdate.html">unsubscribe_update</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Unsubscribes table listener from table updates.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="module_fxcorepy.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

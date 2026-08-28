@@ -1,0 +1,224 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>ResponseListener</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>ResponseListener</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="IO2GResponseListener.html"><code>AO2GResponseListener</code></a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The class implements the <a href="IO2GResponseListener.html"><code>AO2GResponseListener</code></a> abstract class and calls the passed functions on request completions/failures and table updates.</p>
+    <p><b>Details</b></p><p>To process notifications on request completions/failures and table updates, create an
+instance of the class and pass it in the method <a href="forexconnect.ForexConnect.ForexConnect.sendRequest.html"><code>ForexConnect.send_request</code></a> or
+<a href="forexconnect.ForexConnect.ForexConnect.sendRequestAsync.html"><code>ForexConnect.send_request_async</code></a>.</p>
+<p>The instance of <code>ResponseListener</code> will call the appropriate callback function passed in the constructor when one of the following methods
+is called: <a href="forexconnect.ResponseListener.ResponseListener.onRequestCompleted.html"><code>on_request_completed</code></a>,
+<a href="forexconnect.ResponseListener.ResponseListener.onRequestFailed.html"><code>on_request_failed</code></a>,
+<a href="forexconnect.ResponseListener.ResponseListener.onTablesUpdates.html"><code>on_tables_updates</code></a>.</p>
+<p>The module is <code>forexconnect</code></p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Properties</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ResponseListener.ResponseListener.getError.html">error</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a string representation of an error that occurred when processing a request.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ResponseListener.ResponseListener.getResponse.html">response</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets an instance of <a href="IO2GResponse.html"><code>O2GResponse</code></a> if it has been received.</p>
+    </td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ResponseListener.IO2GResponseListener.init.html">__init__</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constructor.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ResponseListener.ResponseListener.onRequestCompleted.html">on_request_completed</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Implements the method <a href="IO2GResponseListener.IO2GResponseListener.onRequestCompleted.html"><code>AO2GEachRowListener.on_request_completed</code></a> and calls the function that processes notifications about the successful request completion. The function is passed in the constructor.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ResponseListener.ResponseListener.onRequestFailed.html">on_request_failed</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Implements the method <a href="IO2GResponseListener.IO2GResponseListener.onRequestFailed.html"><code>AO2GEachRowListener.on_request_failed</code></a> and calls the function that processes notifications about the request failure. The function is passed in the constructor.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ResponseListener.ResponseListener.onTablesUpdates.html">on_tables_updates</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Implements the method <a href="IO2GResponseListener.IO2GResponseListener.onTablesUpdates.html"><code>AO2GEachRowListener.on_tables_updates</code></a> and calls the function that processes notifications about table updates. The function is passed in the constructor.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ResponseListener.ResponseListener.reset.html">reset</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Resets the response listener after a response is received.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ResponseListener.ResponseListener.stopWaiting.html">stop_waiting</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Stops waiting for a response.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ResponseListener.ResponseListener.waitEvents.html">wait_event</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Starts waiting for a response.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="module_forexconnect.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

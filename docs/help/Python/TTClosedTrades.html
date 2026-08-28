@@ -1,0 +1,320 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Closed Trades (table)</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Closed Trades (table)</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>This section describes the Closed Trades table that contains information about the positions closed during the current trading day such as realized profit/loss, charged commission, cumulative interest, and so on.</p>
+    <p><b>Details</b></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Name</p></td>
+    <td class="thdr"><p>Type</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>trade_id</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identification number of the position. The number is unique within the same database
+that stores the position account. For example, <code>MINIDEMO</code> or <code>U100D1</code>. The uniqueness of
+the position itself is assured by the combination of the database ID and the value of this field. It
+corresponds to the <code>TradeID</code> field in the <a href="TTTrades.html"><code>Trades</code></a> table.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>account_id</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identification number of the position account. The number is unique within
+the database where the account is stored. For example, <code>MINIDEMO</code> or <code>U100D1</code>. The uniqueness of the account
+itself is assured by the combination of the database ID and the value of this field.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>account_name</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique name of the position account. The name is unique within the database where
+the account is stored. For example, <code>MINIDEMO</code> or <code>U100D1</code>. The uniqueness of the account itself is assured
+by the combination of the database ID and the value of this field. It is the name that the FX Trading
+Station displays to its user.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>account_kind</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The type of the position account. The possible values are:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>32</code></p></td>
+    <td class="tmain"><p>Self-traded account, funds manager account (only LAMM), managed account (only LAMM).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>36</code></p></td>
+    <td class="tmain"><p>Funds manager account (only PAMM).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>38</code></p></td>
+    <td class="tmain"><p>Managed account (only PAMM).</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>offer_id</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identification number of the instrument traded.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>amount</p></td>
+    <td class="tmain"><p>Integer</p></td>
+    <td class="tmain"><p>The amount of the closed position. In the case of FX instruments, the amount is expressed in the
+base currency of the instrument.
+In the case of CFD instruments, the amount is expressed in contracts.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>buy_sell</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The trade operation the position is opened by. The possible values are:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>B</code></p></td>
+    <td class="tmain"><p>Buy.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>S</code></p></td>
+    <td class="tmain"><p>Sell.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>gross_pl</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The profit/loss of the position. It is expressed in the account currency.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>commission</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The amount of funds subtracted from the account balance to pay for the broker's service in accordance
+with the terms and conditions of the account trading agreement.
+It is expressed in the account currency. If commission has not been charged, the value of this field is <code>0.0</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>rollover_interest</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The cumulative amount of funds added to the account balance for holding the position
+overnight. It is expressed in the account currency. The value of this field can be positive or negative.
+If the position has not been held overnight, the value of this field is <code>0.0</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>open_rate</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The price the position is opened at. In the case of FX instruments, it is expressed in the instrument counter currency
+per one unit of base currency. In the case of CFD instruments, it is expressed in the instrument native currency
+per one contract.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>open_quote_id</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identifier of the pair of prices (bid and ask) the position is opened at.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>open_time</p></td>
+    <td class="tmain"><p>Date</p></td>
+    <td class="tmain"><p>The date and time when the position is opened.<br>
+The time zone is defined by the system properties <code>SERVER_TIME_UTC</code> and <code>BASE_TIME_ZONE</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>open_order_id</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identification number of the order the position is opened by. The number is unique within the
+same database that stores the account the order is placed on. For example, <code>MINIDEMO</code> or <code>U100D1</code>. The
+uniqueness of the order itself is assured by the combination of the database ID and the value of this
+field.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>open_order_req_id</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identifier of the order request the position is opened by (see <code>RequestID</code> column in the <a href="TTOrders.html">Orders</a> table).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>open_order_request_txt</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The custom identifier of the order the position is opened by (see <code>RequestTXT</code> column in the <a href="TTOrders.html">Orders</a> table).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>open_order_parties</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identifier of the environment that is used to open the position. The identifier is
+generated by ForexConnect.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>close_rate</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The price the position is closed at. In the case of FX instruments, it is expressed in the instrument counter currency
+per one unit of base currency. In the case of CFD instruments, it is expressed in the instrument native currency
+per one contract.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>close_quote_id</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identifier of the pair of prices (bid and ask) the position is closed at.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>close_time</p></td>
+    <td class="tmain"><p>Date</p></td>
+    <td class="tmain"><p>The date and time when the position is closed.<br>
+The time zone is defined by the system properties <code>SERVER_TIME_UTC</code> and <code>BASE_TIME_ZONE</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>close_order_id</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identification number of the order the position is closed by. The number is unique within
+the same database that stores the account the order is placed on. For example, <code>MINIDEMO</code> or <code>U100D1</code>. The
+uniqueness of the order itself is assured by the combination of the database ID and the value of this
+field.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>close_order_req_id</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identifier of the order request the position is closed by (see <code>request_id</code> column in the <a href="TTOrders.html">Orders</a> table).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>close_order_request_txt</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The custom identifier of the order the position is closed by (see <code>request_txt</code> column in the <a href="TTOrders.html">Orders</a> table).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>close_order_parties</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identifier of the environment that is used to close the position. The identifier is generated
+by ForexConnect.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>trade_id_origin</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identification number of the position, the partial closing of which results in the opening
+of the current position. Otherwise, the value of this field is blank.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>trade_id_remain</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identification number of the position opened as the result of the current position partial closing. Otherwise,
+the value of this field is blank.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>value_date</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The simulated delivery date. The date when the position could have been automatically closed. It is provided in the <code>yyyyMMdd</code> format.<br>
+This field is applicable for positions opened on accounts with the day netting trading mode
+(see <code>maintenance_type</code> field in the <a href="TTAccounts.html">Accounts</a> table).</p></td>
+  </tr>
+</table><p>
+      <center><a href="TradingTables.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

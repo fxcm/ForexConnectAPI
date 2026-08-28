@@ -1,0 +1,233 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Common</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>Common</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The class contains helper functions.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Static Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.exceptions.Common.Common.addOrdersIntoGroupRequest.html">add_orders_into_group_request</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates a request for adding certain orders to an existing contingency group.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.exceptions.Common.Common.convertRowToDataframe.html">convert_row_to_dataframe</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Converts <a href="IO2GRow.html"><code>O2GRow</code></a> to a pandas.DataFrame.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.exceptions.Common.Common.convertTableToDataframe.html">convert_table_to_dataframe</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Converts <a href="IO2GTable.html"><code>O2GTable</code></a> to a pandas.DataFrame.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.exceptions.Common.Common.createCloseAllRequest.html">create_close_trades_request</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates a request for closing a number of positions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.exceptions.Common.Common.createTableListener.html">create_table_listener</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates a table listener.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.exceptions.Common.Common.getAccount.html">get_account</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets an instance of <a href="IO2GAccountRow.html"><code>O2GAccountRow</code></a> by Account ID or searches for a trading account with no limitations on account operations and/or satisfying a certain condition.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.exceptions.Common.Common.getOffer.html">get_offer</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets an instance of <a href="IO2GOfferRow.html"><code>O2GOfferRow</code></a> for a specified instrument.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.exceptions.Common.Common.getTrade.html">get_trade</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets an instance of <a href="IO2GTradeRow.html"><code>O2GTradeRow</code></a> from the Trades table by Account ID and Offer ID.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.exceptions.Common.Common.isContingencyExist.html">is_contingency_exist</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Checks whether a contingency group exists on a specific account.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.exceptions.Common.Common.isOrderExist.html">is_order_exist</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Checks whether an order for a certain instrument exists on a specific account.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.exceptions.Common.Common.joinToNewGroupRequest.html">join_to_new_group_request</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates a request for joining two specifed orders to a new contingency group.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.exceptions.Common.Common.refreshTableRequestByAccount.html">refresh_table_by_account</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Refreshes a table for a certain account.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.exceptions.Common.Common.subscribeTableUpdates.html">subscribe_table_updates</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates a table listener and subscribes it to updates of a certain table.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="module_forexconnect.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

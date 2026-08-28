@@ -1,0 +1,242 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GResponseType</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>enum <b>O2GResponseType</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The enum defines a set of constants representing the types of the trading server responses.</p>
+    <p><b>Details</b></p><p>The namespace is <a href="com.fxcore2.html"><code>com.fxcore2</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Static Public Fields</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GResponseType.COMMAND_RESPONSE.html">COMMAND_RESPONSE</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the type of a response to a request for an order editing/deletion or to an instrument subscription.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GResponseType.CREATE_ORDER_RESPONSE.html">CREATE_ORDER_RESPONSE</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents a type of a response to a request for an order creation.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GResponseType.GET_ACCOUNTS.html">GET_ACCOUNTS</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the type of a response to a request for initial account information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GResponseType.GET_CLOSED_TRADES.html">GET_CLOSED_TRADES</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the type of a response to a request for initial closed position information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GResponseType.GET_LAST_ORDER_UPDATE.html">GET_LAST_ORDER_UPDATE</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the type of a response to a request for the current state of an order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GResponseType.GET_MESSAGES.html">GET_MESSAGES</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the type of a response to a request for initial message information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GResponseType.GET_OFFERS.html">GET_OFFERS</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the type of a response to a request for initial offer information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GResponseType.GET_ORDERS.html">GET_ORDERS</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the type of a response to a request for initial order information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GResponseType.GET_SYSTEM_PROPERTIES.html">GET_SYSTEM_PROPERTIES</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the type of a response to a request for the system properties information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GResponseType.GET_TRADES.html">GET_TRADES</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the type of a response to a request for initial open position information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GResponseType.MARGIN_REQUIREMENTS_RESPONSE.html">MARGIN_REQUIREMENTS_RESPONSE</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the type of a response to a request for margin requirements information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GResponseType.MARKET_DATA_SNAPSHOT.html">MARKET_DATA_SNAPSHOT</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the type of a response to a request for historical prices information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GResponseType.RESPONSE_UNKNOWN.html">RESPONSE_UNKNOWN</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents an unknown type of a response.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GResponseType.TABLES_UPDATES.html">TABLES_UPDATES</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents a table updates response that is provided by the trading server automatically.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="com.fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

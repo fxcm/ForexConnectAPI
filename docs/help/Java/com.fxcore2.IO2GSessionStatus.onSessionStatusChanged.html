@@ -1,0 +1,204 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GSessionStatus.onSessionStatusChanged</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>IO2GSessionStatus.onSessionStatusChanged</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Processes notifications about session status changes.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">Java</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code>void&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>onSessionStatusChanged</b> (<a href="com.fxcore2.O2GSessionStatusCode.html"><code>O2GSessionStatusCode</code></a> status) </code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>status</code></td>
+    <td class="tmain" width="69%"><p>The new session status. During the session lifetime, the session status changes. For a detailed explanation of the session statuses,
+refer to the <a href="SessionStatus.html">Session Statuses</a> section.
+For the implementation details, see the example below.</p></td>
+  </tr>
+</table><p><b>Details</b></p><p>In order to process notifications about session status cahanges, an instance of the class implementing the
+<a href="com.fxcore2.IO2GSessionStatus.html">IO2GSessionStatus</a> interface must be subscribed to the session object before calling the
+<a href="com.fxcore2.O2GSession.html">O2GSession</a>.<a href="com.fxcore2.O2GSession.login.html">login</a> method.
+It is accomplished by calling the
+<a href="com.fxcore2.O2GSession.html"><code>O2GSession</code></a>.<a href="com.fxcore2.O2GSession.subscribeSessionStatus.html"><code>subscribeSessionStatus</code></a> method.</p>
+<p><b>Example</b></p><div id="open111" style="display:none">
+  <p>Processing session status updates during login and logout&nbsp;<a href="javascript: showdiv('close111'); hidediv('open111');" onclick="javascript: showdiv('close111'); hidediv('open111');">[show]</a></p>
+</div>
+<div id="close111" style="display:inline">
+  <p>Processing session status updates during login and logout&nbsp;<a href="javascript: showdiv('open111'); hidediv('close111');" onclick="javascript: showdiv('open111'); hidediv('close111');">[hide]</a></p>
+  <pre class="example">     <b>// Create a session, subscribe to session listener, login, logout</b>
+        try {
+            mSession = O2GTransport.createSession();
+            SessionStatusListener statusListener = new SessionStatusListener(mSession, mDBName, mPin);
+            mSession.subscribeSessionStatus(statusListener);
+            mSession.login(mUserID, mPassword, mURL, mConnection);
+            while (!statusListener.isConnected() &amp;&amp; !statusListener.hasError()) {
+                    Thread.sleep(50);
+            }
+            if (!statusListener.hasError()) {
+                mSession.logout();
+                while (!statusListener.isDisconnected()) {
+                    Thread.sleep(50);
+                }
+            }
+            mSession.unsubscribeSessionStatus(statusListener);
+            mSession.dispose();
+            System.exit(1);
+        } catch (Exception e) {
+            System.out.println (&quot;Exception: &quot; + e.getMessage());
+            System.exit(1);
+        }
+ 
+    <b>// Implementation of IO2GSessionStatus interface public method onSessionStatusChanged</b>
+    public final void onSessionStatusChanged(O2GSessionStatusCode status) {
+        mStatus = status;
+        System.out.println(&quot;Status: &quot; + mStatus.toString());
+        if (mStatus == O2GSessionStatusCode.TRADING_SESSION_REQUESTED) {
+            O2GSessionDescriptorCollection descs = mSession.getTradingSessionDescriptors();
+            System.out.println(&quot;\nSession descriptors&quot;);
+            System.out.println(&quot;id, name, description, requires pin&quot;);
+            for (O2GSessionDescriptor desc : descs) {
+                System.out.println(desc.getId() + &quot; &quot; + desc.getName() + &quot; &quot; + desc.getDescription() + &quot; &quot; + desc.isPinRequired());
+            }
+            if (mDBName.equals(&quot;&quot;)) {
+                System.out.println(&quot;Argument for database is missing&quot;);
+            }
+            else {
+                mSession.setTradingSession(mDBName, mPin);
+            }
+        }
+    }
+</pre>
+</div><p>Declared in <a href="com.fxcore2.IO2GSessionStatus.html">IO2GSessionStatus</a></p>
+<p>
+  <center><a href="com.fxcore2.IO2GSessionStatus.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'com.fxcore2.IO2GSessionStatus.html');</script></body>
+</html>

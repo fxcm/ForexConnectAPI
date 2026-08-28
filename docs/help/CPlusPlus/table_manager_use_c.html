@@ -1,0 +1,348 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Using Table Manager</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Using Table Manager</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article describes usage of a table manager in ForexConnect API.</p>
+    <p><b>Details</b></p><p>Table manager creates a convenient interface which allows access to <a href="TradingTables.html">trading tables</a>.<br>
+Table manager provides the following advantages:</p><ul class="main">
+  <li><p>Keeps tables with up-to-date values in memory (especially important for the <a href="TTOffers.html">Offers</a> table, which allows access to current prices).</p></li>
+  <li><p>Provides calculated fields (i.e. PipCost in the <a href="TTOffers.html">Offers</a> table, UsableMargin in the <a href="TTAccounts.html">Accounts</a> table, etc.). These fields are updated automatically. If you use response listener, calculated fields are not available.</p></li>
+  <li><p>Provides the <a href="TTSummary.html">Summary</a> table.</p></li>
+  <li><p>Allows separate subscriptions to <a href="TradingTables.html">trading tables</a> events. These events are specified in the <a href="IO2GTableListener.html">IO2GTableListener</a> interface.</p></li>
+</ul><p>The disadvantage of table manager usage compared to the usage of response listener is performance decrease. Performance decreases because the calculated values are computed on each change of the price. If your application does not need calculated values, usage of table manager is not recommended.</p>
+<p>For implementation details, please refer to the <a href="class_hierarchy.html">ForexConnect API Class Hierarchy</a> section.<br></p>
+<p></p>
+<h4>Starting Table Manager</h4>
+<p>To ensure correct usage of table manager, please follow these steps:<br></p><ol class="main">
+  <li><p>Create an <a href="IO2GSession.html"><code>IO2GSession</code></a> object using <a href="CO2GTransport.createSession.html"><code>createSession()</code></a> method:<br></p><pre class="example"><code>IO2GSession *session = CO2GTransport::createSession();</code></pre></li>
+  <li><p>Before the login, specify that your session will use table manager by calling <a href="IO2GSession.useTableManager.html">useTableManager()</a> method:<br></p><pre class="example"><code>session-&gt;useTableManager(::Yes, NULL);</code></pre></li>
+  <li><p>Login into the ForexConnect API using <a href="IO2GSession.login.html">login()</a> method with your connection parameters:<br></p><pre class="example"><code>session-&gt;login(user.c_str(), password.c_str(), url.c_str(), connection.c_str());</code><br></pre><p><b>Note:</b> For complete login details, please refer to the <a href="login_logout_cpp.html">How to log in</a> section.<br>
+Obtain <a href="IO2GTableManager.html"><code>table manager</code></a> for your session using <a href="IO2GSession.getTableManager.html">getTableManager()</a> method:<br></p><pre class="example"><code>IO2GTableManager *tableManager = session-&gt;getTableManager();</code></pre></li>
+  <li><p>Wait for <a href="O2GTableManagerStatus.TablesLoaded.0.html"><code>TablesLoaded</code></a> status of <a href="IO2GTableManager.html"><code>IO2GTableManager</code></a>.<br></p><pre class="example"><code>
+while (tableManager-&gt;getStatus() != TablesLoaded &amp;&amp; tableManager-&gt;getStatus() != TablesLoadFailed)
+   uni::Sleep(50);
+if (tableManager-&gt;getStatus() == TablesLoaded)
+{
+    //...
+}
+</code></pre><p>Now trading tables are ready and available for usage.
+Please see examples below about getting data from the tables and getting notification about tables updates.<br></p></li>
+  <li><p>Do not forget to release table manager when you are done:<br></p><pre class="example"><code>tableManager-&gt;release();</code></pre></li>
+</ol><p></p>
+<h4>Getting Data from Trading Tables</h4>
+<p>To get data from trading table:<br>
+- use <a href="IO2GTableManager.getTable.html">getTable()</a> method and cast the return value to the corresponding class; <br>
+- get row data using <code>findRow</code>, <code>getRow</code>, or <code>getNextRow</code>.<br></p>
+<p>Please see a table below for a list of trading tables and corresponding subclasses of <a href="IO2GTable.html">IO2GTable</a></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Table</p></td>
+    <td class="thdr"><p>Corresponding class</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTAccounts.html">Accounts</a></p></td>
+    <td class="tmain"><p><a href="IO2GAccountsTable.html">IO2GAccountsTable</a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTOffers.html">Offers</a></p></td>
+    <td class="tmain"><p><a href="IO2GOffersTable.html">IO2GOffersTable</a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTOrders.html">Orders</a></p></td>
+    <td class="tmain"><p><a href="IO2GOrdersTable.html">IO2GOrdersTable</a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTTrades.html">Trades</a></p></td>
+    <td class="tmain"><p><a href="IO2GTradesTable.html">IO2GTradesTable</a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTClosedTrades.html">Closed Trades</a></p></td>
+    <td class="tmain"><p><a href="IO2GClosedTradesTable.html">IO2GClosedTradesTable</a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTMessages.html">Messages</a></p></td>
+    <td class="tmain"><p><a href="IO2GMessagesTable.html">IO2GMessagesTable</a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTSummary.html">Summary</a></p></td>
+    <td class="tmain"><p><a href="IO2GSummaryTable.html">IO2GSummaryTable</a></p></td>
+  </tr>
+</table><p>For example, if you want to get ask and bid prices from the <a href="TTOffers.html">Offers</a> table, please follow these steps:<br></p><ol class="main">
+  <li><p>Obtain <a href="IO2GOffersTable.html">IO2GOffersTable</a> using <a href="IO2GTableManager.getTable.html">getTable()</a> method
+and casting result to <a href="IO2GOffersTable.html">IO2GOffersTable</a>:<br></p><pre class="example"><code>IO2GOffersTable *offersTable = (IO2GOffersTable *)tableManager-&gt;getTable(::Offers);</code></pre></li>
+  <li><p>Obtain <a href="IO2GOfferRow.html">IO2GOfferRow</a> using <a href="IO2GOffersTable.getNextRow.html">getNextRow()</a> method,
+extract necessary information from it, and release <a href="IO2GOfferRow.html">IO2GOfferRow</a>:<br></p><pre class="example"><code>
+IO2GTableIterator tableIterator = {0, 0, NULL};
+IO2GOfferTableRow *offerRow = NULL;
+while (offersTable-&gt;getNextRow(tableIterator, offerRow))
+{
+    //...
+    offerRow-&gt;release();
+}
+</code></pre></li>
+  <li><p>Release <a href="IO2GOffersTable.html"><code>IO2GOffersTable</code></a> when you are done.<br></p><pre class="example"><code>offersTable-&gt;release();</code></pre></li>
+</ol><p></p>
+<h4>Receiving Notifications about Trading Tables Updates</h4>
+<p>To receive notifications about updates of <a href="TradingTables.html">trading tables</a> you should:<br>
+- create a table listener class which implements <a href="IO2GTableListener.html">IO2GTableListener</a> interface<br>
+- create an object of that class<br>
+- subscribe table listener object to a table event<br>
+- unsubscribe table listener from that table event when you are done<br></p>
+<p>Please see the table below for subscribing/unsubscribing methods of <a href="IO2GTable.html"><code>IO2GTable</code></a>
+and corresponding events of <a href="IO2GTableListener.html"><code>IO2GTableListener</code></a>.</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Method of <a href="IO2GTable.html"><code>IO2GTable</code></a> to subscribe</p></td>
+    <td class="thdr"><p>Update type</p></td>
+    <td class="thdr"><p>Event of <a href="IO2GTableListener.html"><code>IO2GTableListener</code></a></p></td>
+    <td class="thdr"><p>Method of <a href="IO2GTable.html"><code>IO2GTable</code></a> to unsubscribe</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GTable.subscribeUpdate.html"><code>subscribeUpdate</code></a></p></td>
+    <td class="tmain"><table class="tmain" width="100%">
+  <tr>
+    <td class="tmain"><p><a href="O2GTableUpdateType.Delete.0.html"><code>Delete</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="O2GTableUpdateType.Insert.0.html"><code>Insert</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="O2GTableUpdateType.Update.0.html"><code>Update</code></a></p></td>
+  </tr>
+</table></td>
+    <td class="tmain"><table class="tmain" width="100%">
+  <tr>
+    <td class="tmain"><p><a href="IO2GTableListener.onDeleted.html"><code>onDeleted</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GTableListener.onAdded.html"><code>onAdded</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GTableListener.onChanged.html"><code>onChanged</code></a></p></td>
+  </tr>
+</table></td>
+    <td class="tmain"><p><a href="IO2GTable.unsubscribeUpdate.html"><code>unsubscribeUpdate</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GTable.subscribeStatus.html"><code>subscribeStatus</code></a></p></td>
+    <td class="tmain"><p>N/A</p></td>
+    <td class="tmain"><p><a href="IO2GTableListener.onStatusChanged.html"><code>onStatusChanged</code></a></p></td>
+    <td class="tmain"><p><a href="IO2GTable.unsubscribeStatus.html"><code>unsubscribeStatus</code></a></p></td>
+  </tr>
+</table><p>For example, if you want to get updates for ask and bid prices, your table listener class may look similar to this:</p><div id="open51" style="display:inline">
+  <p>tablelistener.h&nbsp;<a href="javascript: showdiv('close51'); hidediv('open51');" onclick="javascript: showdiv('close51'); hidediv('open51');">[show]</a></p>
+</div>
+<div id="close51" style="display:none">
+  <p>tablelistener.h&nbsp;<a href="javascript: showdiv('open51'); hidediv('close51');" onclick="javascript: showdiv('open51'); hidediv('close51');">[hide]</a></p>
+  <pre class="example">#pragma once
+ 
+#include &quot;stdafx.h&quot;
+ 
+class TableListener :
+    public IO2GTableListener
+{
+    HANDLE mEvent;
+    long mRef;
+    std::string mRequestID;
+public:
+    long addRef(void);
+    long release();
+    void onStatusChanged(O2GTableStatus);
+    void onAdded(const char *,IO2GRow *);
+    void onChanged(const char *,IO2GRow *);
+    void onDeleted(const char *,IO2GRow *);
+    void onEachRow(const char *,IO2GRow *);
+    void setRequest(std::string sRequestID)
+    {
+        mRequestID = sRequestID;
+    }
+    TableListener(void);
+    HANDLE getEvent();
+    ~TableListener(void);
+};</pre>
+</div><div id="open52" style="display:inline">
+  <p>tablelistener.cpp&nbsp;<a href="javascript: showdiv('close52'); hidediv('open52');" onclick="javascript: showdiv('close52'); hidediv('open52');">[show]</a></p>
+</div>
+<div id="close52" style="display:none">
+  <p>tablelistener.cpp&nbsp;<a href="javascript: showdiv('open52'); hidediv('close52');" onclick="javascript: showdiv('open52'); hidediv('close52');">[hide]</a></p>
+  <pre class="example">#include &quot;tablelistener.h&quot;
+ 
+TableListener::TableListener(void)
+{
+    mEvent = uni::CreateEventA(0, FALSE, FALSE, 0);
+    mRef = 1;
+}
+ 
+TableListener::~TableListener(void)
+{
+    uni::CloseHandle(mEvent);
+}
+ 
+long TableListener::addRef()
+{
+    return InterlockedIncrement(&mRef);
+}
+ 
+long TableListener::release()
+{
+    InterlockedDecrement(&mRef);
+    if(mRef == 0)
+        delete this;
+    return mRef;
+}
+ 
+HANDLE TableListener::getEvent()
+{
+    return mEvent;
+}
+ 
+void TableListener::onStatusChanged(O2GTableStatus status)
+{
+}
+ 
+void TableListener::onAdded(const char *rowID, IO2GRow *row)
+{
+    IO2GOfferTableRow *offerTableRow = static_cast&lt;IO2GOfferTableRow *&gt;(row);
+    //...
+    uni::SetEvent(mEvent);
+}
+ 
+void TableListener::onChanged(const char *rowID, IO2GRow *row)
+{
+}
+ 
+void TableListener::onDeleted(const char *rowID, IO2GRow *row)
+{
+}
+ 
+void TableListener::onEachRow(const char *,IO2GRow *)
+{
+}</pre>
+</div><p>Follow these steps:<br></p><ol class="main">
+  <li><p>Create an instance of your table listener class:<br></p><pre class="example"><code>TableListener *tableListener = new TableListener();</code></pre></li>
+  <li><p>Subscribe to <a href="IO2GTableListener.onChanged.html"><code>onChanged()</code></a> event using the <a href="IO2GTable.subscribeUpdate.html"><code>subscribeUpdate()</code></a> method:<br></p><pre class="example"><code>offersTable-&gt;subscribeUpdate(Update, tableListener);</code></pre></li>
+  <li><p>Wait for updates:<br></p><pre class="example"><code>uni::Sleep(10000);</code></pre></li>
+  <li><p>Unsubscribe from your table listener class using the <a href="IO2GTable.unsubscribeUpdate.html"><code>unsubscribeUpdate()</code></a> method:<br></p><pre class="example"><code>offersTable-&gt;unsubscribeUpdate(Update, tableListener);</code><br></pre></li>
+  <li><p>Release table, table listener, and table manager:<br></p><pre class="example"><code>
+offersTable-&gt;release();
+tableListener-&gt;release();
+tableManager-&gt;release();
+</code></pre></li>
+</ol><p>For complete list of steps required to obtain offers information, please refer to <a href="offers_cpp.html">How to get offers</a> section.</p><p>
+      <center><a href="howto.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

@@ -1,0 +1,213 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>PrepareQuotesTask</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>PrepareQuotesTask</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="Candleworks.QuotesMgr.Task.html"><code>Task</code></a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The Prepare Quotes task.</p>
+    <p><b>Details</b></p><p>The task must be used in order to load all data, necessary to get the price history of the specified instrument and timeframe, into the cache.
+As only the data that has already been loaded into the cache can be received, this task must be performed every time
+before the application requests prices from the Quotes Manager.</p>
+<p>You can check whether all required prices are already loaded into the cache using
+<a href="Candleworks.QuotesMgr.QuotesManager.areQuotesPrepared.0.html"><code>QuotesManager.areQuotesPrepared</code></a>.</p>
+<p>The quotes catalog must be updated before the Prepare Quotes task is executed.
+See <a href="Candleworks.QuotesMgr.UpdateQuotesCatalogTask.html"><code>UpdateQuotesCatalogTask</code></a> for details.</p>
+<p>The task may be quite long, so, in order to let the application display the progress, it is split into subtasks.
+The <a href="Candleworks.QuotesMgr.IPrepareQuotesCallback.update.0.html"><code>update()</code></a> method of the callback will be
+called for each subtask separately. In order to get the number of the subtasks, you can use
+the <a href="Candleworks.QuotesMgr.PrepareQuotesTask.getTotalSubtasks.0.html"><code>getTotalSubtasks()</code></a> method.</p>
+<p>The result of the task will be reported into the instance of <a href="Candleworks.QuotesMgr.IPrepareQuotesCallback.html"><code>IPrepareQuotesCallback</code></a> associated with the task when the task is created.</p>
+<p>The task has no intermediate result, it only changes the internal Quotes Manager data.</p>
+<p>Use <a href="Candleworks.QuotesMgr.QuotesManager.createPrepareQuotesTask.0.html"><code>QuotesManager.createPrepareQuotesTask()</code></a> to create the task.</p>
+<p>The task does not provide any quotes to the application. To load quotes from the cache,
+use <a href="Candleworks.QuotesMgr.PrepareQuotesTask.html"><code>PrepareQuotesTask</code></a>.</p>
+<p>The type defined in the <code>quotesmgr2_net.dll</code> assembly.
+The namespace is <a href="Candleworks.QuotesMgr.html"><code>Candleworks.QuotesMgr</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.QuotesMgr.PrepareQuotesTask.getCallback.0.html">getCallback</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Returns the callback associated with the task.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.QuotesMgr.PrepareQuotesTask.getEndDate.0.html">getEndDate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Returns the date/time of the newest data to be loaded.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.QuotesMgr.PrepareQuotesTask.getInstrument.0.html">getInstrument</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Returns the instrument for which the data must be loaded into the cache.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.QuotesMgr.PrepareQuotesTask.getQuotesCount.0.html">getQuotesCount</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Returns the number of quotes to be loaded.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.QuotesMgr.PrepareQuotesTask.getStartDate.0.html">getStartDate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Returns the date/time of the oldest data to be loaded.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.QuotesMgr.PrepareQuotesTask.getTimeframe.0.html">getTimeframe</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Returns the timeframe to be loaded.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="Candleworks.QuotesMgr.PrepareQuotesTask.getTotalSubtasks.0.html">getTotalSubtasks</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Returns the number of subtasks.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="Candleworks.QuotesMgr.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Getting Combined Account Statement Report</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Getting Combined Account Statement Report</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article explains how to get a Combined Account Statement (CAS) report.</p>
+    <p><b>Details</b></p><p>To get a CAS report in your Java application, you must perform the following steps:</p><ol class="main">
+  <li><p>Create a session.</p></li>
+  <li><p>Create a session status listener.</p></li>
+  <li><p>Subscribe the listener to the session.</p></li>
+  <li><p>Log in.</p></li>
+  <li><p>Use the <a href="com.fxcore2.O2GSession.getReportURL.html"><code>getReportURL</code></a> method. The method will return the URL for the CAS report.</p></li>
+  <li><p>Unsubscribe the session status listener from session.</p></li>
+  <li><p>Load the report.</p></li>
+  <li><p>Log out.</p></li>
+</ol><p>For details, see <a href="login_logout_java.html">Logging in</a> and <a href="com.fxcore2.O2GAccountRow.html"><code>O2GAccountRow</code></a>.</p><div id="open46" style="display:inline">
+  <p>Example: Getting CAS report in HTML format for all accounts for the last month.&nbsp;<a href="javascript: showdiv('close46'); hidediv('open46');" onclick="javascript: showdiv('close46'); hidediv('open46');">[show]</a></p>
+</div>
+<div id="close46" style="display:none">
+  <p>Example: Getting CAS report in HTML format for all accounts for the last month.&nbsp;<a href="javascript: showdiv('open46'); hidediv('close46');" onclick="javascript: showdiv('open46'); hidediv('close46');">[hide]</a></p>
+  <pre class="example">    // Get reports for all accounts
+    public static void getReports(O2GSession session) throws Exception {
+        O2GLoginRules loginRules = session.getLoginRules();
+        if (loginRules == null) {
+            throw new Exception(&quot;Cannot get login rules&quot;);
+        }
+        O2GResponseReaderFactory responseFactory = session.getResponseReaderFactory();
+        O2GResponse accountsResponse = loginRules.getTableRefreshResponse(O2GTableType.ACCOUNTS);
+        O2GAccountsTableResponseReader accountsReader = responseFactory.createAccountsTableReader(accountsResponse);
+        for (int i = 0; i &lt; accountsReader.size(); i++) {
+            O2GAccountRow account = accountsReader.getRow(i);
+            Calendar dtFrom = Calendar.getInstance();
+            dtFrom.add(Calendar.MONTH,-1);
+            String sUrl = session.getReportURL(account.getAccountID(), dtFrom, Calendar.getInstance(), &quot;html&quot;, null);
+            String sFilename = account.getAccountID() + &quot;.html&quot;;
+            URL url = new URL(sUrl);
+ 
+            System.out.println(String.format(&quot;AccountID=%s; Balance=%.2f; Report URL=%s&quot;,
+                    account.getAccountID(), account.getBalance(), sUrl));
+ 
+            InputStream stream = null;
+            try {
+                stream = url.openStream();
+                FileOutputStream writer = null;
+                try {
+                    writer = new FileOutputStream(sFilename);
+                    byte[] buffer = new byte[262144];
+                    int iBytesRead = 0;
+                    while ((iBytesRead = stream.read(buffer, 0, 262144)) &gt; 0) {
+                        writer.write(buffer, 0, iBytesRead);
+                    }
+                } finally {
+                    if (writer != null)
+                        writer.close();
+                }
+            } finally {
+                if (stream != null)
+                    stream.close();
+            }
+ 
+            System.out.println(&quot;Report is saved to &quot; + sFilename);
+        }
+    }</pre>
+</div><p>
+      <center><a href="howto.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

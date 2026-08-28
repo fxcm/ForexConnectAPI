@@ -1,0 +1,256 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GValueMap</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>O2GValueMap</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code>System.Collections.Generic.IEnumerable&lt;<a href="fxcore2.O2GValueMap.html"><code>O2GValueMap</code></a>&gt;</code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>A value map containing order parameters.</p>
+    <p><b>Details</b></p><p>To create <code>IO2GValueMap</code> use
+<a href="fxcore2.O2GRequestFactory.html"><code>O2GRequestFactory</code></a>.<a href="fxcore2.O2GRequestFactory.createValueMap.0.html"><code>createValueMap</code></a>.
+<br>
+<code>O2GValueMap</code> contains elements of <a href="fxcore2.O2GRequestParamsEnum.html"><code>O2GRequestParamsEnum</code></a> (order parameters) as keys
+and corresponding string, boolean, double, or integer values.
+<br>
+<code>O2GValueMap</code> is used to combine order parameters when creating order request by
+<a href="fxcore2.O2GRequestFactory.html"><code>O2GRequestFactory</code></a>.<a href="fxcore2.O2GRequestFactory.createOrderRequest.0.html"><code>createOrderRequest</code></a>.</p><div id="open276" style="display:none">
+  <p>Create and fill O2GValueMap&nbsp;<a href="javascript: showdiv('close276'); hidediv('open276');" onclick="javascript: showdiv('close276'); hidediv('open276');">[show]</a></p>
+</div>
+<div id="close276" style="display:inline">
+  <p>Create and fill O2GValueMap&nbsp;<a href="javascript: showdiv('open276'); hidediv('close276');" onclick="javascript: showdiv('open276'); hidediv('close276');">[hide]</a></p>
+  <pre class="example"> public void CreateEntryOrder(string sAccountID, string sOfferID, double dRate, int iAmount, string sBuySell, string sOrderType)
+ {
+   O2GRequestFactory factory = Program.Session.getRequestFactory();
+   if (factory != null)
+   {
+       O2GValueMap valuemap = factory.createValueMap();
+       valuemap.setString(O2GRequestParamsEnum.Command, Constants.Commands.CreateOrder);
+       valuemap.setString(O2GRequestParamsEnum.OrderType, sOrderType);
+       valuemap.setString(O2GRequestParamsEnum.AccountID, sAccountID);
+       valuemap.setString(O2GRequestParamsEnum.OfferID, sOfferID);
+       valuemap.setString(O2GRequestParamsEnum.BuySell, sBuySell);
+       valuemap.setInt(O2GRequestParamsEnum.Amount, iAmount);
+       valuemap.setDouble(O2GRequestParamsEnum.Rate, dRate);
+ 
+       O2GRequest request = factory.createOrderRequest(valuemap);
+       Program.Session.sendRequest(request);
+   }
+ }</pre>
+</div><p>The type defined in the <code>fxcore2.dll</code> assembly.
+The namespace is <a href="fxcore2.html"><code>fxcore2</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Properties</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GValueMap.ChildrenCount.0.html">ChildrenCount</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A number of child value maps.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GValueMap.Item.0.html">Item</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>A child value map.</p>
+    </td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GValueMap.appendChild.0.html">appendChild</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Adds the value map to the list of child value maps.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GValueMap.clear.0.html">clear</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Clears the value map.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GValueMap.clone.0.html">clone</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Makes a copy of the value map.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GValueMap.getChild.0.html">getChild</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a child value map.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GValueMap.setBoolean.0.html">setBoolean</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Sets a boolean value.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GValueMap.setDouble.0.html">setDouble</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Sets a double value.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GValueMap.setInt.0.html">setInt</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Sets an integer value.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GValueMap.setString.0.html">setString</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Sets a string value.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

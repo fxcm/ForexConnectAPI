@@ -1,0 +1,179 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>AO2GTableListener</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>AO2GTableListener</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The abstract class provides method signatures to process notifications about trading tables events: adding/updating/deleting of rows, and changes in a table status.</p>
+    <p><b>Details</b></p><p>After the successful login, you must obtain an instance of the <a href="IO2GTableManager.html"><code>O2GTableManager</code></a> class.<br></p>
+<p>The table manager keeps in memory the <a href="TradingTables.html">trading tables</a> and therefore allows access to the up-to-date field values and
+ability to capture table events.<br></p>
+<p>If you want to process notifications about specific table events, you must obtain an instance of the class derived from the <a href="O2GTable.html"><code>O2GTable</code></a> class.<br></p>
+<p><b>Limitations</b></p>
+<p>The <code>AO2GTableListener</code> is notified only about the <a href="TradingTables.html">trading tables</a> updates
+(see <a href="O2GResponseType.O2GResponseType.TablesUpdates.html"><code>O2GResponseType.TABLE_UPDATES</code></a>).<br>
+<b>Note:</b> In order to process the response which comes as an answer to a request execution,
+you application needs to implement the <a href="IO2GResponseListener.html"><code>AO2GResponseListener</code></a> abstract class.</p>
+<p><b>Implementation</b></p>
+<p>If you want to use methods of the <code>AO2GTableListener</code> abstract class, you must create a class that implements the abstract class.</p>
+<p>In your application you must create an instance of the class that implements the abstract class. <br></p>
+<p>This instance must be subscribed to a table object event.<br>
+You must subscribe to each event individually by using different methods of the
+<a href="IO2GTable.html"><code>O2GTable</code></a> class. For example, if you want to process notifications about updates of the <a href="TTTrades.html">Trades</a> table, call the
+<a href="IO2GTable.IO2GTable.subscribeUpdate.html"><code>O2GTable.subscribe_update</code></a> method.<br></p>
+<p>Before the logout, you must unsubscribe the listener from the table object.<br></p>
+<p>The module is <code>forexconnect.fxcorepy</code></p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTableListener.IO2GTableListener.onAdded.html">on_added</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Processes a notification about the row addition to a table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTableListener.IO2GTableListener.onChanged.html">on_changed</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Processes a notification about the row change in a table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTableListener.IO2GTableListener.onDeleted.html">on_deleted</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Processes a notification about the row deletion from a table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTableListener.IO2GTableListener.onStatusChanged.html">on_status_changed</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Processes notifications about a table status changes.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="module_fxcorepy.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

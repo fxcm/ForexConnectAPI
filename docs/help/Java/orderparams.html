@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+<title>Order Parameters</title><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<style type="text/css">
+    body
+    {
+        background-color : white;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    table
+    {
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : rgb(153, 153, 153);
+    }
+    td, td.thdr
+    {
+        border : 1px solid;
+        border-color : rgb(153, 153, 153);
+        vertical-align : center;
+        text-align : center;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.thdr
+    {
+        background-color : rgb(204, 204, 255);
+    }
+</style></head>
+
+<body>
+<p><b>Create Order command parameters map</b></p>
+<table>
+<tbody><tr><td>OrderType</td><td>OM</td><td>O</td><td>OR</td><td>OL</td><td>CM</td><td>C</td><td>CR</td><td>CL</td><td>SE</td><td>LE</td><td>S</td><td>L</td></tr>
+<tr><td>OfferID</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td></tr>
+<tr><td>AccountID</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td></tr>
+<tr><td>BuySell</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R<sup>(1)</sup></td><td>R<sup>(1)</sup></td><td>R<sup>(1)</sup></td><td>R<sup>(1)</sup></td><td>R</td><td>R</td><td>R<sup>(1)</sup></td><td>R<sup>(1)</sup></td></tr>
+<tr><td>Amount</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R<sup>(2)(7)</sup></td><td>R<sup>(2)(7)</sup></td><td>R<sup>(2)(7)</sup></td><td>R<sup>(2)(7)</sup></td><td>R<sup>(3)</sup></td><td>R<sup>(3)</sup></td><td>R<sup>(4)</sup></td><td>R<sup>(4)</sup></td></tr>
+<tr><td>NetQuantity</td><td></td><td></td><td></td><td></td><td>R<sup>(7)</sup></td><td>R<sup>(7)</sup></td><td>R<sup>(7)</sup></td><td>R<sup>(7)</sup></td><td>R<sup>(3)</sup></td><td>R<sup>(3)</sup></td><td></td><td></td></tr>
+<tr><td>TradeID</td><td></td><td></td><td></td><td></td><td>R<sup>(7)</sup></td><td>R<sup>(7)</sup></td><td>R<sup>(7)</sup></td><td>R<sup>(7)</sup></td><td></td><td></td><td>R</td><td>R</td></tr>
+<tr><td>Rate</td><td></td><td>R</td><td></td><td>R</td><td></td><td>R</td><td></td><td>R</td><td>R</td><td>R</td><td>R<sup>(5)</sup></td><td>R<sup>(5)</sup></td></tr>
+<tr><td>RateMin</td><td></td><td></td><td>R</td><td></td><td></td><td></td><td>R</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>RateMax</td><td></td><td></td><td>R</td><td></td><td></td><td></td><td>R</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>TimeInForce</td><td>O</td><td>O</td><td>O</td><td>O</td><td>O</td><td>O</td><td>O</td><td>O</td><td>O</td><td>O</td><td>O</td><td>O</td></tr>
+<tr><td>TrailStep</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>O</td><td></td><td>O</td><td></td></tr>
+<tr><td>PegType</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>R<sup>(5)</sup></td><td>R<sup>(5)</sup></td></tr>
+<tr><td>PegOffset</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>R<sup>(5)</sup></td><td>R<sup>(5)</sup></td></tr>
+<tr><td>CustomID</td><td>O</td><td>O</td><td>O</td><td>O</td><td>O</td><td>O</td><td>O</td><td>O</td><td>O</td><td>O</td><td>O</td><td>O</td></tr>
+<tr><td>Parties</td><td>O</td><td>O</td><td>O</td><td>O</td><td>O</td><td>O</td><td>O</td><td>O</td><td>O</td><td>O</td><td>O</td><td>O</td></tr>
+<tr><td>RateStop</td><td>O<sup>(6)</sup></td><td>O<sup>(6)</sup></td><td>O<sup>(6)</sup></td><td>O<sup>(6)</sup></td><td></td><td></td><td></td><td></td><td>O<sup>(6)</sup></td><td>O<sup>(6)</sup></td><td></td><td></td></tr>
+<tr><td>PegOffsetStop</td><td>O<sup>(6)</sup></td><td>O<sup>(6)</sup></td><td>O<sup>(6)</sup></td><td>O<sup>(6)</sup></td><td></td><td></td><td></td><td></td><td>O<sup>(6)</sup></td><td>O<sup>(6)</sup></td><td></td><td></td></tr>
+<tr><td>PegTypeStop</td><td>O<sup>(6)</sup></td><td>O<sup>(6)</sup></td><td>O<sup>(6)</sup></td><td>O<sup>(6)</sup></td><td></td><td></td><td></td><td></td><td>O<sup>(6)</sup></td><td>O<sup>(6)</sup></td><td></td><td></td></tr>
+<tr><td>TrailStepStop</td><td>O</td><td>O</td><td>O</td><td>O</td><td></td><td></td><td></td><td></td><td>O</td><td>O</td><td></td><td></td></tr>
+<tr><td>RateLimit</td><td>O<sup>(6)</sup></td><td>O<sup>(6)</sup></td><td>O<sup>(6)</sup></td><td>O<sup>(6)</sup></td><td></td><td></td><td></td><td></td><td>O<sup>(6)</sup></td><td>O<sup>(6)</sup></td><td></td><td></td></tr>
+<tr><td>PegOffsetLimit</td><td>O<sup>(6)</sup></td><td>O<sup>(6)</sup></td><td>O<sup>(6)</sup></td><td>O<sup>(6)</sup></td><td></td><td></td><td></td><td></td><td>O<sup>(6)</sup></td><td>O<sup>(6)</sup></td><td></td><td></td></tr>
+<tr><td>PegTypeLimit</td><td>O<sup>(6)</sup></td><td>O<sup>(6)</sup></td><td>O<sup>(6)</sup></td><td>O<sup>(6)</sup></td><td></td><td></td><td></td><td></td><td>O<sup>(6)</sup></td><td>O<sup>(6)</sup></td><td></td><td></td></tr>
+</tbody></table>
+<b>Notes:</b>
+<p>R - is for "required"</p>
+<p>O - is for "optional"</p>
+<p><sup>(1)</sup> BuySell value for the closing orders must be opposite to the BuySell value of the position to be closed.</p>
+<p><sup>(2)</sup> Amount of the market close order must be equal or less than the Amount value of the trade to be closed.</p>
+<p><sup>(3)</sup> Either the Amount or NetQuantity equal to "Y" must be specified for an entry order.</p>
+<p><sup>(4)</sup> Amount of the stop or limit order must be equal to the Amount value of the trade to be closed.</p>
+<p><sup>(5)</sup> Either the Rate or a pair of PegType and PegOffset must be specified.</p>
+<p><sup>(6)</sup> Either the RateStop(RateLimit) or a pair of
+PegTypeStop and PegOffsetStop (PegTypeLimit and PegOffsetLimit) must be
+specified in order to have the Stop (Limit) attached.</p>
+<p><sup>(7)</sup> Either a pair of Amount and TradeID or NetQuantity equal to "Y" must be specified for a close order.</p>
+</body></html>

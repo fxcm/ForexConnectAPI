@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>What is Timeframe?</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>What is Timeframe?</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article describes what the timeframe is.</p>
+    <p><b>Details</b></p><p><b>What is Timeframe?</b></p>
+<p>A candle (or bar) represents open (the first), high (the maximum), low (the minimum) and close (the last) prices reached
+during a certain period of time. This kind of price aggregation is used for easier presentation of the price history and for technical analysis.</p>
+<p>The period length is typically a particular number of minutes (e.g. 1 minute, 5 minutes), hours (e.g. 1 hour, 2 hours), days, weeks or months.
+This period of time is called the <b>timeframe</b>.</p>
+<p>The timeframe defines not only the length of the time period, but also the moment when the time period starts.</p>
+<p>1 minute periods always start at 00 seconds of that minute.</p>
+<p>The timeframes of a number of minutes are always aligned against an hour, e.g. 15-minute periods always start
+at HH:00:00, HH:15:00, HH:30:00, and HH:45:00.</p>
+<p>1 hour periods always start at 00 minutes 00 seconds of that hour.</p>
+<p>1 day period starts when the market is closed and re-opened. For the Forex market
+it is usually 17:00 New York time. So, 16:59:59 is the last second of today's day candle and 17:00:00 is the first second of <b>tomorrow's</b>
+day candle. In order to calculate the period borders properly, we should know an <b>offset of the trading day start</b>. This is the number of
+hours before (negative value) or after (positive value) midnight of the calendar date. So, if the trading day starts at 17:00 of yesterday,
+the trading day start offset is -7 hours. If the trading day starts at 1:00 of today, the trading day offset is +1 hour.</p>
+<p>Please note that for the Forex market the time is in New York time. For UTC, the trading day start will be either 21:00 or 22:00 depending on whether New York is in daylight saving time or not.
+The trading week is the 7-day period started at the trading day of Sunday (17:00NYT of Saturday).
+The trading month is the month period started at the start of the first trading day of the month (e.g. June starts at 17:00NYT, May 31 and ends at 17:00NYT, Jun 30).</p>
+<p>The timeframes of a number of hours are aligned against the start of the trading day. So, 6-hour periods will start at 17:00NYT, 23:00NYT,
+5:00NYT, and 11:00NYT.</p>
+<p><b>Timeframe Names</b></p>
+<p>The name of the timeframe is the name of the timeframe measurement unit followed by the length of the time period.</p>
+<p>The names of the units are:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p>Name</p></td>
+    <td class="tmain"><p>Meaning</p></td>
+    <td class="tmain"><p>Example(s)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>t</code></p></td>
+    <td class="tmain"><p>Ticks</p></td>
+    <td class="tmain"><p>t1 - ticks.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>m</code></p></td>
+    <td class="tmain"><p>Minutes</p></td>
+    <td class="tmain"><p>m1 - 1 minute, m5 - 5 minutes, m30 - 30 minutes.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>H</code></p></td>
+    <td class="tmain"><p>Hours</p></td>
+    <td class="tmain"><p>H1 - 1 hour, H6 - 6 hours, H12 - 12 hours.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>D</code></p></td>
+    <td class="tmain"><p>Days</p></td>
+    <td class="tmain"><p>D1 - 1 day.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>W</code></p></td>
+    <td class="tmain"><p>Weeks</p></td>
+    <td class="tmain"><p>W1 - 1 week.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>M</code></p></td>
+    <td class="tmain"><p>Months</p></td>
+    <td class="tmain"><p>M1 - 1 month.</p></td>
+  </tr>
+</table><p>
+      <center><a href="references.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

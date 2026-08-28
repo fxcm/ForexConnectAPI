@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Attach Stop and/or Limit Order to Command</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Attach Stop and/or Limit Order to Command</b></font>
+    </p><p>Orders which create a new position (<a href="TradingCommandsCreateOrder_OM.html">OM</a>,
+<a href="TradingCommandsCreateOrder_O.html">O</a>, <a href="TradingCommandsCreateOrder_OR1.html">OR</a>,
+<a href="TradingCommandsCreateOrder_SE.html">SE</a>, and <a href="TradingCommandsCreateOrder_LE.html">LE</a> orders)
+may also have additional parameters in the <code>create_order_request</code>,
+which forces creating associated stop and limit orders.</p>
+<p>Please note that close orders must be permitted for the account in order to be used.</p>
+<p>Please note that stop and limit orders cannot be attached to netting entry orders.</p>
+<p>You can create either regular stop and limit orders (for non-FIFO accounts) or ELS (entry stop limit) orders for FIFO
+accounts. ELS is a pair of entry stop and entry limit orders which are joined into OCO (one-cancel-other) group, so when one
+of the orders is executed, the other order is canceled. Also, the orders only close the existing opposite positions
+and never open a position. Also, the orders are canceled when there is no opposite position existing at the moment.
+However, because of the FIFO rule, these orders close the oldest positions first, not the position you
+have attached the orders to. So, in case you recognize the whole amount on particular instrument/account as one netting
+position, these orders works good enough. ELS orders cannot be used on non-FIFO accounts.</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Parameter name</p></td>
+    <td class="thdr"><p>Datatype</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>RATE_STOP</p></td>
+    <td class="tmain"><p>double</p></td>
+    <td class="tmain"><p>The price level of the stop order.</p>
+<p>The stop order must be below the trade price for the position created using a buy order (long position)
+and above the trade price for the position created using a sell order (short position).</p>
+<p>Either <code>RATE_STOP</code> or a pair of <code>PEG_OFFSET_STOP</code> and <code>PEG_TYPE_STOP</code> fields must
+be used to specify the associated stop order. If none of these fields are specified, the stop
+order will not be created.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>PEG_TYPE_STOP</p></td>
+    <td class="tmain"><p>str</p></td>
+    <td class="tmain"><p><i>Pegged</i> means that the price is specified as an offset (in pips) against the market price.</p>
+<p>The field specifies which price should be used to calculate the order price:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>O</code></p></td>
+    <td class="tmain"><p>The open price of the related trade.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>M</code></p></td>
+    <td class="tmain"><p>The close price (the current market price) of the related trade.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>PEG_OFFSET_STOP</p></td>
+    <td class="tmain"><p>double</p></td>
+    <td class="tmain"><p>The offset to the price specified in the <code>PEG_TYPE_STOP</code> field. The offset must be expressed in pips.</p>
+<p>The offset must be positive for a sell position and negative for a buy position.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TRAIL_STEP_STOP</p></td>
+    <td class="tmain"><p>int</p></td>
+    <td class="tmain"><p>The trailing stop order follows the market in case the market moves in the
+profitable direction for the position.</p>
+<p>The value specifies the maximum change of the market price after which the rate of the order
+will be changed as well.</p>
+<p>The value is expressed in the units of the minimum change of the
+price (see the <code>digits</code> column of the <a href="TTOffers.html">Offers</a> table).</p>
+<p>For example, if the value of the <code>digits</code> column is 3 and the value of this field is 5, the maximum change of the market
+price will be <code>5 * 10<sup>-3</sup> = 0.005</code>.</p>
+<p>If the value is 1, that means that the dynamic trailing mode is used, i.e. the order rate is changed
+with every change of the market price. Please note that in some systems, only dynamic
+trailing mode is supported.</p>
+<p>The value is optional. By default, this value is 0. 0, it means a non-trailing order.</p>
+<p>If the value is specified, the order type in the <a href="TTOrders.html">Orders</a> table will be <code>ST</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>RATE_LIMIT</p></td>
+    <td class="tmain"><p>double</p></td>
+    <td class="tmain"><p>The price level of the limit order.</p>
+<p>The limit order must be above the trade price for the position created using a buy order (long position)
+and below the trade price for the position created using a sell order (short position).</p>
+<p>Either <code>RATE_LIMIT</code> or a pair of <code>PEG_OFFSET_LIMIT</code> and <code>PEG_TYPE_LIMIT</code> fields must
+be used to specify the associated limit order. If none of these fields are specified, the limit
+order will not be created.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>PEG_TYPE_LIMIT</p></td>
+    <td class="tmain"><p>str</p></td>
+    <td class="tmain"><p><i>Pegged</i> means that the price is specified as an offset (in pips) against the market price.</p>
+<p>The field specifies which price should be used to calculate the order price:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>O</code></p></td>
+    <td class="tmain"><p>The open price of the related trade.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>M</code></p></td>
+    <td class="tmain"><p>The close price (the current market price) of the related trade.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>PEG_OFFSET_LIMIT</p></td>
+    <td class="tmain"><p>double</p></td>
+    <td class="tmain"><p>The offset to the price specified in the <code>PEG_TYPE_LIMIT</code> field. The offset must be expressed in pips.</p>
+<p>The offset must be negative for a sell position and positive for a buy position.</p></td>
+  </tr>
+</table><p>
+      <center><a href="order_parameters.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

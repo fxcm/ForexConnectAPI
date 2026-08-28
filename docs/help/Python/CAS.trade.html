@@ -1,0 +1,250 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Self-Traded, LAMM Accounts</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Self-Traded, LAMM Accounts</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p> The section describes all report tables associated with self-traded (Trade) and funds manager/managed (LAMM) accounts.</p>
+    <p><b>Details</b></p><div id="open45" style="display:inline">
+  <p>Diagram&nbsp;<a href="javascript: showdiv('close45'); hidediv('open45');" onclick="javascript: showdiv('close45'); hidediv('open45');">[show]</a></p>
+</div>
+<div id="close45" style="display:none">
+  <p>Diagram&nbsp;<a href="javascript: showdiv('open45'); hidediv('close45');" onclick="javascript: showdiv('open45'); hidediv('close45');">[hide]</a></p>
+  <pre><img src="img/CASSelfTraded.gif"></pre>
+</div><p>Note that a set of tables in the report depends on the <i>trading mode</i> (<i>position maintenance</i>) of the account.
+For details, see the following examples.</p><div id="open46" style="display:inline">
+  <p>The structure of the report for the account with the <i>One Side</i>, <i>Both Sides</i>, or <i>FIFO</i> trading mode:&nbsp;<a href="javascript: showdiv('close46'); hidediv('open46');" onclick="javascript: showdiv('close46'); hidediv('open46');">[show]</a></p>
+</div>
+<div id="close46" style="display:none">
+  <p>The structure of the report for the account with the <i>One Side</i>, <i>Both Sides</i>, or <i>FIFO</i> trading mode:&nbsp;<a href="javascript: showdiv('open46'); hidediv('close46');" onclick="javascript: showdiv('open46'); hidediv('close46');">[hide]</a></p>
+  <pre class="example">&lt;rdf:report xmlns:rdf=&quot;http://re.fxcm.com/2008/2.0/format-xml&quot;&gt;
+    &lt;rdf:parameters&gt;
+        ...<code>report request parameters</code>...
+    &lt;/rdf:parameters&gt;
+    &lt;rdf:data connection=&quot;100KREAL&quot;&gt;
+        &lt;rdf:constants&gt;
+            ...<code>report constants</code>...
+        &lt;/rdf:constants&gt;
+        &lt;rdf:table name=&quot;account_info_office&quot;&gt;
+            ...<code>report table</code>...
+        &lt;/rdf:table&gt;
+        &lt;rdf:table name=&quot;account_info_user&quot;&gt;
+            ...<code>report table</code>...
+        &lt;/rdf:table&gt;
+        &lt;rdf:table name=&quot;account_info_parameters&quot;&gt;
+            ...<code>report table</code>...
+        &lt;/rdf:table&gt;
+        &lt;rdf:table name=&quot;closed_trades&quot; description=&quot;CLOSED TRADE LIST&quot;&gt;
+            ...<code>report table</code>...
+        &lt;/rdf:table&gt;
+        &lt;rdf:table name=&quot;orders&quot; description=&quot;OUTSTANDING ORDERS&quot;&gt;
+            ...<code>report table</code>...
+        &lt;/rdf:table&gt;
+        &lt;rdf:table name=&quot;open_floating_positions&quot; description=&quot;OPEN/FLOATING POSITIONS&quot;&gt;
+            ...<code>report table</code>...
+        &lt;/rdf:table&gt;
+        &lt;rdf:table name=&quot;account_activity&quot; description=&quot;ACCOUNT ACTIVITY&quot;&gt;
+            ...<code>report table</code>...
+        &lt;/rdf:table&gt;
+        &lt;rdf:table name=&quot;account_summary&quot; description=&quot;ACCOUNT SUMMARY&quot;&gt;
+            ...<code>report table</code>...
+        &lt;/rdf:table&gt;
+    &lt;/rdf:data&gt;
+&lt;/rdf:report&gt;</pre>
+</div><div id="open47" style="display:inline">
+  <p>The structure of the report for the account with the <i>Netting Only</i> or <i>Day Netting</i> trading mode:&nbsp;<a href="javascript: showdiv('close47'); hidediv('open47');" onclick="javascript: showdiv('close47'); hidediv('open47');">[show]</a></p>
+</div>
+<div id="close47" style="display:none">
+  <p>The structure of the report for the account with the <i>Netting Only</i> or <i>Day Netting</i> trading mode:&nbsp;<a href="javascript: showdiv('open47'); hidediv('close47');" onclick="javascript: showdiv('open47'); hidediv('close47');">[hide]</a></p>
+  <pre class="example">&lt;rdf:report xmlns:rdf=&quot;http://re.fxcm.com/2008/2.0/format-xml&quot;&gt;
+    &lt;rdf:parameters&gt;
+        ...<code>report request parameters</code>...
+    &lt;/rdf:parameters&gt;
+    &lt;rdf:data connection=&quot;100KREAL&quot;&gt;
+        &lt;rdf:constants&gt;
+            ...<code>report constants</code>...
+        &lt;/rdf:constants&gt;
+        &lt;rdf:table name=&quot;account_info_office&quot;&gt;
+            ...<code>report table</code>...
+        &lt;/rdf:table&gt;
+        &lt;rdf:table name=&quot;account_info_user&quot;&gt;
+            ...<code>report table</code>...
+        &lt;/rdf:table&gt;
+        &lt;rdf:table name=&quot;account_info_parameters&quot;&gt;
+            ...<code>report table</code>...
+        &lt;/rdf:table&gt;
+        &lt;rdf:table name=&quot;transaction_blotter&quot; description=&quot;TRANSACTION BLOTTER&quot;&gt;
+            ...<code>report table</code>...
+        &lt;/rdf:table&gt;
+        &lt;rdf:table name=&quot;orders&quot; description=&quot;OUTSTANDING ORDERS&quot;&gt;
+            ...<code>report table</code>...
+        &lt;/rdf:table&gt;
+        &lt;rdf:table name=&quot;net_positions&quot; description=&quot;NET POSITIONS&quot;&gt;
+            ...<code>report table</code>...
+        &lt;/rdf:table&gt;
+        &lt;rdf:table name=&quot;account_activity&quot; description=&quot;ACCOUNT ACTIVITY&quot;&gt;
+            ...<code>report table</code>...
+        &lt;/rdf:table&gt;
+        &lt;rdf:table name=&quot;account_summary&quot; description=&quot;ACCOUNT SUMMARY&quot;&gt;
+            ...<code>report table</code>...
+        &lt;/rdf:table&gt;
+    &lt;/rdf:data&gt;
+&lt;/rdf:report&gt;</pre>
+</div><p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Articles</b></td>
+      </tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="CAS.tables.closed_trades.html"><code>closed_trades</code> Table</a></p>
+    <p>The article describes the Closed Trade List table of the report.</p>
+  </td>
+</tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="CAS.tables.transaction_blotter.html"><code>transaction_blotter</code> Table</a></p>
+    <p>The article describes the Transaction Blotter table of the report.</p>
+  </td>
+</tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="CAS.tables.orders.html"><code>orders</code> Table</a></p>
+    <p>The article describes the Outstanding Orders table of the report.</p>
+  </td>
+</tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="CAS.tables.open_floating_positions.html"><code>open_floating_positions</code> Table</a></p>
+    <p>The article describes the Open/Floating Positions table of the report.</p>
+  </td>
+</tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="CAS.tables.net_positions.html"><code>net_positions</code> Table</a></p>
+    <p>The article describes the Net Positions table of the report.</p>
+  </td>
+</tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="CAS.tables.account_activity.html"><code>account_activity</code> Table</a></p>
+    <p>The article describes the Account Activity table of the report.</p>
+  </td>
+</tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="CAS.tables.account_summary.html"><code>account_summary</code> Table</a></p>
+    <p>The article describes the Account Summary table of the report.</p>
+  </td>
+</tr></table>
+    <p>
+      <center><a href="CAS.ReportView.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

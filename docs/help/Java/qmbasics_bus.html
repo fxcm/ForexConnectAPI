@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>How does Quotes Manager Work (Business Logic)?</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>How does Quotes Manager Work (Business Logic)?</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article describes the basic concepts of how Quotes Manager interprets the data.</p>
+    <p><b>Details</b></p><p>The Quotes Manager API uses two important things to access historical prices as efficiently as possible:</p><ul class="main">
+  <li><p>The prices are downloaded to the client computer using a very fast and effective protocol.</p></li>
+  <li><p>The prices are kept in the cache on the client side, so any price is loaded only once.</p></li>
+</ul><p>In order to reach the proper balance between performance and local storage usage, the Quotes Manager API downloads only
+a limited set of timeframes (called <b>base timeframes</b>) and uses them to build any data requested on the fly.</p>
+<p>The client application can get data only from the cache. The process of getting the data consists of three steps:</p><ul class="main">
+  <li><p>First, the application must check whether the information about the instrument historical prices is available locally, and,
+if not, the application must update it. The information about this instrument is called <b>quotes catalog</b>.</p></li>
+  <li><p>Then, the application must download all data into the cache in any of the date required that is not in the cache yet. This operation
+is called <b>prepare quotes</b>.</p></li>
+  <li><p>And, finally, the application can <b>receive</b> the quotes from the cache.</p></li>
+</ul><p>See the business domain model diagram below:</p>
+<p><img src="img/qmbusiness.png"></p><p>
+      <center><a href="quotesmanager_intro.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

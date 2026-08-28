@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Getting Data from Trading Tables</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Getting Data from Trading Tables</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article explains how to get data from trading tables.</p>
+    <p><b>Details</b></p><p>When logged in, ForexConnect API creates and maintains in-memory representations of <a href="TradingTables.html">trading tables</a> by default.
+You can convert trading tables to pandas.DataFrame objects, get trading tables by rows, as well as get trading table rows that
+contain certain column values.</p>
+<p>When you use the methods mentioned below to get data from trading tables, the received data is not automatically updated.
+For instructions on how to get trading table updates, see the <a href="table_updates_py.html">Getting Trading Table Updates</a> article.</p>
+<p>To get data from a trading table in your Python script, you must perform the following steps:</p><ol class="main">
+  <li><p><a href="login_logout_py.html">Log in</a>.</p></li>
+  <li><p>Get the necessary table by calling the <a href="forexconnect.ForexConnect.ForexConnect.getTable.html"><code>ForexConnect.get_table</code></a> method.</p></li>
+  <li><p>Get data from the table:</p><ul class="main">
+  <li><p>To convert the table to a pandas.DataFrame, call the method
+<a href="forexconnect.exceptions.Common.Common.convertTableToDataframe.html"><code>Common.convert_table_to_dataframe</code></a>.</p></li>
+  <li><p>To get the table data by rows, call the method <a href="IO2GGenericTableResponseReader.IO2GGenericTableResponseReader.getRow.html"><code>O2GTable.get_row</code></a>.</p></li>
+  <li><p>To get table rows that contain certain column values, call one of the following methods:</p><ul class="main">
+  <li><p>To get rows containing a specified column value,
+call the method <a href="IO2GTable.IO2GTable.getRowsByColumnValue.html"><code>O2GTable.get_rows_by_column_value</code></a>.</p></li>
+  <li><p>To get rows containing any of the specified column values,
+call the method <a href="IO2GTable.IO2GTable.getRowsByColumnValues.html"><code>O2GTable.get_rows_by_column_values</code></a>.</p></li>
+  <li><p>To get rows containing a number of specified column values that satisfy specified conditions,
+call the method <a href="IO2GTable.IO2GTable.getRowsByMultiColumnValues.html"><code>O2GTable.get_rows_by_multi_column_values</code></a>.</p></li>
+  <li><p>To get rows containing column values that satisfy a specified condition,
+call the method <a href="IO2GTable.IO2GTable.getRowsByCondition.html"><code>O2GTable.get_rows_by_condition</code></a>.</p></li>
+</ul></li>
+</ul></li>
+  <li><p><a href="login_logout_py.html">Log out</a>.</p></li>
+</ol><p><br><br></p>
+<p>To get information from a trading table row, use properties of the class representing a single row of the trading table:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p>Trading table</p></td>
+    <td class="tmain"><p>Class representing a single row of the table</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTAccounts.html">Accounts table</a></p></td>
+    <td class="tmain"><p><a href="IO2GAccountTableRow.html"><code>O2GAccountTableRow</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTOrders.html">Orders table</a></p></td>
+    <td class="tmain"><p><a href="IO2GOrderTableRow.html"><code>O2GOrdersTableRow</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTOffers.html">Offers table</a></p></td>
+    <td class="tmain"><p><a href="IO2GOfferTableRow.html"><code>O2GOffersTableRow</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTTrades.html">Trades table</a></p></td>
+    <td class="tmain"><p><a href="IO2GTradeTableRow.html"><code>O2GTradesTableRow</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTClosedTrades.html">Closed Trades table</a></p></td>
+    <td class="tmain"><p><a href="IO2GClosedTradeTableRow.html"><code>O2GClosedTradesTableRow</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTMessages.html">Messages table</a></p></td>
+    <td class="tmain"><p><a href="IO2GMessageTableRow.html"><code>O2GMessagesTableRow</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTSummary.html">Summary table</a></p></td>
+    <td class="tmain"><p><a href="IO2GSummaryTableRow.html"><code>O2GSummaryTableRow</code></a></p></td>
+  </tr>
+</table><p>
+      <center><a href="howto.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

@@ -1,0 +1,190 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GResponseListener.onRequestFailed</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>IO2GResponseListener.onRequestFailed</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Processes a notification about a request failure.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">C#</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code>void&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>onRequestFailed</b> (string requestId, string error) </code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>requestId</code></td>
+    <td class="tmain" width="69%"><p>The identifier of the failed request. A session object may send multiple requests
+(see the <a href="fxcore2.O2GSession.html">O2GSession</a>.<a href="fxcore2.O2GSession.sendRequest.0.html">sendRequest</a> method).
+The method receives notifications of all the requests that have failed. To make sure you are getting a notification
+about a particular request, you must check whether or not the value of this parameter matches the value obtained by calling the
+<a href="fxcore2.O2GRequest.html"><code>O2GRequest</code></a>.<a href="fxcore2.O2GRequest.RequestID.0.html"><code>RequestID</code></a> method.
+For details, see the example below.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>error</code></td>
+    <td class="tmain" width="69%"><p>The server error message. For the list of errors that may be generated during an order processing, refer to the
+<a href="ReferenceMaterials.OrderExecutionErrors.html">Order Execution Errors</a> section.</p></td>
+  </tr>
+</table><p><b>Details</b></p><p>In order to process a notification about a request failure, an instance of the class implementing the <a href="fxcore2.IO2GResponseListener.html">IO2GResponseListener</a> interface
+must be subscribed to a session object.
+It is accomplished by calling the <a href="fxcore2.O2GSession.html"><code>O2GSession</code></a>.<a href="fxcore2.O2GSession.subscribeResponse.0.html"><code>subscribeResponse</code></a> method.<br></p><div id="open112" style="display:none">
+  <p>Process a notification about a request to get open positions&nbsp;<a href="javascript: showdiv('close112'); hidediv('open112');" onclick="javascript: showdiv('close112'); hidediv('open112');">[show]</a></p>
+</div>
+<div id="close112" style="display:inline">
+  <p>Process a notification about a request to get open positions&nbsp;<a href="javascript: showdiv('open112'); hidediv('close112');" onclick="javascript: showdiv('open112'); hidediv('close112');">[hide]</a></p>
+  <pre class="example">    <b>// Create a request to get open positions information</b>
+    O2GRequestFactory requestFactory = session.getRequestFactory();
+    if (requestFactory != null)
+    {
+        O2GRequest request = requestFactory.createRefreshTableRequest(O2GTableType.Trades);
+        responseListener.setRequest(request.RequestID);
+        session.sendRequest(request);
+        Thread.Sleep(1000);
+    }
+ 
+    <b>// Set request in the implementation of IO2GResponseListener interface</b>
+    public void setRequest(String requestID)
+    {
+       mRequestID = requestID;
+    }
+ 
+    <b>// Implementation of IO2GResponseListener interface public method onRequestFailed</b>
+    public void onRequestFailed(String requestID, String error)
+    {
+        if (requestID.Equals(mRequestID))
+        {
+            Console.WriteLine(&quot;Request failed. requestID= &quot; + requestID + &quot;; error= &quot; + error);
+        }
+    }</pre>
+</div><p>Declared in <a href="fxcore2.IO2GResponseListener.html">IO2GResponseListener</a></p>
+<p>
+  <center><a href="fxcore2.IO2GResponseListener.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'fxcore2.IO2GResponseListener.html');</script></body>
+</html>

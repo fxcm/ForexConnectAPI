@@ -1,0 +1,299 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IPriceHistoryCommunicator.createRequest</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>IPriceHistoryCommunicator.createRequest</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Creates a new price history request.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">Java</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code><a href="pricehistorymgr.IPriceHistoryCommunicatorRequest.html"><code>IPriceHistoryCommunicatorRequest</code></a>&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>createRequest</b> (String instrument, <a href="com.fxcore2.O2GTimeframe.html"><code>O2GTimeframe</code></a> timeframe, java.util.Calendar from, java.util.Calendar to, int quotesCount)  throws java.lang.IllegalStateException, java.lang.IllegalArgumentException, <a href="pricehistorymgr.PriceHistoryError.html"><code>PriceHistoryError</code></a></code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>instrument</code></td>
+    <td class="tmain" width="69%"><p>The instrument name. The instrument must be one of the instruments the ForexConnect session is subscribed to.</p>
+<p>To check the list of the instruments, use the offers table. The name of the instrument is kept in <code>Instrument</code> column of the table.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>timeframe</code></td>
+    <td class="tmain" width="69%"><p>The timeframe of the history.</p>
+<p>To get the list of standard supported timeframes, get an instance of <a href="com.fxcore2.O2GTimeframeCollection.html"><code>O2GTimeframeCollection</code></a>.
+Or you can use a custom timeframe that can be created using <a href="pricehistorymgr.ITimeframeFactory.html"><code>ITimeframeFactory</code></a>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>from</code></td>
+    <td class="tmain" width="69%"><p>Date/time of the oldest bar/tick in the history.</p>
+<p>Use <code>null</code> in order to get <code>quotesCount</code>
+bars ending at <code>to</code> date/time.</p>
+<p>The date/time must be in the UTC time zone.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>to</code></td>
+    <td class="tmain" width="69%"><p>Date/time of the most recent bar/tick in the history.</p>
+<p>Use <code>null</code> to get the collection up to the most
+recent (&quot;now&quot;) bar/tick.</p>
+<p>The date/time must be in the UTC time zone.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>quotesCount</code></td>
+    <td class="tmain" width="69%"><p>The maximum number of bars in the history.</p>
+<p>Use <code>-1</code> to get all bars between <code>from</code> and <code>to</code> date. In case <code>-1</code> is used, the <code>from</code> date must not be
+<code>null</code>.</p></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Exceptions</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>java.lang.IllegalStateException</code></td>
+    <td class="tmain" width="69%"><p>The exception is thrown if the PriceHistoryCommunicator is already <a href="pricehistorymgr.IPriceHistoryCommunicator.dispose.1.html"><code>disposed</code></a>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>java.lang.IllegalArgumentException</code></td>
+    <td class="tmain" width="69%"><p>The exception is thrown if <code>instrument</code> or <code>timeframe</code> parameter is <code>null</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>PriceHistoryError</code></td>
+    <td class="tmain" width="69%"><p>The exception is thrown if the request cannot be created.</p></td>
+  </tr>
+</table>
+<p><b>Details</b></p><p>The method only creates the request but does not send it. Use <a href="pricehistorymgr.IPriceHistoryCommunicator.sendRequest.0.html"><code>sendRequest()</code></a>
+to send the request to the server.</p><div id="open269" style="display:inline">
+  <p>Example: Creating a 1-minute historical request for yesterday.&nbsp;<a href="javascript: showdiv('close269'); hidediv('open269');" onclick="javascript: showdiv('close269'); hidediv('open269');">[show]</a></p>
+</div>
+<div id="close269" style="display:none">
+  <p>Example: Creating a 1-minute historical request for yesterday.&nbsp;<a href="javascript: showdiv('open269'); hidediv('close269');" onclick="javascript: showdiv('open269'); hidediv('close269');">[hide]</a></p>
+  <pre class="example">import com.fxcore2.*;
+import com.candleworks.pricehistorymgr.*;
+ 
+import java.util.Calendar;
+import java.util.TimeZone;
+ 
+class MyClass
+{
+    ...
+    private O2GSession mTradingSession;
+    private IPriceHistoryCommunicator mPriceHistoryCommunicator;
+ 
+    ...
+    void myMethod()
+    {
+        try {
+            O2GRequestFactory factory = mTradingSession.getRequestFactory();
+            // will be null if you are not logged in
+            if (factory == null)
+            {
+                //process error
+                return;
+            }
+            O2GTimeframeCollection timeframes = factory.getTimeFrameCollection();
+            O2GTimeframe timeframe = timeframes.get(&quot;m1&quot;);
+ 
+            Calendar dateTo = Calendar.getInstance(TimeZone.getTimeZone(&quot;UTC&quot;));
+            Calendar dateFrom = Calendar.getInstance(TimeZone.getTimeZone(&quot;UTC&quot;));
+ 
+            dateTo.set(Calendar.HOUR_OF_DAY, 0);
+            dateTo.set(Calendar.MINUTE, 0);
+            dateTo.set(Calendar.SECOND, 0);
+            dateTo.set(Calendar.MILLISECOND, 0);
+ 
+            dateFrom.setTime(dateTo.getTime());
+            dateFrom.add(Calendar.DAY_OF_MONTH, -1);
+ 
+            String instrument = &quot;EUR/USD&quot;;
+ 
+            IPriceHistoryCommunicatorRequest request = mPriceHistoryCommunicator.createRequest(instrument, timeframe, dateFrom, dateTo, -1);
+            mPriceHistoryCommunicator.sendRequest(request);
+        } catch (IllegalStateException error) {
+            //process errror
+        } catch (IllegalArgumentException error) {
+            //process errror
+        } catch(PriceHistoryError error){
+            //process error
+ 
+        }
+   }
+}</pre>
+</div><div id="open270" style="display:inline">
+  <p>Example: Creating a 1-day &quot;up to now&quot; history for the last 30 days.&nbsp;<a href="javascript: showdiv('close270'); hidediv('open270');" onclick="javascript: showdiv('close270'); hidediv('open270');">[show]</a></p>
+</div>
+<div id="close270" style="display:none">
+  <p>Example: Creating a 1-day &quot;up to now&quot; history for the last 30 days.&nbsp;<a href="javascript: showdiv('open270'); hidediv('close270');" onclick="javascript: showdiv('open270'); hidediv('close270');">[hide]</a></p>
+  <pre class="example">import com.fxcore2.*;
+import com.candleworks.pricehistorymgr.*;
+ 
+import java.util.Calendar;
+import java.util.TimeZone;
+ 
+class MyClass
+{
+    ...
+    private O2GSession mTradingSession;
+    private IPriceHistoryCommunicator mPriceHistoryCommunicator;
+ 
+    ...
+    void myMethod()
+    {
+        try {
+            O2GRequestFactory factory = mTradingSession.getRequestFactory();
+            // will be null if you are not logged in
+            if (factory == null)
+            {
+                //process error
+                return;
+            }
+            O2GTimeframeCollection timeframes = factory.getTimeFrameCollection();
+            O2GTimeframe timeframe = timeframes.get(&quot;D1&quot;);
+ 
+            java.util.Calendar dateFrom = Calendar.getInstance(TimeZone.getTimeZone(&quot;UTC&quot;));
+            dateFrom.add(Calendar.DAY_OF_MONTH, -30);
+ 
+            String instrument = &quot;EUR/USD&quot;;
+ 
+            IPriceHistoryCommunicatorRequest request = mPriceHistoryCommunicator.createRequest(instrument, timeframe, dateFrom, null, -1);
+            mPriceHistoryCommunicator.sendRequest(request);
+        } catch (IllegalStateException error) {
+            //process errror
+        } catch (IllegalArgumentException error) {
+            //process errror
+        } catch(PriceHistoryError error){
+            //process error
+ 
+        }
+   }
+}</pre>
+</div><p>Declared in <a href="pricehistorymgr.IPriceHistoryCommunicator.html">IPriceHistoryCommunicator</a></p>
+<p>
+  <center><a href="pricehistorymgr.IPriceHistoryCommunicator.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'pricehistorymgr.IPriceHistoryCommunicator.html');</script></body>
+</html>

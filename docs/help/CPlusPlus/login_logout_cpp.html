@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Logging in</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Logging in</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article explains how to log in step by step.</p>
+    <p><b>Details</b></p><p>To log in, you should:</p><ol class="main">
+  <li><p>Implement the <a href="IO2GSessionStatus.html"><code>IO2GSessionStatus</code></a> interface in a status listener class:<br></p><pre class="example"><code>class CSessionStatusListener : public IO2GSessionStatus {...}</code></pre></li>
+  <li><p>Create a <a href="IO2GSession.html"><code>session</code></a>:<br></p><pre class="example"><code>IO2GSession *pSession = CO2GTransport::createSession();</code></pre></li>
+  <li><p>Create an instance of the <a href="IO2GSessionStatus.html"><code> session status listener:</code></a><br></p><pre class="example"><code>CSessionStatusListener *sessionStatusListener = new CSessionStatusListener(&log, pSession, &oLoginData);</code></pre></li>
+  <li><p><a href="IO2GSession.subscribeSessionStatus.html"><code>Subscribe the status listener</code></a> object to the session status. <br>It is important to subscribe before the login:<br></p><pre class="example"><code>pSession-&gt;subscribeSessionStatus(sessionStatusListener);</code></pre></li>
+  <li><p>The events are coming asynchronously. They should come in another thread.
+When an event comes, a signal will be sent to the main thread.
+<br><br></p></li>
+  <li><p>If you have more than one trading sessions or pin is required for login, you have to catch the event
+<a href="O2GSessionStatus.TradingSessionRequested.0.html"><code>TradingSessionRequested</code></a>
+in the <a href="IO2GSessionStatus.onSessionStatusChanged.0.html"><code>onSessionStatusChanged</code></a> function of your status listener.
+Please see <a href="SessionStatus.html">this article</a> for more information.</p></li>
+  <li><p>In this case get <a href="IO2GSessionDescriptorCollection.html"><code>IO2GSessionDescriptorCollection:</code></a><br></p><pre class="example"><code>IO2GSessionDescriptorCollection * descriptors = mSession-&gt;getTradingSessionDescriptors();</code></pre></li>
+  <li><p>Then process elements of this collection
+<br><br></p></li>
+  <li><p>Finally <a href="IO2GSession.setTradingSession.html"><code> set a trading session </code></a> using the session Id and pin: <br></p><pre class="example"><code>mSession-&gt;setTradingSession(&quot;sessionID&quot;, &quot;pin&quot;);</code></pre></li>
+  <li><p>Use the status listener <a href="IO2GSessionStatus.onSessionStatusChanged.0.html"><code>onSessionStatusChanged</code></a> function
+to capture the <a href="O2GSessionStatus.Connected.0.html"><code>Connected</code></a> event.
+<br><br></p></li>
+  <li><p><a href="IO2GSession.logout.html"><code>Log out</code></a> when you are done:<br></p><pre class="example"><code>pSession-&gt;logout();</code></pre></li>
+  <li><p>Use the status listener <a href="IO2GSessionStatus.onSessionStatusChanged.0.html"><code>onSessionStatusChanged</code></a> function
+to capture the <a href="O2GSessionStatus.Disconnected.0.html"><code>Disconnected</code></a> event.
+<br><br></p></li>
+  <li><p><a href="IO2GSession.unsubscribeSessionStatus.html"><code>Unsubscribe the session from the status listener</code></a>:<br></p><pre class="example"><code>pSession-&gt;unsubscribeSessionStatus(sessionStatusListener);</code></pre></li>
+</ol><p>See also the <a href="img/seq1-login.png">simplified login sequence diagram</a>.</p>
+<p>See also the detailed description of session statuses in the article <a href="SessionStatus.html">Session Statuses</a>.</p><p>
+      <center><a href="howto.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

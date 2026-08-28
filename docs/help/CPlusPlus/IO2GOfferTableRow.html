@@ -1,0 +1,644 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GOfferTableRow</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>IO2GOfferTableRow</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="IO2GOfferRow.html">IO2GOfferRow</a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The class provides access to the offer information and calculated fields.</p>
+    <p><b>Details</b></p><p>The class represents a single row of the <a href="TTOffers.html">Offers</a> table. In addition to the methods of its parent class,
+the <code>O2GOfferTableRow</code> class provides methods to access calculated fields, such as cost of one pip per lot.<br></p>
+<p><b>Prerequisites</b></p>
+<p>The class is available only through the use of the <a href="IO2GTableManager.html"><code>IO2GTableManager</code></a>. The <a href="IO2GTableManager.html"><code>IO2GTableManager</code></a>
+object must have the <a href="O2GTableManagerStatus.html">O2GTableManagerStatus</a>.<a href="O2GTableManagerStatus.TablesLoaded.0.html">TablesLoaded</a> status.<br>
+For complete instructions on the table manager usage, see the
+<a href="table_manager_use_c.html">How to use table manager in ForexConnect API</a> section.<br>
+After tables are loaded, you must obtain an instance of the <a href="IO2GOffersTable.html"><code>IO2GOffersTable</code></a> class. For example,<br></p>
+<p><code>O2GOffersTable offersTable = (O2GOffersTable)tableManager.getTable(O2GTable.Offers);</code></p>
+<p><b>Instantiating the class</b></p>
+<p>If you need access to the current offer information, get an instance of the class by calling any of the following methods of the <a href="IO2GOffersTable.html"><code>IO2GOffersTable</code></a> class:<br></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p><code>IO2GOffersTable</code> method</p></td>
+    <td class="thdr"><p>Syntax example</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GOffersTable.getRow.html"><code>getRow</code></a></p></td>
+    <td class="tmain"><p><code>IO2GOfferTableRow *offer = offersTable-&gt;getRow(i);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GOffersTable.findRow.html"><code>findRow</code></a></p></td>
+    <td class="tmain"><p><code>IO2GOfferTableRow *offer = NULL;<br>
+bool bFound = offersTable-&gt;findRow(mOfferID, offer);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GOffersTable.getNextRow.html"><code>getNextRow</code></a></p></td>
+    <td class="tmain"><p><code>IO2GOfferTableRow *offer = NULL;<br>
+bool bFound = offersTable-&gt;getNextRow(mIterator, offer);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GOffersTable.getNextRowByColumnValue.html"><code>getNextRowByColumnValue</code></a></p></td>
+    <td class="tmain"><p><code>IO2GOfferTableRow *offer = NULL;<br>
+bool bFound = offersTable-&gt;getNextRowByColumnValue(&quot;InstrumentType&quot;, (void *)mInstrumentType, mIterator, offer);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GOffersTable.getNextRowByColumnValues.html"><code>getNextRowByColumnValues</code></a></p></td>
+    <td class="tmain"><p><code>IO2GOfferTableRow *offer = NULL;<br>
+const double dec = 0.1;<br>
+const double hun = 0.01;<br>
+const double tho = 0.001;<br>
+O2GRelationalOperators operator = EqualTo;<br>
+const void *values[] = {(void *)&dec, (void *)&hun, (void *)&tho};<br>
+bool bFound = offersTable-&gt;getNextRowByColumnValues(&quot;PointSize&quot;, 3, operator, values, mIterator, offer);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GOffersTable.getNextRowByMultiColumnValues.html"><code>getNextRowByMultiColumnValues</code></a></p></td>
+    <td class="tmain"><p><code>IO2GOfferTableRow *offer = NULL;<br>
+const char *names[] = {&quot;InstrumentType&quot;, &quot;TradingStatus&quot;};<br>
+O2GRelationalOperators operators[] = {EqualTo, EqualTo};<br>
+const void *values[] = {(void *)mInstrumentType, (void *)mTradingStatus};<br>
+bool bFound = offersTable-&gt;getNextRowByMultiColumnValues(2, names, operators, values, mIterator, offer);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GOffersTable.getNextRowByCondition.html"><code>getNextRowByCondition</code></a></p></td>
+    <td class="tmain"><p><code>const char *name = {&quot;InstrumentType&quot;};<br>
+O2GRelationalOperators operator = {EqualTo};<br>
+const void *values[] = {(void *)mInstrumentType};<br>
+bool bFound = offersTable-&gt;getNextRowByCondition(name, operator, values, mIterator, offer);</code></p></td>
+  </tr>
+</table><p>If you want to track the <a href="TTOffers.html">Offers</a> table updates, your application must have a listener class that implements the
+<a href="IO2GTableListener.html"><code>IO2GTableListener</code></a> interface.
+An instance of the listener class must be subscribed to the table updates. Subscription to each update type is done individually.
+Before the logout, you must unsubscribe the listener from each update type separately. The examples of subscription/unsubscription syntax are listed below.</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p><code>IO2GTableListener</code> method</p></td>
+    <td class="thdr"><p>Subscribe syntax</p></td>
+    <td class="thdr"><p>Unsubscribe syntax</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GTableListener.onAdded.html"><code>onAdded</code></a></p></td>
+    <td class="tmain"><p><code>offersTable.subscribeUpdate(O2GTableUpdateType.INSERT, tableListener);</code></p></td>
+    <td class="tmain"><p><code>offersTable.unsubscribeUpdate(O2GTableUpdateType.INSERT, tableListener);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GTableListener.onChanged.html"><code>onChanged</code></a></p></td>
+    <td class="tmain"><p><code>offersTable.subscribeUpdate(O2GTableUpdateType.UPDATE, tableListener);</code></p></td>
+    <td class="tmain"><p><code>offersTable.unsubscribeUpdate(O2GTableUpdateType.UPDATE, tableListener);</code></p></td>
+  </tr>
+</table><p>To instantiate the <code>O2GOfferTableRow</code> class, you must cast the <code>rowData</code> parameter of the above methods to the
+<code>O2GOfferTableRow</code> type. For example,</p>
+<p><code>O2GOfferTableRow row = (O2GOfferTableRow)(rowData);</code></p>
+<p><b>Example</b></p><div id="open165" style="display:inline">
+  <p>Get Instrument, Bid/Ask prices and Pip cost&nbsp;<a href="javascript: showdiv('close165'); hidediv('open165');" onclick="javascript: showdiv('close165'); hidediv('open165');">[show]</a></p>
+</div>
+<div id="close165" style="display:none">
+  <p>Get Instrument, Bid/Ask prices and Pip cost&nbsp;<a href="javascript: showdiv('open165'); hidediv('close165');" onclick="javascript: showdiv('open165'); hidediv('close165');">[hide]</a></p>
+  <pre class="example">    <b>// Get the instance of table manager</b>
+    O2G2Ptr&lt;IO2GTableManager&gt; tableManager = mSession-&gt;getTableManager();
+    while (tableManager-&gt;getStatus() != TablesLoaded &amp;&amp;
+           tableManager-&gt;getStatus() != TablesLoadFailed)
+        uni::Sleep(50);
+ 
+    <b>// Get offers information</b>
+    if (tableManager-&gt;getStatus() == TablesLoaded)
+    {
+        O2G2Ptr&lt;IO2GOffersTable&gt; offersTable = (IO2GOffersTable *)tableManager-&gt;getTable(Offers);
+        for (int i = 0; i &lt; offersTable-&gt;size(); ++i)
+        {
+            O2G2Ptr&lt;IO2GOfferTableRow&gt; offer = offersTable-&gt;getRow(i);
+            std::cout &lt;&lt; &quot;Instrument: &quot; &lt;&lt; offer-&gt;getInstrument() &lt;&lt;
+                          &quot; Bid = &quot; &lt;&lt; offer-&gt;getBid() &lt;&lt;
+                          &quot; Ask = &quot; &lt;&lt; offer-&gt;getAsk() &lt;&lt;
+                          &quot; PipCost = &quot; &lt;&lt; offer-&gt;getPipCost() &lt;&lt; std::endl;
+        }
+ 
+        <b>// Subscribe table listener</b>
+        O2G2Ptr&lt;TableListener&gt; tableListener = new TableListener();
+        offersTable-&gt;subscribeUpdate(Update, tableListener);
+        uni::WaitForSingleObject(tableListener-&gt;getUpdateEvent(), INFINITE);
+        offersTable-&gt;unsubscribeUpdate(Update, tableListener);
+    }
+ 
+    <b>// Implementation of IO2GTableListener interface public method onChanged</b>
+    void TableListener::onChanged(const char * rowID, IO2GRow * rowData)
+    {
+        IO2GOfferTableRow *offer = (IO2GOfferTableRow *)(rowData);
+        std::cout &lt;&lt; &quot;Offer information changed &quot; &lt;&lt; rowID &lt;&lt; std::endl;
+        std::cout &lt;&lt; &quot;Instrument: &quot; &lt;&lt; offer-&gt;getInstrument() &lt;&lt;
+                      &quot; Bid = &quot; &lt;&lt; offer-&gt;getBid() &lt;&lt;
+                      &quot; Ask = &quot; &lt;&lt; offer-&gt;getAsk() &lt;&lt;
+                      &quot; PipCost = &quot; &lt;&lt; offer-&gt;getPipCost() &lt;&lt; std::endl;
+        uni::SetEvent(mUpdateEvent);
+    }
+ 
+    HANDLE TableListener::getUpdateEvent()
+    {
+        return mUpdateEvent;
+    }</pre>
+</div><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.columns.html">columns</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the columns of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.getAsk.html">getAsk</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the current market price an instrument can be bought at.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.getAskTradable.html">getAskTradable</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the usage of an ask price.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.getBid.html">getBid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the current market price an instrument can be sold at.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.getBidTradable.html">getBidTradable</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the usage of a bid price.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.getBuyInterest.html">getBuyInterest</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the interest amount applied to the account balance for holding a one lot long (buy) position opened overnight.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.getCell.html">getCell</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets value of a table cell.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.getContractCurrency.html">getContractCurrency</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Depending on the instrument type: Forex or CFD, the method returns base currency for the Forex instrument and the counter currency for the CFD instrument. For example, EUR for EUR/USD and GBP for UK100/GBP</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.getContractMultiplier.html">getContractMultiplier</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the contract multiplier for some CFD instruments only.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.getDigits.html">getDigits</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the instrument price precision.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.getHigh.html">getHigh</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the highest ask price (buy price) of an instrument for the current trading day.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.getInstrument.html">getInstrument</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the symbol of an instrument.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.getInstrumentType.html">getInstrumentType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of the instrument.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.getLow.html">getLow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the lowest bid price (sell price) of an instrument for the current trading day.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.getOfferID.html">getOfferID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of an instrument.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.getPipCost.html">getPipCost</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the cost of one pip per lot.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.getPointSize.html">getPointSize</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the size of one pip.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.getQuoteID.html">getQuoteID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identifier of the pair of prices (bid and ask) an instrument can be traded at.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.getSellInterest.html">getSellInterest</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the interest amount applied to the account balance for holding a one lot short (sell) position opened overnight.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.getSubscriptionStatus.html">getSubscriptionStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the subscription status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.getTableType.html">getTableType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.getTime.html">getTime</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the date and time of the last update of the instrument.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.getTradingStatus.html">getTradingStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the trading status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.getValueDate.html">getValueDate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the simulated delivery date.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.getVolume.html">getVolume</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a tick volume of the current minute.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.isAskTradableValid.html">isAskTradableValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the AskTradable field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.isAskValid.html">isAskValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the Ask field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.isBidTradableValid.html">isBidTradableValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the BidTradable field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.isBidValid.html">isBidValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the Bid field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.isBuyInterestValid.html">isBuyInterestValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the BuyInterest field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.isCellChanged.html">isCellChanged</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a flag indicating whether the value of the cell is changed.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.isContractCurrencyValid.html">isContractCurrencyValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the ContractCurrency field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.isContractMultiplierValid.html">isContractMultiplierValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the ContractMultiplier field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.isDigitsValid.html">isDigitsValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the Digits field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.isHighValid.html">isHighValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the High field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.isInstrumentTypeValid.html">isInstrumentTypeValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the InstrumentType field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.isInstrumentValid.html">isInstrumentValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the Instrument field is valid.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.isLowValid.html">isLowValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the Low field is valid.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.isOfferIDValid.html">isOfferIDValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the OfferID field is valid.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.isPointSizeValid.html">isPointSizeValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the PointSize field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.isQuoteIDValid.html">isQuoteIDValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the QuoteID field is valid.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.isSellInterestValid.html">isSellInterestValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the SellInterest field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.isSubscriptionStatusValid.html">isSubscriptionStatusValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the SubscriptionStatus field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.isTimeValid.html">isTimeValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the date and time of the last instument update is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.isTradingStatusValid.html">isTradingStatusValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the TradingStatus field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.isValueDateValid.html">isValueDateValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the ValueDate field is valid or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GOfferTableRow.isVolumeValid.html">isVolumeValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the Volume field is valid or not.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="forexconnect.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

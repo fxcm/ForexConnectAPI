@@ -1,0 +1,244 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GMessageTableRow</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>O2GMessageTableRow</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="IO2GMessageRow.html"><code>O2GMessageRow</code></a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The class provides access to the message information.</p>
+    <p><b>Details</b></p><p>The class represents a single row of the <a href="TTMessages.html">Messages</a> table.</p>
+<p>If you want to track the <a href="TTAccounts.html">Accounts</a> table updates, you have to Subscribe for the table updates.
+See <a href="table_updates_py.html"> Getting trading table updates</a> article for details.</p>
+<p>The module is <code>forexconnect.fxcorepy</code></p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Properties</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessageTableRow.IO2GRow.getColumns.html">columns</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the columns of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessageTableRow.IO2GMessageRow.getFeature.html">feature</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of the message content.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessageTableRow.IO2GMessageRow.getFrom.html">from</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the login of the message sender.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessageTableRow.IO2GMessageRow.getHTMLFragmentFlag.html">html_fragment_flag</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the message is in the HTML format or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessageTableRow.IO2GMessageRow.getMsgID.html">msg_id</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the message.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessageTableRow.IO2GMessageRow.getSubject.html">subject</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the subject of the message.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessageTableRow.IO2GRow.getTableType.html">table_type</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessageTableRow.IO2GMessageRow.getText.html">text</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a text body of the message.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessageTableRow.IO2GMessageRow.getTime.html">time</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the date and time when the recipient receives the message.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessageTableRow.IO2GMessageRow.getType.html">type</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the message container.</p>
+    </td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessageTableRow.IO2GRow.getCell.html">get_cell</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets value of a table cell.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GMessageTableRow.IO2GRow.isCellChanged.html">is_cell_changed</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a flag indicating whether the value of the cell is changed.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="module_fxcorepy.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

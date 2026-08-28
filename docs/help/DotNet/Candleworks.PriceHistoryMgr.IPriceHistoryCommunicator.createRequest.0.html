@@ -1,0 +1,267 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IPriceHistoryCommunicator.createRequest</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>IPriceHistoryCommunicator.createRequest</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Creates a new price history request.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">C#</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code><a href="Candleworks.PriceHistoryMgr.IPriceHistoryCommunicatorRequest.html"><code>IPriceHistoryCommunicatorRequest</code></a>&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>createRequest</b> (string instrument, fxcore2.O2GTimeframe timeframe, DateTime from, DateTime to, int quotesCount) </code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>instrument</code></td>
+    <td class="tmain" width="69%"><p>The instrument name. The instrument must be one of the instruments the ForexConnect session is subscribed to.</p>
+<p>To check the list of the instruments, use the offers table. The name of the instrument is kept in <code>Instrument</code> column of the table.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>timeframe</code></td>
+    <td class="tmain" width="69%"><p>The timeframe of the history.</p>
+<p>To get the list of supported timeframes, get an instance of <a href="fxcore2.O2GTimeframeCollection.html"><code>O2GTimeframeCollection</code></a>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>from</code></td>
+    <td class="tmain" width="69%"><p>Date/time of the oldest bar/tick in the history.</p>
+<p>Use <a href="Candleworks.PriceHistoryMgr.Constants.ZERODATE.0.html"><code>Constants.ZERODATE</code></a> in order to get <code>quotesCount</code>
+bars ending at <code>to</code> date/time.</p>
+<p>The date/time must be in the UTC time zone.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>to</code></td>
+    <td class="tmain" width="69%"><p>Date/time of the most recent bar/tick in the history.</p>
+<p>Use <a href="Candleworks.PriceHistoryMgr.Constants.ZERODATE.0.html"><code>Constants.ZERODATE</code></a> to get the collection up to the most
+recent (&quot;now&quot;) bar/tick.</p>
+<p>The date/time must be in the UTC time zone.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>quotesCount</code></td>
+    <td class="tmain" width="69%"><p>The maximum number of bars in the history.</p>
+<p>Use <code>-1</code> to get all bars between <code>from</code> and <code>to</code> date. In case <code>-1</code> is used, the <code>from</code> date must not be
+<a href="Candleworks.PriceHistoryMgr.Constants.ZERODATE.0.html"><code>Constants.ZERODATE</code></a>.</p></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Exceptions</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>System.InvalidOperationException</code></td>
+    <td class="tmain" width="69%"><p>The exception is thrown if the PriceHistoryCommunicator is already <a href="Candleworks.PriceHistoryMgr.IPriceHistoryCommunicator.Dispose.1.html"><code>disposed</code></a>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>System.ArgumentNullException</code></td>
+    <td class="tmain" width="69%"><p>The exception is thrown if the <code>instrument</code> or the <code>timeframe</code> is <code>null</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>PriceHistoryError</code></td>
+    <td class="tmain" width="69%"><p>The exception is thrown if the request cannot be created.</p></td>
+  </tr>
+</table>
+<p><b>Details</b></p><p>The method only creates the request but does not send it. Use <a href="Candleworks.PriceHistoryMgr.IPriceHistoryCommunicator.sendRequest.0.html"><code>sendRequest()</code></a>
+to send the request to the server.</p><div id="open287" style="display:inline">
+  <p>Example: Creating a 1-minute historical request for yesterday.&nbsp;<a href="javascript: showdiv('close287'); hidediv('open287');" onclick="javascript: showdiv('close287'); hidediv('open287');">[show]</a></p>
+</div>
+<div id="close287" style="display:none">
+  <p>Example: Creating a 1-minute historical request for yesterday.&nbsp;<a href="javascript: showdiv('open287'); hidediv('close287');" onclick="javascript: showdiv('open287'); hidediv('close287');">[hide]</a></p>
+  <pre class="example">using System;
+using fxcore2;
+using Candleworks.PriceHistoryMgr;
+ 
+class MyClass
+{
+    ...
+    private O2GSession mTradingSession;
+    private IPriceHistoryCommunicator mPriceHistoryCommunicator;
+ 
+    ...
+    void MyMethod()
+    {
+        O2GRequestFactory factory = mTradingSession.getRequestFactory();
+        // will be null if you are not logged in
+        if (factory == null)
+        {
+            //process error
+            return;
+        }
+        O2GTimeframeCollection timeframes = factory.Timeframes;
+        O2GTimeframe timeframe = timeframes[&quot;m1&quot;];
+ 
+        DateTime temp = DateTime.Now;
+        DateTime to = new DateTime(temp.Year, temp.Month, temp.Day);
+        DateTime from = = to.AddDays(-1);
+ 
+        string instrument = &quot;EUR/USD&quot;;
+ 
+        IPriceHistoryCommunicatorRequest request = mPriceHistoryCommunicator.createRequest(instrument, timeframe, from, to, -1);
+        mPriceHistoryCommunicator.sendRequest(request);
+    }
+}</pre>
+</div><div id="open288" style="display:inline">
+  <p>Example: Creating a 1-day &quot;up to now&quot; history for the last 30 days.&nbsp;<a href="javascript: showdiv('close288'); hidediv('open288');" onclick="javascript: showdiv('close288'); hidediv('open288');">[show]</a></p>
+</div>
+<div id="close288" style="display:none">
+  <p>Example: Creating a 1-day &quot;up to now&quot; history for the last 30 days.&nbsp;<a href="javascript: showdiv('open288'); hidediv('close288');" onclick="javascript: showdiv('open288'); hidediv('close288');">[hide]</a></p>
+  <pre class="example">using System;
+using fxcore2;
+using Candleworks.PriceHistoryMgr;
+ 
+class MyClass
+{
+    ...
+    private O2GSession mTradingSession;
+    private IPriceHistoryCommunicator mPriceHistoryCommunicator;
+ 
+    ...
+    void MyMethod()
+    {
+        O2GRequestFactory factory = mTradingSession.getRequestFactory();
+        // will be null if you are not logged in
+        if (factory == null)
+        {
+            //process error
+            return;
+        }
+        O2GTimeframeCollection timeframes = factory.Timeframes;
+        O2GTimeframe timeframe = timeframes[&quot;D1&quot;];
+        DateTime from = DateTime.Now.AddDays(-30);
+ 
+        string instrument = &quot;EUR/USD&quot;;
+ 
+        IPriceHistoryCommunicatorRequest request = mPriceHistoryCommunicator.createRequest(instrument, timeframe, from, PriceHistoryMgr.Constants.ZERODATE, -1);
+        mPriceHistoryCommunicator.sendRequest(request);
+    }
+}</pre>
+</div><p>Declared in <a href="Candleworks.PriceHistoryMgr.IPriceHistoryCommunicator.html">IPriceHistoryCommunicator</a></p>
+<p>
+  <center><a href="Candleworks.PriceHistoryMgr.IPriceHistoryCommunicator.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'Candleworks.PriceHistoryMgr.IPriceHistoryCommunicator.html');</script></body>
+</html>

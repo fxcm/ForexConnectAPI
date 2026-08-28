@@ -1,0 +1,183 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Report Description</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Report Description</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The section describes the report as it appears in the XML format.</p>
+    <p><b>Details</b></p><p>The report content that is common to CAS reports for all kinds of accounts is described in the articles
+<a href="CAS.RequestParameters.html">Report Request Parameters</a>,
+<a href="CAS.Constants.html">Report Constants</a>,
+<a href="CAS.tables.account_info_office.html">account_info_office Table</a>,
+<a href="CAS.tables.account_info_user.html">account_info_user Table</a>, and
+<a href="CAS.tables.account_info_parameters.html">account_info_parameters Table</a>.</p>
+<p>The sections <a href="CAS.trade.html">Self-Traded, LAMM Accounts</a>,
+<a href="CAS.funds_manager.html">Funds Manager (PAMM) Account</a>, and <a href="CAS.managed.html">Managed (PAMM) Account</a>
+describe the report content that is specific to certain account kinds.</p><p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Articles</b></td>
+      </tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="CAS.RequestParameters.html">Report Request Parameters</a></p>
+    <p>The article describes the request parameters of the report.</p>
+  </td>
+</tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="CAS.Constants.html">Report Constants</a></p>
+    <p>The article describes the constants of the report.</p>
+  </td>
+</tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="CAS.tables.account_info_office.html"><code>account_info_office</code> Table</a></p>
+    <p>The article describes the report table containing broker information.</p>
+  </td>
+</tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="CAS.tables.account_info_user.html"><code>account_info_user</code> Table</a></p>
+    <p>The article describes the report table containing information about the account owner.</p>
+  </td>
+</tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="CAS.tables.account_info_parameters.html"><code>account_info_parameters</code> Table</a></p>
+    <p>The article describes the report table containing account information.</p>
+  </td>
+</tr></table>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Groups</b></td>
+      </tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="CAS.trade.html">Self-Traded, LAMM Accounts</a></p>
+    <p> The section describes all report tables associated with self-traded (Trade) and funds manager/managed (LAMM) accounts.</p>
+  </td>
+</tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="CAS.funds_manager.html">Funds Manager (PAMM) Account</a></p>
+    <p>The section describes all report tables associated with funds manager (PAMM) accounts.</p>
+  </td>
+</tr><tr>
+  <td colspan="2" class="tmain">
+    <p><a href="CAS.managed.html">Managed (PAMM) Account</a></p>
+    <p>The section describes all report report tables associated with managed (PAMM) accounts.</p>
+  </td>
+</tr></table>
+    <p>
+      <center><a href="cas.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

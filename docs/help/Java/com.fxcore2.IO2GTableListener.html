@@ -1,0 +1,263 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GTableListener</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>interface <b>IO2GTableListener</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The interface provides method signatures to process notifications about trading tables events: adding/updating/deleting of rows, and changes in a table status.</p>
+    <p><b>Details</b></p><p>The interface can be implemented only when your application uses the <a href="com.fxcore2.O2GTableManager.html">O2GTableManager</a>.<br></p>
+<p><b>Prerequisites</b></p>
+<p>You must specify that your session uses the table manager before a login. For example,<br></p>
+<p><code>mSession.useTableManager(O2GTableManagerMode.YES, null);</code><br></p>
+<p>After the successful login, you must obtain an instance of the <a href="com.fxcore2.O2GTableManager.html">O2GTableManager</a> class. For example,<br></p>
+<p><code>O2GTableManager tableManager = mSession.getTableManager();</code></p>
+<p>The table manager keeps in memory the <a href="TradingTables.html">trading tables</a> and therefore allows access to the up-to-date field values and
+ability to capture table events.<br>
+If you want to process notifications about specific table events, you must obtain an instance of the class derived from the <a href="com.fxcore2.O2GTable.html">O2GTable</a> class.
+For example, if you need information about opened positions, write the following line:<br></p>
+<p><code>O2GTradesTable tradesTable = (O2GTradesTable)tableManager.getTable(O2GTableType.TRADES);</code></p>
+<p>For complete instructions of the table manager usage, see the
+<a href="table_manager_use_java.html">How to use table manager in ForexConnect API</a> section.</p>
+<p><b>Limitations</b></p>
+<p>The <code>Io2GTableListener</code> is notified only about the <a href="TradingTables.html">trading tables</a> updates
+(see <a href="com.fxcore2.O2GResponseType.html">O2GResponseType</a>.<a href="com.fxcore2.O2GResponseType.TABLES_UPDATES.html">TABLES_UPDATES</a>).<br>
+<b>Note:</b> In order to process the response that comes as an answer to a request execution,
+you application needs to implement the <a href="com.fxcore2.IO2GResponseListener.html">IO2GResponseListener</a> interface.</p>
+<p><b>Implementation</b></p>
+<p>If you want to use methods of the <code>IO2GTableListener</code> interface, you must create a class that implements the interface.
+For example,<br></p>
+<p><code>public class TableListener implements IO2GTableListener { }<code><br></code></code></p>
+<p>In your application you must create an instance of the class that implements the interface. For example,<br></p>
+<p><code>TableListener tableListener = new TableListener();</code></p>
+<p>This instance must be subscribed to a table object event.<br>
+You must subscribe to each event individually by using different methods of the
+<a href="com.fxcore2.O2GTable.html">O2GTable</a>. For example, if you want to process notifications about updates of the <a href="TTTrades.html">Trades</a> table, call
+the <a href="com.fxcore2.O2GTable.html">O2GTable</a>.<a href="com.fxcore2.O2GTable.subscribeUpdate.html">subscribeUpdate</a> method as follows:<br></p>
+<p><code>tradesTable.subscribeUpdate(O2GTableUpdateType.UPDATE, tableListener);<code><br></code></code></p>
+<p>Before the logout, you must unsubscribe the listener from the table object. For example,<br></p>
+<p><code>tradesTable.unsubscribeUpdate(O2GTableUpdateType.UPDATE, tableListener);</code><br></p>
+<p>Examples of the subscription/unsubscription methods syntax are listed below.
+These examples are based on the <a href="TTTrades.html">Trades</a> table.</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Method name</p></td>
+    <td class="thdr"><p>Subscribe syntax</p></td>
+    <td class="thdr"><p>Unsubscribe syntax</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.IO2GTableListener.onAdded.html"><code>onAdded</code></a></p></td>
+    <td class="tmain"><p><code>tradesTable.subscribeUpdate(O2GTableUpdateType.INSERT, tableListener);<code></code></code></p></td>
+    <td class="tmain"><p><code>tradesTable.unsubscribeUpdate(O2GTableUpdateType.INSERT, tableListener);<code></code></code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.IO2GTableListener.onChanged.html"><code>onChanged</code></a></p></td>
+    <td class="tmain"><p><code>tradesTable.subscribeUpdate(O2GTableUpdateType.UPDATE, tableListener);<code></code></code></p></td>
+    <td class="tmain"><p><code>tradesTable.unsubscribeUpdate(O2GTableUpdateType.UPDATE, tableListener);<code></code></code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.IO2GTableListener.onDeleted.html"><code>onDeleted</code></a></p></td>
+    <td class="tmain"><p><code>tradesTable.subscribeUpdate(O2GTableUpdateType.DELETE, tableListener);<code></code></code></p></td>
+    <td class="tmain"><p><code>tradesTable.unsubscribeUpdate(O2GTableUpdateType.DELETE, tableListener);<code></code></code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.IO2GTableListener.onStatusChanged.html"><code>onStatusChanged</code></a></p></td>
+    <td class="tmain"><p><code>tradesTable.subscribeStatus(tableListener);<code></code></code></p></td>
+    <td class="tmain"><p><code>tradesTable.unsubscribeStatus(tableListener);<code></code></code></p></td>
+  </tr>
+</table><p>For the interface implementation details, see the example below.</p>
+<p><b>Example</b></p><div id="open112" style="display:inline">
+  <p>Process notifications about opened positions&nbsp;<a href="javascript: showdiv('close112'); hidediv('open112');" onclick="javascript: showdiv('close112'); hidediv('open112');">[show]</a></p>
+</div>
+<div id="close112" style="display:none">
+  <p>Process notifications about opened positions&nbsp;<a href="javascript: showdiv('open112'); hidediv('close112');" onclick="javascript: showdiv('open112'); hidediv('close112');">[hide]</a></p>
+  <pre class="example">package gettrades;
+
+import com.fxcore2.IO2GTableListener;
+import com.fxcore2.O2GRow;
+import com.fxcore2.O2GTableStatus;
+import com.fxcore2.O2GTradeTableRow;
+
+public class TableListener implements IO2GTableListener {
+ 
+    <b>// Implementation of IO2GTableListener interface public method onAdded</b>
+     public void onAdded(String rowID, O2GRow rowData) {
+       O2GTradeTableRow trade = (O2GTradeTableRow)(rowData);
+       System.out.println(&quot;Trade information added &quot; + rowID);
+       System.out.println(&quot;TradeID: &quot; + trade.getTradeID() +
+                          &quot; Close = &quot; + trade.getClose());
+    }
+ 
+    <b>// Implementation of IO2GTableListener interface public method onChanged</b>
+    public void onChanged(String rowID, O2GRow rowData) {
+       O2GTradeTableRow trade = (O2GTradeTableRow)(rowData);
+       System.out.println(&quot;Trade information changed &quot; + rowID);
+       System.out.println(&quot;TradeID: &quot; + trade.getTradeID() +
+                          &quot; Close = &quot; + trade.getClose());
+    }
+ 
+    <b>// Implementation of IO2GTableListener interface public method onDeleted</b>
+    public void onDeleted(String rowID, O2GRow rowData) {
+       O2GTradeTableRow trade = (O2GTradeTableRow)(rowData);
+       System.out.println(&quot;Trade information deleted &quot; + rowID);
+       System.out.println(&quot;TradeID: &quot; + trade.getTradeID() +
+                          &quot; Close = &quot; + trade.getClose());
+    }
+ 
+    <b>// Implementation of IO2GTableListener interface public method onStatus</b>
+    public void onStatusChanged(O2GTableStatus status) {
+    }
+}</pre>
+</div><p>The namespace is <a href="com.fxcore2.html"><code>com.fxcore2</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.IO2GTableListener.onAdded.html">onAdded</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Processes a notification about the row addition to a table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.IO2GTableListener.onChanged.html">onChanged</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Processes a notification about the row change in a table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.IO2GTableListener.onDeleted.html">onDeleted</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Processes a notification about the row deletion from a table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.IO2GTableListener.onStatusChanged.html">onStatusChanged</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Processes notifications about a table status changes.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="com.fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>
