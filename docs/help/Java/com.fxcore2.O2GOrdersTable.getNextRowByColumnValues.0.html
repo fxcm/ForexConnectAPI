@@ -1,0 +1,185 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GOrdersTable.getNextRowByColumnValues</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>O2GOrdersTable.getNextRowByColumnValues</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Gets the next row from <code>O2GOrdersTable</code> based on any of the column values.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">Java</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code><a href="com.fxcore2.O2GOrderTableRow.html"><code>O2GOrderTableRow</code></a>&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>getNextRowByColumnValues</b> (String columnName, <a href="com.fxcore2.O2GRelationalOperators.html"><code>O2GRelationalOperators</code></a> condition, int valueCount, Object[] columnValues, <a href="com.fxcore2.O2GTableIterator.html"><code>O2GTableIterator</code></a> iterator) </code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>columnName</code></td>
+    <td class="tmain" width="69%"><p>The name of a column in the <a href="TTOrders.html">Orders</a> table. For example, <code>RequestID</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>condition</code></td>
+    <td class="tmain" width="69%"><p>The relation which should be met for table values.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>valueCount</code></td>
+    <td class="tmain" width="69%"><p>Number of values of the column.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>columnValues</code></td>
+    <td class="tmain" width="69%"><p>The values of the column specified by the <code>columnName</code> parameter. For example, if you want to search the <a href="TTOrders.html">Orders</a> table
+for limit and stop orders only, the <code>columnName</code> parameter value is <code>Type</code>, the <code>columnValues</code> parameter value is an array of <code>L</code> and <code>S</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>iterator</code></td>
+    <td class="tmain" width="69%"><p>The table iterator.</p></td>
+  </tr>
+</table><p><b>Details</b></p><p>If the row is not found, the method returns <code>null</code>.
+<br><b>Note:</b> The returned row contains the current column values. The values are not automatically updated. To monitor changes, use <a href="com.fxcore2.IO2GTableListener.onChanged.html"><code>IO2GTableListener.onChanged</code></a>.
+The row interface is thread-safe. The returned row can be used in different threads without synchronization.</p>
+<p><b>Example</b></p><div id="open207" style="display:none">
+  <p>Get limit and stop orders&nbsp;<a href="javascript: showdiv('close207'); hidediv('open207');" onclick="javascript: showdiv('close207'); hidediv('open207');">[show]</a></p>
+</div>
+<div id="close207" style="display:inline">
+  <p>Get limit and stop orders&nbsp;<a href="javascript: showdiv('open207'); hidediv('close207');" onclick="javascript: showdiv('open207'); hidediv('close207');">[hide]</a></p>
+  <pre class="example">    public void enumerateLimitAndStopOrders() {
+        O2GOrdersTable orders = (O2GOrdersTable)mTblMgr.getTable(O2GTableType.ORDERS);
+        O2GTableIterator iterator = new O2GTableIterator();
+        Object[] columnValues = new Object[] { &quot;L&quot;, &quot;S&quot; };
+        O2GOrderTableRow order = orders.getNextRowByColumnValues(&quot;Type&quot;, columnValues, iterator);
+        while (order != null) {
+            System.out.println(String.format(&quot;OrderID=%s, Amount=%s, Type=%s, BuySell=%s&quot;,
+                    order.getOrderID(), order.getAmount(), order.getType(), order.getBuySell()));
+            order = orders.getNextRowByColumnValues(&quot;Type&quot;, columnValues, iterator);
+        }
+    }</pre>
+</div><p>Declared in <a href="com.fxcore2.O2GOrdersTable.html">O2GOrdersTable</a></p>
+<p>
+  <center><a href="com.fxcore2.O2GOrdersTable.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'com.fxcore2.O2GOrdersTable.html');</script></body>
+</html>

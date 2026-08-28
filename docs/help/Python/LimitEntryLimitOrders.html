@@ -1,0 +1,355 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Limit/Entry Limit Orders</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Limit/Entry Limit Orders</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article describes the limit and entry limit orders.</p>
+    <p><b>Details</b></p><p></p>
+<h3>Definition and Use</h3>
+<p>A <b>Limit Order</b> is an order to buy or sell an instrument once the market price reaches a specified price.
+When the specified price is reached, the limit order is executed at the limit or better price.
+The limit order can be used to enter or exit the market.</p>
+<p></p>
+<h4>Closing Limit Order</h4>
+<p>The order is used to lock the trader's profit on a trade. The limit order to buy an instrument locks profits on
+sell trades. In this case the order is placed at a price that is below the current market price. The limit order to
+sell locks profits on buy trades and the order is placed above the current market price.</p>
+<p>The limit order can be used on regular accounts which are not subject to FIFO. FIFO-based accounts do not
+allow placing closing limit orders, so whether the trader is willing to exit the market by limit order he/she must
+use an <b>Entry Limit Order</b>.</p>
+<p>A closing limit order can be automatically adjusted while the market moves away from the limit order price.
+Such order is called a <b>Trailing Limit Order</b>.</p>
+<p></p>
+<h4>Entry Limit Order</h4>
+<p>The order is used for entering the market in case the trader thinks that the market price will reverse direction
+after reaching the limit price of the order. In other words, the trader desires to buy on a dip or sell on a rally.
+When the market price reaches the limit price the order is executed.
+See execution <a href="LimitEntryLimitOrderScenario1.html">Scenario 1</a>.</p>
+<p>As was said below the order is used for entering the market, however, if hedging on an account is disabled,
+placing an entry limit order in the direction opposite to an existing position will result in closing such position.
+So the entry limit order is used as closing limit order on FIFO accounts and it is a secondary order of the
+<a href="ELSContingentOrder.html">ELS (Entry-with-Limit-and-Stop) Contingent Order</a>.</p>
+<p>An entry limit order can be automatically adjusted while the market moves away from the limit order price.
+Such order is called a <b>Trailing Entry Limit Order</b>.</p>
+<p>An entry limit order can be specified as a <b>Net Amount Order</b>. This is an instruction to close all positions in
+the given instrument. With net amount orders, the system does not check whether an account has sufficient
+funds to accommodate an order. <a href="LimitEntryLimitOrderScenario4.html">Scenario 4</a></p>
+<p></p>
+<h3>Time-in-Force Option</h3>
+<p>The trader has the following time-in-force options that provide additional instructions on how long an order should remain active:</p><table class="tmain" width="100%">
+  <tr>
+    <td class="thdr" width="12%"><p>Time-in-Force Option</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Good Till Cancelled (GTC)</p></td>
+    <td class="tmain"><p>An order which remains active until the trader decides to cancel it or until the order is executed.
+In the event of limited liquidity, a GTC order may be executed in portions.
+Such execution results in a number of positions opened/closed at different prices.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Day (DAY)</p></td>
+    <td class="tmain"><p>An order that automatically expires if not executed on the day the order is placed.
+During the trading day the order behaves exactly like a GTC order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Good Till Date (GTD)</p></td>
+    <td class="tmain"><p>An order that automatically expires if not executed before the specified date.
+During the trading day the order behaves exactly like a GTC order.</p></td>
+  </tr>
+</table><p></p>
+<h3>Execution Price</h3>
+<p>A limit order guarantees execution and price. To fill a limit order, the system searches for the best price. If
+the best price is equal or better than the original price of the order, the order will be executed at the best
+price. The best price may also be worse than the original price of the order. In this case, the order is set to
+wait until the market once again hits the price specified in the order.</p>
+<p></p>
+<h3>Partial Fill</h3>
+<p>A limit order can be executed partially. It means that one order may result in a number of positions
+opened/closed at different prices. When the market satisfied the order criteria it is filled in portions to the
+maximum extent possible (until the liquidity pool is dried up), the remainder of the order is set to wait.
+In case of partial closing, the system closes a position in the filled amount and opens a new position in the
+remaining amount.
+See <a href="LimitEntryLimitOrderExecScenarios.html">Execution Scenarios</a>.</p>
+<p></p>
+<h3>Limit/Entry Limit Orders State Machine</h3>
+<p>The limit/entry limit orders state machine is based on the FXCM order statuses.
+The description of order statuses, their transitions and state machine are provided below.
+Note that the order is created by the system only after successful order validation. If the order does not pass
+validation, the system creates a rejection message and does not store the order in the database. However,
+the information about the order (such as, for example, the order ID and the reason for its rejection) is stored
+in the database. So, the initial transition on the diagram indicates that the order is successfully validated.</p>
+<p><b>Limit/Entry Limit Orders: State Machine</b><br></p>
+<p><img src="img/LimitEntryLimitStateMachine.gif"></p>
+<p><b>Limit/Entry Limit Orders: FXCM Order Statuses Description</b><br></p><table class="tmain" width="100%">
+  <tr>
+    <td class="thdr" width="12%"><p>Order Status</p></td>
+    <td class="thdr" width="38%"><p>Order Status Description</p></td>
+    <td class="thdr" width="50%"><p>Transition</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><b>Waiting (W)</b></p></td>
+    <td class="tmain"><p>The status has one of the following meanings:</p><ul class="main">
+  <li><p>Initial Transition:<br>
+The order was successfully validated and is waiting until the market price satisfies the order criteria.</p></li>
+  <li><p>Transition from &quot;Waiting (W)&quot;:<br>
+<i>All Orders:</i><br>
+The order was modified by the trader.<br>
+<i>Only Trailing Limit, Trailing Entry Limit Orders:</i><br>
+The trailing limit or trailing entry limit order was automatically adjusted by the minimum rate move.</p></li>
+  <li><p>Transition from &quot;Pending Calculated (U)&quot;:<br>
+The order was filled partially or was not filled at all because of limited or no liquidity, and is
+waiting until the market price satisfies the order criteria.</p></li>
+</ul></td>
+    <td class="tmain"><table class="tmain" width="100%">
+  <tr>
+    <td class="tmain" width="13%"><p>Waiting (W)</p></td>
+    <td class="tmain"><p>All Orders:<br>
+The trader modifies the order.<br></p>
+<p>Only Trailing Limit, Trailing Entry Limit Orders:</p><ul class="main">
+  <li><p>Fixed trailing limit: The order is automatically adjusted by the minimum rate move set by the trader.</p></li>
+  <li><p>Dynamic trailing limit: The order is automatically adjusted by the minimum rate move defined in the system.<br>
+<b>Note:</b> This transition <b>is not</b> made each time the dynamic trailing limit is adjusted (that is, each time the market
+moves 1/10th of a pip in trader’s favor). The transition is made only when the market price changes by the minimum
+rate move defined in the system.</p></li>
+</ul></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="13%"><p>In Process (P)</p></td>
+    <td class="tmain"><p>The market price satisfies the order criteria.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="13%"><p>Pending Cancelled (S)</p></td>
+    <td class="tmain"><p>The trader removes the order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="13%"><p>Cancelled (C)</p></td>
+    <td class="tmain"><p>All Orders:<br>
+The position the order is placed on is already closed by another order.<br></p>
+<p>Only Entry Limit, Trailing Entry Limit Orders:<br>
+The market price satisfies the order criteria, but there is insufficient margin in the account/the account is under the margin call.<br></p>
+<p>Only Net Amount Orders:<br>
+The positions the order is placed on are already closed by another order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="13%"><p>Expired (T)</p></td>
+    <td class="tmain"><p>The transition is applicable only to DAY or GTD orders:<br>
+The order expires because it cannot be executed on the day it was placed.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><b>In Process (P)</b></p></td>
+    <td class="tmain"><p>The status has one of the following meanings:</p><ul class="main">
+  <li><p>Initial Transition:<br>
+<i>Only Entry Limit, Trailing Entry Limit Orders:</i><br>
+The order was successfully validated. Right after the validation, the market price satisfied the order
+criteria and the order is ready for further execution.</p></li>
+  <li><p>Transition from &quot;Waiting (W)&quot;:<br>
+The market price satisfied the order criteria and the order is ready for further execution.</p></li>
+</ul></td>
+    <td class="tmain"><table class="tmain" width="100%">
+  <tr>
+    <td class="tmain" width="13%"><p>Pending Calculated (U)</p></td>
+    <td class="tmain"><p>The order is sent to external execution.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><b>Pending Calculated (U)</b></p></td>
+    <td class="tmain"><p>The status has one of the following meanings:</p><ul class="main">
+  <li><p>Transition from &quot;In Process (P)&quot;:<br>
+The market price satisfied the order criteria and the order was sent to external execution.</p></li>
+  <li><p>Transition from &quot;Pending Calculated (U)&quot;:<br>
+The order was filled partially.</p></li>
+</ul></td>
+    <td class="tmain"><table class="tmain" width="100%">
+  <tr>
+    <td class="tmain" width="13%"><p>Executing (E)</p></td>
+    <td class="tmain"><p>The order is completely filled.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="13%"><p>Pending Calculated (U)</p></td>
+    <td class="tmain"><p>The order is filled partially. Position is opened/closed in the filled amount. Note that the filled portion may result in
+a number of open/closed positions.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="13%"><p>Waiting (W)</p></td>
+    <td class="tmain"><p>The order cannot be filled because there is no liquidity to fill the order.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><b>Executing (E)</b></p></td>
+    <td class="tmain"><p>The order was completely filled.</p></td>
+    <td class="tmain"><table class="tmain" width="100%">
+  <tr>
+    <td class="tmain" width="13%"><p>Executed (F)</p></td>
+    <td class="tmain"><p>A position is either opened or closed. Note that the order may result in a number of open/closed positions.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><b>Executed (F)</b></p></td>
+    <td class="tmain"><p>A position was opened/closed. Note that the order may result in a number of open/closed positions.</p></td>
+    <td class="tmain">
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><b>Pending Cancelled (S)</b></p></td>
+    <td class="tmain"><p>The status is applicable only to GTC orders:<br>
+The order was removed by the trader.</p></td>
+    <td class="tmain"><table class="tmain" width="100%">
+  <tr>
+    <td class="tmain" width="13%"><p>Cancelled (C)</p></td>
+    <td class="tmain"><p>The trader removes the order and the system deletes order.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><b>Cancelled (C)</b></p></td>
+    <td class="tmain"><p>The status has one of the following meanings:</p><ul class="main">
+  <li><p>Transition from &quot;Waiting (W)&quot;:<br>
+<i>All Orders:</i><br>
+The position the order was placed on was already closed by another order.<br>
+<i>Only Entry Limit, Trailing Entry Limit Orders:</i><br>
+The account is under the margin call/there is insufficient margin in the account.<br>
+<i>Only Net Amount Orders:</i><br>
+The positions the order was placed on were already closed by another order.</p></li>
+  <li><p>Transition from &quot;Pending Cancelled (S)&quot;:<br>
+The order was removed by the trader and deleted by the system.</p></li>
+</ul></td>
+    <td class="tmain">
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><b>Expired (T)</b></p></td>
+    <td class="tmain"><p>The status is applicable only to DAY or GTD orders:<br>
+The order expired because it was not executed on the day it was placed or before specified date.</p></td>
+    <td class="tmain"><table class="tmain" width="100%">
+  <tr>
+    <td class="tmain" width="13%"><p>Expired (T)</p></td>
+    <td class="tmain"><p>The transition is applicable only to DAY or GTD orders:<br>
+The system deletes the order after the order expiration.</p></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p>
+      <center><a href="FXCMLimitEntryLimitOrders.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

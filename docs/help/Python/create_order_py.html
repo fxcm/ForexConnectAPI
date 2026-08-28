@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Creating Order</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Creating Order</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article explains how to create an order.</p>
+    <p><b>Details</b></p><p>To create an order in your Python script, you must perform the following steps:</p><ol class="main">
+  <li><p><a href="login_logout_py.html">Log in</a>.</p></li>
+  <li><p>Create a request for creating an order by calling the
+<a href="forexconnect.ForexConnect.ForexConnect.createOrderRequest.html"><code>Forexconnect.create_order_request</code></a> method.
+The set of order parameters depends on a particular order type. For order parameters description for each order type,
+see the article <a href="order_parameters.html">Order Request Parameters</a>. For example:</p><pre class="example">    request = fx.create_order_request(
+        order_type=fxcorepy.Constants.Orders.ENTRY,
+        OFFER_ID=&quot;EUR/USD&quot;,
+        ACCOUNT_ID=&quot;account_id&quot;,
+        BUY_SELL=fxcorepy.Constants.BUY,
+        AMOUNT=4000,
+        RATE=1.1578,
+    )</pre></li>
+  <li><p>When the order is created, it appears in the <a href="TTOrders.html">Orders table</a>.
+To make sure that the order has been created, i.e. a new row with the corresponding order ID has been added to the table,
+you need to monitor Orders <a href="table_updates_py.html">table updates</a>.<br>
+For this, define the <code>on_add_callback</code> callback function that will be called after you subscribe to the table updates,
+get the <a href="TTOrders.html">Orders table</a>, create a table listener and subscribe it to the table updates.<br>
+The callback function will be called in a separate thread. You can synchronize its results with your main thread by setting an event.
+In the following example, <code>on_add_callback</code> collects all rows added to the table and sets an event if an order row with the corresponding order ID is added.</p><pre class="example"> def on_added_order(self, _, __, order_row):
+     order_id = order_row.order_id
+     self.__orders[order_id] = order_row
+     if self.__order_id == order_id:
+     self.__event.set()
+ 
+ ...
+ 
+    orders_table = fx.get_table(ForexConnect.ORDERS)
+    orders_listener = Common.subscribe_table_updates(orders_table, on_add_callback=on_added_order)</pre></li>
+  <li><p>Send the request for creating the order by calling the method <a href="forexconnect.ForexConnect.ForexConnect.sendRequest.html"><code>ForexConnect.send_request</code></a>
+and get the corresponding order ID from the response using the property
+<a href="IO2GOrderResponseReader.IO2GOrderResponseReader.getOrderID.html"><code>O2GOrderResponseReader.order_id</code></a>.</p><pre class="example">    try:
+        resp = fx.send_request(request)
+        order_id = resp.order_id
+ 
+    except Exception as e:
+        print(&quot;Exception: &quot; + str(e))
+        orders_listener.unsubscribe()
+    ...</pre></li>
+  <li><p>Wait for the order to appear in the table. The order row might be added to the table before the response is received,
+so you need to check if an order row with the corresponding order ID has been already collected. For example:</p><pre class="example"> def wait(self, time, order_id):
+     self.__order_id = order_id
+ 
+     order_row = self.find_order(order_id)
+     if order_row is not None:
+         return order_row
+ 
+     self.__event.wait(time)
+ 
+     return self.find_order(order_id)
+ 
+ def find_order(self, order_id):
+     if order_id in self.__orders:
+         return self.__orders[order_id]
+     else:
+         return None
+ ...
+ 
+         order_row = orders_monitor.wait(30, order_id)
+         if order_row is None:
+             print(&quot;Response waiting timeout expired.\n&quot;)
+         else:
+             print(&quot;The order has been added. OrderID={0:s}, &quot;
+                   &quot;Type={1:s}, BuySell={2:s}, Rate={3:.5f}, TimeInForce={4:s}&quot;.format(
+                 order_row.order_id, order_row.type, order_row.buy_sell, order_row.rate,
+                 order_row.time_in_force))
+             sleep(1)
+ </pre></li>
+  <li><p>Unsubscribe the table listener from table updates. For example:</p><pre class="example">orders_listener.unsubscribe()</pre></li>
+  <li><p><a href="login_logout_py.html">Log out</a>.</p></li>
+</ol><p>Find a sample script demonstrating how to create an order at https://github.com/gehtsoft/forex-connect/tree/master/samples:<br>
+<code>CreateEntryOrder.py</code> - this sample script shows how to create an entry limit order with specified account ID, instrument, trading direction (buy/sell), rate, and number of lots.</p><p>
+      <center><a href="orders_py.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

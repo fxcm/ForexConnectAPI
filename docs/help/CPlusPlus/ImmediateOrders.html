@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Immediate Orders</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Immediate Orders</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>This article describes immediate orders.</p>
+    <p><b>Details</b></p><p><b>Immediate Orders</b></p>
+<p>There are two kinds of an immediate order:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p>Open</p></td>
+    <td class="tmain"><p>Used for opening a position immediately upon the trader's request.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Close</p></td>
+    <td class="tmain"><p>Used for closing a previously opened position immediately upon the trader's request.</p></td>
+  </tr>
+</table><p><b>Immediate Open Orders</b></p>
+<p>There are three types of an open order:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p>Open</p></td>
+    <td class="tmain"><p>The order must be executed at the price specified by
+the trader or not executed at all. If the price is unavailable, the
+order must be rejected. Partial fills may occur.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Open Market</p></td>
+    <td class="tmain"><p>The order must be executed at any available price. Partial fills may occur.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Open Range</p></td>
+    <td class="tmain"><p>The order must be executed within the price range specified by the trader or not
+executed at all. If the price is unavailable, the order must be rejected. Partial fills may occur.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Open Limit</p></td>
+    <td class="tmain"><p>The order must be executed at the price specified by
+the trader  or at a more favorable price. If the price is unavailable, the
+order must be rejected. Partial fills may occur.</p></td>
+  </tr>
+</table><p><b>Note:</b> If the trader places an order to open a position that is opposite to the existing position and hedging is not allowed on the account,
+the immediate open order will partially or fully close the existing position.</p>
+<p><b>Immediate Close orders</b></p><table class="tmain">
+  <tr>
+    <td class="tmain"><p>Close</p></td>
+    <td class="tmain"><p>The order must be executed at the price specified by
+the trader or not executed at all. If the price is unavailable, the
+order must be rejected. Partial fills may occur.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Close Market</p></td>
+    <td class="tmain"><p>The order must be executed at any available price. Partial fills may occur.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Close Range</p></td>
+    <td class="tmain"><p>The order must be executed within the price range
+specified by the trader or not executed at all. If the price is
+unavailable, the order must be rejected. Partial fills may occur.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Close Limit</p></td>
+    <td class="tmain"><p>The order must be executed at the price specified by
+the trader or at a more favorable price. If the price is unavailable, the
+order must be rejected. Partial fills may occur.</p></td>
+  </tr>
+</table><p>
+      <center><a href="OrderTypes.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

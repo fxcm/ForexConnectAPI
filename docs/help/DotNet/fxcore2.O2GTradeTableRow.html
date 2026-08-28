@@ -1,0 +1,513 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GTradeTableRow</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>O2GTradeTableRow</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="fxcore2.O2GTradeRow.html"><code>O2GTradeRow</code></a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The class provides access to the open position information and calculated fields.</p>
+    <p><b>Details</b></p><p>The class represents a single row of the <a href="TTTrades.html">Trades</a> table. In addition to the methods of its parent class,
+the <code>O2GTradeTableRow</code> class provides methods to access calculated fields, such as
+current profit/loss for a position, current profit/loss per one lot, prices of associated stop/limit orders, and current close price.<br></p>
+<p><b>Prerequisites</b></p>
+<p>The class is available only through the use of the <a href="fxcore2.O2GTableManager.html"><code>O2GTableManager</code></a>. An <a href="fxcore2.O2GTableManager.html"><code>O2GTableManager</code></a>
+object must have the <a href="fxcore2.O2GTableManagerStatus.html">O2GTableManagerStatus</a>.<a href="fxcore2.O2GTableManagerStatus.TablesLoaded.0.html">TablesLoaded</a> status.<br>
+For complete instructions on the table manager usage,see the
+<a href="table_manager_use_net.html">How to use table manager in ForexConnect API</a> section.<br>
+After tables are loaded, you must obtain an instance of the <a href="fxcore2.O2GTradesTable.html"><code>O2GTradesTable</code></a> class. For example,<br></p>
+<p><code>O2GTradesTable tradesTable = (O2GTradesTable)tableManager.getTable(O2GTableType.Trades);</code></p>
+<p><b>Instantiating the class</b></p>
+<p>If you need access to the current trade information, get an instance of the class by calling any of the following methods of the
+<a href="fxcore2.O2GTradesTable.html"><code>O2GTradesTable</code></a> class:<br></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p><code>O2GTradesTable</code> method</p></td>
+    <td class="thdr"><p>Syntax example</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GTradesTable.getRow.0.html"><code>getRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GTradeTableRow trade = tradesTable.getRow(i);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GTradesTable.findRow.0.html"><code>findRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GTradeTableRow trade;<br>
+bool bFound = tradesTable.findRow(mTradeID, out trade);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GTradesTable.getNextRow.0.html"><code>getNextRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GTradeTableRow trade;<br>
+bool bFound = tradesTable.getNextRow(mIterator, out trade);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GTradesTable.getNextRowByColumnValue.0.html"><code>getNextRowByColumnValue</code></a></p></td>
+    <td class="tmain"><p><code>O2GTradeTableRow trade;<br>
+bool bFound = tradesTable.getNextRowByColumnValue(&quot;OfferID&quot;, mOfferID, mIterator, out trade);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GTradesTable.getNextRowByColumnValues.0.html"><code>getNextRowByColumnValues</code></a></p></td>
+    <td class="tmain"><p><code>O2GTradeTableRow trade;<br>
+bool bFound = tradesTable.getNextRowByColumnValues(&quot;AccountID&quot;, new object[] { &quot;12345&quot;, &quot;23456&quot; }, mIterator, out trade);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GTradesTable.getNextRowByMultiColumnValues.0.html"><code>getNextRowByMultiColumnValues</code></a></p></td>
+    <td class="tmain"><p><code>O2GTradeTableRow trade;<br>
+bool bFound = tradesTable.getNextRowByMultiColumnValues(new string[] { &quot;AccountID&quot;, &quot;OfferID&quot; }, new object[] { mAccountID, mOfferID }, mIterator, out trade);</code></p></td>
+  </tr>
+</table><p>If you want to track the <a href="TTTrades.html">Trades</a> table updates, your application must have a listener class that implements the <a href="fxcore2.IO2GTableListener.html"><code>IO2GTableListener</code></a> interface.
+An instance of the listener class must be subscribed to the table updates. Subscription to each update type is done individually. Before the logout, you must unsubscribe the listener
+from each update type separately. The examples of the subscription/unsubscription syntax are listed below.</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p><code>IO2GTableListener</code> method</p></td>
+    <td class="thdr"><p>Subscribe syntax</p></td>
+    <td class="thdr"><p>Unsubscribe syntax</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.IO2GTableListener.onAdded.0.html"><code>onAdded</code></a></p></td>
+    <td class="tmain"><p><code>tradesTable.subscribeUpdate(O2GTableUpdateType.Insert, tableListener);</code></p></td>
+    <td class="tmain"><p><code>tradesTable.unsubscribeUpdate(O2GTableUpdateType.Insert, tableListener);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.IO2GTableListener.onChanged.0.html"><code>onChanged</code></a></p></td>
+    <td class="tmain"><p><code>tradesTable.subscribeUpdate(O2GTableUpdateType.Update, tableListener);</code></p></td>
+    <td class="tmain"><p><code>tradesTable.unsubscribeUpdate(O2GTableUpdateType.Update, tableListener);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.IO2GTableListener.onDeleted.0.html"><code>onDeleted</code></a></p></td>
+    <td class="tmain"><p><code>tradesTable.subscribeUpdate(O2GTableUpdateType.Delete, tableListener);</code></p></td>
+    <td class="tmain"><p><code>tradesTable.unsubscribeUpdate(O2GTableUpdateType.Delete, tableListener);</code></p></td>
+  </tr>
+</table><p>To instantiate the <code>O2GTradeTableRow</code> class, you must cast the <code>rowData</code> parameter of the above methods to the <code>O2GTradeTableRow</code> type. For example,</p>
+<p><code>O2GTradeTableRow row = (O2GTradeTableRow)(rowData);</code></p>
+<p><b>Example</b></p><div id="open273" style="display:inline">
+  <p>Get Trade ID, current close price and gross profit/loss&nbsp;<a href="javascript: showdiv('close273'); hidediv('open273');" onclick="javascript: showdiv('close273'); hidediv('open273');">[show]</a></p>
+</div>
+<div id="close273" style="display:none">
+  <p>Get Trade ID, current close price and gross profit/loss&nbsp;<a href="javascript: showdiv('open273'); hidediv('close273');" onclick="javascript: showdiv('open273'); hidediv('close273');">[hide]</a></p>
+  <pre class="example">        public void Run(string sUsername, string sPassword, string sUrl, string sConneciton)
+        {
+            //...
+            mSession.useTableManager(O2GTableManagerMode.Yes, null);
+            //...
+            while (mTblMgr.getStatus() == O2GTableManagerStatus.TablesLoading)
+                Thread.Sleep(50);
+ 
+            mTblMgr = mSession.getTableManager();
+ 
+            if (mTblMgr.getStatus() == O2GTableManagerStatus.TablesLoaded)
+            {
+                O2GTradesTable trades = (O2GTradesTable)mTblMgr.getTable(O2GTableType.Trades);
+                TradesListener listener = new TradesListener();
+                trades.subscribeUpdate(O2GTableUpdateType.Insert, listener);
+                try
+                {
+                    mTblMgr.lockUpdates();
+                    for(int ii=0; ii&lt;trades.Count;ii++)
+                    {
+                        O2GTradeTableRow trade = trades.getRow(ii);
+                        Console.WriteLine(&quot;TradeID={0}, OfferID={1}, Amount={2}&quot;, trade.TradeID, trade.OfferID, trade.Amount);
+                    }
+                }
+                finally
+                {
+                    mTblMgr.unlockUpdates();
+                }
+ 
+                Thread.Sleep(10000); //waiting 10 sec for tracing new closed trades
+ 
+                trades.unsubscribeUpdate(O2GTableUpdateType.Insert, listener);
+            }
+        }
+ 
+        class TradesListener : IO2GTableListener
+        {
+            public void onAdded(string rowID, O2GRow rowData)
+            {
+                O2GClosedTradeTableRow trade = (O2GClosedTradeTableRow)rowData;
+                Console.WriteLine(&quot;TradeID={0}, OfferID={1}, Amount={2}&quot;, trade.TradeID, trade.OfferID, trade.Amount);
+            }
+ 
+            public void onChanged(string rowID, O2GRow rowData)
+            {
+ 
+            }
+ 
+            public void onDeleted(string rowID, O2GRow rowData)
+            {
+ 
+            }
+ 
+            public void onStatusChanged(O2GTableStatus status)
+            {
+ 
+            }
+        }
+ </pre>
+</div><p>The type defined in the <code>fxcore2.dll</code> assembly.
+The namespace is <a href="fxcore2.html"><code>fxcore2</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Properties</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.AccountID.0.html">AccountID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the account the position is opened on.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.AccountKind.0.html">AccountKind</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of the account the position is opened on.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.AccountName.0.html">AccountName</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique name of the account the position is opened on.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.Amount.0.html">Amount</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the amount of the position.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.BuySell.0.html">BuySell</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the trade operation the position is opened by.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.Close.0.html">Close</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the price at which a position can be closed at the moment.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.Columns.0.html">Columns</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The columns of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.Commission.0.html">Commission</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the amount of funds subtracted from the account balance to pay for the broker's service in accordance with the terms and conditions of the account trading agreement.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.Dividends.0.html">Dividends</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the cumulative amount of dividends earned or paid for the position. Applicable only to Index CFD positions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.GrossPL.0.html">GrossPL</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the current profit/loss of a position.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.Limit.0.html">Limit</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the price of an associated limit order (profit limit level).</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.OfferID.0.html">OfferID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the instrument traded.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.OpenOrderID.0.html">OpenOrderID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the order the position is opened by.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.OpenOrderReqID.0.html">OpenOrderReqID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the identifier of the order request the position is opened by.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.OpenOrderRequestTXT.0.html">OpenOrderRequestTXT</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the custom identifier of the order the position is opened by.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.OpenQuoteID.0.html">OpenQuoteID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identifier of the pair of prices (bid and ask) the position is opened at.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.OpenRate.0.html">OpenRate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the price the position is opened at.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.OpenTime.0.html">OpenTime</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the date and time when the position is opened.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.Parties.0.html">Parties</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identifier of the environment that has been used to open the position.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.PL.0.html">PL</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the current profit/loss per one lot of a position.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.RolloverInterest.0.html">RolloverInterest</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the cumulative amount of funds that is added to the account balance for holding the position opened overnight.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.Stop.0.html">Stop</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the price of an associated stop order (loss limit level).</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.TableType.0.html">TableType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The type of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.TradeID.0.html">TradeID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the open position.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.TradeIDOrigin.0.html">TradeIDOrigin</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the position, the partial closing of which has resulted in the opening of the current position.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.UsedMargin.0.html">UsedMargin</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the amount of funds currently committed to maintain the position.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.ValueDate.0.html">ValueDate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the simulated delivery date.</p>
+    </td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.getCell.0.html">getCell</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a cell of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GTradeTableRow.isCellChanged.0.html">isCellChanged</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a flag indicating whether the value of the cell is changed.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

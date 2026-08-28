@@ -1,0 +1,236 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GLastOrderUpdateResponseReader</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>IO2GLastOrderUpdateResponseReader</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="IAddRef.html">IAddRef</a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The class reads a response to a request for the current state of an order.</p>
+    <p><b>Details</b></p><p>To get information about the current state of an order, you must request it. The process of requesting the current order state consists of several steps that are described in the
+<a href="GetLastOrderUpdate.html">Get Last Order Update</a> section.<br>
+The possible states of different order types are described in the <a href="OrderStatuses.html">Orders State Machines</a> section.</p>
+<p>As an answer to the request, the trading server sends a response object of the <a href="O2GResponseType.GetLastOrderUpdate.0.html">GetLastOrderUpdate</a> type.
+This object is the <code>response</code> parameter in your implementation of the
+<a href="IO2GResponseListener.html">IO2GResponseListener</a>.<a href="IO2GResponseListener.onRequestCompleted.0.html">onRequestCompleted</a> method.
+To process the response contents, you must use an instance of the <code>IO2GLastOrderUpdateResponseReader</code> class.</p>
+<p>To create an instance of the <code>IO2GLastOrderUpdateResponseReader</code> class, pass the response object as an argument to the
+<a href="IO2GResponseReaderFactory.html">IO2GResponseReaderFactory</a>.<a href="IO2GResponseReaderFactory.createLastOrderUpdateResponseReader.html">createLastOrderUpdateResponseReader</a> method. For example,</p>
+<p><code>O2GLastOrderUpdateResponseReader orderReader = factory.createLastOrderUpdateResponseReader(response);</code></p>
+<p><b>Example</b></p><div id="open133" style="display:inline">
+  <p>Requesting the current order state by the order's unique identifier&nbsp;<a href="javascript: showdiv('close133'); hidediv('open133');" onclick="javascript: showdiv('close133'); hidediv('open133');">[show]</a></p>
+</div>
+<div id="close133" style="display:none">
+  <p>Requesting the current order state by the order's unique identifier&nbsp;<a href="javascript: showdiv('open133'); hidediv('close133');" onclick="javascript: showdiv('open133'); hidediv('close133');">[hide]</a></p>
+  <pre class="example">   void getLastOrderUpdate(IO2GSession *session, ResponseListener *responseListener, const char * orderID, const char * accountName)
+   {
+       O2G2Ptr&lt;IO2GRequestFactory&gt; requestFactory = session-&gt;getRequestFactory();
+       if (requestFactory != NULL)
+       {
+           O2G2Ptr&lt;IO2GValueMap&gt; valuemap = requestFactory-&gt;createValueMap();
+           valuemap-&gt;setString(Command, O2G2::Commands::GetLastOrderUpdate);
+           valuemap-&gt;setString(AccountName, accountName);
+           valuemap-&gt;setString(Key, O2G2::KeyType::OrderID);
+           valuemap-&gt;setString(ID, orderID);
+           O2G2Ptr&lt;IO2GRequest&gt; request = requestFactory-&gt;createOrderRequest(valuemap);
+           responseListener-&gt;setRequest(request-&gt;getRequestID());
+           session-&gt;sendRequest(request);
+           uni::Sleep(1000);
+       }
+   }
+ 
+   <b>// Set request in the implementation of IO2GResponseListener interface</b>
+   void ResponseListener::setRequest(const char * requestID)
+   {
+       mRequestID = requestID;
+   }
+ 
+   std::string updateTypeToString(O2GTableUpdateType updateType)
+   {
+       std::string sRes = &quot;&quot;;
+ 
+       switch (updateType)
+       {
+       case Delete:
+           sRes = &quot;Delete&quot;;
+           break;
+       case Insert:
+           sRes = &quot;Insert&quot;;
+           break;
+       case Update:
+           sRes = &quot;Update&quot;;
+           break;
+       default:
+           sRes = &quot;UpdateUnknown&quot;;
+       }
+ 
+       return sRes;
+   }
+ 
+   <b>// Implementation of IO2GResponseListener interface public method onRequestCompleted</b>
+   void onRequestCompleted(const char * requestID, IO2GResponse *response)
+   {
+       if (mRequestID == requestID)
+       {
+           std::cout &lt;&lt; &quot;Request completed.&quot; &lt;&lt; std::endl &lt;&lt; &quot;requestID = &quot; &lt;&lt; requestID &lt;&lt; std::endl;
+           O2G2Ptr&lt;IO2GResponseReaderFactory&gt; readerFactory = mSession-&gt;getResponseReaderFactory();
+           if (readerFactory != NULL)
+           {
+               if (response-&gt;getType() == GetLastOrderUpdate)
+               {
+                   O2G2Ptr&lt;IO2GLastOrderUpdateResponseReader&gt; lastOrderUpdateResponseReader = readerFactory-&gt;createLastOrderUpdateResponseReader(response);
+                   O2G2Ptr&lt;IO2GOrderRow&gt; orderRow = lastOrderUpdateResponseReader-&gt;getOrder();
+                   std::cout &lt;&lt; &quot;UpdateType: &quot; &lt;&lt; updateTypeToString(lastOrderUpdateResponseReader-&gt;getUpdateType()) &lt;&lt;
+                                &quot; OrderID: &quot; &lt;&lt; orderRow-&gt;getOrderID() &lt;&lt;
+                                &quot; Status: &quot; &lt;&lt; orderRow-&gt;getStatus() &lt;&lt; std::endl;
+               }
+           }
+       }
+   }</pre>
+</div><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GLastOrderUpdateResponseReader.getOrder.html">getOrder</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets an instance of the class that provides access to order information.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GLastOrderUpdateResponseReader.getUpdateType.html">getUpdateType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the last operation that has been performed with an order.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="forexconnect.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

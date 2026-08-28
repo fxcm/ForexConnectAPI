@@ -1,0 +1,149 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GResponseType.GetOrders</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>static public field <b>O2GResponseType.GetOrders</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>The constant represents the type of a response to a request for initial order information.</p>
+<p><b>Details</b></p><p>If your application uses the <a href="IO2GTableManager.html"><code>IO2GTableManager</code></a>, the <a href="TTOrders.html">Orders</a> table is always loaded during the login process.
+This information is kept in an <a href="IO2GOrdersTable.html"><code>IO2GOrdersTable</code></a> object.<br></p>
+<p>If your application does not use the <a href="IO2GTableManager.html"><code>IO2GTableManager</code></a>, the initial order information needs to be requested.<br>
+Depending on the trading server settings, the <a href="TTOrders.html">Orders</a> table may or may not be loaded by the server automatically during the login process.
+To determine whether the table is loaded or not and what follow-up action is required to obtain the <code>O2GResponseType.GetOrders</code> response,
+use the returned value of the <a href="IO2GLoginRules.html"><code>IO2GLoginRules</code></a>.<a href="IO2GLoginRules.isTableLoadedByDefault.html"><code>isTableLoadedByDefault</code></a> method:<br></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Returned Value</p></td>
+    <td class="thdr"><p>Follow-up action</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>true</code></p></td>
+    <td class="tmain"><p>Call the <a href="IO2GLoginRules.html"><code>IO2GLoginRules</code></a>.<a href="IO2GLoginRules.getTableRefreshResponse.html"><code>getTableRefreshResponse</code></a> method. For example,<br></p>
+<p><code>O2GResponse ordersResponse = loginRules.getTableRefreshResponse(O2GTable::Orders);</code><br></p>
+<p>The method returns an instance of the <a href="IO2GResponse.html">IO2GResponse</a> class of the <code>O2GResponseType.GetOrders</code> type.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>false</code></p></td>
+    <td class="tmain"><p>Create a request to get initial order information for an account by using the <a href="IO2GRequestFactory.html"><code>IO2GRequestFactory</code></a>.<a href="IO2GRequestFactory.createRefreshTableRequestByAccount.html"><code>createRefreshTableRequestByAccount</code></a> method.
+For example,<br></p>
+<p><code>O2GRequest request = requestFactory.createRefreshTableRequestByAccount(O2GTable::Orders, mOrderID);</code><br></p>
+<p>In this case, an instance of the <a href="IO2GResponse.html"><code>IO2GResponse</code></a> class is the <code>response</code> parameter in your implementation of the
+<a href="IO2GResponseListener.html"><code>IO2GResponseListener</code></a>.<a href="IO2GResponseListener.onRequestCompleted.0.html"><code>onRequestCompleted</code></a> method.</p></td>
+  </tr>
+</table><p>To process the contents of a response object of the <code>O2GResponseType.GetOrders</code> type, use an instance of the <a href="IO2GOrdersTableResponseReader.html">IO2GOrdersTableResponseReader</a> class.</p><p>Declared in <a href="O2GResponseType.html">O2GResponseType</a></p>
+<p>
+  <center><a href="O2GResponseType.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'O2GResponseType.html');</script></body>
+</html>

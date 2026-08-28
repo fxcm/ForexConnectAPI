@@ -1,0 +1,345 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Create Stop Order</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Create Stop Order</b></font>
+    </p><p>A stop order is used for limiting losses of the existing position when the market condition is met.</p>
+<p>Stop orders can be created for existing trades as well as for existing entry orders. Stop
+orders created for entry orders remain inactive until the trade is created by the entry order.</p>
+<p>Only one stop order can be attached to a position or an the entry order.</p>
+<p>Please note that close orders must be permitted for the account in order to be
+used.</p>
+<p>Please note that stop and limit orders cannot be attached to netting entry orders.</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Parameter name</p></td>
+    <td class="thdr"><p>Datatype</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>COMMAND</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The command. Must be <a href="com.fxcore2.Constants.Commands.CreateOrder.html"><code>CreateOrder</code></a>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>ORDER_TYPE</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The type of the order. Must be <a href="com.fxcore2.Constants.Orders.Stop.html"><code>S</code></a>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>OFFER_ID</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The identifier of the instrument the order should be placed for.
+The value must be obtained from the <a href="TTOffers.html">Offers</a> table, the <code>OfferID</code> column.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>ACCOUNT_ID</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The identifier of the account the order should be placed for.
+The value must be obtained from the <a href="TTAccounts.html">Accounts</a> table, the <code>AccountID</code> column.</p>
+<p>Please note that the account identifier may not necessarily be equal to the account name
+which is shown in the FXCM Trading Station application.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TRADE_ID</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The identifier of the trade to be closed.
+The value must be obtained from the <a href="TTTrades.html">Trades</a> table, the <code>TradeID</code> column.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>BUY_SELL</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The order direction.</p>
+<p>The value must be <code>B</code> - for buy orders and <code>S</code> - for sell orders. The order direction must be
+opposite to the direction of the order which was used to create the position (see the <code>BuySell</code> column
+of the trade).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>AMOUNT</p></td>
+    <td class="tmain"><p>int</p></td>
+    <td class="tmain"><p>The amount of the order. In the case of FX instruments, the amount is expressed in the base currency of an instrument. In the case of CFD instruments, the amount is expressed in contracts.
+Must be divisible by the value of the lot size.</p>
+<p>The amount must be equal to the size of the position (see the <code>Amount</code> column of the trade).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>RATE</p></td>
+    <td class="tmain"><p>double</p></td>
+    <td class="tmain"><p>The rate at which the order must be filled.</p>
+<p>The rate must be below the market for sell orders and above the market for buy orders.</p>
+<p>To specify the stop order price, use:</p><ul class="main">
+  <li><p><code>RATE</code> - if the stop order is created for the existing position.</p></li>
+  <li><p>Either <code>RATE</code> or a pair of <code>PEG_TYPE</code> and <code>PEG_OFFSET</code> fields - if the stop order is created for an entry order.</p></li>
+</ul></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>PEG_TYPE</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>&quot;Pegged&quot; means that the price is specified as an offset (in pips) against the market price.</p>
+<p>The field specifies which price should be used to calculate the order price:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.Constants.Peg.FromOpen.html"><code>O</code></a></p></td>
+    <td class="tmain"><p>The open price of the related trade.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.Constants.Peg.FromClose.html"><code>M</code></a></p></td>
+    <td class="tmain"><p>The close price (the current market price) of the related trade.</p></td>
+  </tr>
+</table><p>Please note that &quot;pegged&quot; orders are stored as &quot;pegged&quot; only while the order is attached to an entry
+order. Once the entry order gets filled and a position is opened, the peg price is automatically converted to a regular market price.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>PEG_OFFSET</p></td>
+    <td class="tmain"><p>double</p></td>
+    <td class="tmain"><p>The offset to the price specified in the <code>PegType</code> field. The offset must be expressed in pips.</p>
+<p>The offset must be positive for buy orders and negative for sell orders.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TRAIL_STEP</p></td>
+    <td class="tmain"><p>int</p></td>
+    <td class="tmain"><p>The trailing stop order follows the market in case the market moves in the direction opposite
+to that of the order (e.g. in the profitable direction for the position).</p>
+<p>The value specifies the maximum change of the market price after which the rate of the order
+will be changed as well.</p>
+<p>The value is expressed in the units of the minimum change of the
+price (see the <code>Digits</code> column of the <a href="TTOffers.html">Offers</a> table).</p>
+<p>For example, if the value of the <code>Digits</code> column is 3 and the value of this field is 5, the maximum change of the market
+price will be <code>5 * 10<sup>-3</sup> = 0.005</code>.</p>
+<p>If the value is 1, it means that the dynamic trailing mode is used, i.e. the order rate is changed
+with every change of the market price. Please note that in some systems, only dynamic
+trailing mode is supported.</p>
+<p>The value is optional. By default, this value is 0. 0 means no-trailing order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TIME_IN_FORCE</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The Time In Force value.</p>
+<p>Can be <a href="com.fxcore2.Constants.TIF.GTC.html"><code>GTC</code></a> (Good Till Cancelled),
+<a href="com.fxcore2.Constants.TIF.DAY.html"><code>DAY</code></a> (Day Order) or <a href="com.fxcore2.Constants.TIF.GTD.html"><code>GTD</code></a> (Good Till Date).</p>
+<p>The value is optional.</p>
+<p>Stop orders are <a href="com.fxcore2.Constants.TIF.GTC.html"><code>GTC</code></a> orders by default.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>CLIENT_RATE</p></td>
+    <td class="tmain"><p>double</p></td>
+    <td class="tmain"><p>The current price of the order instrument.</p>
+<p>The value is optional. It is used for logging purposes.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>CUSTOM_ID</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The custom identifier of the order. This value will be populated into
+these columns of the trading tables:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Table</p></td>
+    <td class="thdr"><p>Column</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTOrders.html">Orders</a></p></td>
+    <td class="tmain"><p><code>RequestTXT</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTClosedTrades.html">Closed Trades</a></p></td>
+    <td class="tmain"><p><code>CloseOrderRequestTXT</code></p></td>
+  </tr>
+</table><p>The value is optional.</p></td>
+  </tr>
+</table><div id="open90" style="display:none">
+  <p>Example: Create a Stop order&nbsp;<a href="javascript: showdiv('close90'); hidediv('open90');" onclick="javascript: showdiv('close90'); hidediv('open90');">[show]</a></p>
+</div>
+<div id="close90" style="display:inline">
+  <p>Example: Create a Stop order&nbsp;<a href="javascript: showdiv('open90'); hidediv('close90');" onclick="javascript: showdiv('open90'); hidediv('close90');">[hide]</a></p>
+  <pre class="example"> class ParamsFromLoginRules {
+    String sAccountID;
+    String sOfferID;
+    int iBaseAmount;
+    double dPointSize;
+    double dAskRate;
+    double dBidRate;
+ }
+ 
+   public void prepareParamsAndCallStopOrder(String sTradeID, double dRate, String sBuySell, int iAmount)
+   {
+       ParamsFromLoginRules params = new ParamsFromLoginRules();
+       boolean bParamsOK = prepareParamsFromLoginRules(params);
+       if (!bParamsOK)
+            return;
+ 
+       createStopOrder(params.sOfferID, params.sAccountID, sTradeID, iAmount, dRate, sBuySell);
+   }
+ 
+   public void createStopOrder(String sOfferID, String sAccountID, String sTradeID, int iAmount, double dRate, String sBuySell)
+   {
+       O2GRequestFactory factory = mSession.getRequestFactory();
+       if (factory != null) {
+           O2GValueMap valuemap = factory.createValueMap();
+           valuemap.setString(O2GRequestParamsEnum.COMMAND, Constants.Commands.CreateOrder);
+           valuemap.setString(O2GRequestParamsEnum.ORDER_TYPE, Constants.Orders.Stop);
+           valuemap.setString(O2GRequestParamsEnum.ACCOUNT_ID, sAccountID);         // The identifier of the account the order should be placed for
+           valuemap.setString(O2GRequestParamsEnum.OFFER_ID, sOfferID);             // The identifier of the instrument the order should be placed for
+           valuemap.setString(O2GRequestParamsEnum.TRADE_ID, sTradeID);             // The identifier of the trade to be closed
+           valuemap.setString(O2GRequestParamsEnum.BUY_SELL, sBuySell);             // The order direction (Constants.Buy for Buy, Constants.Sell for Sell). Must be opposite to the direction of the trade
+           valuemap.setInt(O2GRequestParamsEnum.AMOUNT, iAmount);                   // The quantity of the instrument to be bought or sold. Must be = size of the position (Lot of the trade). Must be divisible by baseUnitSize
+           valuemap.setDouble(O2GRequestParamsEnum.RATE, dRate);                    // The dRate at which the order must be filled (&lt; market for &quot;Sell&quot; order,  market for &quot;Buy&quot; order)
+           O2GRequest request = factory.createOrderRequest(valuemap);
+           if (request == null) {
+               System.out.println(&quot;Order's request can not be created: &quot; + factory.getLastError());
+           } else {
+               mSession.sendRequest(request);
+           }
+       }
+    }
+ 
+    private boolean prepareParamsFromLoginRules(ParamsFromLoginRules params)
+    {
+        boolean bOK = false;
+        O2GResponseReaderFactory factory = mSession.getResponseReaderFactory();
+        if (factory == null) {
+            return false;
+        }
+        O2GLoginRules loginRules = mSession.getLoginRules();
+        // get first account from login
+        O2GResponse accountResponse = loginRules.getTableRefreshResponse(O2GTable.ACCOUNTS);
+        O2GAccountsTableResponseReader accountsReader = factory.createAccountsTableReader(accountResponse);
+        O2GAccountRow account = accountsReader.getRow(0);
+        // get account id
+        params.sAccountID = account.getAccountID();
+        // get base amount
+        params.iBaseAmount = account.getBaseUnitSize();
+        params.sOfferID = &quot;&quot;;
+        params.dAskRate = 0;
+        params.dBidRate = 0;
+        params.dPointSize = 0;
+        // Get offers for EUR/USD
+        O2GResponse offersResponse = loginRules.getTableRefreshResponse(O2GTable.OFFERS);
+        O2GOffersTableResponseReader offersReader = factory.createOffersTableReader(offersResponse);
+        for (int i = 0; i &lt; offersReader.size(); i++)
+        {
+            O2GOfferRow offer = offersReader.getRow(i);
+            if (offer.getInstrument().equals(&quot;EUR/USD&quot;))
+            {
+                params.sOfferID = offer.getOfferID();
+                params.dAskRate = offer.getAsk();
+                params.dBidRate = offer.getBid();
+                params.dPointSize = offer.getPointSize();
+                bOK = true;
+                break;
+            }
+        }
+        return bOK;
+    }</pre>
+</div><p>
+      <center><a href="JavaTradingCommandsCreateOrder.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

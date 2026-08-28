@@ -1,0 +1,627 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Orders (table)</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Orders (table)</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>This section describes the Orders table that contains information about orders. The data is kept in this table until all the orders are executed.</p>
+    <p><b>Details</b></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Name</p></td>
+    <td class="thdr"><p>Type</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>OrderID</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identification number of the order. The number is unique within the same database that stores
+the account the order is placed on. For example, <code>MINIDEMO</code> or <code>U100D1</code>. The uniqueness of the order itself
+is assured by the combination of the database ID and the value of this field.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>RequestID</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The identifier of the request to create an order. One request can create several orders. For example, if an entry order
+is created with stop and limit orders attached, the table contains several orders with the same <code>RequestID</code>.<br>
+If after its creation the order is changed, then this field represents the unique identifier of the request to make the last change.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Rate</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The price the order is placed at. In the case of FX instruments, it is expressed in the instrument counter currency per one unit of base currency. In the case of CFD instruments,
+it is expressed in the instrument native currency per one contract.</p>
+<p>In the case of open/close market orders and pegged stop/limit orders, the value of this field is <code>0.0</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>ExecutionRate</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The price the order is executed at. In the case of FX instruments, it is expressed in the instrument counter currency per one unit of base currency. In the case of CFD instruments,
+it is expressed in the instrument native currency per one contract. Applicable only when the order is filled completely or partially.
+In other words, this field has a meaningful value if the order status is either Pending Calculated, Executing or Executed.
+For details, please refer to <a href="OrderStatuses.html">Orders State Machines</a> section. If the order is in any other state, the value of this field is <code>0.0</code>.
+If the order is filled in several steps, the value of this field may differ for every partiall fill.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>RateMin</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The minimum price at which the order can be filled. In the case of FX instruments, it is expressed in the instrument counter currency per one unit of base currency. In the case of CFD instruments,
+it is expressed in the instrument native currency per one contract.
+It is applicable only for open/close range orders. For all other order types, the value of this field is <code>0.0</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>RateMax</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The maximum price at which the order can be filled. In the case of FX instruments, it is expressed in the instrument counter currency per one unit of base currency. In the case of CFD instruments,
+it is expressed in the instrument native currency per one contract.
+It is applicable only for open/close range orders. For all other order types, the value of this field is <code>0.0</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TradeID</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identification number of the position to be opened/closed by the order. The number is unique within the same database
+that stores the account the position can be opened or closed on. For example, <code>MINIDEMO</code> or <code>U100D1</code>. The
+uniqueness of the position itself is assured by the combination of the database ID and the value of this field.<br>
+In the case the opening order fills partially, the system opens a position for every partial fill. Every position has unique <code>TradeID</code>.
+Therefore, after a partial fill, this field has the unique value. Likewise, the value of this field changes if the order closes the particular position and fills partially.<br></p>
+<p>In some cases, this number does not reference any particular position. Such cases are:</p><ul class="main">
+  <li><p>The order is placed as the Net Amount order.</p></li>
+  <li><p>The order is placed to close positions under the following conditions:<br>
+- the order is placed on the account where hedging is not allowed (see <code>MaintenanceType</code> field in the <a href="TTAccounts.html">Accounts</a> table);<br>
+- the order is placed in the opposite direction (buy or sell) to the positions trade operation.</p></li>
+</ul></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>AccountID</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identification number of the account the order is placed on. The number is unique within the
+database where the account is stored. For example, <code>MINIDEMO</code> or <code>U100D1</code>. The uniqueness of the account
+itself is assured by the combination of the database ID and the value of this field.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>AccountName</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique name of the account the order is placed on. The name is unique within the database where the
+account is stored. For example, <code>MINIDEMO</code> or <code>U100D1</code>. The uniqueness of the account itself is assured by the
+combination of the database ID and the value of this field.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>OfferID</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identification number of the instrument the order is placed for.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>NetQuantity</p></td>
+    <td class="tmain"><p>Boolean</p></td>
+    <td class="tmain"><p>The Net Amount order flag. It defines whether the order is a Net Amount order or not. The possible values are:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>true</code></p></td>
+    <td class="tmain"><p>The order is a Net Amount order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>false</code></p></td>
+    <td class="tmain"><p>The order is not a Net Amount order.</p></td>
+  </tr>
+</table><p>The Net Amount order closes all positions of the specified
+instrument and account that are in the direction (buy or sell) opposite to the direction of the Net Amount order.</p>
+<p>The following types of order can be Net Amount orders:</p><ul class="main">
+  <li><p><code>SE</code> - entry stop.</p></li>
+  <li><p><code>LE</code> - entry limit.</p></li>
+  <li><p><code>STE</code> - trailing entry stop.</p></li>
+  <li><p><code>LTE</code> - trailing entry limit.</p></li>
+  <li><p><code>CM</code> - close market.</p></li>
+</ul></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>BuySell</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The direction of the trade. The possible values are:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>B</code></p></td>
+    <td class="tmain"><p>The order is placed to buy an instrument.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>S</code></p></td>
+    <td class="tmain"><p>The order is placed to sell an instrument.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Stage</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The order action. It defines whether the order is placed to open or close a position. The possible values are:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>O</code></p></td>
+    <td class="tmain"><p>The order is placed to open a position.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>C</code></p></td>
+    <td class="tmain"><p>The order is placed to close a position.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Type</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The order type. The possible values are:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>S</code></p></td>
+    <td class="tmain"><p>Stop.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>ST</code></p></td>
+    <td class="tmain"><p>Trailing Stop.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>L</code></p></td>
+    <td class="tmain"><p>Limit.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>SE</code></p></td>
+    <td class="tmain"><p>Entry Stop.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>LE</code></p></td>
+    <td class="tmain"><p>Entry Limit.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>STE</code></p></td>
+    <td class="tmain"><p>Trailing Entry Stop.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>LTE</code></p></td>
+    <td class="tmain"><p>Trailing Entry Limit.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>C</code></p></td>
+    <td class="tmain"><p>Close.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>CM</code></p></td>
+    <td class="tmain"><p>Close Market.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>CR</code></p></td>
+    <td class="tmain"><p>Close Range.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>O</code></p></td>
+    <td class="tmain"><p>Open.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>OM</code></p></td>
+    <td class="tmain"><p>Open Market.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>OR</code></p></td>
+    <td class="tmain"><p>Open Range.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>M</code></p></td>
+    <td class="tmain"><p>Margin Call.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Status</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The state of the order. The possible values are:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>W</code></p></td>
+    <td class="tmain"><p>Waiting.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>P</code></p></td>
+    <td class="tmain"><p>In process.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>I</code></p></td>
+    <td class="tmain"><p>Dealer intervention.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>Q</code></p></td>
+    <td class="tmain"><p>Requoted.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>U</code></p></td>
+    <td class="tmain"><p>Pending calculated.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>E</code></p></td>
+    <td class="tmain"><p>Executing.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>S</code></p></td>
+    <td class="tmain"><p>Pending Canceled.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>C</code></p></td>
+    <td class="tmain"><p>Canceled.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>R</code></p></td>
+    <td class="tmain"><p>Rejected.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>T</code></p></td>
+    <td class="tmain"><p>Expired.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>F</code></p></td>
+    <td class="tmain"><p>Executed.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Amount</p></td>
+    <td class="tmain"><p>Integer</p></td>
+    <td class="tmain"><p>The amount of the order. In the case of FX instruments, the amount is expressed in the base currency of an instrument.
+In the case of CFD instruments, the amount is expressed in contracts.</p>
+<p>If the order is filled completely at the first attempt or rejected in the whole amount, it is the initial amount
+of the order.<br>
+If the order is filled completely in several attempts, it is the amount of the last portion to be filled.<br>
+If the order is filled partially, it is the remaining amount to be filled.<br>
+If the order is partially rejected, it is the rejected (unfilled) amount.<br>
+If the entire order is waiting for execution, it is the initial amount of the order.<br></p>
+<p>Regardles of the order direction (buy or sell), the value of this field is positive.<br>
+In the case of the If-Then order, the value of this field is <code>0</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>StatusTime</p></td>
+    <td class="tmain"><p>Date</p></td>
+    <td class="tmain"><p>The date and time of the last update of the order state.<br>
+The time zone is defined by the system properties <code>SERVER_TIME_UTC</code> and <code>BASE_TIME_ZONE</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Lifetime</p></td>
+    <td class="tmain"><p>Integer</p></td>
+    <td class="tmain"><p>The time, during which the trader must accept or reject the order requoted by the dealer. The time is expressed
+in seconds. This field is not currently in use.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>AtMarket</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The distance from the <code>Rate</code> within which the trader allows the order to be executed. It is expressed in
+pips. If the market price moves beyond the allowed distance, then the order cannot be executed.
+This field is applicable only for open/close range orders. For all other types of orders, the value of this field is <code>0.0</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TrailStep</p></td>
+    <td class="tmain"><p>Integer</p></td>
+    <td class="tmain"><p>The number of pips the market should move before the order moves the same number of pips after it.<br>
+It is applicable only for trailing orders (trailing stop, entry trailing stop/limit). Otherwise, the value of this field is <code>0</code>.<br>
+<b>Note:</b> If the trailing order is dynamic (automatically updates every 0.1 of a pip), then the value of this
+field is <code>1</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TrailRate</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The market price at the time the order automatically moves following the market fluctuations.
+In the case of FX instruments, it is expressed in the instrument counter currency per one unit of base currency. In the case of CFD instruments,
+it is expressed in the instrument native currency per one contract.</p>
+<p>If the order has not followed the market yet, the value of this field provides the initial market price
+at the time when the order is placed. It is applicable only for trailing orders (trailing stop, entry
+trailing stop/limit). Otherwise, the value of this field is <code>0.0</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TimeInForce</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The time-in-force option of the order. The possible values are:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>GTC</code></p></td>
+    <td class="tmain"><p>Good Till Cancelled (Open/Close Market, Entry, Stop, and Limit orders).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>IOC</code></p></td>
+    <td class="tmain"><p>Immediate Or Cancel (Open/Close Market, Open/Close, and Open/Close Range orders).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>FOK</code></p></td>
+    <td class="tmain"><p>Fill Or Kill (Open/Close Market, Open/Close, and Open/Close Range orders).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>DAY</code></p></td>
+    <td class="tmain"><p>Day Order (Open/Close Market, Entry, Stop, and Limit orders).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>GTD</code></p></td>
+    <td class="tmain"><p>Good Till Date (Open/Close Market, Entry, Stop, and Limit orders).</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>AccountKind</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The type of the account the order is placed on. The possible values are:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>32</code></p></td>
+    <td class="tmain"><p>Self-traded, funds manager (only LAMM), managed (only LAMM) accounts.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>36</code></p></td>
+    <td class="tmain"><p>Funds manager account (only PAMM).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>38</code></p></td>
+    <td class="tmain"><p>Managed account (only PAMM).</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>RequestTXT</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The custom identifier of the order. For example, <code>LimitEntryOrder</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>ContingentOrderID</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identifier of an existing contingency group which the order is linked to.
+The number is unique within the same database that stores the account the contingent order is placed on.
+For example, <code>MINIDEMO</code> or <code>U100D1</code>. The uniqueness of the order itself is assured by the combination of the
+database ID and the value of this field.<br>
+It is applicable only for orders included in an OCO order or secondary orders of ELS and OTO orders.
+Otherwise, the value of this field is blank.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>ContingencyType</p></td>
+    <td class="tmain"><p>Integer</p></td>
+    <td class="tmain"><p>The type of the contingent order to which the order is linked. It is applicable only for orders included
+in an OCO order or secondary orders of ELS, OTO and OTOCO orders.
+The possible values are:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>1</code></p></td>
+    <td class="tmain"><p>OCO order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>2</code></p></td>
+    <td class="tmain"><p>OTO order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>3</code></p></td>
+    <td class="tmain"><p>ELS order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>4</code></p></td>
+    <td class="tmain"><p>OTOCO order.</p></td>
+  </tr>
+</table><p>For all other orders, the value of this field is <code>0</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>PrimaryID</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identification number of the primary order of ELS, OTO or OTOCO contingent orders to which the order
+is linked. The number is unique within the same database that stores the account the primary order is placed on.
+For example, <code>MINIDEMO</code> or <code>U100D1</code>. The uniqueness of the order itself is assured by the combination of the
+database ID and the value of this field.<br>
+It is applicable only for secondary orders of ELS, OTO and OTOCO contingent orders. Otherwise, the value of this field is blank.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>OriginAmount</p></td>
+    <td class="tmain"><p>Integer</p></td>
+    <td class="tmain"><p>The original amount of the order when it is placed. In the case of FX instruments, the amount is expressed
+in the base currency of an instrument. In the case of CFD instruments, the amount is expressed in contracts. This field has the same value for the lifetime of the order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>FilledAmount</p></td>
+    <td class="tmain"><p>Integer</p></td>
+    <td class="tmain"><p>The amount of the last order portion filled. In the case of FX instruments, the amount is expressed in the
+base currency of an instrument. In the case of CFD instruments, the amount is expressed in contracts. If the order is rejected or canceled,
+the value of this field is <code>0</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>WorkingIndicator</p></td>
+    <td class="tmain"><p>Boolean</p></td>
+    <td class="tmain"><p>The working indicator flag. It defines whether the order is active on the market or not. The possible values are:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>Y</code></p></td>
+    <td class="tmain"><p>The order is active.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>N</code></p></td>
+    <td class="tmain"><p>The order is inactive.</p></td>
+  </tr>
+</table><p>It is applicable only for secondary orders of ELS, OTO and OTOCO orders. For all other orders, the value of this field is <code>Y</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>PegType</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The price used to calculate the pegged order price. Pegged means that the price is specified as an
+offset to one of the following prices:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>O</code></p></td>
+    <td class="tmain"><p>The stop/limit order is set as a distance in pips to the open price (the pegged stop/limit order).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>M</code></p></td>
+    <td class="tmain"><p>The stop/limit order is set as a distance in pips to the close price (the pegged stop/limit order).</p></td>
+  </tr>
+</table><p>This field is applicable only for stop/limit orders and secondary orders of ELS orders. For all other order types, the value of this field is blank.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>PegOffset</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The offset to the price specified in the <code>PegType</code> field. It is expressed in pips.
+This field is applicable only for stop/limit orders and secondary orders of ELS orders.
+For these orders the value of this field can be positive or negative.
+For all other orders, the value of this field is <code>0.0</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>ExpireDate</p></td>
+    <td class="tmain"><p>Date</p></td>
+    <td class="tmain"><p>The expiration date and time of the order. It is applicable only for the orders with the <code>DAY</code> or <code>GTD</code>
+time-in-force option.<br>
+The time zone is defined by the system properties <code>SERVER_TIME_UTC</code> and <code>BASE_TIME_ZONE</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>ValueDate</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The simulated delivery date. The date when the position could be automatically closed.
+The position is closed only if the order is executed and opens a position. This field is provided in the <code>yyyyMMdd</code> format.
+It is applicable for orders placed from accounts with the day netting trading mode
+(see <code>MaintenanceType</code> field in the <a href="TTAccounts.html">Accounts</a> table). Otherwise, the value of this field is blank.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Parties</p></td>
+    <td class="tmain"><p>String</p></td>
+    <td class="tmain"><p>The unique identifier of the environment that is used to place the order. The identifier is generated
+by ForexConnect.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Limit</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The price of the associated limit order (the profit limit level). In the case of FX instruments, it is expressed in the instrument counter currency
+per one unit of base currency. In the case of CFD instruments, it is expressed in the instrument native currency per one contract.</p>
+<p>It is applicable only for opening orders (Entry or Market).<br>
+If there is no associated limit order, the value of this field is <code>0.0</code>.<br>
+If the associated limit order is a pegged order, the value of this field is <code>0.0</code>.<br></p>
+<p><b>Note:</b> It is a calculated field and is available only through the Table Manager.
+It is not applicable for the U.S. accounts. In the case of the accounts subject to the FIFO rule, the
+value of this field is <code>0.0</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Stop</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The price of the associated stop order (the loss limit level). In the case of FX instruments, it is expressed in the instrument counter currency
+per one unit of base currency. In the case of CFD instruments, it is expressed in the instrument native currency per one contract.</p>
+<p>It is applicable only for opening orders (Entry or Market).<br>
+If there is no associated stop order, the value of this field is <code>0.0</code>.<br>
+If the associated stop order is a pegged order, the value of this field is <code>0.0</code>.<br></p>
+<p><b>Note:</b> It is a calculated field and is available only through the Table Manager. It is not
+applicable for the U.S. accounts. In the case of the accounts subject to the FIFO rule, the value of this field is
+<code>0.0</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>StopTrailStep</p></td>
+    <td class="tmain"><p>Integer</p></td>
+    <td class="tmain"><p>The trailing step of the associated trailing stop order or secondary entry stop order of an ELS order. It is expressed in pips.
+For details, see <code>TrailStep</code>. It is applicable only for opening orders (Entry or Market).
+If there is no associated trailing stop order, the value of this field is <code>0</code>. <br></p>
+<p><b>Note:</b> It is a calculated field and is available only through the Table Manager.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>StopTrailRate</p></td>
+    <td class="tmain"><p>Double</p></td>
+    <td class="tmain"><p>The trailing rate of the associated trailing stop order or secondary entry stop order of an ELS order.
+In the case of FX instruments, it is expressed in the instrument counter currency per one unit of base currency.
+In the case of CFD instruments, it is expressed in the instrument native currency per one contract.
+For details, see <code>TrailRate</code>. It is applicable only for opening orders (Entry or Market).
+If there is no associated trailing stop order, the value of this field is <code>0.0</code>. <br></p>
+<p><b>Note:</b> It is a calculated field and is available only through the Table Manager.</p></td>
+  </tr>
+</table><p>
+      <center><a href="TradingTables.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

@@ -1,0 +1,177 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GTableManager</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>O2GTableManager</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The class creates and maintains trading tables in the ForexConnect memory.</p>
+    <p><b>Details</b></p><p>The <code>O2GTableManager</code> allows creating and maintaining in-memory representations of the <a href="TradingTables.html">trading tables</a>.
+The tables updates are handled by the ForexConnect API automatically.</p>
+<p>An instance of the table manager can be obtained only after an <a href="IO2GSession.html"><code>O2GSession</code></a> object gets the <a href="IO2GSessionStatus.O2GSessionStatus.O2GSessionStatus.Connected.html"><code>CONNECTED</code></a> status.<br></p>
+<p>You can track the <a href="TradingTables.html">trading tables</a> data for all your accounts or for each account individually.<br>
+To get an instance of the class that tracks the data for all accounts, use the <a href="IO2GSession.IO2GSession.getTableManager.html"><code>O2GSession.table_manager</code></a> property.<br><br>
+To get an instance of the class that tracks the data for a specific account, call the <a href="IO2GSession.IO2GSession.getTableManagerByAccount.html"><code>O2GSession.get_table_manager_by_account</code></a> method.<br></p>
+<p><b>Note:</b> If the connection between the ForexConnect API and the trading server is lost, you may need to re-create an instance of the <code>O2GTableManager</code> class.<br>
+In case restoration of a connection fails, the session status changes to <a href="IO2GSessionStatus.O2GSessionStatus.O2GSessionStatus.Disconnected.html"><code>DISCONNECTED</code></a>, you must log in and create a new instance of the <code>O2GTableManager</code> class.<br>
+In case the ForexConnect API restores the connection successfully, you can use the existing instance of the <code>O2GTableManager</code> class.<br>
+For a detailed explanation of the session statuses, refer to the <a href="SessionStatusPy.html">Session Statuses</a> section.</p>
+<p>The module is <code>forexconnect.fxcorepy</code></p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Properties</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTableManager.IO2GTableManager.getStatus.html">status</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a table manager status.</p>
+    </td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTableManager.IO2GTableManager.getTable.html">get_table</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets an instance of a trading table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTableManager.IO2GTableManager.lockUpdates.html">lock_updates</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Locks tables updates.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GTableManager.IO2GTableManager.unlockUpdates.html">unlock_updates</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Unlocks tables updates.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="module_fxcorepy.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

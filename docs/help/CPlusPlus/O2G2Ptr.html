@@ -1,0 +1,258 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2G2Ptr(T)</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>O2G2Ptr(T)</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>Auto-release template class</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>T</code></td>
+    <td class="tmain" width="69%"><p>The class name.</p>
+<p>The class must be derived from <a href="IAddRef.html"><code>IAddRef</code></a> interface.</p></td>
+  </tr>
+</table><p><b>Details</b></p><p>The class is designed to release an instance of the specified class automatically, when the scope (for example function) is finished or
+when containing class is destroyed.</p>
+<p>You may use this class instead of pointer to class T to be sure that an instance referenced will be released properly.</p><div id="open243" style="display:none">
+  <p>Using IAddRef-derived class without O2G2Ptr template&nbsp;<a href="javascript: showdiv('close243'); hidediv('open243');" onclick="javascript: showdiv('close243'); hidediv('open243');">[show]</a></p>
+</div>
+<div id="close243" style="display:inline">
+  <p>Using IAddRef-derived class without O2G2Ptr template&nbsp;<a href="javascript: showdiv('open243'); hidediv('close243');" onclick="javascript: showdiv('open243'); hidediv('close243');">[hide]</a></p>
+  <pre class="example">{
+    IO2GResponseReaderFactory *factory = mSession-&gt;getResponseReaderFactory();
+    if (factory)
+    {
+        IO2GOrderResponseReader *reader = factory-&gt;createOrderResponseReader(response);
+        if (reader == 0)
+        {
+            <b>factory-&gt;release();</b>
+            return;
+        }
+ 
+        // use reader
+        ...
+        <b>reader-&gt;release();</b>
+    }
+ 
+    <b>factory-&gt;release();</b>
+}</pre>
+</div><div id="open244" style="display:none">
+  <p>Using IAddRef-derived class with O2G2Ptr template&nbsp;<a href="javascript: showdiv('close244'); hidediv('open244');" onclick="javascript: showdiv('close244'); hidediv('open244');">[show]</a></p>
+</div>
+<div id="close244" style="display:inline">
+  <p>Using IAddRef-derived class with O2G2Ptr template&nbsp;<a href="javascript: showdiv('open244'); hidediv('close244');" onclick="javascript: showdiv('open244'); hidediv('close244');">[hide]</a></p>
+  <pre class="example">{
+    <b>O2G2Ptr</b>&lt;IO2GResponseReaderFactory&gt; factory = mSession-&gt;getResponseReaderFactory();
+    if (factory)
+    {
+        <b>O2G2Ptr</b>&lt;IO2GOrderResponseReader&gt; reader = factory-&gt;createOrderResponseReader(response);
+        if (reader == 0)
+            return;
+ 
+        // use reader
+        ...
+    }
+}</pre>
+</div><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Constructors</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2G2Ptr.O2G2Ptr.0.html">O2G2Ptr</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Parameterized constructor</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2G2Ptr.O2GPtr.1.html">O2G2Ptr</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Copying constructor</p>
+    </td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2G2Ptr.O2GPtr.2.html">~O2G2Ptr</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Destructor</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2G2Ptr.Detach.html">Detach</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Detaches the contained object.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2G2Ptr.operator not().html">operator !()</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Returns true if the pointer contained is null.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2G2Ptr.operator ==().html">operator ==()</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Returns true if the pointer contained is equal to the pointer specified.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2G2Ptr.operator pointer().html">operator ->()</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Member operator.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2G2Ptr.operator bool().html">operator bool()</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Returns true if the pointer contained is not null.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="O2G2Ptr.operator Tptr().html">operator T*()</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the pointer to contained object.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="forexconnect.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

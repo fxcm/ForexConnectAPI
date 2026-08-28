@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Update Margin Requirements</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Update Margin Requirements</b></font>
+    </p><p>This command is useful in case the instrument was not subscribed at the time of login but was subscribed later.<br>
+It is used to get margin requirements for an instrument after subscribing to it.<br>
+To get updated margin requirements for instruments, please fill the following value in the value map:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Parameter name</p></td>
+    <td class="thdr"><p>Datatype</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Command</p></td>
+    <td class="tmain"><p>const char *</p></td>
+    <td class="tmain"><p>The command. Must be <code>UpdateMarginRequirements</code>.</p></td>
+  </tr>
+</table><p>Create a request and send it to the server. Important: to get updated margin requirements you have to process response in <a href="IO2GResponseReaderFactory.processMarginRequirementsResponse.html"><code>processMarginRequirementsResponse</code></a>.</p><div id="open91" style="display:none">
+  <p>Example: Update margin requirements&nbsp;<a href="javascript: showdiv('close91'); hidediv('open91');" onclick="javascript: showdiv('close91'); hidediv('open91');">[show]</a></p>
+</div>
+<div id="close91" style="display:inline">
+  <p>Example: Update margin requirements&nbsp;<a href="javascript: showdiv('open91'); hidediv('close91');" onclick="javascript: showdiv('open91'); hidediv('close91');">[hide]</a></p>
+  <pre class="example">void updateMargin(const char* instrument, IO2GSession *session, ResponseListener *responseListener)
+{
+    O2G2Ptr&lt;IO2GLoginRules&gt; loginRules = session-&gt;getLoginRules();
+    O2G2Ptr&lt;IO2GTradingSettingsProvider&gt; tradingSetting  = loginRules-&gt;getTradingSettingsProvider();
+    // Gets account
+    O2G2Ptr&lt;IO2GResponse&gt; accountsResponse = loginRules-&gt;getTableRefreshResponse(::Accounts);
+    O2G2Ptr&lt;IO2GResponseReaderFactory&gt; responseFactory = session-&gt;getResponseReaderFactory();
+    O2G2Ptr&lt;IO2GAccountsTableResponseReader&gt; accounts = responseFactory-&gt;createAccountsTableReader(accountsResponse);
+    O2G2Ptr&lt;IO2GAccountRow&gt; account = accounts-&gt;getRow(0);
+    double mmr,emr,lmr;
+    tradingSetting-&gt;getMargins(instrument, account, mmr, emr, lmr);
+    printf(&quot;Margin requirements: after subscription %f %f %f\n&quot;, mmr, emr, lmr);
+ 
+    // Create update request
+    O2G2Ptr&lt;IO2GRequestFactory&gt; requestFactory = session-&gt;getRequestFactory();
+    if (requestFactory)
+    {
+           O2G2Ptr&lt;IO2GValueMap&gt; valueMap = requestFactory-&gt;createValueMap();
+           valueMap-&gt;setString(::Command, O2G2::Commands::UpdateMarginRequirements);
+ 
+           O2G2Ptr&lt;IO2GRequest&gt; updateMarginRequest = requestFactory-&gt;createOrderRequest(valueMap);
+           if (updateMarginRequest == NULL)
+               std::cout &lt;&lt; &quot;Order's request can not be created: &quot; &lt;&lt; requestFactory-&gt;getLastError() &lt;&lt; std::endl;
+           else
+           {
+               responseListener-&gt;setRequest(updateMarginRequest-&gt;getRequestID());
+               session-&gt;sendRequest(updateMarginRequest);
+               // Wait for response
+               HANDLE phEvents[2];
+               phEvents[0] = responseListener-&gt;getReponseEvent();
+               phEvents[1] = responseListener-&gt;getFailureEvent();
+               int index = uni::WaitForMultipleObjects(2, phEvents, FALSE, 10000); // wait 10 seconds for response
+               // Successfully
+               if (index == 0)
+               {
+                   O2G2Ptr&lt;IO2GResponse&gt; marginRequirementsResponse = responseListener-&gt;getLastRespnonse();
+                   responseFactory-&gt;proccessMarginRequirementsResponse(marginRequirementsResponse);
+                   tradingSetting-&gt;getMargins(instrument, account, mmr, emr, lmr);
+                   printf(&quot;Margin requirements: after margin requirements has been updated %f %f %f\n&quot;, mmr, emr, lmr);
+               }
+               else
+               {
+                   printf(&quot;The update margin requirements request failed\n&quot;);
+               }
+           }
+    }
+}</pre>
+</div><p>
+      <center><a href="TradingCommands.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

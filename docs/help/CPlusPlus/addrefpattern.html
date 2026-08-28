@@ -1,0 +1,54 @@
+<html>
+ <head>
+ <title>IAddRef implementation pattern</title>
+ </head>
+<body>
+<div style="font-family: Courier New; font-size: 10pt; color: black; background: white;">
+<p style="margin: 0px;"><span style="color: blue;">#include</span> <span style="color: #a31515;">&lt;windows.h&gt;</span></p>
+<p style="margin: 0px;">&nbsp;</p>
+<p style="margin: 0px;"><span style="color: blue;">class</span> MyRefCountClass : <span style="color: blue;">public</span> IAddRef</p>
+<p style="margin: 0px;">{</p>
+<p style="margin: 0px;">&nbsp;<span style="color: blue;">private</span>:</p>
+<p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: green;">/** Reference counter. */</span></p>
+<p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: blue;">long</span> mRefCount;</p>
+<p style="margin: 0px;">&nbsp;<span style="color: blue;">protected</span>:</p>
+<p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: green;">/** Destructor. */</span></p>
+<p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: blue;">virtual</span> ~MyRefCountClass();</p>
+<p style="margin: 0px;">&nbsp;<span style="color: blue;">public</span>:</p>
+<p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: green;">/** Constructor. */</span></p>
+<p style="margin: 0px;">&nbsp;&nbsp;&nbsp; MyRefCountClass();</p>
+<p style="margin: 0px;">&nbsp;</p>
+<p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: green;">/** Increase reference counter. */</span></p>
+<p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: blue;">virtual</span> <span style="color: blue;">long</span> addRef();</p>
+<p style="margin: 0px;">&nbsp;</p>
+<p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: green;">/** Decrease reference counter. */</span></p>
+<p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: blue;">virtual</span> <span style="color: blue;">long</span> release();</p>
+<p style="margin: 0px;">};</p>
+<p style="margin: 0px;">&nbsp;</p>
+<p style="margin: 0px;">MyRefCountClass::MyRefCountClass()</p>
+<p style="margin: 0px;">{</p>
+<p style="margin: 0px;">&nbsp;&nbsp;&nbsp; mRefCount = 1;</p>
+<p style="margin: 0px;">}</p>
+<p style="margin: 0px;">&nbsp;</p>
+<p style="margin: 0px;">MyRefCountClass::~MyRefCountClass()</p>
+<p style="margin: 0px;">{</p>
+<p style="margin: 0px;">}</p>
+<p style="margin: 0px;">&nbsp;</p>
+<p style="margin: 0px;"><span style="color: green;">/** Increase reference counter. */</span></p>
+<p style="margin: 0px;"><span style="color: blue;">long</span> MyRefCountClass::addRef()</p>
+<p style="margin: 0px;">{</p>
+<p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: blue;">return</span> InterlockedIncrement(&amp;mRefCount);</p>
+<p style="margin: 0px;">}</p>
+<p style="margin: 0px;">&nbsp;</p>
+<p style="margin: 0px;"><span style="color: green;">/** Decrease reference counter. */</span></p>
+<p style="margin: 0px;"><span style="color: blue;">long</span> MyRefCountClass::release()</p>
+<p style="margin: 0px;">{</p>
+<p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: blue;">long</span> rc = InterlockedDecrement(&amp;mRefCount);</p>
+<p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> (rc == 0)</p>
+<p style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">delete</span> <span style="color: blue;">this</span>;</p>
+<p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: blue;">return</span> rc;</p>
+<p style="margin: 0px;">}</p>
+</div>
+</body>
+</html>
+

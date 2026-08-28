@@ -1,0 +1,258 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GResponseListener</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>interface <b>IO2GResponseListener</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The interface provides method signatures to process notifications about request completions, request failures and tables updates.</p>
+    <p><b>Details</b></p><p>The interface must be implemented by an application in order to process the trading server responses.
+Responses come from the trading server in two ways:</p><ul class="main">
+  <li><p>A response provided by the server as an answer to a user request.<br>
+Requests may be successfully completed or failed:<br>
+- to process notifications about requests successful completion, you must use the <a href="com.fxcore2.IO2GResponseListener.onRequestCompleted.html">onRequestCompleted</a> method;<br>
+- to process notifications about requests failures, you must use the <a href="com.fxcore2.IO2GResponseListener.onRequestFailed.html">onRequestFailed</a> method.</p></li>
+  <li><p>A response provided by the server as a result of <a href="TradingTables.html">trading tables</a> updates.<br>
+To process these notifications, you must use the
+<a href="com.fxcore2.IO2GResponseListener.onTablesUpdates.html">onTablesUpdates</a> method.</p></li>
+</ul><p>For complete details of processing the response contents, refer to the <a href="com.fxcore2.O2GResponse.html">O2GResponse</a> class documentation.</p>
+<p>If you want to use the methods of the <code>IO2GResponseListener</code> interface, you must create a class that implements the interface. For
+example,<br>
+<code>public class ResponseListener implements IO2GResponseListener { }</code><br></p>
+<p>An instance of the class implementing the <code>IO2GResponseListener</code> interface must be subscribed to a session object. It is
+accomplished by calling the
+<a href="com.fxcore2.O2GSession.html"><code>O2GSession</code></a>.<a href="com.fxcore2.O2GSession.subscribeResponse.html"><code>subscribeResponse</code></a> method.
+For example,<br>
+<code>mSession = O2GTransport.createSession();</code><br>
+<code>ResponseListener responseListener = new ResponseListener(mSession);</code><br>
+<code>mSession.subscribeResponse(responseListener);</code><br></p>
+<p>The subscribed instance  must be unsubscribed from a session object after calling
+the <a href="com.fxcore2.O2GSession.html">O2GSession</a>.<a href="com.fxcore2.O2GSession.logout.html">logout</a> method, but before calling the
+<a href="com.fxcore2.O2GSession.html">O2GSession</a>.<a href="com.fxcore2.O2GSession.dispose.html">dispose</a> method. It is accomplished by calling the
+<a href="com.fxcore2.O2GSession.html"><code>O2GSession</code></a>.<a href="com.fxcore2.O2GSession.unsubscribeResponse.html"><code>unsubscribeResponse</code></a> method.<br>
+For example,<br></p>
+<p><code>mSession.logout();<br>
+mSession.unsubscribeResponse(responseListener);<br>
+mSession.dispose();</code><br></p>
+<p>For the interface implementation details, see the example below.</p>
+<p><b>Example</b></p><div id="open105" style="display:inline">
+  <p>Process notifications about the request to get offers and live offers updates&nbsp;<a href="javascript: showdiv('close105'); hidediv('open105');" onclick="javascript: showdiv('close105'); hidediv('open105');">[show]</a></p>
+</div>
+<div id="close105" style="display:none">
+  <p>Process notifications about the request to get offers and live offers updates&nbsp;<a href="javascript: showdiv('open105'); hidediv('close105');" onclick="javascript: showdiv('open105'); hidediv('close105');">[hide]</a></p>
+  <pre class="example">package getoffers;
+
+import com.fxcore2.IO2GResponseListener;
+import com.fxcore2.O2GResponse;
+import com.fxcore2.O2GResponseReaderFactory;
+import com.fxcore2.O2GResponseType;
+import com.fxcore2.O2GOffersTableResponseReader;
+import com.fxcore2.O2GSession;
+import com.fxcore2.O2GOfferRow;
+import com.fxcore2.O2GTableType;
+import com.fxcore2.O2GTablesUpdatesReader;
+
+public class ResponseListener implements IO2GResponseListener {
+ 
+    <b>// Session and request variables</b>
+    private O2GSession mSession = null;
+    private String mRequestID = &quot;&quot;;
+
+    <b>// Constructor</b>
+    public ResponseListener(O2GSession session) {
+        mSession = session;
+    }
+ 
+    <b>//Set request</b>
+    public void setRequest(String requestID) {
+        mRequestID = requestID;
+    }
+ 
+    <b>// Implementation of IO2GResponseListener interface public method onRequestCompleted</b>
+    public void onRequestCompleted(String requestID, O2GResponse response) {
+        if (requestID.equals(mRequestID)) {
+            O2GResponseReaderFactory readerFactory = mSession.getResponseReaderFactory();
+            if (readerFactory != null) {
+                O2GOffersTableResponseReader reader = readerFactory.createOffersTableReader(response);
+                for (int i = 0; i &lt; reader.size(); i++) {
+                    O2GOfferRow offer = reader.getRow(i);
+                    System.out.println(&quot; This is a response to your request: \nInstrument = &quot; +
+                         offer.getInstrument() +
+                        &quot; Bid = &quot; +  offer.getBid() +
+                        &quot; Ask = &quot; + offer.getAsk());
+                }
+            }
+        }
+    }
+
+    <b>// Implementation of IO2GResponseListener interface public method onRequestFailed</b>
+    public void onRequestFailed(String requestID, String error) {
+        System.out.println(&quot;Request failed. requestID= &quot; + requestID + &quot;; error= &quot; + error);
+    }
+
+    <b>// Implementation of IO2GResponseListener interface public method onTablesUpdates</b>
+    public void onTablesUpdates(O2GResponse response) {
+        O2GResponseReaderFactory factory = mSession.getResponseReaderFactory();
+        if (factory == null) {
+            return;
+        }
+        O2GTablesUpdatesReader updatesReader = factory.createTablesUpdatesReader(response);
+        for (int i = 0; i &lt; updatesReader.size(); i++) {
+            O2GTableType tableType = updatesReader.getUpdateTable(i);
+            if (tableType == O2GTableType.OFFERS) {
+                O2GOfferRow offer = updatesReader.getOfferRow(i);
+                System.out.println(&quot; This is a live update: \nInstrument = &quot; + offer.getInstrument() +
+                                   &quot; Bid = &quot; +  offer.getBid() +
+                                   &quot; Ask = &quot; + offer.getAsk());
+            }
+        }
+    }
+ 
+}
+</pre>
+</div><p>The namespace is <a href="com.fxcore2.html"><code>com.fxcore2</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.IO2GResponseListener.onRequestCompleted.html">onRequestCompleted</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Processes a notification about a request successful completion.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.IO2GResponseListener.onRequestFailed.html">onRequestFailed</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Processes a notification about a request failure.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.IO2GResponseListener.onTablesUpdates.html">onTablesUpdates</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Processes notifications about tables updates.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="com.fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

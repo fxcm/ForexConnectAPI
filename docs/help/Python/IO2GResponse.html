@@ -1,0 +1,224 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GResponse</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>O2GResponse</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The class contains a response received from the trading server.</p>
+    <p><b>Details</b></p><p>There are two types of responses:</p><ul class="main">
+  <li><p>Responses provided by the server as an answer to a user request</p></li>
+  <li><p>Responses provided by the server as a result of <a href="TradingTables.html">trading tables</a> updates</p></li>
+</ul><p>The way a response object is processed depends on the response type.</p>
+<p><b>Processing user request responses</b></p>
+<p>Notifications about a request answer are received by an instance of the <a href="forexconnect.ResponseListener.html"><code>ResponseListener</code></a> class
+(implementing the <a href="IO2GResponseListener.html"><code>AO2GResponseListener</code></a> abstract class) specified in the request.</p>
+<p>Requests may be successfully completed or may fail.<br></p>
+<p>When <a href="forexconnect.ResponseListener.html"><code>ResponseListener</code></a> receives a notification about a completed or failed request,
+it calls the appropriate method: <a href="forexconnect.ResponseListener.ResponseListener.onRequestCompleted.html"><code>ResponseListener.on_request_completed</code></a>
+or <a href="forexconnect.ResponseListener.ResponseListener.onRequestFailed.html"><code>ResponseListener.on_request_failed</code></a>.</p>
+<p>The type of a response depends on the request type. To find out the type of your response,
+use the <a href="IO2GResponse.IO2GResponse.getType.html"><code>O2GResponse.type</code></a> property.<br></p>
+<p>To process the contents of a response object, you must use a reader created by using the method
+<a href="IO2GResponseReaderFactory.IO2GResponseReaderFactory.createReader.html"><code>O2GResponseReaderFactory.create_reader</code></a>. <br>
+For the list of the response types and their appropriate readers (or a value for the <a href="O2GResponseType.O2GResponseType.MarginRequirementsResponse.html">MARGIN_REQUIREMENTS_RESPONSE</a> response type)
+returned by the method, see the following table.</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p><code>O2GResponseType</code></p></td>
+    <td class="thdr"><p>Appropriate reader/Value</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="O2GResponseType.O2GResponseType.GetAccounts.html">GET_ACCOUNTS</a></p></td>
+    <td class="tmain"><p><a href="IO2GGenericTableResponseReader.html"><code>O2GGenericTableResponseReader</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="O2GResponseType.O2GResponseType.GetOffers.html">GET_OFFERS</a></p></td>
+    <td class="tmain"><p><a href="IO2GGenericTableResponseReader.html"><code>O2GGenericTableResponseReader</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="O2GResponseType.O2GResponseType.GetTrades.html">GET_TRADES</a></p></td>
+    <td class="tmain"><p><a href="IO2GGenericTableResponseReader.html"><code>O2GGenericTableResponseReader</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="O2GResponseType.O2GResponseType.GetClosedTrades.html">GET_CLOSED_TRADES</a></p></td>
+    <td class="tmain"><p><a href="IO2GGenericTableResponseReader.html"><code>O2GGenericTableResponseReader</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="O2GResponseType.O2GResponseType.GetMessages.html">GET_MESSAGES</a></p></td>
+    <td class="tmain"><p><a href="IO2GGenericTableResponseReader.html"><code>O2GGenericTableResponseReader</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="O2GResponseType.O2GResponseType.GetOrders.html">GET_ORDERS</a></p></td>
+    <td class="tmain"><p><a href="IO2GGenericTableResponseReader.html"><code>O2GGenericTableResponseReader</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="O2GResponseType.O2GResponseType.GetSystemProperties.html">GET_SYSTEM_PROPERTIES</a></p></td>
+    <td class="tmain"><p><a href="IO2GSystemPropertiesReader.html"><code>O2GSystemPropertiesReader</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="O2GResponseType.O2GResponseType.CreateOrderResponse.html">CREATE_ORDER_RESPONSE</a></p></td>
+    <td class="tmain"><p><a href="IO2GOrderResponseReader.html"><code>O2GOrderResponseReader</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="O2GResponseType.O2GResponseType.GetLastOrderUpdate.html">GET_LAST_ORDER_UPDATE</a></p></td>
+    <td class="tmain"><p><a href="IO2GLastOrderUpdateResponseReader.html"><code>O2GLastOrderUpdateResponseReader</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="O2GResponseType.O2GResponseType.MarginRequirementsResponse.html">MARGIN_REQUIREMENTS_RESPONSE</a></p></td>
+    <td class="tmain"><p>A <code>bool</code> value specifying whether the margin requirements are loaded or not.</p></td>
+  </tr>
+</table><p><b>Processing table updates responses</b></p>
+<p>In order to receive notifications about updates of a certain table, you must request the information about the table first.
+After successful completion of the initial request, responses of the <a href="O2GResponseType.O2GResponseType.TablesUpdates.html">TABLES_UPDATES</a> type
+are sent automatically each time the table data are changed on the server.<br></p>
+<p>For example, if you want to receive open positions updates, you must first send a request to get the initial
+open position information.<br></p>
+<p><code>request = request_factory.create_refresh_table_request(O2GTableType.TRADES)</code><br></p>
+<p>After successful completion of this request, you receive all updates of the <a href="TTTrades.html"><code>Trades</code></a> table automatically.</p>
+<p>Notifications about table updates are received by an instance of the <a href="forexconnect.ResponseListener.html"><code>ResponseListener</code></a>
+class (implementing the <a href="IO2GResponseListener.html"><code>AO2GResponseListener</code></a> abstract class) specified in the request.</p>
+<p>When <a href="forexconnect.ResponseListener.html"><code>ResponseListener</code></a> receives a notification about a table update, it calls the method
+<a href="forexconnect.ResponseListener.ResponseListener.onTablesUpdates.html"><code>ResponseListener.on_tables_updates</code></a>.</p>
+<p>To process the contents of a response object, you must use a reader created by using the method
+<a href="IO2GResponseReaderFactory.IO2GResponseReaderFactory.createReader.html"><code>O2GResponseReaderFactory.create_reader</code></a>.</p>
+<p><b>Note:</b> If your application uses <a href="IO2GTableManager.html"><code>O2GTableManager</code></a>,
+processing of table updates is done in methods of the <a href="forexconnect.TableListener.html"><code>TableListener</code></a> class (implemening the
+<a href="IO2GTableListener.html"><code>AO2GTableListener</code></a> abstract class).</p>
+<p>The module is <code>forexconnect.fxcorepy</code></p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Properties</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GResponse.IO2GResponse.getRequestID.html">request_id</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the identifier of the corresponding request.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GResponse.IO2GResponse.getType.html">type</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the response type.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="module_fxcorepy.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

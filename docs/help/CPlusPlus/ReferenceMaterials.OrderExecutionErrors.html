@@ -1,0 +1,389 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Order Execution Errors</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Order Execution Errors</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The section contains the list of the error codes which may be generated during an order processing.</p>
+    <p><b>Details</b></p><table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><p>Error Code</p></td>
+    <td class="thdr"><p>General Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20001</p></td>
+    <td class="tmain"><p>Internal system error.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20008</p></td>
+    <td class="tmain"><p>The order cannot be created because:</p><ul class="main">
+  <li><p>The order parameters are not specified.</p></li>
+  <li><p>The instrument of the order is either missing or does not exist.</p></li>
+  <li><p>The instrument of the closing order is different from the instrument of the trade.</p></li>
+  <li><p>The specified order type is not supported by the trading system.</p></li>
+  <li><p>The trading system cannot recognize the order type by the order parameters.</p></li>
+  <li><p>The amount is incorrect.
+The amount has to be positive. The only exception is &quot;if-then&quot; order where the amount equals 0.</p></li>
+  <li><p>The order is a range order, and the price range of the order is either missing or incorrect.</p></li>
+</ul><p><br>
+The order cannot be changed because:</p><ul class="main">
+  <li><p>The order of the specified type is not changeable (only entry orders, stop, limit, and secondary ELS orders can be changed).</p></li>
+  <li><p>The amount is incorrect.
+The amount has to be positive. The only exception is &quot;if-then&quot; order where the amount equals 0.</p></li>
+  <li><p>The amount of net amount order is determined by the system and cannot be changed.</p></li>
+  <li><p>The stop or limit order closes position in full amount; therefore, the amount of such order cannot be changed.</p></li>
+</ul></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20102</p></td>
+    <td class="tmain"><ul class="main">
+  <li><p>The trailing order cannot be created because the use of this order type is not allowed.</p></li>
+  <li><p>The order cannot be created because the use of this order type is not allowed for the trader.</p></li>
+</ul></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20105</p></td>
+    <td class="tmain"><p>Makes sense for entry orders.<br>
+The order cannot be created or changed, because its price is closer to the current market price than the minimum allowed distance.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20112</p></td>
+    <td class="tmain"><p>Makes sense for market orders.<br></p><ul class="main">
+  <li><p>The order cannot be created because it is placed for the instrument which does not have tradable price.<br></p></li>
+  <li><p>The open or close range order cannot be created because the current market price is beyond the order range.</p></li>
+</ul></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20113</p></td>
+    <td class="tmain"><p>Makes sense for market orders.<br>
+The order cannot be created because it is placed from the account which does not have sufficient margin to open a position.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20114</p></td>
+    <td class="tmain"><ul class="main">
+  <li><p>The closing market order cannot be created because it is placed to close the position which is already closing.</p></li>
+  <li><p>The net amount order cannot be created because the net amount order with the same trade operation already exists for the instrument.</p></li>
+  <li><p>The stop or limit order cannot be created because the order with the same type already exists.</p></li>
+  <li><p>The ELS contingent order cannot be created because the secondary orders have the same type.</p></li>
+</ul></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20115</p></td>
+    <td class="tmain"><p>The market order cannot be created because:</p><ul class="main">
+  <li><p>The price of the attached stop and/or limit order is closer to the current market price than the minimum allowed distance.</p></li>
+  <li><p>The attached stop and/or limit order is a trailing order, and it has an incorrect value of the <code>Trail Update Pips</code> parameter.</p></li>
+</ul><p><br>
+The entry order cannot be created or changed because:</p><ul class="main">
+  <li><p>The price of the attached stop and/or limit order is closer to the entry order price than the minimum allowed distance.</p></li>
+  <li><p>The attached stop and/or limit order is a trailing order, and it has an incorrect value of the <code>Trail Update Pips</code> parameter.</p></li>
+</ul><p><br>
+The stop or limit order cannot be created or changed because:</p><ul class="main">
+  <li><p>The price of the order is closer to the current market price or entry order price than the minimum allowed distance.</p></li>
+  <li><p>The order is a trailing order, and it has an incorrect value of the <code>Trail Update Pips</code> parameter.</p></li>
+</ul><p><br>
+The ELS contingent order cannot be created or changed because:</p><ul class="main">
+  <li><p>The price of the secondary order is closer to the primary order price than the minimum allowed distance.</p></li>
+  <li><p>The secondary order is a trailing order, and it has an incorrect value of the <code>Trail Update Pips</code> parameter.</p></li>
+</ul></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20120</p></td>
+    <td class="tmain"><p>Makes sense for orders with DAY or GTD time-in-force option<br>
+The conditional order cannot be changed because the order is expired.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20121</p></td>
+    <td class="tmain"><p>The conditional order cannot be changed because the order is activated.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20123</p></td>
+    <td class="tmain"><p>The order cannot be created because it is placed from a closed account.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20126</p></td>
+    <td class="tmain"><p>The order cannot be created because it is placed during close market hours.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20131</p></td>
+    <td class="tmain"><p>The order cannot be created because it is placed either from a locked account or an account which is under rollover.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20132</p></td>
+    <td class="tmain"><p>Makes sense for market orders.<br>
+The order to open position cannot be created because it is placed from an account which is under the margin call limitation.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20134</p></td>
+    <td class="tmain"><ul class="main">
+  <li><p>The order cannot be created or changed because the amount is greater than the allowed order amount for the trader.</p></li>
+  <li><p>The stop or limit order cannot be created or changed because the amount of the order is
+different than the amount of the entry order or the position to be closed.</p></li>
+  <li><p>The ELS contingent order cannot be created the amount of the secondary order is
+different than the amount of the primary order.</p></li>
+</ul></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20136</p></td>
+    <td class="tmain"><p>The order cannot be changed or canceled because it is under the execution.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20143</p></td>
+    <td class="tmain"><ul class="main">
+  <li><p>The market or entry order cannot be created because its price is beyond the allowed distance from the current market price.</p></li>
+  <li><p>The entry order cannot be created. The market satisfies the order criteria and is ready for immediate execution,
+but the current market price goes beyond the maximum allowed distance. Makes sense if the immediate entry order execution is enabled.</p></li>
+</ul></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20148</p></td>
+    <td class="tmain"><p>Makes sense if the equity service is enabled.<br>
+The order cannot be created because it is placed from the account which is under the equity alert limitation.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20149</p></td>
+    <td class="tmain"><p>Makes sense if the equity service is enabled.<br>
+The order cannot be created because it is placed from the account which is under the equity stop limitation.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20168</p></td>
+    <td class="tmain"><ul class="main">
+  <li><p>The closing market order cannot be created because the position does not exist.</p></li>
+  <li><p>The net amount market order with a specified net amount cannot be created. There are no positions to be closed with this order.</p></li>
+  <li><p>The stop or limit order cannot be created because the entry order or the position the stop/limit is being attached to does not exist.</p></li>
+</ul></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20169</p></td>
+    <td class="tmain"><p>The conditional order cannot be changed because it does not exist.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20172</p></td>
+    <td class="tmain"><p>The order cannot be created or changed because its amount is less than the minimum allowed amount.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20173</p></td>
+    <td class="tmain"><p>The order cannot be created or changed because its amount is incorrect. The order amount must be divisible by a whole number of lots (<code>Base Unit Size</code>).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20177</p></td>
+    <td class="tmain"><ul class="main">
+  <li><p>The contingent order cannot be created because the contingent type is either not supported or incorrect.</p></li>
+  <li><p>The order cannot be added to the contingent order because the order with specified type cannot be embedded into the contingent order.</p></li>
+</ul></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20178</p></td>
+    <td class="tmain"><p>The ELS contingent order cannot be created because the order is placed from the account where hedging is allowed.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20179</p></td>
+    <td class="tmain"><p>The stop or limit order cannot be created because the order has an incorrect reference to the position to be closed.
+The position does not exist.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20180</p></td>
+    <td class="tmain"><p>The order cannot be created or changed because time-in-force value is either incorrect or not supported.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20181</p></td>
+    <td class="tmain"><p>The stop or limit order cannot be created or changed because it is placed to close the position which is already closing.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20183</p></td>
+    <td class="tmain"><p>The order cannot be added to the contingent order because the contingent type of the order is different than type of the contingent order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20184</p></td>
+    <td class="tmain"><p>The stop or limit order cannot be created because existing stop or limit order is activated.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20185</p></td>
+    <td class="tmain"><p>The secondary order of the ELS contingent order or stop/limit order cannot close a position because the position is already closed.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20186</p></td>
+    <td class="tmain"><ul class="main">
+  <li><p>The order cannot be changed or canceled because the order with specified id does not exist.</p></li>
+  <li><p>The stop or limit order cannot be created because it has no reference to the position.</p></li>
+</ul></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20187</p></td>
+    <td class="tmain"><p>The stop or limit order cannot be created because the order has the same trade operation as the position.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20188</p></td>
+    <td class="tmain"><p>The order cannot be added to the OCO contingent order because reference to the OCO contingent order is either missing or incorrect.
+The OCO contingent order does not exist.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20189</p></td>
+    <td class="tmain"><p>The order cannot be added to the OTO or OTOCO contingent order because reference to the OTO/OTOCO contingent order is either missing or incorrect.
+The OTO/OTOCO contingent order does not exist.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20190</p></td>
+    <td class="tmain"><p>The order cannot be added to the OTO/OTOCO contingent order because the primary order is under execution.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20191</p></td>
+    <td class="tmain"><p>The stop or limit order cannot be added to the entry order because the entry order is under execution.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20192</p></td>
+    <td class="tmain"><p>The stop or limit order cannot be created the order price is missing.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20193</p></td>
+    <td class="tmain"><ul class="main">
+  <li><p>The ELS contingent order cannot be created or changed. The primary order is a trailing order,
+and the secondary order price is not a peg price. In this case the secondary order must be the peg order.</p></li>
+  <li><p>The stop or limit order cannot be added to entry order or changed. The entry order is a trailing order, and the stop or limit order price is not a peg price.
+In this case the stop or limit order must be the peg order.</p></li>
+</ul></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20194</p></td>
+    <td class="tmain"><ul class="main">
+  <li><p>The stop or limit order cannot be created or changed because the price of the order is specified as a peg price.</p></li>
+  <li><p>The entry order cannot be created or changed because the price of the order is specified as a peg price.</p></li>
+</ul></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20195</p></td>
+    <td class="tmain"><p>The entry order cannot be created because it is specified as closing order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20198</p></td>
+    <td class="tmain"><p>The stop or limit order, closing market or net amount order cannot be created because the trade operation of the order is the same as the trade
+operation of the position(s) to be closed.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20199</p></td>
+    <td class="tmain"><p>The order cannot be created because the request is of the order is already used with another order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>20222</p></td>
+    <td class="tmain"><p>Makes sense for FIFO based accounts.<br>
+The order cannot be created.
+The order type is closing order (not a net amount order).
+The use of these order types is not allowed by the NFA rules.</p></td>
+  </tr>
+</table><p>
+      <center><a href="OrdersSys.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

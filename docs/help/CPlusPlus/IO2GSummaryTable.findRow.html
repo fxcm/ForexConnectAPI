@@ -1,0 +1,170 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GSummaryTable.findRow</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>IO2GSummaryTable.findRow</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Finds a row in the <code>IO2GSummaryTable</code> by an OfferID.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">C++</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code>virtual&nbsp;bool&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>findRow</b> (const char * id, IO2GSummaryTableRow *& row)  = 0</code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>id</code></td>
+    <td class="tmain" width="69%"><p>The unique identifier of a traded instrument.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>row</code></td>
+    <td class="tmain" width="69%"><p>[out] The row fetched.</p></td>
+  </tr>
+</table><p><b>Details</b></p><p>If the row is not found, the method returns <code>false</code>.</p>
+<p><b>Example</b></p><div id="open198" style="display:none">
+  <p>Find summary by OfferID&nbsp;<a href="javascript: showdiv('close198'); hidediv('open198');" onclick="javascript: showdiv('close198'); hidediv('open198');">[show]</a></p>
+</div>
+<div id="close198" style="display:inline">
+  <p>Find summary by OfferID&nbsp;<a href="javascript: showdiv('open198'); hidediv('close198');" onclick="javascript: showdiv('open198'); hidediv('close198');">[hide]</a></p>
+  <pre class="example">    O2G2Ptr&lt;IO2GSummaryTable&gt; summaryTable = (IO2GSummaryTable *)tableManager-&gt;getTable(Summary);
+    O2GSummaryTableRow summary = NULL;
+    if (summaryTable-&gt;findRow(mOfferID.c_str(), summary))
+    {
+        std::cout &lt;&lt; &quot;OfferID: &quot; &lt;&lt; summary-&gt;getOfferID() &lt;&lt;
+                     &quot; NetPL = &quot; &lt;&lt; summary-&gt;getNetPL() &lt;&lt;
+                     &quot; Amount = &quot; &lt;&lt; summary-&gt;getAmount() &lt;&lt; std::endl;
+        summary-&gt;release();
+    }</pre>
+</div><p><b>Note:</b> The returned row contains the current values of fields. The values are not automatically updated. To monitor
+changes, use <a href="IO2GTableListener.onChanged.html"><code>IO2GTableListener.onChanged</code></a>.
+The row interface is thread-safe. One can use the returned row in different threads without synchronization.</p><p>Declared in <a href="IO2GSummaryTable.html">IO2GSummaryTable</a></p>
+<p>
+  <center><a href="IO2GSummaryTable.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'IO2GSummaryTable.html');</script></body>
+</html>

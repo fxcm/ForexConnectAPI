@@ -1,0 +1,396 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GSession</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>O2GSession</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>A session object.</p>
+    <p><b>Details</b></p><p>A session is an object which can be connected to the trade server. Only one connection can be established
+from one session object, but multiple connections can be created at the same time.</p>
+<p>Use the <a href="forexconnect.ForexConnect.ForexConnect.login.html"><code>ForexConnect.login</code></a>/<a href="forexconnect.ForexConnect.ForexConnect.loginWithToken.html"><code>ForexConnect.login_with_token</code></a> method
+or the <a href="O2GTransport.O2GTransport.createSession.html"><code>O2GTransport.create_session</code></a>
+method to get a session instance.</p>
+<p>The module is <code>forexconnect.fxcorepy</code></p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Properties</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.getChartSessionMode.html">chart_session_mode</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets or sets the chart session mode.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.getChartSessionStatus.html">chart_session_status</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets or sets the current chart session status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.getCommissionsProvider.html">commissions_provider</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Returns an instance of <a href="IO2GCommissionsProvider.html"><code>O2GCommissionsProvider</code></a>, which is used to get commissions data.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.getLoginRules.html">login_rules</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the rules used for the currently established session.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.getPriceRefreshRate.html">price_refresh_rate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets or sets the price refresh rate.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.setPriceUpdateMode.html">price_update_mode</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets or sets the current price update mode.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.getRequestFactory.html">request_factory</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets an instance of the request factory.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.getRequestsTimeout.html">requests_timeout</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets or sets timeout in milliseconds for all requests.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.getResponseReaderFactory.html">response_reader_factory</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets an instance of the response reader factory.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.getRolloverProvider.html">rollover_provider</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Returns an instance of <a href="IO2GRolloverProvider.html"><code>O2GRolloverProvider</code></a>, which is used to get rollover data.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.getServerTime.html">server_time</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the current server time.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.getSessionStatus.html">session_status</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets current session status.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.getSessionSubID.html">session_sub_id</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the sub ID of the current session.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.getTableManager.html">table_manager</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets an instance of the table manager.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.getTimeConverter.html">time_converter</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets an instance of the date/time converter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.getToken.html">token</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the token.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.getTradingSessionDescriptors.html">trading_session_descriptors</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the list of trading session descriptors.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.getUserKind.html">user_kind</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the user kind.</p>
+    </td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.getReportURL.html">get_report_url</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a Combined Account Statement (CAS) report URL.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.getTableManagerByAccount.html">get_table_manager_by_account</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets an instance of the table manager for specific account.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.login.html">login</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Starts the connection with the specified trade server.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.loginWithToken.html">login_with_token</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Starts the connection with the specified trade server using SSO token</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.logout.html">logout</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Starts to close the existing connection with the trade server.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.sendRequest.html">send_request</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Sends a request to the trade server.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.setTradingSession.html">set_trading_session</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Sets the trading session if a trading session is requested.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.subscribeChartSessionStatus.html">subscribe_chart_session_status</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Subscribes a chart session status listener.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.subscribeResponse.html">subscribe_response</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Subscribes the session response listener.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.subscribeSessionStatus.html">subscribe_session_status</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Subscribes a session status listener.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.unsubscribeChartSessionStatus.html">unsubscribe_chart_session_status</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Unsubscribes a chart session status listener.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.unsubscribeResponse.html">unsubscribe_response</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Unsubscribes a response listener.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.unsubscribeSessionStatus.html">unsubscribe_session_status</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Unsubscribes a session status listener.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSession.IO2GSession.useTableManager.html">use_table_manager</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Defines usage of the table manager.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="module_fxcorepy.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

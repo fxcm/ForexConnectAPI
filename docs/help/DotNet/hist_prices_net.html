@@ -1,0 +1,449 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Getting Historical Prices</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Getting Historical Prices</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article discusses how to get historic prices in .Net.</p>
+    <p><b>Details</b></p><p>To get historic prices in your .Net application, you should:</p><ol class="main">
+  <li><p>Create a session, a session status listener, subscribe the listener to the session status
+(see <a href="login_logout_net.html"><code>this article</code></a>).</p></li>
+  <li><p>Implement the <a href="fxcore2.IO2GResponseListener.html"><code>IO2GResponseListener</code></a> interface
+in a response listener class:<br></p><pre class="example"><code>public class MyResponseListener : IO2GResponseListener{...}</code></pre></li>
+  <li><p>Subscribe an object of this class to the session response:<br></p><pre class="example"><code>
+MyResponseListener responseListener = new MyResponseListener();
+mSession.subscribeResponse(responseListener);
+</code></pre></li>
+  <li><p>Log in (see <a href="login_logout_net.html"><code>this article</code></a>).</p></li>
+  <li><p>Use the listener <a href="fxcore2.IO2GSessionStatus.onSessionStatusChanged.0.html"><code>onSessionStatusChanged</code></a>
+function to capture the <a href="fxcore2.O2GSessionStatusCode.Connected.0.html"><code>Connected</code></a> event:<br></p></li>
+  <li><p>Create <a href="fxcore2.O2GRequestFactory.html"><code>O2GRequestFactory</code></a>:<br></p><pre class="example"><code>O2GRequestFactory factory = mSession.getRequestFactory();</code></pre></li>
+  <li><p>Get <a href="fxcore2.O2GTimeframeCollection.html"><code>O2GTimeframeCollection</code></a>:<br></p><pre class="example"><code>O2GTimeframeCollection timeframes = factory.Timeframes;</code></pre></li>
+  <li><p>Get the <a href="fxcore2.O2GTimeframe.html"><code>O2GTimeframe</code></a> you need:<br></p><pre class="example"><code>O2GTimeframe tfo = timeframes[&quot;m1&quot;];</code></pre></li>
+  <li><p>Create a market data snapshot request (<a href="fxcore2.O2GRequest.html"><code>O2GRequest</code></a>), using the instrument, time frame, and maximum number of bars as arguments:<br></p><pre class="example"><code>O2GRequest request = factory.createMarketDataSnapshotRequestInstrument(&quot;EUR/USD&quot;, tfo, 300);</code></pre></li>
+  <li><p>Fill the market data snapshot request, using the request, date and time &quot;from&quot;, and date and time &quot;to&quot; as arguments:<br></p><pre class="example"><code>factory.fillMarketDataSnapshotRequestTime(request, from, to);</code></pre></li>
+  <li><p>Send the request:<br></p><pre class="example"><code>mSession.sendRequest(request);</code></pre></li>
+  <li><p>Finally capture <a href="fxcore2.O2GResponse.html"><code>O2GResponse</code></a> in the
+<a href="fxcore2.IO2GResponseListener.onRequestCompleted.0.html"><code>onRequestCompleted</code></a>
+function of a response listener class.<br>
+If the type of response is
+<a href="fxcore2.O2GResponseType.MarketDataSnapshot.0.html"><code>MarketDataSnapshot</code></a>,
+process the response to extract necessary information.</p></li>
+  <li><p>Get <a href="fxcore2.O2GResponseReaderFactory.html"><code>O2GResponseReaderFactory</code></a>:<br></p><pre class="example"><code>O2GResponseReaderFactory readerFactory = mSession.getResponseReaderFactory();</code></pre></li>
+  <li><p>Create <a href="fxcore2.O2GMarketDataSnapshotResponseReader.html"><code>O2GMarketDataSnapshotResponseReader</code></a>:<br></p><pre class="example"><code>O2GMarketDataSnapshotResponseReader mReader = readerFactory.createMarketDataSnapshotReader(response);</code></pre></li>
+  <li><p>Process row by row:</p><pre class="example"><code>
+for (int i = 0; i &lt; reader.Count; i++)
+{
+    // information like reader.getDate(i), reader.getBidOpen(i), reader.getBidHigh(i), reader.getBidLow(i), reader.getBidClose(i), reader.getVolume(i) is now available
+}
+</code></pre></li>
+  <li><p>Unsubscribe the session from the response listener.</p><pre class="example"><code>
+mSession.unsubscribeResponse(responseListener);
+</code></pre></li>
+  <li><p>Log out.</p><pre class="example"><code>
+mSession.logout();
+</code></pre></li>
+</ol><div id="open52" style="display:inline">
+  <p>Get history prices example:&nbsp;<a href="javascript: showdiv('close52'); hidediv('open52');" onclick="javascript: showdiv('close52'); hidediv('open52');">[show]</a></p>
+</div>
+<div id="close52" style="display:none">
+  <p>Get history prices example:&nbsp;<a href="javascript: showdiv('open52'); hidediv('close52');" onclick="javascript: showdiv('open52'); hidediv('close52');">[hide]</a></p>
+  <pre class="example"> 
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+using System.Runtime.InteropServices;
+using fxcore2;
+ 
+namespace GetHistPrices
+{
+    class Program
+    {
+        private static string sSessionID = &quot;&quot;;
+        public static string SessionID
+        {
+            get { return sSessionID; }
+        }
+        private static string sPin = &quot;&quot;;
+        public static string Pin
+        {
+            get { return sPin; }
+        }
+ 
+        private static string sTimeframeName;
+        public static string TimeframeName
+        {
+            get { return sTimeframeName; }
+        }
+ 
+        private static string sInstrument;
+        public static string Instrument
+        {
+            get { return sInstrument; }
+        }
+        public const int MAX_BARS = 300;
+ 
+        private static O2GSession session = null;
+        public static O2GSession Session
+        {
+            get { return session; }
+        }
+        private static SessionStatusListener sessionStatusListener;
+        private static ResponseListener responseListener;
+ 
+ 
+        static void Main(string[] args)
+        {
+            try
+            {
+                if (args.Length &lt; 8)
+                {
+                    Console.WriteLine(&quot;Not Enough Parameters!&quot;);
+                    Console.WriteLine(&quot;USAGE: [application].exe [instrument (default \&quot;EUR/USD\&quot;] [time frame (default \&quot;m1\&quot;)] [datetime \&quot;from\&quot; or empty string for \&quot;from now\&quot; (default)] [datetime \&quot;to\&quot; or empty string for \&quot;to now\&quot; (default)] [user ID] [password] [URL] [connection] [session ID (if needed) or empty string] [pin (if needed) or empty string] &quot;);
+                    Console.WriteLine(&quot;\nPress enter to close the program&quot;);
+                    Console.ReadLine();
+                    return;
+                }
+ 
+                sInstrument = &quot;EUR/USD&quot;; // default
+                sInstrument = args[0];
+                sTimeframeName = &quot;m1&quot;;   // default
+                sTimeframeName = args[1];
+ 
+                string sDateTimeFrom = &quot;&quot;;
+                sDateTimeFrom = args[2];
+ 
+                string sDateTimeTo = &quot;&quot;;
+                sDateTimeTo = args[3];
+ 
+                string sUserID = args[4];
+                string sPassword = args[5];
+                string sURL = args[6];
+                string sConnection = args[7];
+                if (args.Length &gt; 8)
+                    sSessionID = args[8];
+                if (args.Length &gt; 9)
+                    sPin = args[9];
+ 
+ 
+                Console.WriteLine(&quot;Getting price history for instrument {0}; timeframe {1}; from {2}; to {3}&quot;, sInstrument, sTimeframeName, sDateTimeFrom, sDateTimeTo);
+ 
+ 
+                session = O2GTransport.createSession();
+                sessionStatusListener = new SessionStatusListener(session);
+                session.subscribeSessionStatus(sessionStatusListener);
+                sessionStatusListener.login(sUserID, sPassword, sURL, sConnection); //wait until login or fail
+ 
+                if (sessionStatusListener.Connected)
+                {
+                    responseListener = new ResponseListener(session);
+                    session.subscribeResponse(responseListener);
+ 
+                    GetHistoryPrices(session, responseListener, sInstrument, sTimeframeName, sDateTimeFrom, sDateTimeTo);
+ 
+                    session.unsubscribeResponse(responseListener);
+                    session.logout();
+                    while (!sessionStatusListener.Disconnected)
+                        Thread.Sleep(50);
+                }
+ 
+                session.unsubscribeSessionStatus(sessionStatusListener);
+ 
+                Console.WriteLine(&quot;Press enter to exit&quot;);
+                Console.ReadLine();
+                session.Dispose();
+ 
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(&quot;Exception: {0}&quot;, e.ToString());
+                Console.WriteLine(&quot;Press enter to exit&quot;);
+                Console.ReadLine();
+            }
+        }
+ 
+        public static void GetHistoryPrices(O2GSession session, ResponseListener listener, string instrument, string timeframeName, string sFrom, string sTo)
+        {
+            O2GRequestFactory factory = session.getRequestFactory();
+            if (factory != null)
+            {
+               O2GTimeframe tf = factory.Timeframes[timeframeName];
+               O2GRequest request = factory.createMarketDataSnapshotRequestInstrument(sInstrument, tf, MAX_BARS);
+ 
+               DateTime dtFrom;
+               DateTime dtTo;
+               dtFrom = string.IsNullOrEmpty(sFrom) ? factory.ZERODATE : DateTime.Parse(sFrom);
+               dtTo = string.IsNullOrEmpty(sTo) ? factory.ZERODATE : DateTime.Parse(sTo);
+               factory.fillMarketDataSnapshotRequestTime(request, dtFrom, dtTo, false);
+ 
+               session.sendRequest(request);
+               responseListener.ResponseHandle.WaitOne(30000); //30 seconds timeout
+            }
+        }
+ 
+        public static void PrintPrices(O2GSession session, O2GResponse response)
+        {
+            Console.WriteLine();
+            O2GResponseReaderFactory factory = session.getResponseReaderFactory();
+            if (factory != null)
+            {
+                O2GMarketDataSnapshotResponseReader reader = factory.createMarketDataSnapshotReader(response);
+                for (int ii = 0; ii &lt; reader.Count; ii++)
+                {
+                    if (reader.isBar)
+                    {
+                        Console.WriteLine(&quot;DateTime={0}, BidOpen={1}, BidHigh={2}, BidLow={3}, BidClose={4}, AskOpen={5}, AskHigh={6}, AskLow={7}, AskClose= {8}, Volume = {9}&quot;,
+                                            reader.getDate(ii), reader.getBidOpen(ii), reader.getBidHigh(ii), reader.getBidLow(ii), reader.getBidClose(ii),
+                                            reader.getAskOpen(ii), reader.getAskHigh(ii), reader.getAskLow(ii), reader.getAskClose(ii), reader.getVolume(ii));
+                    }
+                    else
+                    {
+                        Console.WriteLine(&quot;DateTime={0}, Bid={1}, Ask={2}&quot;, reader.getDate(ii), reader.getBidClose(ii), reader.getAskClose(ii));
+                    }
+                }
+            }
+        }
+    }
+ 
+ 
+    internal class ResponseListener : IO2GResponseListener
+    {
+        private O2GSession mSession = null;
+ 
+        public WaitHandle ResponseHandle
+        {
+            get { return mResponseHandle; }
+        }
+        private EventWaitHandle mResponseHandle;
+        public ResponseListener(O2GSession session)
+        {
+            mSession = session;
+            mResponseHandle = new AutoResetEvent(false);
+        }
+ 
+        public void onRequestCompleted(string requestId, O2GResponse response)
+        {
+            if (response.Type == O2GResponseType.MarketDataSnapshot)
+            {
+                Program.PrintPrices(mSession, response);
+                Console.WriteLine(&quot;\nDone!&quot;);
+            }
+            mResponseHandle.Set();
+        }
+ 
+        public void onRequestFailed(string requestId, string error)
+        {
+            if (String.IsNullOrEmpty(error)) // not an error - we are finished - no more candles
+            {
+                Console.WriteLine(&quot;\n There is no history data for the specified period!&quot;);
+            }
+            else
+            {
+                Console.WriteLine(&quot;Request failed requestID={0} error={1}&quot;, requestId, error);
+            }
+            mResponseHandle.Set();
+        }
+ 
+        public void onTablesUpdates(O2GResponse data)
+        {
+            //STUB
+        }
+    }
+ 
+    internal class SessionStatusListener : IO2GSessionStatus
+    {
+        private bool mConnected = false;
+        private bool mDisconnected = false;
+        private bool mError = false;
+        private O2GSession mSession;
+        private object mEvent = new object();
+ 
+        public SessionStatusListener(O2GSession session)
+        {
+            mSession = session;
+        }
+        public bool Connected
+        {
+            get
+            {
+                return mConnected;
+            }
+        }
+        public bool Disconnected
+        {
+            get
+            {
+                return mDisconnected;
+            }
+        }
+        public bool Error
+        {
+            get
+            {
+                return mError;
+            }
+        }
+        public void onSessionStatusChanged(O2GSessionStatusCode status)
+        {
+            Console.WriteLine(&quot;Status: &quot; + status.ToString());
+            if (status == O2GSessionStatusCode.Connected)
+                mConnected = true;
+            else
+                mConnected = false;
+ 
+            if (status == O2GSessionStatusCode.Disconnected)
+                mDisconnected = true;
+            else
+                mDisconnected = false;
+ 
+            if (status == O2GSessionStatusCode.TradingSessionRequested)
+            {
+                if (Program.SessionID == &quot;&quot;)
+                    Console.WriteLine(&quot;Argument for trading session ID is missing&quot;);
+                else
+                    mSession.setTradingSession(Program.SessionID, Program.Pin);
+            }
+            else if (status == O2GSessionStatusCode.Connected)
+            {
+                lock (mEvent)
+                    Monitor.PulseAll(mEvent);
+            }
+ 
+        }
+        public void onLoginFailed(string error)
+        {
+            Console.WriteLine(&quot;Login error: &quot; + error);
+            mError = true;
+            lock (mEvent)
+                Monitor.PulseAll(mEvent);
+        }
+ 
+        public void login(string sUserID, string sPassword, string sURL, string sConnection)
+        {
+            Program.Session.login(sUserID, sPassword, sURL, sConnection);
+            lock (mEvent)
+                Monitor.Wait(mEvent, 60000);
+        }
+    }
+ 
+}
+</pre>
+</div><p>See also the <a href="img/seq2-request-response_net.png">simplified request/response sequence diagram</a>.</p><p>
+      <center><a href="howto.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

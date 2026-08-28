@@ -1,0 +1,170 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GOrdersTable.subscribeUpdate</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>O2GOrdersTable.subscribeUpdate</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Subscribes a table listener to table updates.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">Java</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code>void&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>subscribeUpdate</b> (<a href="com.fxcore2.O2GTableUpdateType.html"><code>O2GTableUpdateType</code></a> updateType, <a href="com.fxcore2.IO2GTableListener.html"><code>IO2GTableListener</code></a> listener) </code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>updateType</code></td>
+    <td class="tmain" width="69%"><p>The type of an update.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>listener</code></td>
+    <td class="tmain" width="69%"><p>An instance of the class implementing the <a href="com.fxcore2.IO2GTableListener.html"><code>IO2GTableListener</code></a> interface.</p></td>
+  </tr>
+</table><p><b>Details</b></p><p>If you want to track different types of table updates, you must subscribe a table listener to each update type individually. The examples below are based on the <a href="TTTrades.html">Trades</a> table.</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Update type</p></td>
+    <td class="thdr"><p>Subscribe syntax</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTableUpdateType.INSERT.html"><code>INSERT</code></a></p></td>
+    <td class="tmain"><p><code>tradesTable.subscribeUpdate(O2GTableUpdateType.INSERT, tableListener);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTableUpdateType.UPDATE.html"><code>UPDATE</code></a></p></td>
+    <td class="tmain"><p><code>tradesTable.subscribeUpdate(O2GTableUpdateType.UPDATE, tableListener);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GTableUpdateType.DELETE.html"><code>DELETE</code></a></p></td>
+    <td class="tmain"><p><code>tradesTable.subscribeUpdate(O2GTableUpdateType.DELETE, tableListener);</code></p></td>
+  </tr>
+</table><p>Declared in <a href="com.fxcore2.O2GTable.html">O2GTable</a></p>
+<p>
+  <center><a href="com.fxcore2.O2GOrdersTable.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'com.fxcore2.O2GOrdersTable.html');</script></body>
+</html>

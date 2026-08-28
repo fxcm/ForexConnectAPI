@@ -1,0 +1,176 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GMessagesTable.forEachRow</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>O2GMessagesTable.forEachRow</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Iterates through the rows of a table.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">Java</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code>void&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>forEachRow</b> (<a href="com.fxcore2.IO2GEachRowListener.html"><code>IO2GEachRowListener</code></a> eachRowListener) </code></td>
+  </tr>
+</table></td>
+  </tr>
+</table>
+<p><b>Details</b></p><p>This method is synchronous.
+The application waits until each row is processed by the
+<a href="com.fxcore2.IO2GEachRowListener.html"><code>IO2GEachRowListener</code></a>.<a href="com.fxcore2.IO2GEachRowListener.onEachRow.0.html"><code>onEachRow</code></a> method.</p>
+<p><b>Example</b></p><div id="open167" style="display:none">
+  <p>Printing Accounts and Trades Tables&nbsp;<a href="javascript: showdiv('close167'); hidediv('open167');" onclick="javascript: showdiv('close167'); hidediv('open167');">[show]</a></p>
+</div>
+<div id="close167" style="display:inline">
+  <p>Printing Accounts and Trades Tables&nbsp;<a href="javascript: showdiv('open167'); hidediv('close167');" onclick="javascript: showdiv('open167'); hidediv('close167');">[hide]</a></p>
+  <pre class="example">    <b>// Get tables, create listener, call printTable method</b>
+    if (tableManager.getStatus() == O2GTableManagerStatus.TABLES_LOADED) {
+        O2GAccountsTable accountsTable = (O2GAccountsTable)tableManager.getTable(O2GTableType.ACCOUNTS);
+        O2GTradesTable tradesTable = (O2GTradesTable)tableManager.getTable(O2GTableType.TRADES);
+        EachRowListener eachRowListener = new EachRowListener();
+        printTable(accountsTable,eachRowListener);
+        printTable(tradesTable,eachRowListener);
+    }
+ 
+    <b>// Print table using IO2GEachRowListener</b>
+    public static void printTable(O2GTable table, IO2GEachRowListener listener) {
+        if (table.size() == 0)
+            System.out.println(&quot;Table &quot; + table.getType() + &quot; is empty!&quot;);
+        else {
+            table.forEachRow(listener);
+        }
+    }
+    <b>// Implementation if IO2GEachRowListener interface public method onEachRow</b>
+    public void onEachRow(String rowID, O2GRow rowData) {
+        System.out.println(&quot;\nPrinting a row from the &quot; + rowData.getTableType() + &quot; table.\n&quot;);
+        O2GTableColumnCollection collection = rowData.getColumns();
+        for (int i = 0; i &lt; collection.size(); i++) {
+           O2GTableColumn column = collection.get(i);
+           System.out.print(column.getId() + &quot;=&quot; + rowData.getCell(i) + &quot;;&quot;);
+        }
+        System.out.println();
+    }</pre>
+</div><p>Declared in <a href="com.fxcore2.O2GTable.html">O2GTable</a></p>
+<p>
+  <center><a href="com.fxcore2.O2GMessagesTable.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'com.fxcore2.O2GMessagesTable.html');</script></body>
+</html>

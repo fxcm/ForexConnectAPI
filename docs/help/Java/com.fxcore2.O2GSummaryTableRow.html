@@ -1,0 +1,394 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GSummaryTableRow</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>O2GSummaryTableRow</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="com.fxcore2.O2GSummaryRow.html"><code>O2GSummaryRow</code></a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The class provides access to the summary information of the instrument traded.</p>
+    <p><b>Details</b></p><p>The  class represents a single row of the <a href="TTSummary.html">Summary</a> table.
+The class provides methods to access summarized information, such as buy/sell gross and net profits/losses, average open prices, amounts of long and short positions, etc.<br></p>
+<p><b>Prerequisites</b></p>
+<p>The class is available only through the use of the <a href="com.fxcore2.O2GTableManager.html"><code>O2GTableManager</code></a>. An <a href="com.fxcore2.O2GTableManager.html"><code>O2GTableManager</code></a>
+object must have the <a href="com.fxcore2.O2GTableManagerStatus.0.html">O2GTableManagerStatus</a>.<a href="com.fxcore2.O2GTableManagerStatus.0.TABLES_LOADED.0.html">TABLES_LOADED</a> status.<br>
+For complete instructions on the table manager usage, see the <a href="table_manager_use_java.html">How to use table manager in ForexConnect API</a> section.<br>
+After tables are loaded, you must obtain an instance of the <a href="com.fxcore2.O2GSummaryTable.html"><code>O2GSummaryTable</code></a> class. For example,<br></p>
+<p><code>O2GSummaryTable summaryTable = (O2GSummaryTable)tableManager.getTable(O2GTableType.SUMMARY);</code></p>
+<p><b>Instantiating the class</b></p>
+<p>If you need access to the current summary information, get an instance of the class by calling any of the following methods of the <a href="com.fxcore2.O2GSummaryTable.html"><code>O2GSummaryTable</code></a> class:<br></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p><code>O2GSummaryTable</code> method</p></td>
+    <td class="thdr"><p>Syntax example</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GSummaryTable.getRow.html"><code>getRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GSummaryTableRow summary = summaryTable.getRow(i);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GSummaryTable.findRow.html"><code>findRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GSummaryTableRow summary = summaryTable.findRow(mOfferID);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GSummaryTable.getNextRow.html"><code>getNextRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GSummaryTableRow summary = summaryTable.getNextRow(mIterator);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GSummaryTable.getNextRowByColumnValue.0.html"><code>getNextRowByColumnValue</code></a></p></td>
+    <td class="tmain"><p><code>O2GSummaryTableRow summary = summaryTable.getNextRowByColumnValue(&quot;OfferID&quot;, &quot;1&quot;, mIterator);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GSummaryTable.getNextRowByColumnValues.0.html"><code>getNextRowByColumnValues</code></a></p></td>
+    <td class="tmain"><p><code>O2GSummaryTableRow summary = summaryTable.getNextRowByColumnValues(&quot;OfferID&quot;, new Object[] { &quot;1&quot;, &quot;2&quot; }, mIterator);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GSummaryTable.getNextRowByMultiColumnValues.0.html"><code>getNextRowByMultiColumnValues</code></a></p></td>
+    <td class="tmain"><p><code>O2GSummaryTableRow summary = summaryTable.getNextRowByMultiColumnValues(new String[] { &quot;OfferID&quot;, &quot;Amount&quot; }, new Object[] { mOfferID, mAmount }, mIterator);</code></p></td>
+  </tr>
+</table><p>If you want to track the <a href="TTSummary.html">Summary</a> table updates, your application must have a listener class that implements the <a href="com.fxcore2.IO2GTableListener.html"><code>IO2GTableListener</code></a> interface.
+An instance of the listener class must be subscribed to the table updates. Subscription for each update type is done individually.
+Before the logout, you must unsubscribe the listener
+from each update type individually. The examples of subscription/unsubscription syntax are listed below.</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p><code>IO2GTableListener</code> method</p></td>
+    <td class="thdr"><p>Subscribe syntax</p></td>
+    <td class="thdr"><p>Unsubscribe syntax</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.IO2GTableListener.onAdded.html"><code>onAdded</code></a></p></td>
+    <td class="tmain"><p><code>summaryTable.subscribeUpdate(O2GTableUpdateType.INSERT, tableListener);</code></p></td>
+    <td class="tmain"><p><code>summaryTable.unsubscribeUpdate(O2GTableUpdateType.INSERT, tableListener);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.IO2GTableListener.onChanged.html"><code>onChanged</code></a></p></td>
+    <td class="tmain"><p><code>summaryTable.subscribeUpdate(O2GTableUpdateType.UPDATE, tableListener);</code></p></td>
+    <td class="tmain"><p><code>summaryTable.unsubscribeUpdate(O2GTableUpdateType.UPDATE, tableListener);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.IO2GTableListener.onDeleted.html"><code>onDeleted</code></a></p></td>
+    <td class="tmain"><p><code>summaryTable.subscribeUpdate(O2GTableUpdateType.DELETE, tableListener);</code></p></td>
+    <td class="tmain"><p><code>summaryTable.unsubscribeUpdate(O2GTableUpdateType.DELETE, tableListener);</code></p></td>
+  </tr>
+</table><p>To instantiate the <code>O2GSummaryTableRow</code> class, you must cast the <code>rowData</code> parameter of the methods above to the <code>O2GSummaryTableRow</code> type. For example,</p>
+<p><code>O2GSummaryTableRow row = (O2GSummaryTableRow)(rowData);</code></p>
+<p><b>Example</b></p><div id="open228" style="display:inline">
+  <p>Get Offer ID, net profit/loss and amount for the instument traded&nbsp;<a href="javascript: showdiv('close228'); hidediv('open228');" onclick="javascript: showdiv('close228'); hidediv('open228');">[show]</a></p>
+</div>
+<div id="close228" style="display:none">
+  <p>Get Offer ID, net profit/loss and amount for the instument traded&nbsp;<a href="javascript: showdiv('open228'); hidediv('close228');" onclick="javascript: showdiv('open228'); hidediv('close228');">[hide]</a></p>
+  <pre class="example">    <b>// Get the instance of table manager</b>
+    O2GTableManager tableManager = mSession.getTableManager();
+    while (tableManager.getStatus() != O2GTableManagerStatus.TABLES_LOADED &
+           tableManager.getStatus() != O2GTableManagerStatus.TABLES_LOAD_FAILED) {
+        Thread.sleep(50);
+    }
+    <b>// Get summary information</b>
+    if (tableManager.getStatus() == O2GTableManagerStatus.TABLES_LOADED) {
+        O2GOrdersTable orderTable = (O2GOrdersTable)tableManager.getTable(O2GTableType.SUMMARY);
+        for (int i = 0; i &lt; summaryTable.size(); i++) {
+            O2GSummaryTableRow summary = summaryTable.getRow(i);
+            System.out.println(&quot;OfferID: &quot; + summary.getOfferID() +
+                               &quot; NetPL = &quot; + summary.getNetPL() +
+                               &quot; Amount = &quot; + summary.getAmount());
+        }
+ 
+        <b>// Subscribe table listener</b>
+        TableListener tableListener = new TableListener();
+        summaryTable.subscribeUpdate(O2GTableUpdateType.UPDATE, tableListener);
+        Thread.sleep(1000);
+        summaryTable.unsubscribeUpdate(O2GTableUpdateType.UPDATE, tableListener);
+    }
+ 
+     <b>// Implementation of IO2GTableListener interface public method onChanged</b>
+     public void onChanged(String rowID, O2GRow rowData) {
+         O2GSummaryTableRow summary = (O2GSummaryTableRow)(rowData);
+         System.out.println(&quot;Summary information changed &quot; + rowID);
+         System.out.println(&quot;OfferID: &quot; + summary.getOfferID() +
+                            &quot; NetPL = &quot; + summary.getNetPL() +
+                            &quot; Amount = &quot; + summary.getAmount());
+     }
+
+</pre>
+</div><p>The namespace is <a href="com.fxcore2.html"><code>com.fxcore2</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GSummaryTableRow.getAmount.html">getAmount</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the amount of all positions (both long and short).</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GSummaryTableRow.getBuyAmount.html">getBuyAmount</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the amount of long (buy) positions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GSummaryTableRow.getBuyAvgOpen.html">getBuyAvgOpen</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the average open price of long (buy) positions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GSummaryTableRow.getBuyClose.html">getBuyClose</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the current market price, at which short (sell) positions can be closed.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GSummaryTableRow.getBuyNetPL.html">getBuyNetPL</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the current profit/loss of all long (buy) positions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GSummaryTableRow.getCell.html">getCell</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a cell of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GSummaryTableRow.getColumns.html">getColumns</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the columns of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GSummaryTableRow.getDefaultSortOrder.html">getDefaultSortOrder</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the sequence number of the instrument.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GSummaryTableRow.getDividends.html">getDividends</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the cumulative amount of dividends earned or paid for all positions (both long and short). Applicable only to Index CFD positions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GSummaryTableRow.getGrossPL.html">getGrossPL</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the current profit/loss of all positions (both long and short). It does not include commissions, interest and dividends.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GSummaryTableRow.getInstrument.html">getInstrument</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the symbol of the instrument traded. For example, <code>EUR/USD, USD/JPY, GBP/USD</code>.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GSummaryTableRow.getNetPL.html">getNetPL</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the current profit/loss of all positions (both long and short). It includes commissions, interest and dividends.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GSummaryTableRow.getOfferID.html">getOfferID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the instrument traded.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GSummaryTableRow.getSellAmount.html">getSellAmount</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the amount of short (sell) positions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GSummaryTableRow.getSellAvgOpen.html">getSellAvgOpen</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the average open price of short (sell) positions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GSummaryTableRow.getSellClose.html">getSellClose</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the current market price, at which long (buy) positions can be closed.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GSummaryTableRow.getSellNetPL.html">getSellNetPL</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the current profit/loss of all short (sell) positions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GSummaryTableRow.getTableType.html">getTableType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GSummaryTableRow.isCellChanged.html">isCellChanged</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a flag indicating whether the value of the cell is changed.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="com.fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

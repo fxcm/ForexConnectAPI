@@ -1,0 +1,235 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GAccountsTableResponseReader.getCell</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>O2GAccountsTableResponseReader.getCell</b></code></font>
+    </p><p><b>Brief</b></p>
+<p> Gets the value of a cell.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">C#</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code>object&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>getCell</b> (int row, int column) </code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>row</code></td>
+    <td class="tmain" width="69%"><p>The index of a row. The index must be between <code>0</code> and    <code><a href="fxcore2.O2GGenericTableResponseReader.html">O2GGenericTableResponseReader</a>.<a href="fxcore2.O2GGenericTableResponseReader.Count.0.html">Count</a> - 1</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>column</code></td>
+    <td class="tmain" width="69%"><p>The index of a column. The index must be between <code>0</code> and      <code><a href="fxcore2.O2GTableColumnCollection.html">O2GTableColumnCollection</a>.<a href="fxcore2.O2GTableColumnCollection.Count.0.html">Count</a> - 1</code>.</p></td>
+  </tr>
+</table><p><b>Returns</b></p><p>Returns the cell value that can be of different types. To determine a type, it is necessary to
+get a column by using the <a href="fxcore2.O2GGenericTableResponseReader.Columns.0.html"><code>O2GGenericTableResponseReader.getColumns</code></a>
+and the <a href="fxcore2.O2GTableColumnCollection.Item.0.html"><code>O2GTableColumnCollection.Item</code></a> methods. The index passed to the latter
+method should be the same as the column parameter.
+The type of value is defined by using the <a href="fxcore2.O2GTableColumn.ColumnType.0.html"><code>O2GTableColumn.ColumnType</code></a> method.
+The <a href="fxcore2.O2GTableColumnType.html"><code>O2GTableColumnType</code></a> enumerator returned
+by the above method contains the returned value type. A client application can cast object data to the returned type or can
+use a abstract object.</p>
+<p><b>Column types and cast operations:</b></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Column type</p></td>
+    <td class="thdr"><p>getCell value</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GTableColumnType.Integer.0.html"><code><code>O2GTableColumnType.Integer</code></code></a></p></td>
+    <td class="tmain"><p>The method returns a 32-bit integer value.<br>
+Cast operation:  <code>int value =  (int)reader.getCell(columnIndex);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GTableColumnType.Double.0.html"><code><code>O2GTableColumnType.Double</code></code></a></p></td>
+    <td class="tmain"><p>The method returns a double value.<br>
+Cast operation:<code> double value = (double)reader.getCell(column);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GTableColumnType.Boolean.0.html"><code><code>O2GTableColumn.Boolean</code></code></a></p></td>
+    <td class="tmain"><p>The method returns a boolean value.<br>
+Cast operation:<code> bool value = (bool)reader.getCell(column);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GTableColumnType.Date.0.html"><code><code>O2GTableColumn.Date</code></code></a></p></td>
+    <td class="tmain"><p>The method returns a date/time value. <br>
+Cast operation:<code> DateTime date = (DateTime)reader.getCell(column);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GTableColumnType.String.0.html"><code><code>O2GTableColumnType.String</code></code></a></p></td>
+    <td class="tmain"><p>The method returns a string data value. <br>
+Cast operation: <code>string value = (string)reader.getCell(column);</code></p></td>
+  </tr>
+</table><p><b>Details</b></p><p>The method is used to work with an abstract table. The method provides common access to a row value independently of
+a row type (a table type).</p><div id="open138" style="display:none">
+  <p>Print Generic Table&nbsp;<a href="javascript: showdiv('close138'); hidediv('open138');" onclick="javascript: showdiv('close138'); hidediv('open138');">[show]</a></p>
+</div>
+<div id="close138" style="display:inline">
+  <p>Print Generic Table&nbsp;<a href="javascript: showdiv('open138'); hidediv('close138');" onclick="javascript: showdiv('open138'); hidediv('close138');">[hide]</a></p>
+  <pre class="example">private void PrintGenericTableInterface(O2GGenericTableResponseReader genericReader)
+{
+   O2GTableColumnCollection columns = genericReader.Columns;
+   for (int i = 0; i &lt; genericReader.Count; i++)
+   {
+       int iCount = columns.Count;
+       for (int j = 0; j &lt; iCount; j++)
+       {
+           object value = genericReader.getCell(i, j);
+           O2GTableColumn column = columns[j];
+           switch (column.ColumnType)
+           {
+           case O2GTableColumnType.Date:
+               DateTime date = (DateTime)value;
+               Console.WriteLine(&quot;{0} {1}&quot;, column.ID, date.ToString(&quot;yyyy-MM-dd HH:mm&quot;));
+           break;
+           case O2GTableColumnType.Boolean:
+                bool bVal = (bool)value;
+                Console.WriteLine(&quot;{0} {1}&quot;, column.ID, bVal.ToString());
+           break;
+           case O2GTableColumnType.Integer:
+               int iVal = (int)value;
+               Console.WriteLine(&quot;{0} {1}&quot;, column.ID, iVal.ToString());
+           break;
+           case O2GTableColumnType.Double:
+               double dVal = (double)value;
+               Console.WriteLine(&quot;{0} {1}&quot;, column.ID, dVal.ToString());
+           break;
+           case O2GTableColumnType.String:
+               string  sVal = (string)value;
+               Console.WriteLine(&quot;{0} {1}&quot;, column.ID, sVal.ToString());
+           break;
+           }
+       }
+    }
+}
+
+</pre>
+</div><p>Declared in <a href="fxcore2.O2GGenericTableResponseReader.html">O2GGenericTableResponseReader</a></p>
+<p>
+  <center><a href="fxcore2.O2GAccountsTableResponseReader.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'fxcore2.O2GAccountsTableResponseReader.html');</script></body>
+</html>

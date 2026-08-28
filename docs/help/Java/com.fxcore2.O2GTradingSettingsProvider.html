@@ -1,0 +1,282 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GTradingSettingsProvider</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>O2GTradingSettingsProvider</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The class provides access to a set of rules that an order must satisfy.</p>
+    <p><b>Details</b></p><p>The set of rules depends on an instrument and on an account used for trading. <br>
+To get an instance of the <code>O2GTradingSettingsProvider</code> class, use the
+<a href="com.fxcore2.O2GLoginRules.html"><code>O2GLoginRules</code></a>.<a href="com.fxcore2.O2GLoginRules.getTradingSettingsProvider.html"><code>getTradingSettingsProvider</code></a> method.
+For example, <br></p>
+<p><code>O2GTradingSettingsProvider provider = loginRules.getTradingSettingsProvider();</code></p>
+<p><b>Example</b></p><div id="open263" style="display:none">
+  <p>Get minimumum quantity, maximum quantity and base unit size&nbsp;<a href="javascript: showdiv('close263'); hidediv('open263');" onclick="javascript: showdiv('close263'); hidediv('open263');">[show]</a></p>
+</div>
+<div id="close263" style="display:inline">
+  <p>Get minimumum quantity, maximum quantity and base unit size&nbsp;<a href="javascript: showdiv('open263'); hidediv('close263');" onclick="javascript: showdiv('open263'); hidediv('close263');">[hide]</a></p>
+  <pre class="example">    // Get Trading settings
+    public static void getTradingSettings(O2GSession session) {
+        O2GAccountRow account = null;
+        O2GLoginRules loginRules = session.getLoginRules();
+        O2GTradingSettingsProvider provider = loginRules.getTradingSettingsProvider();
+        O2GResponseReaderFactory factory = session.getResponseReaderFactory();
+        if (factory == null) {
+            return;
+        }
+        O2GResponse accountsResponse = loginRules.getTableRefreshResponse(O2GTableType.ACCOUNTS);
+        O2GAccountsTableResponseReader accountsReader = factory.createAccountsTableReader(accountsResponse);
+        for (int i = 0; i &lt; accountsReader.size(); i++) {
+            account = accountsReader.getRow(i);
+            if (account.getAccountKind().equals(&quot;32&quot;)) {
+               System.out.println(&quot;AccountID = &quot; + account.getAccountID());
+               break;
+            }
+        }
+        System.out.println(&quot;MaxQuantity  =&quot; + provider.getMaxQuantity (mInstrument,account));
+        System.out.println(&quot;MinQuantity  =&quot; + provider.getMinQuantity (mInstrument,account));
+        System.out.println(&quot;BazeUnitSize =&quot; + provider.getBaseUnitSize(mInstrument,account));
+    }</pre>
+</div><p>The namespace is <a href="com.fxcore2.html"><code>com.fxcore2</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GTradingSettingsProvider.getBaseUnitSize.html">getBaseUnitSize</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the size of one lot.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GTradingSettingsProvider.getCondDistEntryLimit.html">getCondDistEntryLimit</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the minimal allowed distance between the price of an entry limit order and the current market price or between the prices of ELS primary and secondary orders.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GTradingSettingsProvider.getCondDistEntryStop.html">getCondDistEntryStop</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the minimal allowed distance between the price of an entry stop order and the current market price or between the prices of ELS primary and seconary orders.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GTradingSettingsProvider.getCondDistLimitForTrade.html">getCondDistLimitForTrade</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the minimal allowed distance between the price of a limit order and the market price, at which a position can be closed at the momen,t or between the prices of a market/entry order and an associated limit order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GTradingSettingsProvider.getCondDistStopForTrade.html">getCondDistStopForTrade</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the minimal allowed distance between the price of a stop order and the market price, at which a position can be closed at the moment, or between the prices of a market/entry order and an associated limit order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GTradingSettingsProvider.getMargins.html">getMargins</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets an instance of the class that provides access to the margin policy and minimal margin requirements for the three-level margin policy.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GTradingSettingsProvider.getMarketStatus.html">getMarketStatus</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Checks whether the trading in the instrument is opened or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GTradingSettingsProvider.getMaxQuantity.html">getMaxQuantity</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the maximum allowed amount of an order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GTradingSettingsProvider.getMaxTrailingStep.html">getMaxTrailingStep</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the maximum allowed size of the market movement, after which an order must move following the market.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GTradingSettingsProvider.getMinQuantity.html">getMinQuantity</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the minimum allowed amount of an order.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GTradingSettingsProvider.getMinTrailingStep.html">getMinTrailingStep</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the minimum allowed size of the market movement, after which an order must move following the market.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GTradingSettingsProvider.getMMR.html">getMMR</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the minimum margin requirements.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GTradingSettingsProvider.getProgressiveMarginLevels.html">getProgressiveMarginLevels</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the progressive margin requirements for the specified instrument.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GTradingSettingsProvider.isProgressiveMargin.html">isProgressiveMargin</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Detects whether the specified instrument is under progressive margin requirements.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GTradingSettingsProvider.isTier3.html">isTier3</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Detect whether three level margin is used for specified account.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="com.fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

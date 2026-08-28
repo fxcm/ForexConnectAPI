@@ -1,0 +1,305 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GGenericTableResponseReader</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>O2GGenericTableResponseReader</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The class provides methods to read a stream of trading table rows coming from the trading server.</p>
+    <p><b>Details</b></p><p>The <code>O2GGenericTableResponseReader</code> is a generic class that provides
+methods to read responses to requests for initial <a href="TradingTables.html"> trading tables</a> information.<br>
+The <code>O2GGenericTableResponseReader</code> can be used to process the contents of the following response types:
+<a href="com.fxcore2.O2GResponseType.GET_OFFERS.html">GET_OFFERS</a>, <a href="com.fxcore2.O2GResponseType.GET_ACCOUNTS.html">GET_ACCOUNTS</a>,
+<a href="com.fxcore2.O2GResponseType.GET_TRADES.html">GET_TRADES</a>, <a href="com.fxcore2.O2GResponseType.GET_CLOSED_TRADES.html">GET_CLOSED_TRADES</a>,
+<a href="com.fxcore2.O2GResponseType.GET_ORDERS.html">GET_ORDERS</a>, and <a href="com.fxcore2.O2GResponseType.GET_MESSAGES.html">GET_MESSAGES</a>.</p>
+<p>You can not create an instance of the class directly. You can only use the methods of the class on the following subclasses:<br>
+<a href="com.fxcore2.O2GOffersTableResponseReader.html"><code>O2GOffersTableResponseReader</code></a><br>
+<a href="com.fxcore2.O2GAccountsTableResponseReader.html"><code>O2GAccountsTableResponseReader</code></a><br>
+<a href="com.fxcore2.O2GTradesTableResponseReader.html"><code>O2GTradesTableResponseReader</code></a><br>
+<a href="com.fxcore2.O2GClosedTradesTableResponseReader.html"><code>O2GClosedTradesTableResponseReader</code></a><br>
+<a href="com.fxcore2.O2GOrdersTableResponseReader.html"><code>O2GOrdersTableResponseReader</code></a><br>
+<a href="com.fxcore2.O2GMessagesTableResponseReader.html"><code>O2GMessagesTableResponseReader</code></a><br>
+<a href="com.fxcore2.O2GTable.html"><code>O2GTable</code></a>.<br>
+<b>Note:</b> The <a href="com.fxcore2.O2GTable.html"><code>O2GTable</code></a> class is available only when your application uses the <a href="com.fxcore2.O2GTableManager.html">O2GTableManager</a>.
+The usage of the <code>O2GTable</code> class is similar to the usage of the <code>O2GGenericTableResponseReader</code> class: it can not be instantiated directly and you can use its methods
+only on the following subclasses:<br>
+<a href="com.fxcore2.O2GOffersTable.html"><code>O2GOffersTable</code></a><br>
+<a href="com.fxcore2.O2GAccountsTable.html"><code>O2GAccountsTable</code></a><br>
+<a href="com.fxcore2.O2GTradesTable.html"><code>O2GTradesTable</code></a><br>
+<a href="com.fxcore2.O2GClosedTradesTable.html"><code>O2GClosedTradesTable</code></a><br>
+<a href="com.fxcore2.O2GOrdersTable.html"><code>O2GOrdersTable</code></a><br>
+<a href="com.fxcore2.O2GMessagesTable.html"><code>O2GMessagesTable</code></a><br>
+<a href="com.fxcore2.O2GSummaryTable.html"><code>O2GSummaryTable</code></a><br></p>
+<p>If initial trading table information is received as a response to the
+<a href="com.fxcore2.O2GLoginRules.html">O2GLoginRules</a>.<a href="com.fxcore2.O2GLoginRules.getTableRefreshResponse.html">getTableRefreshResponse</a> request, you can process the response in
+the main thread of your program.<br>
+If initial trading table information is received as a response to the
+<a href="com.fxcore2.O2GRequestFactory.html">O2GRequestFactory</a>.<a href="com.fxcore2.O2GRequestFactory.createRefreshTableRequest.html">createRefreshTableRequest</a>, you must process the response in
+your implementation of the <a href="com.fxcore2.IO2GResponseListener.html">IO2GResponseListener</a>.<a href="com.fxcore2.IO2GResponseListener.onRequestCompleted.html">onRequestCompleted</a> method.</p>
+<p><b>Example</b></p><div id="open155" style="display:inline">
+  <p>Get initial accounts and trades information&nbsp;<a href="javascript: showdiv('close155'); hidediv('open155');" onclick="javascript: showdiv('close155'); hidediv('open155');">[show]</a></p>
+</div>
+<div id="close155" style="display:none">
+  <p>Get initial accounts and trades information&nbsp;<a href="javascript: showdiv('open155'); hidediv('close155');" onclick="javascript: showdiv('open155'); hidediv('close155');">[hide]</a></p>
+  <pre class="example">    <b>// Get accounts information</b>
+    public static void getAccounts(O2GSession session, ResponseListener responseListener) {
+        try {
+            O2GLoginRules loginRules = session.getLoginRules();
+            if (loginRules != null &amp; loginRules.isTableLoadedByDefault(O2GTableType.ACCOUNTS)) {
+                O2GResponse accountsResponse = loginRules.getTableRefreshResponse(O2GTableType.ACCOUNTS);
+                O2GResponseReaderFactory responseFactory = session.getResponseReaderFactory();
+                O2GAccountsTableResponseReader accountsReader = responseFactory.createAccountsTableReader(accountsResponse);
+                useGenericReader(accountsReader);
+            } else {
+                O2GRequestFactory requestFactory = session.getRequestFactory();
+                if (requestFactory != null) {
+                    O2GRequest request = requestFactory.createRefreshTableRequest(O2GTableType.ACCOUNTS);
+                    responseListener.setRequest(request.getRequestId());
+                    session.sendRequest(request);
+                    Thread.sleep(1000);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(&quot;Exception in getAccounts().\n\t &quot; + e.getMessage());
+        }
+    }
+    <b>// Get trades information</b>
+    public static void getTrades(O2GSession session, ResponseListener responseListener) {
+        try {
+            O2GLoginRules loginRules = session.getLoginRules();
+            if (loginRules != null &amp; loginRules.isTableLoadedByDefault(O2GTableType.TRADES)) {
+                O2GResponse tradesResponse = loginRules.getTableRefreshResponse(O2GTableType.TRADES);
+                O2GResponseReaderFactory responseFactory = session.getResponseReaderFactory();
+                O2GTradesTableResponseReader tradesReader = responseFactory.createTradesTableReader(tradesResponse);
+                useGenericReader(tradesReader);
+            } else {
+                O2GRequestFactory requestFactory = session.getRequestFactory();
+                if (requestFactory != null) {
+                    O2GRequest request = requestFactory.createRefreshTableRequest(O2GTableType.TRADES);
+                    responseListener.setRequest(request.getRequestId());
+                    session.sendRequest(request);
+                    Thread.sleep(1000);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(&quot;Exception in getTrades().\n\t &quot; + e.getMessage());
+        }
+    }
+ 
+    <b>// Use generic reader</b>
+    public static void useGenericReader(O2GGenericTableResponseReader genericReader) {
+        int columnsCount = 0;
+        System.out.println(&quot;\n\nThis is a response to your &quot; + genericReader.getType() + &quot; table refresh request.\n&quot;);
+        O2GTableColumnCollection columns = genericReader.getColumns();
+        columnsCount = columns.size();
+        for (int j = 0; j &lt; columnsCount; j++) {
+            O2GTableColumn column = columns.get(j);
+            System.out.println(&quot;&quot; + column.getId() + &quot; &quot; + column.getType());
+            for (int i = 0; i &lt; genericReader.size(); i++) {
+                Object value = genericReader.getCell(i, j);
+                System.out.println(&quot;Value: &quot; + value);
+            }
+        }
+    }
+ 
+    <b>// Implementation of IO2GResponseListener interface public method onRequestCompleted</b>
+    public void onRequestCompleted(String requestID, O2GResponse response) {
+        int columnsCount = 0;
+        O2GGenericTableResponseReader reader = null;
+        if (requestID.equals(mRequestID)) {
+            O2GResponseReaderFactory readerFactory = mSession.getResponseReaderFactory();
+            if (readerFactory != null) {
+                switch (response.getType()) {
+                    case GET_ACCOUNTS: {
+                        reader = readerFactory.createAccountsTableReader(response);
+                    }
+                    case GET_TRADES:  {
+                        reader = readerFactory.createTradesTableReader(response);
+                    }
+                    System.out.println(&quot;\n\nThis is a response to your &quot; + reader.getType() + &quot; request.\n&quot;);
+                    O2GTableColumnCollection columns = reader.getColumns();
+                    columnsCount = columns.size();
+                    for (int j = 0; j &lt; columnsCount; j++) {
+                        O2GTableColumn column = columns.get(j);
+                        System.out.println(&quot;&quot; + column.getId() + &quot; &quot; + column.getType());
+                        for (int i = 0; i &lt; reader.size(); i++) {
+                            Object value = reader.getCell(i, j);
+                            System.out.println(&quot;Value: &quot; + value);
+                        }
+                    }
+ 
+                }
+            }
+        }
+}
+</pre>
+</div><p>The namespace is <a href="com.fxcore2.html"><code>com.fxcore2</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GGenericTableResponseReader.getCell.html">getCell</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the value of a cell.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GGenericTableResponseReader.getColumns.html">getColumns</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets an instance of the class that provides access to the list of table columns.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GGenericTableResponseReader.getGenericRow.html">getGenericRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a row by its index.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GGenericTableResponseReader.getType.html">getType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of a trading table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GGenericTableResponseReader.isCellValid.html">isCellValid</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Checks whether the cell value can be used or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GGenericTableResponseReader.size.html">size</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the number of rows in the reader.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="com.fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

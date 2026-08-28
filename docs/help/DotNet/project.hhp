@@ -1,0 +1,17 @@
+
+[OPTIONS]
+Index file=index.hhk
+Auto Index=Yes
+Binary TOC=Yes
+Compatibility=1.1 or later
+Compiled file=..\ForexConnectAPINET.chm
+Contents file=index.hhc
+Create CHI file=Yes
+Default topic=index.html
+Display compile progress=No
+Full-text search=Yes
+Language=0x409 English (United States)
+Title=ForexConnect API SDK .NET
+
+[FILES]
+    

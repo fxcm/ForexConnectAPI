@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Create OTOCO Order</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Create OTOCO Order</b></font>
+    </p><p>To create an <a href="OTOCOOrders.html"><code>OTOCO</code></a> (one-triggers-OCO) order you should create an <a href="OTOOrders.html"><code>OTO</code></a> (one-triggers-others) order, where the primary order is an Entry order, and the secondary order is an <a href="OCOOrders.html"><code>OCO</code></a> (one-cancels-others) order.</p>
+<p>To create an OTOCO order group:</p>
+<p>1) Create an <a href="IO2GValueMap.html"><code>IO2GValueMap</code></a> for an OTO order and fill only one field:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Valuemap field</p></td>
+    <td class="thdr"><p>Datatype</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Command</p></td>
+    <td class="tmain"><p>const char *</p></td>
+    <td class="tmain"><p>The command. Must be <a href="CreateOTO.html"><code>CreateOTO</code></a>.</p>
+<p>The field is obligatory.</p></td>
+  </tr>
+</table><p>2) Create an <code>IO2GValueMap</code> for a primary order and fill it as for a regular entry order.</p>
+<p>3) Create an <code>IO2GValueMap</code> for an OCO order and fill only one field:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Valuemap field</p></td>
+    <td class="thdr"><p>Datatype</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Command</p></td>
+    <td class="tmain"><p>const char *</p></td>
+    <td class="tmain"><p>The command. Must be <a href="CreateOCO.html"><code>CreateOCO</code></a>.</p>
+<p>The field is obligatory.</p></td>
+  </tr>
+</table><p>4) Create an <code>IO2GValueMap</code> for each entry order of an OCO group you want to create and fill it as for a regular entry order.</p>
+<p>5) Append each entry order value map to the main value map using the <a href="IO2GValueMap.appendChild.html"><code>IO2GValueMap.appendChild</code></a> method in the following way:</p>
+<p>5.1) Append OTO primary order value map from step 2 to the OTO value map using the <code>IO2GValueMap.appendChild</code> method.</p>
+<p>5.2) Append each entry order of an OCO group value map from step 4 to the OCO value map using the <code>IO2GValueMap.appendChild</code> method.</p>
+<p>5.3) Append OCO value map to OTO value map using the <code>IO2GValueMap.appendChild</code> method.</p>
+<p>6) Pass the OTO <code>IO2GValueMap</code> to the <a href="IO2GRequestFactory.createOrderRequest.html"><code>IO2GRequestFactory.createOrderRequest</code></a> method.</p>
+<p>Limitations:</p>
+<p>1) Only entry orders or other OTO/OTOCO groups can be joined into OTOCO. However, entry orders with attached stops/limits,
+either regular or ELS, can be joined into OTOCO.</p>
+<p>2) All entry orders must be created for the same account.</p>
+<p>Returns:</p>
+<p>The createOrderRequest method will return an IO2GRequest (the main request) containing child requests.
+If 3 entry orders are created, 3 child requests will be returned.
+Note that you will receive responses to the child requests and will not receive a response to the main request.</p><div id="open79" style="display:none">
+  <p>Example: Create an OTOCO order&nbsp;<a href="javascript: showdiv('close79'); hidediv('open79');" onclick="javascript: showdiv('close79'); hidediv('open79');">[show]</a></p>
+</div>
+<div id="close79" style="display:inline">
+  <p>Example: Create an OTOCO order&nbsp;<a href="javascript: showdiv('open79'); hidediv('close79');" onclick="javascript: showdiv('open79'); hidediv('close79');">[hide]</a></p>
+  <pre class="example">  // Create OTOCO request
+  IO2GRequest *createOTOCORequest(IO2GSession *session, const char *sOfferID, const char *sAccountID, int iAmount, double dRatePrimary, double dRateOcoFirst, double dRateOcoSecond)
+  {
+      O2G2Ptr&lt;IO2GRequestFactory&gt; requestFactory = session-&gt;getRequestFactory();
+
+      if (!requestFactory)
+      {
+          std::cout &lt;&lt; &quot;Cannot create request factory&quot; &lt;&lt; std::endl;
+          return NULL;
+      }
+      // Create OTO command
+      O2G2Ptr&lt;IO2GValueMap&gt; valuemapMain = requestFactory-&gt;createValueMap();
+      valuemapMain-&gt;setString(Command, O2G2::Commands::CreateOTO);
+      // Create Entry order
+      O2G2Ptr&lt;IO2GValueMap&gt; valuemapPrimary = requestFactory-&gt;createValueMap();
+      valuemapPrimary-&gt;setString(Command, O2G2::Commands::CreateOrder);
+      valuemapPrimary-&gt;setString(OrderType, O2G2::Orders::StopEntry);
+      valuemapPrimary-&gt;setString(AccountID, sAccountID);
+      valuemapPrimary-&gt;setString(OfferID, sOfferID);
+      valuemapPrimary-&gt;setString(BuySell, O2G2::Sell);
+      valuemapPrimary-&gt;setInt(Amount, iAmount);
+      valuemapPrimary-&gt;setDouble(Rate, dRatePrimary);
+      // Create OCO group of orders
+      O2G2Ptr&lt;IO2GValueMap&gt; valuemapOCO = requestFactory-&gt;createValueMap();
+      valuemapOCO-&gt;setString(Command, O2G2::Commands::CreateOCO);
+      // Create Enry orders to OCO
+      O2G2Ptr&lt;IO2GValueMap&gt; valuemapOCOFirst = requestFactory-&gt;createValueMap();
+      valuemapOCOFirst-&gt;setString(Command, O2G2::Commands::CreateOrder);
+      valuemapOCOFirst-&gt;setString(OrderType, O2G2::Orders::StopEntry);
+      valuemapOCOFirst-&gt;setString(AccountID, sAccountID);
+      valuemapOCOFirst-&gt;setString(OfferID, sOfferID);
+      valuemapOCOFirst-&gt;setString(BuySell, O2G2::Buy);
+      valuemapOCOFirst-&gt;setInt(Amount, iAmount);
+      valuemapOCOFirst-&gt;setDouble(Rate, dRateOcoFirst);
+      O2G2Ptr&lt;IO2GValueMap&gt; valuemapOCOSecond = requestFactory-&gt;createValueMap();
+      valuemapOCOSecond-&gt;setString(Command, O2G2::Commands::CreateOrder);
+      valuemapOCOSecond-&gt;setString(OrderType, O2G2::Orders::StopEntry);
+      valuemapOCOSecond-&gt;setString(AccountID, sAccountID);
+      valuemapOCOSecond-&gt;setString(OfferID, sOfferID);
+      valuemapOCOSecond-&gt;setString(BuySell, O2G2::Sell);
+      valuemapOCOSecond-&gt;setInt(Amount, iAmount);
+      valuemapOCOSecond-&gt;setDouble(Rate, dRateOcoSecond);
+ 
+      // Fill the created groups. Please note, first you should add an entry order to OTO order and then OCO goup of orders
+      valuemapMain-&gt;appendChild(valuemapPrimary);
+      valuemapOCO-&gt;appendChild(valuemapOCOFirst);
+      valuemapOCO-&gt;appendChild(valuemapOCOSecond);
+      valuemapMain-&gt;appendChild(valuemapOCO);
+ 
+      O2G2Ptr&lt;IO2GRequest&gt; request = requestFactory-&gt;createOrderRequest(valuemapMain);
+      if (!request)
+           {
+               std::cout &lt;&lt; requestFactory-&gt;getLastError() &lt;&lt; std::endl;
+               return NULL;
+           }
+           return request.Detach();
+  }</pre>
+</div><p>
+      <center><a href="TradingCommandsCreateOrder.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

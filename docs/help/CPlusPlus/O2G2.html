@@ -1,0 +1,244 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2G2 namespace</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>O2G2 namespace</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>This namespace contains constants used in ForexConnect API.</p>
+    <p><b>Details</b></p><div id="open93" style="display:none">
+  <p>O2G2 members&nbsp;<a href="javascript: showdiv('close93'); hidediv('open93');" onclick="javascript: showdiv('close93'); hidediv('open93');">[show]</a></p>
+</div>
+<div id="close93" style="display:inline">
+  <p>O2G2 members&nbsp;<a href="javascript: showdiv('open93'); hidediv('close93');" onclick="javascript: showdiv('open93'); hidediv('close93');">[hide]</a></p>
+  <pre class="example">namespace O2G2
+{
+namespace Commands
+{
+    static const char CreateOrder[] = &quot;CreateOrder&quot;;
+    static const char CreateOCO[] = &quot;CreateOCO&quot;;
+    static const char CreateOTO[] = &quot;CreateOTO&quot;;
+    static const char JoinToNewContingencyGroup[] = &quot;JoinToNewContingencyGroup&quot;;
+    static const char JoinToExistingContingencyGroup[] = &quot;JoinToExistingContingencyGroup&quot;;
+    static const char RemoveFromContingencyGroup[] = &quot;RemoveFromContingencyGroup&quot;;
+    static const char EditOrder[] = &quot;EditOrder&quot;;
+    static const char DeleteOrder[] = &quot;DeleteOrder&quot;;
+    static const char SetSubscriptionStatus[] = &quot;SetSubscriptionStatus&quot;;
+    static const char UpdateMarginRequirements[] = &quot;UpdateMarginRequirements&quot;;
+    static const char GetLastOrderUpdate[] = &quot;GetLastOrderUpdate&quot;;
+}
+    static const char Buy[] = &quot;B&quot;;
+    static const char Sell[] = &quot;S&quot;;
+ 
+namespace Order
+{
+    static const char TrueMarketOpen[] = &quot;OM&quot;;
+    static const char MarketOpen[] = &quot;O&quot;;
+    static const char MarketOpenRange[] = &quot;OR&quot;;
+    static const char OpenLimit[] = &quot;OL&quot;;
+    static const char TrueMarketClose[] = &quot;CM&quot;;
+    static const char MarketClose[] = &quot;C&quot;;
+    static const char MarketCloseRange[] = &quot;CR&quot;;
+    static const char CloseLimit[] = &quot;CL&quot;;
+    static const char StopEntry[] = &quot;SE&quot;;
+    static const char LimitEntry[] = &quot;LE&quot;;
+    static const char Entry[] = &quot;E&quot;;
+    static const char Stop[] = &quot;S&quot;;
+    static const char Limit[] = &quot;L&quot;;
+}
+ 
+namespace TIF
+{
+    static const char GTC[] = &quot;GTC&quot;;
+    static const char IOC[] = &quot;IOC&quot;;
+    static const char DAY[] = &quot;DAY&quot;;
+    static const char FOK[] = &quot;FOK&quot;;
+    static const char GTD[] = &quot;GTD&quot;;
+}
+namespace Peg
+{
+    static const char FromOpen[] = &quot;O&quot;;
+    static const char FromClose[] = &quot;M&quot;;
+}
+ 
+namespace KeyType
+{
+    static const char OrderID[] = &quot;OrderID&quot;;
+    static const char RequestID[] = &quot;OrderQID&quot;;
+    static const char RequestTXT[] = &quot;OrderQTXT&quot;;
+}
+ 
+namespace SubscriptionStatuses
+{
+    static const char Tradable[] = &quot;T&quot;;
+    static const char Disable[] = &quot;D&quot;;
+    static const char ViewOnly[] = &quot;V&quot;;
+}
+ 
+namespace SystemProperties
+{
+    static const char BASE_CRNCY[] = &quot;BASE_CRNCY&quot;;
+    static const char BASE_UNIT_SIZE[] = &quot;BASE_UNIT_SIZE&quot;;
+    static const char BASE_CRNCY_PRECISION[] = &quot;BASE_CRNCY_PRECISION&quot;;
+    static const char BASE_CRNCY_SYMBOL[] = &quot;BASE_CRNCY_SYMBOL&quot;;
+    static const char BASE_TIME_ZONE[] = &quot;BASE_TIME_ZONE&quot;;
+    static const char COND_DIST[] = &quot;COND_DIST&quot;;
+    static const char COND_DIST_ENTRY[] = &quot;COND_DIST_ENTRY&quot;;
+    static const char END_TRADING_DAY[] = &quot;END_TRADING_DAY&quot;;
+    static const char FORCE_PASSWORD_CHANGE[] = &quot;FORCE_PASSWORD_CHANGE&quot;;
+    static const char MARKET_OPEN[] = &quot;MARKET_OPEN&quot;;
+    static const char QUERYDEPTH_0[] = &quot;QUERYDEPTH_0&quot;;
+    static const char QUERYDEPTH_1[] = &quot;QUERYDEPTH_0&quot;;
+    static const char QUERYDEPTH_2[] = &quot;QUERYDEPTH_0&quot;;
+    static const char QUERYDEPTH_3[]= &quot;QUERYDEPTH_0&quot;;
+    static const char QUERYDEPTH_4[] = &quot;QUERYDEPTH_0&quot;;
+    static const char QUERYDEPTH_5[] = &quot;QUERYDEPTH_0&quot;;
+    static const char QUERYDEPTH_6[] = &quot;QUERYDEPTH_0&quot;;
+    static const char QUERYDEPTH_7[] = &quot;QUERYDEPTH_0&quot;;
+    static const char QUERYDEPTH_8[] = &quot;QUERYDEPTH_0&quot;;
+    static const char QUERYDEPTH_h2[] = &quot;QUERYDEPTH_h2&quot;;
+    static const char QUERYDEPTH_h3[] = &quot;QUERYDEPTH_h3&quot;;
+    static const char QUERYDEPTH_h4[] = &quot;QUERYDEPTH_h4&quot;;
+    static const char QUERYDEPTH_h6[] = &quot;QUERYDEPTH_h6&quot;;
+    static const char QUERYDEPTH_h8[] = &quot;QUERYDEPTH_h8&quot;;
+    static const char SERVER_TIME_UTC[] = &quot;SERVER_TIME_UTC&quot;;
+    static const char SupportTickVolume[] = &quot;SupportTickVolume&quot;;
+    static const char TP_170[] = &quot;TP_170&quot;;
+    static const char TP_171[] = &quot;TP_171&quot;;
+    static const char TP_172[] = &quot;TP_172&quot;;
+    static const char TP_86[] = &quot;TP_86&quot;;
+    static const char TP_88[] = &quot;TP_88&quot;;
+    static const char TP_89[] = &quot;TP_89&quot;;
+    static const char TP_94[] = &quot;TP_94&quot;;
+    static const char CP_170[] = &quot;CP_170&quot;;
+    static const char CP_171[] = &quot;CP_171&quot;;
+    static const char CP_172[] = &quot;CP_172&quot;;
+    static const char CP_86[] = &quot;CP_86&quot;;
+    static const char CP_88[] = &quot;CP_88&quot;;
+    static const char CP_89[] = &quot;CP_89&quot;;
+    static const char CP_94[] = &quot;CP_94&quot;;
+    static const char TRAILING_DYNAMIC[] = &quot;TRAILING_DYNAMIC&quot;;
+    static const char TRAILING_FLUCTUATE[] = &quot;TRAILING_FLUCTUATE&quot;;
+    static const char TRAILING_FLUCTUATE_PTS_MAX[] = &quot;TRAILING_FLUCTUATE_PTS_MAX&quot;;
+    static const char TRAILING_FLUCTUATE_PTS_MIN[] = &quot;TRAILING_FLUCTUATE_PTS_MIN&quot;;
+    static const char PEGGED_STOP_LIMIT_DISABLED[] = &quot;PEGGED_STOP_LIMIT_DISABLED&quot;;
+ 
+}
+}</pre>
+</div><p>
+      <center><a href="forexconnect.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

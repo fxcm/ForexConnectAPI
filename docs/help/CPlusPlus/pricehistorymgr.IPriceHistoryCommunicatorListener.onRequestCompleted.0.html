@@ -1,0 +1,205 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IPriceHistoryCommunicatorListener::onRequestCompleted</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>IPriceHistoryCommunicatorListener::onRequestCompleted</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>The method is called when the request execution has been successfully completed.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">C++</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code>virtual&nbsp;void&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>onRequestCompleted</b> (<a href="pricehistorymgr.IPriceHistoryCommunicatorRequest.html"><code>IPriceHistoryCommunicatorRequest</code></a> *request, <a href="pricehistorymgr.IPriceHistoryCommunicatorResponse.html"><code>IPriceHistoryCommunicatorResponse</code></a> *response)  = 0</code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>request</code></td>
+    <td class="tmain" width="69%"><p>The request.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>response</code></td>
+    <td class="tmain" width="69%"><p>The response received from the server.</p></td>
+  </tr>
+</table><p><b>Details</b></p><p>To read the response content, create an instance of <a href="IO2GMarketDataSnapshotResponseReader.html"><code>IO2GMarketDataSnapshotResponseReader</code></a>
+using the <a href="pricehistorymgr.IPriceHistoryCommunicator.createResponseReader.0.html"><code>IPriceHistoryCommunicator::createResponseReader()</code></a> method.</p><div id="open249" style="display:inline">
+  <p>Example&nbsp;<a href="javascript: showdiv('close249'); hidediv('open249');" onclick="javascript: showdiv('close249'); hidediv('open249');">[show]</a></p>
+</div>
+<div id="close249" style="display:none">
+  <p>Example&nbsp;<a href="javascript: showdiv('open249'); hidediv('close249');" onclick="javascript: showdiv('open249'); hidediv('close249');">[hide]</a></p>
+  <pre class="example">#include &quot;ForexConnect.h&quot;
+#include &quot;pricehistorymgr/pricehistorymgr.h&quot;
+ 
+using namespace pricehistorymgr;
+ 
+class MyClass : public IPriceHistoryCommunicatorListener
+{
+    ...
+    IPriceHistoryCommunicator *mPriceHistoryCommunicator;
+ 
+    ...
+    void onRequestCompleted(IPriceHistoryCommunicatorRequest *request,
+                            IPriceHistoryCommunicatorResponse *response)
+    {
+        //create a reader for the response
+        IError *error;
+        IO2GMarketDataSnapshotResponseReader *reader =
+            mPriceHistoryCommunicator-&gt;createResponseReader(response, &error);
+ 
+        if (reader == NULL)
+        {
+            if (error != NULL)
+            {
+                //process error
+                //...
+                error-&gt;release();
+            }
+            return;
+        }
+ 
+        //and read all bars
+        for (int i = 0; i &lt; reader-&gt;size(); ++i)
+        {
+            processBar(reader-&gt;getDate(i), reader-&gt;getBidOpen(i), reader-&gt;getBidHigh(i),
+                reader-&gt;getBidLow(i), reader-&gt;getBidClose(i), reader-&gt;getAskOpen(i),
+                reader-&gt;getAskHigh(i), reader-&gt;getAskLow(i), reader-&gt;getAskClose(i),
+                reader-&gt;getVolume(i));
+        }
+ 
+        //finally notify the collection that all bars are added, so it can
+        //add all ticks collected while the request was being executed
+        //and start update the data by forthcoming ticks
+        processLastBar(reader-&gt;getLastBarTime(), reader-&gt;getLastBarVolume());
+        reader-&gt;release();
+    }
+};</pre>
+</div><p>Declared in <a href="pricehistorymgr.IPriceHistoryCommunicatorListener.html">IPriceHistoryCommunicatorListener</a></p>
+<p>
+  <center><a href="pricehistorymgr.IPriceHistoryCommunicatorListener.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'pricehistorymgr.IPriceHistoryCommunicatorListener.html');</script></body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Conditional Orders</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Conditional Orders</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>This article describes conditional orders.</p>
+    <p><b>Details</b></p><p><b>Conditional Orders</b></p>
+<p>There are three kinds of a conditional order:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p>Entry</p></td>
+    <td class="tmain"><p>Used for opening a position when the market price reaches the
+price specified by the trader. Can be either <b>Entry Stop</b> or <b>Entry Limit</b>.
+The Entry Stop order is the one which is placed at a
+less-favorable price than the current market price (higher price if
+buying, lower if selling). The Entry Limit order is the one which is
+placed at a better price than the market price (lower price if buying,
+higher if selling).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Stop</p></td>
+    <td class="tmain"><p>Used for closing a previously opened position when the market
+price reaches the price specified by the trader. The stop order is
+used for preventing further losses incurred on the position.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Limit</p></td>
+    <td class="tmain"><p>Used for closing a previously opened position when the market
+price reaches the price specified by the trader. The limit order is
+used for locking in profit.</p></td>
+  </tr>
+</table><p><b>Trailing Entry Stop and Trailing Entry Limit</b></p>
+<p>Entry Stop/Entry Limit order can be automatically adjusted while the market price moves.
+Such order is called a Trailing Entry Stop/Trailing Entry Limit.</p>
+<p>Trailing Entry Stop works as follows:
+if the market price moves up for sell orders/down for buy orders, then the order price moves automatically with the market price;
+if the market price moves down for sell orders/up for buy orders, then the order price remains fixed and,
+if the market price reaches the Trailing Entry Stop order price, the order will be executed and a new position opened.</p>
+<p>Trailing Entry Limit works as follows:
+if the market price moves down for sell orders/up for buy orders, then the order price moves automatically with the market price;
+if the market price moves up for sell orders/down for buy orders, then the Trailing Entry Limit price remains fixed and,
+if the market price reaches the Trailing Entry Limit order price, the order will be executed and a new position opened.</p>
+<p><b>Trailing Stop and Trailing Limit</b></p>
+<p>Trailing Stop is a Stop order used for locking in the profit if the market price moves to the trader's advantage.</p>
+<p>Trailing Stop order is automatically adjusted while the market moves in trader's favor:
+if the market price moves up for a Buy position/down for a Sell position, then the order price moves with the market price;
+if the market price moves down for a Buy position/up for a Sell position, then the order price remains fixed and,
+if the market price reaches the Trailing Stop price, the order will be executed and the position closed.</p>
+<p>Trailing Limit is a Limit order used for preventing further losses if the market price doesn't move to the trader's advantage.</p>
+<p>Trailing Limit works as follows:
+if the market price moves down for a Buy position/up for a Sell position, then the order price moves with the market price;
+if the market price moves up for a Buy position/down for a Sell position, then the order price remains fixed and,
+if the market price reaches the Trailing Limit price, the order will be executed and the position closed.</p>
+<p><b>Trailing Step</b></p>
+<p>The price of Trailing Stop/Limit and Trailing Entry Stop/Entry Limit orders moves automatically with the market price by a <b>Trailing Step</b>.
+The trailing step specifies the move of the market price by which the order price moves.
+The trailing step can be set by a trader (fixed step) or by the trading system (dynamic step). The trailing step is expressed in pips.
+Minimum and maximum sizes in pips are defined by the trading system.</p>
+<p><b>Pegged Stop and Pegged Limit</b></p>
+<p>A price of a Stop/Limit order can be specified either directly or through a distance from the market price.
+A Stop/Limit order a price of which is specified through a distance is called a <b>Pegged</b> Stop/Limit order.
+The price for a Pegged Stop/Limit order is calculated at once when the position is opened.
+Pegged Stop/Limit orders are useful when you do not know exactly at which price the position will be opened
+but you want to set Stop/Limit order on a certain distance from an order price at once the position will be opened.
+Pegged Stop/Limit orders are especially useful when you set a Stop/Limit order at a price which is very close to the market.</p>
+<p><b>Orders Execution</b></p>
+<p>Stop and Entry Stop orders are always executed in full amount at
+the best available price. Limit and Entry Limit orders are always
+executed at the price specified by the trader or at the better price.
+If the price is unavailable, such orders will wait until the market reaches the
+specified price again. Partial fills may occur.</p>
+<p><b>Note:</b> If the trader places two opposite entry orders and hedging
+is not allowed on the account, the execution of one order will open a
+position and the execution of the other order will fully or partially
+close this position.</p><p>
+      <center><a href="OrderTypes.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

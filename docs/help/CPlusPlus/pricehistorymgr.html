@@ -1,0 +1,213 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Namespace pricehistorymgr</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Namespace pricehistorymgr</b></font>
+    </p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Classes</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="pricehistorymgr.IAddRef.html">IAddRef</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Manages the existence of an object. All objects created by Price History API implement this interface.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="pricehistorymgr.IError.html">IError</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The price history communicator error object interface.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="pricehistorymgr.IPriceHistoryCommunicator.html">IPriceHistoryCommunicator</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The interface to the Price History API communicator.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="pricehistorymgr.IPriceHistoryCommunicatorListener.html">IPriceHistoryCommunicatorListener</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The interface to the Price History API communicator request result listener.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="pricehistorymgr.IPriceHistoryCommunicatorRequest.html">IPriceHistoryCommunicatorRequest</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The price history request object.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="pricehistorymgr.IPriceHistoryCommunicatorResponse.html">IPriceHistoryCommunicatorResponse</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The transport object of the server response.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="pricehistorymgr.IPriceHistoryCommunicatorStatusListener.html">IPriceHistoryCommunicatorStatusListener</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The interface to the Price History API communicator request status listener.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="pricehistorymgr.ITimeframeFactory.html">ITimeframeFactory</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The factory of a standard or custom timeframes.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="pricehistorymgr.PriceHistoryCommunicatorFactory.html">PriceHistoryCommunicatorFactory</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The factory of the Price History API communicator.</p>
+    </td>
+  </tr>
+</table>
+<p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Enumerations</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%">
+      <p><a href="pricehistorymgr.IError.Code.html">IError::Code</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The error code.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="pricehistory.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

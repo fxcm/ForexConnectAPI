@@ -1,0 +1,228 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GMargin</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>O2GMargin</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The class provides access to the margin policy and minimal margin requirements of the three-level margin policy.</p>
+    <p><b>Details</b></p><p>To get an instance of the class, use the
+<a href="com.fxcore2.O2GTradingSettingsProvider.html"><code>O2GTradingSettingsProvider</code></a>.<a href="com.fxcore2.O2GTradingSettingsProvider.getMargins.html"><code>getMargins</code></a> method.</p>
+<p><b>Margin Policy and Margin Requirements</b></p>
+<p>The margin policy of an account is defined in the user trading agreement. There are two types of the margin policy:</p><ul class="main">
+  <li><p>one-level margin policy;</p></li>
+  <li><p>three-level margin policy.</p></li>
+</ul><p>Different accounts may have different types of the margin policy.
+To find out your margin policy, use the <a href="com.fxcore2.O2GMargin.is3LevelMargin.html">is3LevelMargin</a> method of this class.<br></p>
+<p>The minimal margin requirements of an account define the amount of funds required to open or maintain a one-lot position of an instrument. The size of one lot can be
+obtained by calling the <a href="com.fxcore2.O2GTradingSettingsProvider.html">O2GTradingSettingsProvider</a>.<a href="com.fxcore2.O2GTradingSettingsProvider.getBaseUnitSize.html">getBaseUnitSize</a> method.</p>
+<p>The margin requirements of the three-level margin policy can be obtained by using the following methods of the <code>O2GMargin</code> class:</p><table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><p>Level</p></td>
+    <td class="thdr"><p>Purpose</p></td>
+    <td class="thdr"><p><code>O2GMargin</code> method</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Liquidation (margin call)</p></td>
+    <td class="tmain"><p>Prevent a liquidation of a one-lot position</p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GMargin.getLMR.html">getLMR</a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Maintenance</p></td>
+    <td class="tmain"><p>Maintain a one-lot position</p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GMargin.getMMR.html">getMMR</a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Entry</p></td>
+    <td class="tmain"><p>Open a one-lot position</p></td>
+    <td class="tmain"><p><a href="com.fxcore2.O2GMargin.getEMR.html">getEMR</a></p></td>
+  </tr>
+</table><p>The minimal margin requirements of the one-level margin policy can be obtained by calling the
+<a href="com.fxcore2.O2GTradingSettingsProvider.html">O2GTradingSettingsProvider</a>.<a href="com.fxcore2.O2GTradingSettingsProvider.getMMR.html">getMMR</a> method. <br>
+If you use the preceding methods for the one-level margin policy, the returned value is identical for all the methods.</p>
+<p><b>Example</b></p><div id="open161" style="display:none">
+  <p>Get margin policy and margin requirements&nbsp;<a href="javascript: showdiv('close161'); hidediv('open161');" onclick="javascript: showdiv('close161'); hidediv('open161');">[show]</a></p>
+</div>
+<div id="close161" style="display:inline">
+  <p>Get margin policy and margin requirements&nbsp;<a href="javascript: showdiv('open161'); hidediv('close161');" onclick="javascript: showdiv('open161'); hidediv('close161');">[hide]</a></p>
+  <pre class="example">    // Get margin requirements
+    public static void getTradingSettings(O2GSession session) {
+        O2GAccountRow account = null;
+        O2GLoginRules loginRules = session.getLoginRules();
+        O2GTradingSettingsProvider provider = loginRules.getTradingSettingsProvider();
+        O2GResponseReaderFactory factory = session.getResponseReaderFactory();
+        if (factory == null) {
+            return;
+        }
+        O2GResponse accountsResponse = loginRules.getTableRefreshResponse(O2GTableType.ACCOUNTS);
+        O2GAccountsTableResponseReader accountsReader = factory.createAccountsTableReader(accountsResponse);
+        for (int i = 0; i &lt; accountsReader.size(); i++) {
+            account = accountsReader.getRow(i);
+            if (account.getAccountKind().equals(&quot;32&quot;)) {
+               System.out.println(&quot;AccountID = &quot; + account.getAccountID());
+               break;
+            }
+        }
+        System.out.println(&quot;\tMarginLMR = &quot; + margin.getLMR() +
+                           &quot;\n\tMarginLMMR = &quot; + margin.getMMR() +
+                           &quot;\n\tMarginEMR = &quot; + margin.getEMR() +
+                           &quot;\n\tMargin3Level &quot; + margin.is3LevelMargin());
+    }
+
+
+
+</pre>
+</div><p>The namespace is <a href="com.fxcore2.html"><code>com.fxcore2</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMargin.getEMR.html">getEMR</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets entry margin requirements.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMargin.getLMR.html">getLMR</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets liquidation margin requirements.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMargin.getMMR.html">getMMR</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets maintenance margin requirements.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMargin.is3LevelMargin.html">is3LevelMargin</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a flag indicating that the margin policy is of the three-level type.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="com.fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

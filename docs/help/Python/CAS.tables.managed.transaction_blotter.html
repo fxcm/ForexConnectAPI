@@ -1,0 +1,428 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>transaction_blotter Table</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b><code>transaction_blotter</code> Table</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article describes the Transaction Blotter table of the report.</p>
+    <p><b>Details</b></p><p>The <i>Transaction Blotter</i> table contains information about all orders executed or rejected
+during the report statement period.
+One row contains information about one order. Note that one order may be recorded in several rows, for example, in case
+the order was filled in portions (as the case may be with an Open market order that has the GTC time-in-force option).
+The identifier of the table is <code>transaction_blotter</code>.</p>
+<p>The table is available only if the account is set to a netting trading mode (the value of the <code>position_maintenance</code> costant is either
+<code>0</code> or <code>D</code>).</p>
+<p>All data rows in the table are arranged in ascending order by the unique identifier of the order execution record (<code>execution_id</code>).</p>
+<p>If no information is found for the report statement period, the table has only a header row.</p><table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><p>Column identifier</p></td>
+    <td class="thdr"><p>Column data type</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>date</code></p></td>
+    <td class="tmain"><p><code>DATE</code></p></td>
+    <td class="tmain"><p>The date and time when the order was executed or rejected. The date has the format <code>YYYY-MM-DD hh:mm:ss</code>, where:</p><table class="tmain">
+  <tr>
+    <td class="tmain" width="1%"><p><code>YYYY</code></p></td>
+    <td class="tmain"><p>Year</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>MM</code></p></td>
+    <td class="tmain"><p>Month (01-12)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>DD</code></p></td>
+    <td class="tmain"><p>Day of month (01-31)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>hh</code></p></td>
+    <td class="tmain"><p>Hour (00-23)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>mm</code></p></td>
+    <td class="tmain"><p>Minute (00-59)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>ss</code></p></td>
+    <td class="tmain"><p>Second (00-59)</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>order_id</code></p></td>
+    <td class="tmain"><p><code>INTEGER</code></p></td>
+    <td class="tmain"><p>The unique identification number of the order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>execution_id</code></p></td>
+    <td class="tmain"><p><code>INTEGER</code></p></td>
+    <td class="tmain"><p>The unique identifier of the execution record corresponding to the order.<br>
+In case of a partial fill, the unique identifier of the execution record corresponding to the executed part of the order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>open_tickets</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>The unique identifiers of positions opened by the order.<br>
+In case of a partial fill, the unique identifiers of positions opened by the executed part of the order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>closed_tickets</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>The unique identifiers of positions closed by the order.<br>
+In case of a partial fill, the unique identifiers of positions closed by the executed part of the order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>value_date</code></p></td>
+    <td class="tmain"><p><code>DATE</code></p></td>
+    <td class="tmain"><p>The date when the net position that was not offset during the same trading day is automatically closed.
+The date has the format <code>YYYY-MM-DD hh:mm:ss</code>, where:</p><table class="tmain">
+  <tr>
+    <td class="tmain" width="1%"><p><code>YYYY</code></p></td>
+    <td class="tmain"><p>Year</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>MM</code></p></td>
+    <td class="tmain"><p>Month (01-12)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>DD</code></p></td>
+    <td class="tmain"><p>Day of month (01-31)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>hh</code></p></td>
+    <td class="tmain"><p>Hour (00-23)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>mm</code></p></td>
+    <td class="tmain"><p>Minute (00-59)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>ss</code></p></td>
+    <td class="tmain"><p>Second (00-59)</p></td>
+  </tr>
+</table><p>Makes sense only for accounts with the Day Netting trading mode (the value of the <code>position_maintenance</code> constant is <code>D</code>).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>symbol</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>The instrument traded.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>type</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>The type of the deal. Possible values:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>SPOT</code></p></td>
+    <td class="tmain"><p>SPOT deal</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>SWAP</code></p></td>
+    <td class="tmain"><p>SWAP deal</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>precision</code></p></td>
+    <td class="tmain"><p><code>INTEGER</code></p></td>
+    <td class="tmain"><p>The precision (i.e. the number of digits after the decimal point) of the instrument price.<br></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>buy_sell</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>The trade operation of the order.<br></p>
+<p>The value <code>B</code> indicates a buy order.<br>
+The value <code>S</code> indicates a sell order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>total_qty</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The original amount of the order.</p>
+<p>In case of FX instruments, the amount is expressed in the base currency of the instrument.<br>
+In case of CFD instruments, the amount is expressed in contracts.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>remaining_qty</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The remaining (not-filled) amount of the order.</p>
+<p>In case of FX instruments, the amount is expressed in the base currency of the instrument. <br>
+In case of CFD instruments, the amount is expressed in contracts.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>executed_qty</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The filled amount of the order.</p>
+<p>In case of FX instruments, the amount is expressed in the base currency of the instrument.<br>
+In case of CFD instruments, the amount is expressed in contracts.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>counter_amount</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The amount of funds paid to buy/sell the executed amount of the order.<br>
+The amount is expressed in the counter currency of the instrument.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>rate</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The price the order (or its portion) was filled at.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>applied_price</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The average opening price of the net position.<br>
+The column is applicable to orders that close the net position completely or partially.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>pnl</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The amount of profit or loss realized as a result of the order execution.
+This amount excludes additional charges, such as broker commission, rollover interest, and adjustment.</p>
+<p>The value can be positive, negative or zero. A positive value indicates profit, a negative value indicates loss.
+A zero value most likely indicates that the order did not offset the amount of the net position, i.e.
+the order was placed in the direction of the net position.</p>
+<p>The profit/loss is expressed in the account denomination currency.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>markups</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The markups applied to the order.<br>
+The column is displayed if the report account is subject to MIFID II (Directive on Markets in Financial Instruments
+repealing Directive 2004/39/EC and the Regulation on Markets in Financial Instruments) requirements.</p>
+<p>The markups are expressed in pips.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>condition</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>The type of the order. Possible values:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>Mkt</code></p></td>
+    <td class="tmain"><p>Open/close market, open/close limit, open/close range, open/close order</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>SE</code></p></td>
+    <td class="tmain"><p>Entry stop or OCO order</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>LE</code></p></td>
+    <td class="tmain"><p>Entry limit or OCO order</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>action</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>The order execution status. Possible values:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>EXECUTED</code></p></td>
+    <td class="tmain"><p>The order was filled in its entirety.
+The filled amount (<code>executed_qty</code>) equals the order amount (<code>total_qty</code>).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>PARTIAL</code></p></td>
+    <td class="tmain"><p>The order was filled partially. The filled amount (<code>executed_qty</code>)
+is less than the order amount (<code>total_qty</code>). The amount that was not filled
+is the remaining amount (<code>remaining_qty</code>).</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>REJECTED</code></p></td>
+    <td class="tmain"><p>The order was rejected. The filled amount (<code>executed_qty</code>) equals zero.
+The remainig amount (<code>remaining_qty</code>) equals the
+order amount (<code>total_qty</code>).</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>platform</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>The name of the application that was used to place the order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>created_by</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>The name (login) of the user who placed the latest order the net position was opened/updated/closed by.<br></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>executed_by</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>In case of immediate orders, the name (login) of the user who placed the latest order
+the net position was opened/updated/closed by.<br>
+In case of conditional orders, the name of the server that executed the latest order for the net position.</p></td>
+  </tr>
+</table><div id="open85" style="display:inline">
+  <p>Example:&nbsp;<a href="javascript: showdiv('close85'); hidediv('open85');" onclick="javascript: showdiv('close85'); hidediv('open85');">[show]</a></p>
+</div>
+<div id="close85" style="display:none">
+  <p>Example:&nbsp;<a href="javascript: showdiv('open85'); hidediv('close85');" onclick="javascript: showdiv('open85'); hidediv('close85');">[hide]</a></p>
+  <pre class="example">&lt;rdf:table name=&quot;transaction_blotter&quot; description=&quot;TRANSACTION BLOTTER&quot;&gt;
+   &lt;rdf:head&gt;
+       &lt;rdf:column name=&quot;date&quot; type=&quot;DATE&quot; description=&quot;Date/Time&quot; /&gt;
+       &lt;rdf:column name=&quot;order_id&quot; type=&quot;INTEGER&quot; description=&quot;Order ID&quot; /&gt;
+       &lt;rdf:column name=&quot;execution_id&quot; type=&quot;INTEGER&quot; description=&quot;Execution ID&quot;/&gt;
+       &lt;rdf:column name=&quot;open_tickets&quot; type=&quot;STRING&quot; description=&quot;Opened Ticket Number&quot;/&gt;
+       &lt;rdf:column name=&quot;closed_tickets&quot; type=&quot;STRING&quot; description=&quot;Closed Ticket Number&quot;/&gt;
+       &lt;rdf:column name=&quot;value_date&quot; type=&quot;DATE&quot; description=&quot;Value Date&quot; /&gt;
+       &lt;rdf:column name=&quot;symbol&quot; type=&quot;STRING&quot; description=&quot;Symbol&quot; /&gt;
+       &lt;rdf:column name=&quot;type&quot; type=&quot;STRING&quot; description=&quot;Type&quot;/&gt;
+       &lt;rdf:column name=&quot;precision&quot; type=&quot;INTEGER&quot; /&gt;
+       &lt;rdf:column name=&quot;buy_sell&quot; type=&quot;STRING&quot; description=&quot;B/S&quot; /&gt;
+       &lt;rdf:column name=&quot;total_qty&quot; type=&quot;DOUBLE&quot; description=&quot;Total Order Amount&quot; /&gt;
+       &lt;rdf:column name=&quot;remaining_qty&quot; type=&quot;DOUBLE&quot; description=&quot;Remaining Amount&quot; /&gt;
+       &lt;rdf:column name=&quot;executed_qty&quot; type=&quot;DOUBLE&quot; description=&quot;Executed Amount&quot; /&gt;
+       &lt;rdf:column name=&quot;counter_amount&quot; type=&quot;DOUBLE&quot; description=&quot;Counter Amount&quot;/&gt;
+       &lt;rdf:column name=&quot;rate&quot; type=&quot;DOUBLE&quot; description=&quot;Rate&quot; /&gt;
+       &lt;rdf:column name=&quot;applied_price&quot; type=&quot;DOUBLE&quot; description=&quot;Applied Price&quot;/&gt;
+       &lt;rdf:column name=&quot;pnl&quot; type=&quot;DOUBLE&quot; description=&quot;PnL&quot; /&gt;
+       &lt;rdf:column name=&quot;markups&quot; type=&quot;DOUBLE&quot; description=&quot;Markups (pips)&quot;/&gt;
+       &lt;rdf:column name=&quot;condition&quot; type=&quot;STRING&quot; description=&quot;Condition&quot;/&gt;
+       &lt;rdf:column name=&quot;action&quot; type=&quot;STRING&quot; description=&quot;Action&quot; /&gt;
+       &lt;rdf:column name=&quot;platform&quot; type=&quot;STRING&quot; description=&quot;Platform&quot;/&gt;
+       &lt;rdf:column name=&quot;created_by&quot; type=&quot;STRING&quot; description=&quot;Created By&quot; /&gt;
+       &lt;rdf:column name=&quot;executed_by&quot; type=&quot;STRING&quot; description=&quot;Executed By&quot; /&gt;
+   &lt;/rdf:head&gt;
+   &lt;rdf:body&gt;
+       &lt;rdf:row&gt;
+           &lt;rdf:cell name=&quot;date&quot;&gt;2017-09-18 12:40:23&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;order_id&quot;&gt;20141976&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;execution_id&quot;&gt;28584143&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;open_tickets&quot;/&gt;
+           &lt;rdf:cell name=&quot;closed_tickets&quot;/&gt;
+           &lt;rdf:cell name=&quot;value_date&quot;/&gt;
+           &lt;rdf:cell name=&quot;symbol&quot;&gt;EUR/USD&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;type&quot;&gt;SPOT&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;precision&quot;&gt;5&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;buy_sell&quot;&gt;S&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;total_qty&quot;&gt;90000.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;remaining_qty&quot;&gt;70000.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;executed_qty&quot;&gt;20000.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;counter_amount&quot;&gt;47825.60&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;rate&quot;&gt;1.19564&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;applied_price&quot;/&gt;
+           &lt;rdf:cell name=&quot;pnl&quot;&gt;0.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;markups&quot;&gt;1.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;condition&quot;&gt;Mkt&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;action&quot;&gt;PARTIAL&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;platform&quot;&gt;FXTS&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;created_by&quot;&gt;fx00035789&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;executed_by&quot;&gt;fx00035789&lt;/rdf:cell&gt;
+       &lt;/rdf:row&gt;
+       ...
+   &lt;/rdf:body&gt;
+&lt;/rdf:table&gt;</pre>
+</div><p>
+      <center><a href="CAS.managed.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

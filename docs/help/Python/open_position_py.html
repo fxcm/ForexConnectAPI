@@ -1,0 +1,300 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Opening/Closing Position</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Opening/Closing Position</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article explains how to open/close a position.</p>
+    <p><b>Details</b></p><p>Positions are opened and closed by orders. So, to open/close a position, you have to <a href="create_order_py.html">create an order</a>.
+When the order is created, it appears in the <a href="TTOrders.html">Orders table</a>.
+It stays in the table until it is executed. When the order is executed, a position is opened and appears in the <a href="TTTrades.html">Trades table</a>
+or the position is closed and appears in the <a href="TTClosedTrades.html">Closed Trades table</a>.<br><br></p>
+<p>Depending on the order type and the market conditions, the order execution may produce different results.
+The limited market liquidity may lead to failure to fill an order (order rejection) or to a partial fill of an order (only a part of the order is executed at the price).
+On the volatile market, the market price may significantly move away from the order price, which may also lead to order rejection for the Open Range and the Open Limit orders.<br><br>
+With different order types a trader has different time-in-force options that provide additional instructions on how long an order should remain active until it is executed or expires.
+For detailed description of orders, see the sections <a href="OrderTypes.html">Order Types</a> and <a href="OrderStatuses.html">Orders State Machines</a>.<br></p>
+<p>The following table summarizes all possible variants of the order execution and execution results:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Variant of order execution</p></td>
+    <td class="thdr"><p>Execution result</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>An opened position</p></td>
+    <td class="tmain"><p>A new position will appear in the <a href="TTTrades.html">Trades</a> table. The position amount must be equal to the amount specified in the order request.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>A closed position</p></td>
+    <td class="tmain"><p>A closed position will appear in the <a href="TTClosedTrades.html">Closed Trades</a> table. The position amount must not be less than the amount specified in the order request.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>A partially opened/closed position</p></td>
+    <td class="tmain"><p>Either a new position will appear in the <a href="TTTrades.html">Trades</a> table or a closed position will appear
+in the <a href="TTClosedTrades.html">Closed Trades</a> table. The position amount must be less than the amount specified in the order request.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>A completely rejected order</p></td>
+    <td class="tmain"><p>A rejection message will appear in the <a href="TTMessages.html">Messages</a> table. The order status will change to <code>R</code> in the <a href="TTOrders.html"><code>Orders</code></a> table.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>A partially rejected order</p></td>
+    <td class="tmain"><p>Either a new position will appear in the <a href="TTTrades.html">Trades</a> table or a closed position will appear in the
+<a href="TTClosedTrades.html"><code>Closed Trades</code></a> table (depending on the account type).<br>
+A rejection message will appear in the <a href="TTMessages.html">Messages</a> table.</p></td>
+  </tr>
+</table><p>To open or close a position in your Python script, you must perform the following steps:</p><ol class="main">
+  <li><p><a href="login_logout_py.html">Log in</a>.</p></li>
+  <li><p>Create a request for creating an order by calling the
+<a href="forexconnect.ForexConnect.ForexConnect.createOrderRequest.html"><code>Forexconnect.create_order_request</code></a> method.
+The set of order parameters depends on a particular order type. For order parameters description for each order type,
+see the article <a href="order_parameters.html">Order Request Parameters</a>. For example:</p><pre class="example">    request = fx.create_order_request(
+        order_type=fxcorepy.Constants.TRUE_MARKET_OPEN,
+        SYMBOL=&quot;EUR/USD&quot;,
+        ACCOUNT_ID=&quot;account_id&quot;,
+        BUY_SELL=fxcorepy.Constants.BUY,
+        AMOUNT=4000,
+    )</pre></li>
+  <li><p>Monitor Orders table <a href="table_updates_py.html">updates</a>.<br>
+For this, define the <code>on_add_callback</code>, <code>on_changed_callback</code>, and <code>on_deleted_callback</code> callback functions that will be called after you subscribe to the table updates,
+get the <a href="TTOrders.html">Orders table</a>, create a table listener and subscribe it to the table updates.<br>
+The callback functions will be called in a separate thread. You can synchronize its results with your main thread by setting an event.</p><pre class="example">  def on_added_order(self, _, __, order_row):
+      order_id = order_row.order_id
+      self.__added_orders[order_id] = order_row
+      if self.__order_id == order_id:
+          self.__added_order_event.set()
+ 
+  def on_changed_order(self, _, __, order_row):
+      order_id = order_row.order_id
+      self.__changed_orders[order_id] = order_row
+      if self.__order_id == order_id:
+          self.__changed_orders_event.set()
+ 
+  def on_deleted_order(self, _, __, order_row):
+      order_id = order_row.order_id
+      self.__deleted_orders[order_id] = order_row
+      if self.__order_id == order_id:
+          self.__deleted_order_event.set()
+ 
+      orders_table = fx.get_table(ForexConnect.ORDERS)
+      orders_listener = Common.subscribe_table_updates(orders_table, on_add_callback=on_added_order,
+                                                       on_delete_callback=on_deleted_order,
+                                                       on_change_callback=on_changed_order)</pre></li>
+  <li><p>Monitor Trades table or Closed Trades table <a href="table_updates_py.html">updates</a>.<br>
+For this, define the <code>on_add_callback</code> callback function that will be called after you subscribe to the table updates,
+get the <a href="TTTrades.html">Trades table</a> or <a href="TTClosedTrades.html">Closed Trades table</a>, create a table listener and subscribe it to the table updates.<br>
+The callback function will be called in a separate thread. You can synchronize its results with your main thread by setting an event.</p><pre class="example">  def on_added_trade(self, _, __, trade_row):
+      open_order_id = trade_row.open_order_id
+      self.__trades[open_order_id] = trade_row
+      if self.__open_order_id == open_order_id:
+          self.__event.set()
+ 
+      orders_table = fx.get_table(ForexConnect.ORDERS)
+      trades_listener = Common.subscribe_table_updates(trades_table, on_add_callback=on_added_trade)</pre></li>
+  <li><p>Send the request for creating the order by calling the method <a href="forexconnect.ForexConnect.ForexConnect.sendRequest.html"><code>ForexConnect.send_request</code></a>
+and get the corresponding order ID from the response using the property
+<a href="IO2GOrderResponseReader.IO2GOrderResponseReader.getOrderID.html"><code>O2GOrderResponseReader.order_id</code></a>.</p><pre class="example">      try:
+          resp = fx.send_request(request)
+          order_id = resp.order_id
+ 
+      except Exception as e:
+          print(&quot;Exception: &quot; + str(e))
+          trades_listener.unsubscribe()
+          orders_listener.unsubscribe()
+    ...</pre></li>
+  <li><p>Wait for the order to be added to the <a href="TTOrders.html">Orders table</a> and executed and for a trade to appear in the <a href="TTTrades.html">Trades table</a>
+or <a href="TTClosedTrades.html">Closed Trades table</a>.
+The order/trade row might be added to the table before the response is received,
+so you need to check if an order/trade row with the corresponding order ID has been already collected. For example:</p><pre class="example">  def wait_order(self, time, order_id):
+      self.__order_id = order_id
+ 
+      is_order_added = True
+      is_order_changed = True
+      is_order_deleted = True
+ 
+      # looking for an added order
+      if order_id not in self.__added_orders:
+          is_order_added = self.__added_order_event.wait(time)
+ 
+      if is_order_added:
+          order_row = self.__added_orders[order_id]
+          print(&quot;The order has been added. Order ID: {0:s}, Rate: {1:.5f}, Time In Force: {2:s}, Status: {3}&quot;.format(
+              order_row.order_id, order_row.rate, order_row.time_in_force, order_row.status))
+ 
+      # looking for a changed order
+      if order_id not in self.__changed_orders:
+          is_order_changed = self.__changed_orders_event.wait(time)
+ 
+      if is_order_changed:
+          order_row = self.__changed_orders[order_id]
+          print(&quot;The order has been changed. Order ID: {0:s}, status {1}&quot;.format(order_row.order_id, order_row.status))
+ 
+      # looking for a deleted order
+      if order_id not in self.__deleted_orders:
+          is_order_deleted = self.__deleted_order_event.wait(time)
+ 
+      if is_order_deleted:
+          order_row = self.__deleted_orders[order_id]
+          print(&quot;The order has been deleted. Order ID: {0}, status {1}&quot;.format(order_row.order_id, order_row.status))
+ 
+      return is_order_added and is_order_changed and is_order_deleted
+ 
+  def wait_trade(self, time, open_order_id):
+      self.__open_order_id = open_order_id
+ 
+      trade_row = self.find_trade(open_order_id)
+      if trade_row is not None:
+          return trade_row
+ 
+      self.__event.wait(time)
+ 
+      return self.find_trade(open_order_id)
+ 
+  def find_trade(self, open_order_id):
+      if open_order_id in self.__trades:
+          return self.__trades[open_order_id]
+      return None
+ 
+  ...
+ 
+      else:
+          # Waiting for an order to appear/to be deleted or timeout (default 30)
+          is_success = wait_order(30, order_id)
+ 
+          trade_row = None
+          if is_success:
+              # Waiting for a trade to appear or timeout (default 30)
+              trade_row = wait_trade(30, order_id)
+ 
+          if trade_row is None:
+              print(&quot;Response waiting timeout expired.\n&quot;)
+          else:
+              print(&quot;For the order: OrderID = {0} the following positions have been opened:&quot;.format(order_id))
+              print(&quot;Trade ID: {0:s}; Amount: {1:d}; Rate: {2:.5f}&quot;.format(trade_row.trade_id, trade_row.amount,
+                                                                 trade_row.open_rate))
+              sleep(1)</pre></li>
+  <li><p>Unsubscribe the table listeners from table updates. For example:</p><pre class="example">      orders_listener.unsubscribe()
+      trades_listener.unsubscribe()</pre></li>
+  <li><p><a href="login_logout_py.html">Log out</a>.</p></li>
+</ol><p>Find sample scripts demonstrating how to create an order at https://github.com/gehtsoft/forex-connect/tree/master/samples:</p><ul class="main">
+  <li><p><code>OpenPosition.py</code><br>
+This sample script shows how to open a position by creating an open market order for specified account ID, instrument, buy/sell, rate, and number of lots.</p></li>
+  <li><p><code>ClosePosition.py</code><br>
+This sample script shows how to close a position for a specified instrument by creating a close market order with an opposite direction.</p></li>
+</ul><p>
+      <center><a href="orders_py.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

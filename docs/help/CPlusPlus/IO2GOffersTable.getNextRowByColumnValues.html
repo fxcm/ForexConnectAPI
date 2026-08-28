@@ -1,0 +1,200 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GOffersTable.getNextRowByColumnValues</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>IO2GOffersTable.getNextRowByColumnValues</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Gets the next row from <code>IO2GOffersTable</code> based on any of the column values.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">C++</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code>virtual&nbsp;bool&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>getNextRowByColumnValues</b> (const char *columnName, <a href="O2GRelationalOperators.html">O2GRelationalOperators</a> condition, const int valueCount, const void *columnValues[], <a href="IO2GTableIterator.html">IO2GTableIterator</a> &iterator, <a href="IO2GOfferTableRow.html">IO2GOfferTableRow</a> *&row)  = 0</code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>columnName</code></td>
+    <td class="tmain" width="69%"><p>The name of a column in the <a href="TTOffers.html">Offers</a> table. For example, <code>OfferID</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>condition</code></td>
+    <td class="tmain" width="69%"><p>The relation which should be met for table values.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>valueCount</code></td>
+    <td class="tmain" width="69%"><p>Number of values of the column.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>columnValues</code></td>
+    <td class="tmain" width="69%"><p>The values of the column specified by the <code>columnName</code> parameter. For example, if you want to search the <a href="TTOffers.html">Offers</a> table
+for instruments with the size of one pip <code>0.1</code>, <code>0.01</code>, or <code>0.001</code>, the <code>columnName</code> parameter value is <code>PointSize</code>, the <code>columnValues</code> parameter value is an array of <code>0.1</code>, <code>0.01</code>, and <code>0.001</code>, the <code>valueCount</code> parameter value is <code>3</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>iterator</code></td>
+    <td class="tmain" width="69%"><p>The table iterator.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>row</code></td>
+    <td class="tmain" width="69%"><p>[out] The row fetched.</p></td>
+  </tr>
+</table><p><b>Details</b></p><p>This method allows finding all rows that contain any of the specified column values.<br>
+If the row is not found, the method returns <code>false</code>.</p>
+<p>The wildcard like ? or * can be used for string data type. For example: &quot;U100*&quot;, &quot;???D3*&quot;, &quot;*D3*&quot;.<br>
+<br>
+The method supports <code>EqualTo</code> and <code>NotEqualTo</code> conditional statements for predicates of searching fields. If set NULL instead of <code>O2GRelationalOperators</code>, the method interprets the value as <code>EqualTo</code>.<br></p>
+<p><b>Example</b></p><div id="open159" style="display:none">
+  <p>Get instruments from the Offers table with specified PointSize&nbsp;<a href="javascript: showdiv('close159'); hidediv('open159');" onclick="javascript: showdiv('close159'); hidediv('open159');">[show]</a></p>
+</div>
+<div id="close159" style="display:inline">
+  <p>Get instruments from the Offers table with specified PointSize&nbsp;<a href="javascript: showdiv('open159'); hidediv('close159');" onclick="javascript: showdiv('open159'); hidediv('close159');">[hide]</a></p>
+  <pre class="example">    O2G2Ptr&lt;IO2GOffersTable&gt; offersTable = (IO2GOffersTable *)tableManager-&gt;getTable(Offers);
+    bool found = false;
+    IO2GTableIterator iterator;
+    IO2GOfferTableRow *offer = NULL;
+    const double dec = 0.1;
+    const double hun = 0.01;
+    const double tho = 0.001;
+    const void *columnValues[] = {(void *)&dec, (void *)&hun, (void *)&tho};
+    while (offersTable-&gt;getNextRowByColumnValues(&quot;PointSize&quot;, 3, columnValues, iterator, offer))
+    {
+        found = true;
+        std::cout &lt;&lt; &quot;Instrument: &quot; &lt;&lt; offer-&gt;getInstrument() &lt;&lt;
+                     &quot; Bid = &quot; &lt;&lt; offer-&gt;getBid() &lt;&lt;
+                     &quot; Ask = &quot; &lt;&lt; offer-&gt;getAsk() &lt;&lt; std::endl;
+        offer-&gt;release();
+    }
+    if (!found)
+        std::cout &lt;&lt; &quot;No instruments found.&quot; &lt;&lt; std:endl;</pre>
+</div><p><b>Note:</b> The returned row contains the current column values. The values are not automatically updated. To monitor
+changes, use <a href="IO2GTableListener.onChanged.html"><code>IO2GTableListener.onChanged</code></a>.
+The row interface is thread-safe. The returned row can be used in different threads without synchronization.</p><p>Declared in <a href="IO2GOffersTable.html">IO2GOffersTable</a></p>
+<p>
+  <center><a href="IO2GOffersTable.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'IO2GOffersTable.html');</script></body>
+</html>

@@ -1,0 +1,418 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GSummaryTableRow</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>IO2GSummaryTableRow</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="IO2GSummaryRow.html">IO2GSummaryRow</a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The class provides access to the summary information of the instrument traded.</p>
+    <p><b>Details</b></p><p>The  class represents a single row of the <a href="TTSummary.html">Summary</a> table.
+The class provides methods to access summarized information, such as buy/sell gross and net profits/losses, average open prices, amounts of long and short positions, etc.<br></p>
+<p><b>Prerequisites</b></p>
+<p>The class is available only through the use of the <a href="IO2GTableManager.html"><code>IO2GTableManager</code></a>. An <a href="IO2GTableManager.html"><code>IO2GTableManager</code></a>
+object must have the <a href="O2GTableManagerStatus.html">O2GTableManagerStatus</a>.<a href="O2GTableManagerStatus.TablesLoaded.0.html">TablesLoaded</a> status.<br>
+For complete instructions on the table manager usage, see the <a href="table_manager_use_c.html">How to use table manager in ForexConnect API</a> section.<br>
+After tables are loaded, you must obtain an instance of the <a href="IO2GSummaryTable.html"><code>IO2GSummaryTable</code></a> class. For example,<br></p>
+<p><code>O2GSummaryTable summaryTable = (O2GSummaryTable)tableManager.getTable(O2GTable::Summary);</code></p>
+<p><b>Instantiating the class</b></p>
+<p>If you need access to the current summary information, get an instance of the class by calling any of the following methods of the <a href="IO2GSummaryTable.html"><code>IO2GSummaryTable</code></a> class:<br></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p><code>IO2GSummaryTable</code> method</p></td>
+    <td class="thdr"><p>Syntax example</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GSummaryTable.getRow.html"><code>getRow</code></a></p></td>
+    <td class="tmain"><p><code>IO2GSummaryTableRow *summary = summaryTable-&gt;getRow(i);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GSummaryTable.findRow.html"><code>findRow</code></a></p></td>
+    <td class="tmain"><p><code>IO2GSummaryTableRow *summary = NULL;<br>
+bool bFound = summaryTable-&gt;findRow(mOfferID, summary);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GSummaryTable.getNextRow.html"><code>getNextRow</code></a></p></td>
+    <td class="tmain"><p><code>IO2GSummaryTableRow *summary = NULL;<br>
+bool bFound = summaryTable-&gt;getNextRow(mIterator, summary);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GSummaryTable.getNextRowByColumnValue.html"><code>getNextRowByColumnValue</code></a></p></td>
+    <td class="tmain"><p><code>IO2GSummaryTableRow *summary = NULL;<br>
+bool bFound = summaryTable-&gt;getNextRowByColumnValue(&quot;OfferID&quot;, (void *)&quot;1&quot;, mIterator, summary);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GSummaryTable.getNextRowByColumnValues.html"><code>getNextRowByColumnValues</code></a></p></td>
+    <td class="tmain"><p><code>IO2GSummaryTableRow *summary = NULL;<br>
+O2GRelationalOperators operator = EqualTo;<br>
+const void *values[] = {(void *)&quot;1&quot;, (void *)&quot;2&quot;};<br>
+bool bFound = summaryTable-&gt;getNextRowByColumnValues(&quot;OfferID&quot;, 2, operator, values, mIterator, summary);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GSummaryTable.getNextRowByMultiColumnValues.html"><code>getNextRowByMultiColumnValues</code></a></p></td>
+    <td class="tmain"><p><code>IO2GSummaryTableRow *summary = NULL;<br>
+const char *names[] = {&quot;OfferID&quot;, &quot;Amount&quot;};<br>
+O2GRelationalOperators operators[] = {EqualTo, EqualTo};<br>
+const void *values[] = {(void *)mOfferID, (void *)mAmount};<br>
+bool bFound = summaryTable-&gt;getNextRowByMultiColumnValues(2, names, operators, values, mIterator, summary);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GSummaryTable.getNextRowByCondition.html"><code>getNextRowByCondition</code></a></p></td>
+    <td class="tmain"><p><code>const char *name = {&quot;OfferID&quot;};<br>
+O2GRelationalOperators operator = {EqualTo};<br>
+const void *values[] = {(void *)mOfferID};<br>
+bool bFound = summaryTable-&gt;getNextRowByCondition(name, operator, values, mIterator, summary);</code></p></td>
+  </tr>
+</table><p>If you want to track the <a href="TTSummary.html">Summary</a> table updates, your application must have a listener class that implements the <a href="IO2GTableListener.html"><code>IO2GTableListener</code></a> interface.
+An instance of the listener class must be subscribed to the table updates. Subscription for each update type is done individually.
+Before the logout, you must unsubscribe the listener
+from each update type separately. The examples of subscription/unsubscription syntax are listed below.</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p><code>IO2GTableListener</code> method</p></td>
+    <td class="thdr"><p>Subscribe syntax</p></td>
+    <td class="thdr"><p>Unsubscribe syntax</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GTableListener.onAdded.html"><code>onAdded</code></a></p></td>
+    <td class="tmain"><p><code>summaryTable.subscribeUpdate(O2GTableUpdateType.INSERT, tableListener);</code></p></td>
+    <td class="tmain"><p><code>summaryTable.unsubscribeUpdate(O2GTableUpdateType.INSERT, tableListener);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GTableListener.onChanged.html"><code>onChanged</code></a></p></td>
+    <td class="tmain"><p><code>summaryTable.subscribeUpdate(O2GTableUpdateType.UPDATE, tableListener);</code></p></td>
+    <td class="tmain"><p><code>summaryTable.unsubscribeUpdate(O2GTableUpdateType.UPDATE, tableListener);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="IO2GTableListener.onDeleted.html"><code>onDeleted</code></a></p></td>
+    <td class="tmain"><p><code>summaryTable.subscribeUpdate(O2GTableUpdateType.DELETE, tableListener);</code></p></td>
+    <td class="tmain"><p><code>summaryTable.unsubscribeUpdate(O2GTableUpdateType.DELETE, tableListener);</code></p></td>
+  </tr>
+</table><p>To instantiate the <code>O2GSummaryTableRow</code> class, you must cast the <code>rowData</code> parameter of the above methods to the <code>O2GSummaryTableRow</code> type. For example,</p>
+<p><code>O2GSummaryTableRow row = (O2GSummaryTableRow)(rowData);</code></p>
+<p><b>Example</b></p><div id="open205" style="display:inline">
+  <p>Get Offer ID, net profit/loss and amount for the traded instrument&nbsp;<a href="javascript: showdiv('close205'); hidediv('open205');" onclick="javascript: showdiv('close205'); hidediv('open205');">[show]</a></p>
+</div>
+<div id="close205" style="display:none">
+  <p>Get Offer ID, net profit/loss and amount for the traded instrument&nbsp;<a href="javascript: showdiv('open205'); hidediv('close205');" onclick="javascript: showdiv('open205'); hidediv('close205');">[hide]</a></p>
+  <pre class="example">    <b>// Get the instance of table manager</b>
+    O2G2Ptr&lt;IO2GTableManager&gt; tableManager = mSession-&gt;getTableManager();
+    while (tableManager-&gt;getStatus() != TablesLoaded &amp;&amp;
+           tableManager-&gt;getStatus() != TablesLoadFailed)
+        uni::Sleep(50);
+ 
+    <b>// Get summary information</b>
+    if (tableManager-&gt;getStatus() == TablesLoaded)
+    {
+        O2G2Ptr&lt;IO2GOrdersTable&gt; orderTable = (IO2GOrdersTable *)tableManager-&gt;getTable(Summary);
+        for (int i = 0; i &lt; summaryTable-&gt;size(); ++i)
+        {
+            O2G2Ptr&lt;IO2GSummaryTableRow&gt; summary = summaryTable-&gt;getRow(i);
+            std::cout &lt;&lt; &quot;OfferID: &quot; &lt;&lt; summary-&gt;getOfferID() &lt;&lt;
+                         &quot; NetPL = &quot; &lt;&lt; summary-&gt;getNetPL() &lt;&lt;
+                         &quot; Amount = &quot; &lt;&lt; summary-&gt;getAmount() &lt;&lt; std::endl;
+        }
+ 
+        <b>// Subscribe table listener</b>
+        O2G2Ptr&lt;TableListener&gt; tableListener = new TableListener();
+        summaryTable-&gt;subscribeUpdate(Update, tableListener);
+        uni::WaitForSingleObject(tableListener-&gt;getUpdateEvent, 1000);
+        summaryTable-&gt;unsubscribeUpdate(Update, tableListener);
+    }
+ 
+    <b>// Implementation of IO2GTableListener interface public method onChanged</b>
+    void onChanged(const char * rowID, IO2GRow * rowData)
+    {
+        IO2GSummaryTableRow *summary = (IO2GSummaryTableRow *)(rowData);
+        std::cout &lt;&lt; &quot;Summary information changed &quot; &lt;&lt; rowID &lt;&lt; std::endl;
+        std::cout &lt;&lt; &quot;OfferID: &quot; &lt;&lt; summary-&gt;getOfferID() &lt;&lt;
+                     &quot; NetPL = &quot; &lt;&lt; summary-&gt;getNetPL() &lt;&lt;
+                     &quot; Amount = &quot; &lt;&lt; summary-&gt;getAmount() &lt;&lt; std::endl;
+        uni::SetEvent(mUpdateEvent);
+    }
+ 
+    HANDLE getUpdateEvent()
+    {
+        return mUpdateEvent;
+    }</pre>
+</div><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSummaryTableRow.columns.html">columns</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the columns of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSummaryTableRow.getAmount.html">getAmount</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the amount of all positions (both long and short).</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSummaryTableRow.getBuyAmount.html">getBuyAmount</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the amount of long (buy) positions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSummaryTableRow.getBuyAvgOpen.html">getBuyAvgOpen</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p> Gets the average open price of long (buy) positions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSummaryTableRow.getBuyClose.html">getBuyClose</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the current market price at which all sell positions opened in the instrument can be closed.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSummaryTableRow.getBuyNetPL.html">getBuyNetPL</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the current profit/loss of all long (buy) positions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSummaryTableRow.getCell.html">getCell</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets value of a table cell.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSummaryTableRow.getDefaultSortOrder.html">getDefaultSortOrder</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the sequence number of the instrument.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSummaryTableRow.getDividends.html">getDividends</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the cumulative amount of dividends earned or paid for all positions (both long and short). Applicable only to Index CFD positions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSummaryTableRow.getGrossPL.html">getGrossPL</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the current profit/loss of all positions (both long and short). It does not include commissions, interest and dividends.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSummaryTableRow.getInstrument.html">getInstrument</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the symbol of the instrument. For example, EUR/USD, USD/JPY, GBP/USD.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSummaryTableRow.getNetPL.html">getNetPL</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the current profit/loss of all positions (both long and short). It includes commissions, interest and dividends.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSummaryTableRow.getOfferID.html">getOfferID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the traded instrument.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSummaryTableRow.getSellAmount.html">getSellAmount</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the amount of short (sell) positions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSummaryTableRow.getSellAvgOpen.html">getSellAvgOpen</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the average open price of short (sell) positions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSummaryTableRow.getSellClose.html">getSellClose</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the current market price at which long (buy) positions can be closed.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSummaryTableRow.getSellNetPL.html">getSellNetPL</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the current profit/loss of all short (sell) positions.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSummaryTableRow.getTableType.html">getTableType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="IO2GSummaryTableRow.isCellChanged.html">isCellChanged</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a flag indicating whether the value of the cell is changed.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="forexconnect.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

@@ -1,0 +1,368 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GRequestParamsEnum</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>enum <b>O2GRequestParamsEnum</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The enum defines a set of constants representing the name of a parameter of an order request, an instrument subscription request, and get margin requirements request.</p>
+    <p><b>Details</b></p><p>The <a href="com.fxcore2.O2GRequestFactory.html"><code>O2GRequestFactory</code></a>.<a href="com.fxcore2.O2GRequestFactory.createOrderRequest.html"><code>createOrderRequest</code></a>
+method is used to create the following requests:</p><ul class="main">
+  <li><p>Create, change, delete, and track an order;</p></li>
+  <li><p>Subscribe/unsubscribe an instrument;</p></li>
+  <li><p>Get margin requirements for an instrument.</p></li>
+</ul><p>The method uses the <a href="com.fxcore2.O2GValueMap.html"><code>O2GValueMap</code></a> object as an argument.
+The value map object has the <a href="com.fxcore2.O2GValueMap.setBoolean.html"><code>setBoolean</code></a>,
+<a href="com.fxcore2.O2GValueMap.setDouble.html"><code>setDouble</code></a>,
+<a href="com.fxcore2.O2GValueMap.setInt.html"><code>setInt</code></a>, and
+<a href="com.fxcore2.O2GValueMap.setString.html"><code>setString</code></a> methods.
+These methods are used to set the values of the <code>O2GRequestParamsEnum</code> parameters.<br></p>
+<p>Every parameter has two attributes: name and value.<br>
+The names of the parameters are listed in the table below. <br>
+For the set of the parameters that are required for a particular request, refer to the <a href="JavaTradingCommands.html">Trading Commands</a> section.</p>
+<p>The namespace is <a href="com.fxcore2.html"><code>com.fxcore2</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Static Public Fields</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.ACCOUNT_ID.html">ACCOUNT_ID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the account identification number parameter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.AMOUNT.html">AMOUNT</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the order amount parameter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.BUY_SELL.html">BUY_SELL</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the order direction parameter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.COMMAND.html">COMMAND</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the command parameter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.CONTINGENCY_GROUP_TYPE.html">CONTINGENCY_GROUP_TYPE</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the contingent order type parameter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.CONTINGENCY_ID.html">CONTINGENCY_ID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The unique identifier of an existing contingency group which the order is linked to.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.CUSTOM_ID.html">CUSTOM_ID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the order request comments parameter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.EXPIRE_DATE_TIME.html">EXPIRE_DATE_TIME</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The date and time up to which the order should stay live.<br></p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.NET_QUANTITY.html">NET_QUANTITY</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the net amount order parameter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.OFFER_ID.html">OFFER_ID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the instrument identification number parameter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.ORDER_ID.html">ORDER_ID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the order identification number parameter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.ORDER_TYPE.html">ORDER_TYPE</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the order type parameter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.PEG_OFFSET.html">PEG_OFFSET</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the order price offset parameter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.PEG_OFFSET_LIMIT.html">PEG_OFFSET_LIMIT</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the associated limit order price offset parameter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.PEG_OFFSET_STOP.html">PEG_OFFSET_STOP</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the associated stop order price offset parameter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.PEG_TYPE.html">PEG_TYPE</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the order pegged price parameter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.PEG_TYPE_LIMIT.html">PEG_TYPE_LIMIT</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the associated limit order pegged price parameter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.PEG_TYPE_STOP.html">PEG_TYPE_STOP</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the associated stop order pegged price parameter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.RATE.html">RATE</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the order rate parameter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.RATE_LIMIT.html">RATE_LIMIT</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the associated limit order rate parameter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.RATE_MAX.html">RATE_MAX</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the open/close range order maximum rate parameter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.RATE_MIN.html">RATE_MIN</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the open/close range order minimum rate parameter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.RATE_STOP.html">RATE_STOP</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the associated stop order rate parameter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.SUBSCRIPTION_STATUS.html">SUBSCRIPTION_STATUS</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the instrument subscription status parameter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.TIME_IN_FORCE.html">TIME_IN_FORCE</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the time-in-force order parameter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.TRADE_ID.html">TRADE_ID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the position identification number parameter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.TRAIL_STEP.html">TRAIL_STEP</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the order trailing step parameter.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GRequestParamsEnum.TRAIL_STEP_STOP.html">TRAIL_STEP_STOP</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The constant represents the name of the associated stop order trailing step parameter.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="com.fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

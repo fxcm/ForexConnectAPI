@@ -1,0 +1,351 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>orders Table</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b><code>orders</code> Table</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article describes the Outstanding Orders table of the report.</p>
+    <p><b>Details</b></p><p>The <i>Outstanding Orders</i> table contains information about all orders that remain unexecuted
+at the end (<code>till</code>) date of the report statement period
+(see <a href="CAS.RequestParameters.html"> Combined Account Statement: Report Request Parameters</a>).
+The identifier of the table is <code>orders</code>.</p>
+<p>All data rows are arranged in ascending order by the unique identification number (<code>ticket_id</code>) of the position
+to be opened or closed by the order.</p>
+<p>If no information is found for the report statement period, the table has only a header row.</p><table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><p>Column identifier</p></td>
+    <td class="thdr"><p>Column data type</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>order_id</code></p></td>
+    <td class="tmain"><p><code>INTEGER</code></p></td>
+    <td class="tmain"><p>The unique identification number of the order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>expire_date</code></p></td>
+    <td class="tmain"><p><code>DATE</code></p></td>
+    <td class="tmain"><p>The date and time when the order expires. The date has the format <code>YYYY-MM-DD hh:mm:ss</code>, where:</p><table class="tmain">
+  <tr>
+    <td class="tmain" width="1%"><p><code>YYYY</code></p></td>
+    <td class="tmain"><p>Year</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>MM</code></p></td>
+    <td class="tmain"><p>Month (01-12)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>DD</code></p></td>
+    <td class="tmain"><p>Day of month (01-31)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>hh</code></p></td>
+    <td class="tmain"><p>Hour (00-23)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>mm</code></p></td>
+    <td class="tmain"><p>Minute (00-59)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>ss</code></p></td>
+    <td class="tmain"><p>Second (00-59)</p></td>
+  </tr>
+</table><p>Makes sense only for orders with the DAY time-in-force option.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>type</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>The type of the order. Possible values:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p><code>SE</code></p></td>
+    <td class="tmain"><p>Entry stop or OCO order</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>LE</code></p></td>
+    <td class="tmain"><p>Entry limit or OCO order</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>S</code></p></td>
+    <td class="tmain"><p>Stop order</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>ST</code></p></td>
+    <td class="tmain"><p>Trailing stop order</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>L</code></p></td>
+    <td class="tmain"><p>Limit order</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>O</code></p></td>
+    <td class="tmain"><p>Open market, open limit, open range or open order</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>C</code></p></td>
+    <td class="tmain"><p>Close market, close limit, close range or close order</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>MC</code></p></td>
+    <td class="tmain"><p>Margin call order</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>ticket_id</code></p></td>
+    <td class="tmain"><p><code>INTEGER</code></p></td>
+    <td class="tmain"><p>The unique identification number of the position to be opened or closed by the order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>symbol</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>The instrument to be bought/sold.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>precision</code></p></td>
+    <td class="tmain"><p><code>INTEGER</code></p></td>
+    <td class="tmain"><p>The precision (i.e. the number of digits after the decimal point) of the instrument price.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>volume</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The amount of the instrument to be bought/sold.<br></p>
+<p>In case of FX instruments, the volume is expressed in the base currency of the instrument.<br>
+In case of CFD instruments, the volume is expressed in contracts.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>date</code></p></td>
+    <td class="tmain"><p><code>DATE</code></p></td>
+    <td class="tmain"><p>The date and time when the order was created. The date has the format <code>YYYY-MM-DD hh:mm:ss</code>, where:</p><table class="tmain">
+  <tr>
+    <td class="tmain" width="1%"><p><code>YYYY</code></p></td>
+    <td class="tmain"><p>Year</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>MM</code></p></td>
+    <td class="tmain"><p>Month (01-12)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>DD</code></p></td>
+    <td class="tmain"><p>Day of month (01-31)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>hh</code></p></td>
+    <td class="tmain"><p>Hour (00-23)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>mm</code></p></td>
+    <td class="tmain"><p>Minute (00-59)</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="1%"><p><code>ss</code></p></td>
+    <td class="tmain"><p>Second (00-59)</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>buy_sell</code></p></td>
+    <td class="tmain"><p>STRING</p></td>
+    <td class="tmain"><p>The trade operation of the order.<br></p>
+<p>The value <code>B</code> indicates a buy order.<br>
+The value <code>S</code> indicates a sell order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>price</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The price specified in the order. In case of a peg order, the value is not populated.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>peg_offset</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The distance between the order price and the primary order price. The value is populated if the order is a peg order.<br>
+If a peg order is activated or executed at the moment the report is requested, the value is not populated.</p>
+<p>The value can be either positive or negative.</p>
+<p>The distance is expressed in pips. <br></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>market_price</code></p></td>
+    <td class="tmain"><p><code>DOUBLE</code></p></td>
+    <td class="tmain"><p>The price of the instrument at the end date of the report statement period.<br></p>
+<p>The value is a sell price if the trade operation of the order (<code>buy_sell</code>) is sell (<code>S</code>).<br>
+The value is a buy price if the trade operation of the order (<code>buy_sell</code>) is buy (<code>B</code>).</p>
+<p>If the end date is the current date (the report was requested &quot;till now&quot;),
+the value is the current price of the instrument. <br>
+If the end date is in the past, the value is the price of the instrument at the end of that trading day.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>created_by</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>The name (login) of the user who placed the order.</p></td>
+  </tr>
+</table><div id="open53" style="display:inline">
+  <p>Example:&nbsp;<a href="javascript: showdiv('close53'); hidediv('open53');" onclick="javascript: showdiv('close53'); hidediv('open53');">[show]</a></p>
+</div>
+<div id="close53" style="display:none">
+  <p>Example:&nbsp;<a href="javascript: showdiv('open53'); hidediv('close53');" onclick="javascript: showdiv('open53'); hidediv('close53');">[hide]</a></p>
+  <pre class="example">&lt;rdf:table name=&quot;orders&quot; description=&quot;OUTSTANDING ORDERS&quot;&gt;
+   &lt;rdf:head&gt;
+       &lt;rdf:column name=&quot;order_id&quot; type=&quot;INTEGER&quot; description=&quot;Order #&quot; /&gt;
+       &lt;rdf:column name=&quot;expire_date&quot; type=&quot;DATE&quot; description=&quot;Expire Date&quot; /&gt;
+       &lt;rdf:column name=&quot;type&quot; type=&quot;STRING&quot; description=&quot;Type&quot; /&gt;
+       &lt;rdf:column name=&quot;ticket_id&quot; type=&quot;INTEGER&quot; description=&quot;Ticket&quot; /&gt;
+       &lt;rdf:column name=&quot;symbol&quot; type=&quot;STRING&quot; description=&quot;Symbol&quot; /&gt;
+       &lt;rdf:column name=&quot;precision&quot; type=&quot;INTEGER&quot; /&gt;
+       &lt;rdf:column name=&quot;volume&quot; type=&quot;DOUBLE&quot; description=&quot;Volume&quot; /&gt;
+       &lt;rdf:column name=&quot;date&quot; type=&quot;DATE&quot; description=&quot;Date&quot; /&gt;
+       &lt;rdf:column name=&quot;buy_sell&quot; type=&quot;STRING&quot; description=&quot;B/S&quot; /&gt;
+       &lt;rdf:column name=&quot;price&quot; type=&quot;DOUBLE&quot; description=&quot;Price&quot; /&gt;
+       &lt;rdf:column name=&quot;peg_offset&quot; type=&quot;DOUBLE&quot; description=&quot;Peg Offset&quot;/&gt;
+       &lt;rdf:column name=&quot;market_price&quot; type=&quot;DOUBLE&quot; description=&quot;Market Price&quot; /&gt;
+       &lt;rdf:column name=&quot;created_by&quot; type=&quot;STRING&quot; description=&quot;Created By&quot; /&gt;
+   &lt;/rdf:head&gt;
+   &lt;rdf:body&gt;
+       &lt;rdf:row&gt;
+           &lt;rdf:cell name=&quot;order_id&quot;&gt;355003&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;expire_date&quot;&gt;2018-02-27 21:59:00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;type&quot;&gt;SE&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;ticket_id&quot;&gt;355004&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;symbol&quot;&gt;NZD/CHF&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;precision&quot;&gt;5&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;volume&quot;&gt;10000.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;date&quot;&gt;2018-02-27 08:11:27&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;buy_sell&quot;&gt;S&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;price&quot;&gt;0.68146&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;peg_offset&quot;/&gt;
+           &lt;rdf:cell name=&quot;market_price&quot;&gt;0.68247&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;created_by&quot;&gt;fx00035789&lt;/rdf:cell&gt;
+       &lt;/rdf:row&gt;
+       &lt;rdf:row&gt;
+           &lt;rdf:cell name=&quot;order_id&quot;&gt;20568967&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;expire_date&quot;/&gt;
+           &lt;rdf:cell name=&quot;type&quot;&gt;S&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;ticket_id&quot;&gt;355004&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;symbol&quot;&gt;NZD/CHF&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;precision&quot;&gt;5&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;volume&quot;&gt;10000.00&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;date&quot;&gt;2018-02-27 08:11:28&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;buy_sell&quot;&gt;B&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;price&quot;/&gt;
+           &lt;rdf:cell name=&quot;peg_offset&quot;&gt;-5.10&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;market_price&quot;&gt;0.68313&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;created_by&quot;&gt;fx00035789&lt;/rdf:cell&gt;
+       &lt;/rdf:row&gt;
+   &lt;/rdf:body&gt;
+&lt;/rdf:table&gt;</pre>
+</div><p>
+      <center><a href="CAS.trade.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

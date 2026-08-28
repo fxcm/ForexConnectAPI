@@ -1,0 +1,171 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GChartSessionStatus</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>interface <b>IO2GChartSessionStatus</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The interface provides method signatures to process notifications about chart session status changes and login failures.</p>
+    <p><b>Details</b></p><p>The interface must be implemented by the application in order to process the status change of the chart session object.<br></p>
+<p>When a user tries to login, the session status changes to <a href="fxcore2.O2GChartSessionStatusCode.Connecting.0.html">Connecting</a>.<br></p>
+<p>If a login failed, the status changes to <a href="fxcore2.O2GChartSessionStatusCode.Disconnected.0.html">Disconnected</a> and the server
+returns an error message explaining why the login has failed. If you want to capture what has gone wrong, use the
+<a href="fxcore2.IO2GChartSessionStatus.onChartSessionLoginFailed.0.html">onChartSessionLoginFailed</a> method of the interface.<br></p>
+<p>If a login was successful, the session status changes to <a href="fxcore2.O2GChartSessionStatusCode.Connected.0.html">Connected</a>.
+If you want to capture and process every status change of the session object, use the
+<a href="fxcore2.IO2GChartSessionStatus.onChartSessionStatusChanged.0.html">onChartSessionStatusChanged</a> method of the interface.
+For a complete list of the session statuses, please see <a href="fxcore2.O2GChartSessionStatusCode.html">O2GChartSessionStatusCode</a>.</p>
+<p>If you want to use the methods of the <code>IO2GChartSessionStatus</code> interface, you must create a class that implements the interface. For example,<br>
+<code>public class ChartSessionStatusListener: IO2GChartSessionStatus { }</code><br></p>
+<p>An instance of the class implementing the <code>IO2GChartSessionStatus</code> interface must be subscribed to the session object before calling the
+<a href="fxcore2.O2GSession.html">O2GSession</a>.<a href="fxcore2.O2GSession.login.0.html">login</a> method. It is accomplished by calling the
+<a href="fxcore2.O2GSession.html"><code>O2GSession</code></a>.<a href="fxcore2.O2GSession.subscribeChartSessionStatus.0.html"><code>subscribeChartSessionStatus</code></a>
+method. For example,<br></p>
+<p><code>mSession = O2GTransport.createSession();<br>
+ChartSessionStatusListener statusListener = new ChartSessionStatusListener(mSession, mDBName, mPin);<br>
+mSession.subscribeChartSessionStatus(statusListener);</code><br></p>
+<p>The subscribed instance must be unsubscribed from the session object after calling the
+<a href="fxcore2.O2GSession.html">O2GSession</a>.<a href="fxcore2.O2GSession.logout.0.html">logout</a> method, but before calling the
+<a href="fxcore2.O2GSession.html">O2GSession</a>.<a href="fxcore2.O2GSession.Dispose.0.html">Dispose</a> method. It is accomplished by calling the
+<a href="fxcore2.O2GSession.html"><code>O2GSession</code></a>.<a href="fxcore2.O2GSession.unsubscribeChartSessionStatus.0.html"><code>unsubscribeChartSessionStatus</code></a> method.
+For example,<br></p>
+<p><code>mSession.logout();<br>
+mSession.unsubscribeChartSessionStatus(statusListener);<br>
+mSession.dispose();</code><br></p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.IO2GChartSessionStatus.onChartSessionLoginFailed.0.html">onChartSessionLoginFailed</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Processes a notification about a chart session login failure.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.IO2GChartSessionStatus.onChartSessionStatusChanged.0.html">onChartSessionStatusChanged</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Processes notifications about chart session status changes.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

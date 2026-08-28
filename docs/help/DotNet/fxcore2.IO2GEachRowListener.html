@@ -1,0 +1,174 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GEachRowListener</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>interface <b>IO2GEachRowListener</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The interface provides the method signature to process notifications about iteration through rows of a table.</p>
+    <p><b>Details</b></p><p>The interface can be implemented only when your application uses the <a href="fxcore2.O2GTableManager.html">O2GTableManager</a>.<br></p>
+<p><b>Prerequisites</b></p>
+<p>You must specify that your session uses the table manager before a login. For example,<br></p>
+<p><code>mSession.useTableManager(O2GTableManagerMode.YES, null);</code><br></p>
+<p>After the successful login, you must obtain an instance of the <a href="fxcore2.O2GTableManager.html">O2GTableManager</a> class. For example,<br></p>
+<p><code>O2GTableManager tableManager = mSession.getTableManager();</code></p>
+<p>Before processing notifications about iteration through rows of a specific table, you must obtain an instance of a class that represents the table.
+For example, if you need information about opened positions, write the following line:</p>
+<p><code>O2GTradesTable tradesTable = (O2GTradesTable)tableManager.getTable(O2GTableType.TRADES);</code></p>
+<p>For complete instructions on the table manager usage, see the
+<a href="table_manager_use_net.html">How to use table manager in ForexConnect API</a> section.</p>
+<p><b>Implementation</b></p>
+<p>To use the <a href="fxcore2.IO2GEachRowListener.onEachRow.0.html">onEachRow</a> method of the <code>IO2GEachRowListener</code> interface, you must create a class that implements the interface.
+For example,<br></p>
+<p><code>public class EachRowListener implements IO2GEachRowListener { }</code><br></p>
+<p>In your application you must create an instance of the class that implements the interface. For example,<br></p>
+<p><code>IO2GEachRowListener eachRowListener = new EachRowListener();</code></p>
+<p>This instance must be passed as an argument to the <a href="fxcore2.O2GTable.html">O2GTable</a>.<a href="fxcore2.O2GTable.forEachRow.0.html">forEachRow</a> method. For example, to iterate through
+rows of the <a href="TTTrades.html">Trades</a> table, write the following line:<br></p>
+<p><code>tradesTable.forEachRow(eachRowListener);</code></p>
+<p>For the interface implementation details, see the example below.</p>
+<p><b>Example</b></p><div id="open108" style="display:inline">
+  <p>Iterate through open positions&nbsp;<a href="javascript: showdiv('close108'); hidediv('open108');" onclick="javascript: showdiv('close108'); hidediv('open108');">[show]</a></p>
+</div>
+<div id="close108" style="display:none">
+  <p>Iterate through open positions&nbsp;<a href="javascript: showdiv('open108'); hidediv('close108');" onclick="javascript: showdiv('open108'); hidediv('close108');">[hide]</a></p>
+  <pre class="example">    class EachRowListener : IO2GEachRowListener
+    {
+        public void onEachRow(string rowID, O2GRow rowData)
+        {
+            O2GOrderTableRow orderTableRow = (O2GOrderTableRow)rowData;
+            Console.WriteLine(&quot;OrderID={0}; AccountID={1}; Type={2}; Status={3}; OfferID={4}; Amount={5}; BuySell={6}; Rate={7}; Stop={8}; Limit={9}&quot;,
+                sOrderID, orderTableRow.AccountID, orderTableRow.Type, orderTableRow.Status, orderTableRow.OfferID,
+                    orderTableRow.Amount, orderTableRow.BuySell, orderTableRow.Rate, orderTableRow.Stop, orderTableRow.Limit);
+        }
+    }</pre>
+</div><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.IO2GEachRowListener.onEachRow.0.html">onEachRow</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Processes iteration through rows of a table.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

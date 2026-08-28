@@ -1,0 +1,326 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GMessageTableRow</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>O2GMessageTableRow</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="com.fxcore2.O2GMessageRow.html"><code>O2GMessageRow</code></a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The class provides access to the message information.</p>
+    <p><b>Details</b></p><p>The class represents a single row of the <a href="TTMessages.html">Messages</a> table.</p>
+<p><b>Prerequisites</b></p>
+<p>The class is available only through the use of the <a href="com.fxcore2.O2GTableManager.html"><code>O2GTableManager</code></a>. An <a href="com.fxcore2.O2GTableManager.html"><code>O2GTableManager</code></a>
+object must have the <a href="com.fxcore2.O2GTableManagerStatus.0.html">O2GTableManagerStatus</a>.<a href="com.fxcore2.O2GTableManagerStatus.0.TABLES_LOADED.0.html">TABLES_LOADED</a> status.<br>
+For complete instructions on the table manager usage, see the <a href="table_manager_use_java.html">How to use table manager in ForexConnect API</a> section.<br>
+After tables are loaded, you must obtain an instance of the <a href="com.fxcore2.O2GMessagesTable.html"><code>O2GMessagesTable</code></a> class. For example,<br></p>
+<p><code>O2GMessagesTable messagesTable = (O2GMessagesTable)tableManager.getTable(O2GTableType.MESSAGES);</code></p>
+<p><b>Instantiating the class</b></p>
+<p>If you need access to the current message information, you can get an instance of the class by calling any of the following methods of the <a href="com.fxcore2.O2GMessagesTable.html"><code>O2GMessagesTable</code></a> class:<br></p><table class="tmain">
+  <tr>
+    <td class="thdr"><p><code>O2GMessagesTable</code> method</p></td>
+    <td class="thdr"><p>Syntax example</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GMessagesTable.getRow.html"><code>getRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GMessageTableRow message = messagesTable.getRow(i);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GMessagesTable.findRow.html"><code>findRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GMessageTableRow message = messagesTable.findRow(mTradeID);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GMessagesTable.getNextRow.html"><code>getNextRow</code></a></p></td>
+    <td class="tmain"><p><code>O2GMessageTableRow message = messagesTable.getNextRow(mIterator);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GMessagesTable.getNextRowByColumnValue.0.html"><code>getNextRowByColumnValue</code></a></p></td>
+    <td class="tmain"><p><code>O2GMessageTableRow message = messagesTable.getNextRowByColumnValue(&quot;OfferID&quot;, mOfferID, mIterator);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GMessagesTable.getNextRowByColumnValues.0.html"><code>getNextRowByColumnValues</code></a></p></td>
+    <td class="tmain"><p><code>O2GMessageTableRow message = messagesTable.getNextRowByColumnValues(&quot;Type&quot;, new Object[] { &quot;1&quot;, &quot;2&quot; }, mIterator);</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.O2GMessagesTable.getNextRowByMultiColumnValues.0.html"><code>getNextRowByMultiColumnValues</code></a></p></td>
+    <td class="tmain"><p><code>O2GMessageTableRow message = messagesTable.getNextRowByMultiColumnValues(new String[] { &quot;Feature&quot;, &quot;From&quot; }, new Object[] { mFeature, mFrom }, mIterator);</code></p></td>
+  </tr>
+</table><p>If you want to track incoming messages, your application must have a listener class that implements the <a href="com.fxcore2.IO2GTableListener.html"><code>IO2GTableListener</code></a> interface.
+An instance of the listener class must be subscribed to the table update with the <a href="com.fxcore2.O2GTableUpdateType.INSERT.html">O2GTableUpdateType.INSERT</a> type. Before the logout,
+you must unsubscribe the listener from this update type. The examples of subscription/unsubscription syntax are listed below.</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p><code>IO2GTableListener</code> method</p></td>
+    <td class="thdr"><p>Subscribe syntax</p></td>
+    <td class="thdr"><p>Unsubscribe syntax</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="com.fxcore2.IO2GTableListener.onAdded.html"><code>onAdded</code></a></p></td>
+    <td class="tmain"><p><code>messagesTable.subscribeUpdate(O2GTableUpdateType.INSERT, tableListener);</code></p></td>
+    <td class="tmain"><p><code>messagesTable.unsubscribeUpdate(O2GTableUpdateType.INSERT, tableListener);</code></p></td>
+  </tr>
+</table><p>To instantiate the <code>O2MessageTableRow</code> class, you must cast the <code>rowData</code> parameter of the <code>onAdded</code> method above
+to the <code>O2GMessageTableRow</code> type. For example,</p>
+<p><code>O2MessageTableRow row = (O2GMessageTableRow)(rowData);</code></p>
+<p><b>Example</b></p><div id="open178" style="display:inline">
+  <p>Get message sender and text&nbsp;<a href="javascript: showdiv('close178'); hidediv('open178');" onclick="javascript: showdiv('close178'); hidediv('open178');">[show]</a></p>
+</div>
+<div id="close178" style="display:none">
+  <p>Get message sender and text&nbsp;<a href="javascript: showdiv('open178'); hidediv('close178');" onclick="javascript: showdiv('open178'); hidediv('close178');">[hide]</a></p>
+  <pre class="example">    <b>// Get the instance of table manager</b>
+    O2GTableManager tableManager = mSession.getTableManager();
+    while (tableManager.getStatus() != O2GTableManagerStatus.TABLES_LOADED &
+           tableManager.getStatus() != O2GTableManagerStatus.TABLES_LOAD_FAILED) {
+        Thread.sleep(50);
+    }
+ 
+    <b>// Get messages information</b>
+    if (tableManager.getStatus() == O2GTableManagerStatus.TABLES_LOADED) {
+        O2GMessagesTable messageTable = (O2GMessagesTable)tableManager.getTable(O2GTableType.MESSAGES);
+        for (int i = 0; i &lt; messageTable.size(); i++) {
+            O2GMessageTableRow message = messageTable.getRow(i);
+            System.out.println(&quot;From: &quot; + message.getFrom() +
+                               &quot; Text = &quot; + message.getText());
+        }
+ 
+        <b>// Subscribe table listener</b>
+        TableListener tableListener = new TableListener();
+        messageTable.subscribeUpdate(O2GTableUpdateType.INSERT, tableListener);
+        Thread.sleep(1000);
+        messageTable.unsubscribeUpdate(O2GTableUpdateType.INSERT, tableListener);
+    }
+ 
+     <b>// Implementation of IO2GTableListener interface public method onAdded</b>
+     public void onAdded(String rowID, O2GRow rowData) {
+     O2GMessageTableRow message = (O2GMessageTableRow)(rowData);
+     System.out.println(&quot;Message information added &quot; + rowID);
+     System.out.println(&quot;From: &quot; + message.getFrom() +
+                        &quot; Text = &quot; + message.getText());
+    }
+
+</pre>
+</div><p>The namespace is <a href="com.fxcore2.html"><code>com.fxcore2</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMessageTableRow.getCell.html">getCell</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a cell of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMessageTableRow.getColumns.html">getColumns</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the columns of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMessageTableRow.getFeature.html">getFeature</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of the message content.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMessageTableRow.getFrom.html">getFrom</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the login of the message sender.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMessageTableRow.getHTMLFragmentFlag.html">getHTMLFragmentFlag</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the flag indicating whether the message is in the HTML format or not.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMessageTableRow.getMsgID.html">getMsgID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the message.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMessageTableRow.getSubject.html">getSubject</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the subject of the message.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMessageTableRow.getTableType.html">getTableType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMessageTableRow.getText.html">getText</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a text body of the message.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMessageTableRow.getTime.html">getTime</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the date and time when the recipient receives the message.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMessageTableRow.getType.html">getType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the message container.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="com.fxcore2.O2GMessageTableRow.isCellChanged.html">isCellChanged</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a flag indicating whether the value of the cell is changed.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="com.fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

@@ -1,0 +1,704 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Getting Offers</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Getting Offers</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article discusses how to get offers in Java.</p>
+    <p><b>Details</b></p><p>There are two ways to get offers in your Java application.<br>
+The first way is to use table listener. In this case you should:</p><ol class="main">
+  <li><p>Create a session, a session status listener, subscribe the listener to the session status
+(see <a href="login_logout_java.html"><code>this article</code></a>).</p></li>
+  <li><p>Implement the <a href="com.fxcore2.IO2GTableListener.html"><code>IO2GTableListener</code></a> interface
+in  a table listener class:<br></p><pre class="example"><code>public class TableListener implements IO2GTableListener {...}</code></pre></li>
+  <li><p>Allow the use of table manager (it should be done before login):<br></p><pre class="example"><code>mSession.useTableManager(O2GTableManagerMode.YES);</code></pre><p><br></p></li>
+  <li><p>Log in (see <a href="login_logout_java.html"><code>this article</code></a>)</p></li>
+  <li><p>Get <a href="com.fxcore2.O2GTableManager.html"><code>O2GTableManager</code></a>:<br></p><pre class="example"><code>O2GTableManager tableManager = mSession.getTableManager();</code></pre></li>
+  <li><p>Get &quot;Offers&quot; table:<br></p><pre class="example"><code>O2GOffersTable offersTable = (O2GOffersTable)tableManager.getTable(O2GTableType.OFFERS);</code></pre></li>
+  <li><p>The table can be processed to get information about offers:<br></p><pre class="example"><code>
+O2GTableIterator iterator = new O2GTableIterator();
+O2GOfferTableRow offerTableRow = offersTable.getNextRow(iterator);
+while (offerTableRow!=null)
+{
+    System.out.println(&quot;Instrument = &quot; + offerTableRow.getInstrument() + &quot;; Bid = &quot; + offerTableRow.getBid() + &quot;; Ask = &quot; + offerTableRow.getAsk());
+    offerTableRow = offersTable.getNextRow(iterator);
+}
+</code></pre></li>
+  <li><p>To capture updates of &quot;Offers&quot; table create table listener and subscribe it to &quot;Update&quot; event of &quot;Offers&quot; table:<br></p><pre class="example"><code>
+TableListener tableListener = new TableListener();
+offersTable.subscribeUpdate(O2GTableUpdateType.UPDATE, tableListener);
+</code></pre></li>
+  <li><p>Process table updates in &quot;onChanged&quot; event of <a href="com.fxcore2.IO2GTableListener.html"><code>IO2GTableListener</code></a><br></p><pre class="example"><code>
+// Implementation of IO2GTableListener interface public method onChanged
+public void onChanged(String rowID, O2GRow rowData) {
+    O2GOfferTableRow offerTableRow = (O2GOfferTableRow)(rowData);
+    if (offerTableRow!=null)
+        System.out.println(&quot;Instrument = &quot; + offerTableRow.getInstrument() + &quot;; Bid = &quot; + offerTableRow.getBid() + &quot;; Ask = &quot; + offerTableRow.getAsk());
+}
+</code></pre></li>
+  <li><p>Unsubscribe from table listener when you are done:<br></p><pre class="example"><code>offersTable.unsubscribeUpdate(O2GTableUpdateType.UPDATE, tableListener);</code></pre></li>
+  <li><p>Log out, unsubscribe from the session status listener, and dispose the session:<br></p><pre class="example"><code>
+mSession.logout();
+mSession.unsubscribeSessionStatus(statusListener);
+mSession.dispose();
+</code></pre></li>
+</ol><div id="open22" style="display:inline">
+  <p>Get offers with table manager example:&nbsp;<a href="javascript: showdiv('close22'); hidediv('open22');" onclick="javascript: showdiv('close22'); hidediv('open22');">[show]</a></p>
+</div>
+<div id="close22" style="display:none">
+  <p>Get offers with table manager example:&nbsp;<a href="javascript: showdiv('open22'); hidediv('close22');" onclick="javascript: showdiv('open22'); hidediv('close22');">[hide]</a></p>
+  <pre class="example"><code>
+package getoffers;
+ 
+import com.fxcore2.O2GSession;
+import com.fxcore2.O2GTransport;
+import com.fxcore2.O2GTableType;
+import com.fxcore2.O2GOffersTable;
+import com.fxcore2.O2GOfferTableRow;
+import com.fxcore2.O2GTableIterator;
+import com.fxcore2.O2GTableManagerMode;
+import com.fxcore2.O2GTableManager;
+import com.fxcore2.O2GTableManagerStatus;
+import com.fxcore2.O2GTableUpdateType;
+ 
+import com.fxcore2.IO2GTableListener;
+import com.fxcore2.O2GRow;
+import com.fxcore2.O2GTableStatus;
+ 
+import com.fxcore2.IO2GSessionStatus;
+import com.fxcore2.O2GSessionStatusCode;
+import com.fxcore2.O2GSessionDescriptorCollection;
+import com.fxcore2.O2GSessionDescriptor;
+ 
+public class Main {
+ 
+    public static void main(String[] args) {
+ 
+        // Connection and session variables
+        String mUserID = &quot;&quot;;
+        String mPassword = &quot;&quot;;
+        String mURL = &quot;&quot;;
+        String mConnection = &quot;&quot;;
+        String mDBName = &quot;&quot;;
+        String mPin = &quot;&quot;;
+        O2GSession mSession = null;
+        String mInstrument = &quot;&quot;;
+ 
+        // Check for correct number of arguments
+        if (args.length &lt; 5) {
+            System.out.println(&quot;Not Enough Parameters!&quot;);
+            System.out.println(&quot;USAGE: [instrument] [user ID] [password] [URL] [connection] [session ID (if needed)] [pin (if needed)]&quot;);
+            System.exit(1);
+        }
+ 
+        // Get command line arguments
+        mInstrument = args[0];
+        mUserID = args[1];
+        mPassword = args[2];
+        mURL = args[3];
+        mConnection = args[4];
+        if (args.length &gt; 5) {
+            mDBName = args[5];
+        }
+        if (args.length &gt; 6) {
+            mPin = args[6];
+        }
+ 
+        // Create a session, subscribe to session listener, login, get offers, logout
+        try {
+            mSession = O2GTransport.createSession();
+            SessionStatusListener statusListener = new SessionStatusListener(mSession, mDBName, mPin);
+            mSession.subscribeSessionStatus(statusListener);
+ 
+            mSession.useTableManager(O2GTableManagerMode.YES, null);
+ 
+            mSession.login(mUserID, mPassword, mURL, mConnection);
+            while (!statusListener.isConnected() &amp;&amp; !statusListener.hasError()) {
+                    Thread.sleep(50);
+            }
+ 
+            if (!statusListener.hasError()) {
+ 
+                O2GTableManager manager = mSession.getTableManager();
+                while (manager.getStatus() == O2GTableManagerStatus.TABLES_LOADING) {
+                     Thread.sleep(50);
+                }
+ 
+                O2GOffersTable offers = null;
+                OffersListener listener = null;
+                if (manager.getStatus() == O2GTableManagerStatus.TABLES_LOADED) {
+                    offers = (O2GOffersTable)manager.getTable(O2GTableType.OFFERS);
+                    getOffers(offers);
+ 
+                    listener = new OffersListener();
+                    listener.SetInstrumentFilter(mInstrument);
+ 
+                    offers.subscribeUpdate(O2GTableUpdateType.UPDATE, listener);
+ 
+                }
+ 
+                System.out.println(&quot;Press enter to stop!&quot;);
+                System.in.read();
+ 
+                if (offers != null) {
+                    offers.unsubscribeUpdate(O2GTableUpdateType.UPDATE, listener);
+                }
+ 
+                mSession.logout();
+                while (!statusListener.isDisconnected()) {
+                    Thread.sleep(50);
+                }
+            }
+ 
+            mSession.unsubscribeSessionStatus(statusListener);
+            mSession.dispose();
+        } catch (Exception e) {
+            System.out.println (&quot;Exception: &quot; + e.getMessage());
+            System.exit(1);
+        }
+    }
+ 
+    // Get offers information
+    public static void getOffers(O2GOffersTable offers) {
+        try {
+                O2GOfferTableRow offer = null;
+                O2GTableIterator iterator = new O2GTableIterator();
+                offer = offers.getNextRow(iterator);
+                while (offer != null) {
+                    System.out.println(&quot;Instrument = &quot; + offer.getInstrument() +
+                                       &quot; Bid Price = &quot; +  offer.getBid() +
+                                       &quot; Ask Price = &quot; + offer.getAsk() +
+                                       &quot; PipCost = &quot; + offer.getPipCost());
+                    offer = offers.getNextRow(iterator);
+                }
+        } catch (Exception e) {
+            System.out.println(&quot;Exception in getOffers().\n\t &quot; + e.getMessage());
+        }
+    }
+}
+ 
+class OffersListener implements IO2GTableListener {
+ 
+    private String mInstrument = null;
+ 
+    public void SetInstrumentFilter(String instrument) {
+        mInstrument = instrument;
+    }
+ 
+    public void onAdded(String string, O2GRow o2grow) {
+ 
+    }
+ 
+    public void onChanged(String string, O2GRow o2grow) {
+        O2GOfferTableRow row = (O2GOfferTableRow)o2grow;
+        if (mInstrument == null || mInstrument.isEmpty() || row.getInstrument().equals(mInstrument)) {
+            System.out.println(&quot;Instrument = &quot; + row.getInstrument() +
+                               &quot; Bid Price = &quot; +  row.getBid() +
+                               &quot; Ask Price = &quot; + row.getAsk());
+        }
+    }
+ 
+    public void onDeleted(String string, O2GRow o2grow) {
+ 
+    }
+ 
+    public void onStatusChanged(O2GTableStatus ogts) {
+ 
+    }
+ 
+}
+ 
+class SessionStatusListener implements IO2GSessionStatus {
+ 
+    // Connection , session and status variables
+    private boolean mConnected = false;
+    private boolean mDisconnected = false;
+    private boolean mError = false;
+    private String mDBName = &quot;&quot;;
+    private String mPin = &quot;&quot;;
+    private O2GSession mSession = null;
+    private O2GSessionStatusCode mStatus = null;
+ 
+    // Constructor
+    public SessionStatusListener(O2GSession session, String dbName, String pin) {
+        mSession = session;
+        mDBName = dbName;
+        mPin = pin;
+    }
+ 
+    //Shows if session is connected
+    public final boolean isConnected() {
+        return mConnected;
+    }
+ 
+    //Shows if session is disconnected
+    public final boolean isDisconnected() {
+        return mDisconnected;
+    }
+ 
+    // Shows if there was an error during the logn process
+    public final boolean hasError() {
+        return mError;
+    }
+ 
+    // Returns current session status
+    public final O2GSessionStatusCode getStatus() {
+        return mStatus;
+    }
+ 
+    // Implementation of IO2GSessionStatus interface public method onSessionStatusChanged
+    public final void onSessionStatusChanged(O2GSessionStatusCode status) {
+        mStatus = status;
+        System.out.println(&quot;Status: &quot; + mStatus.toString());
+        if (mStatus == O2GSessionStatusCode.CONNECTED) {
+            mConnected = true;
+        }
+        else {
+            mConnected = false;
+        }
+        if (status == O2GSessionStatusCode.DISCONNECTED) {
+            mDisconnected = true;
+        }
+        else {
+            mDisconnected = false;
+        }
+        if (mStatus == O2GSessionStatusCode.TRADING_SESSION_REQUESTED) {
+            O2GSessionDescriptorCollection descs = mSession.getTradingSessionDescriptors();
+            System.out.println(&quot;\nSession descriptors&quot;);
+            System.out.println(&quot;id, name, description, requires pin&quot;);
+            for (O2GSessionDescriptor desc : descs) {
+                System.out.println(desc.getId() + &quot; &quot; + desc.getName() + &quot; &quot; + desc.getDescription() + &quot; &quot; + desc.isPinRequired());
+            }
+            if (mDBName.equals(&quot;&quot;)) {
+                System.out.println(&quot;Argument for trading session ID is missing&quot;);
+            }
+            else {
+                mSession.setTradingSession(mDBName, mPin);
+            }
+        }
+    }
+ 
+    // Implementation of IO2GSessionStatus interface public method onLoginFailed
+    public final void onLoginFailed(String error) {
+        System.out.println(&quot;Login error: &quot; + error);
+        mError = true;
+    }
+}
+ 
+ 
+</code></pre>
+</div><p>The second way to get offers is to use response listener. In that case you should:</p><ol class="main">
+  <li><p>Create a session, a session status listener, subscribe the listener to the session status
+(see <a href="login_logout_java.html"><code>this article</code></a>).</p></li>
+  <li><p>Implement the <a href="com.fxcore2.IO2GResponseListener.html"><code>IO2GResponseListener</code></a> interface
+in  a response listener class:<br></p><pre class="example"><code>public class ResponseListener implements IO2GResponseListener {...}</code></pre></li>
+  <li><p>Subscribe an object of this class to the session response:<br></p><pre class="example"><code>
+ResponseListener responseListener = new ResponseListener(...)
+session.subscribeResponse(responseListener);
+</code></pre></li>
+  <li><p>Log in (see <a href="login_logout_java.html"><code>this article</code></a>).</p></li>
+  <li><p>Use the listener <a href="com.fxcore2.IO2GSessionStatus.onSessionStatusChanged.html"><code>onSessionStatusChanged</code></a>
+function to capture the <a href="com.fxcore2.O2GSessionStatusCode.CONNECTED.html"><code>CONNECTED</code></a> event.<br></p></li>
+  <li><p>Get <a href="com.fxcore2.O2GLoginRules.html"><code>O2GLoginRules</code></a>:<br></p><pre class="example"><code>O2GLoginRules rules = mSession.getLoginRules();</code></pre></li>
+  <li><p>Then you can get <a href="com.fxcore2.O2GResponse.html"><code>O2GResponse</code></a>:<br></p><pre class="example"><code>O2GResponse response = loginRules.getTableRefreshResponse(O2GTableType.OFFERS);</code></pre><p><br>
+The response can be processed to extract necessary information.</p></li>
+  <li><p>You should also capture <a href="com.fxcore2.O2GResponse.html"><code>O2GResponse</code></a> in the
+<a href="com.fxcore2.IO2GResponseListener.onTablesUpdates.html"><code>onTablesUpdates</code></a>
+function of a response listener class and
+process the response.</p></li>
+  <li><p>To get information from the &quot;Offers&quot; table from <a href="com.fxcore2.O2GResponse.html"><code>O2GResponse</code></a>:<br>
+1. Create <a href="com.fxcore2.O2GResponseReaderFactory.html"><code>O2GResponseReaderFactory</code></a>:<br></p><pre class="example"><code>O2GResponseReaderFactory readerFactory = session.getResponseReaderFactory();</code></pre><p><br>
+2. Check the readerFactory object for validity:<br></p><pre class="example"><code>if (readerFactory == null) {
+return;
+}</code></pre><p>3. Create <a href="com.fxcore2.O2GOffersTableResponseReader.html"><code>O2GOffersTableResponseReader</code></a>:<br></p><pre class="example"><code>O2GOffersTableResponseReader reader = readerFactory.createOffersTableReader(response);</code></pre><p><br>
+4. Process row by row: <br></p><pre class="example"><code>
+for (i = 0; i &lt; reader.size(); i++)
+{
+    O2GOfferRow row = reader.getRow(i);
+    //information like row.OfferID, row.Instrument, row.Bid, row.Ask could be extracted now
+}
+</code></pre></li>
+  <li><p>Log out, unsubscribe from the session status listener and response listener, and dispose the session when you are done:<br></p><pre class="example"><code>
+mSession.logout();
+mSession.unsubscribeSessionStatus(statusListener);
+mSession.unsubscribeResponse(responseListener);
+mSession.dispose();
+</code></pre></li>
+</ol><div id="open32" style="display:inline">
+  <p>Get offers example:&nbsp;<a href="javascript: showdiv('close32'); hidediv('open32');" onclick="javascript: showdiv('close32'); hidediv('open32');">[show]</a></p>
+</div>
+<div id="close32" style="display:none">
+  <p>Get offers example:&nbsp;<a href="javascript: showdiv('open32'); hidediv('close32');" onclick="javascript: showdiv('open32'); hidediv('close32');">[hide]</a></p>
+  <pre class="example"><code>
+package getoffers;
+ 
+import com.fxcore2.O2GSession;
+import com.fxcore2.O2GTransport;
+import com.fxcore2.O2GLoginRules;
+import com.fxcore2.O2GResponseReaderFactory;
+import com.fxcore2.O2GResponse;
+import com.fxcore2.O2GOffersTableResponseReader;
+import com.fxcore2.O2GTableType;
+import com.fxcore2.O2GOfferRow;
+import com.fxcore2.O2GRequestFactory;
+ 
+import com.fxcore2.IO2GResponseListener;
+import com.fxcore2.IO2GResponseType;
+ 
+import com.fxcore2.IO2GSessionStatus;
+import com.fxcore2.O2GSessionStatusCode;
+import com.fxcore2.O2GSessionDescriptorCollection;
+import com.fxcore2.O2GSessionDescriptor;
+ 
+ 
+public class Main {
+ 
+    public static void main(String[] args) {
+ 
+        // Connection and session variables
+        String mUserID = &quot;&quot;;
+        String mPassword = &quot;&quot;;
+        String mURL = &quot;&quot;;
+        String mConnection = &quot;&quot;;
+        String mDBName = &quot;&quot;;
+        String mPin = &quot;&quot;;
+        O2GSession mSession = null;
+        String mInstrument = &quot;&quot;;
+ 
+        // Check for correct number of arguments
+        if (args.length &lt; 5) {
+            System.out.println(&quot;Not Enough Parameters!&quot;);
+            System.out.println(&quot;USAGE: [instrument] [user ID] [password] [URL] [connection] [session ID (if needed)] [pin (if needed)]&quot;);
+            System.exit(1);
+        }
+ 
+        // Get command line arguments
+        mInstrument = args[0];
+        mUserID = args[1];
+        mPassword = args[2];
+        mURL = args[3];
+        mConnection = args[4];
+        if (args.length &gt; 5) {
+            mDBName = args[5];
+        }
+        if (args.length &gt; 6) {
+            mPin = args[6];
+        }
+ 
+        // Create a session, subscribe to session listener, login, get offers, logout
+        try {
+            mSession = O2GTransport.createSession();
+            SessionStatusListener statusListener = new SessionStatusListener(mSession, mDBName, mPin);
+            mSession.subscribeSessionStatus(statusListener);
+            ResponseListener responseListener = new ResponseListener(mSession,mInstrument);
+            mSession.subscribeResponse(responseListener);
+            mSession.login(mUserID, mPassword, mURL, mConnection);
+            while (!statusListener.isConnected() &amp;&amp; !statusListener.hasError()) {
+                    Thread.sleep(50);
+            }
+            if (!statusListener.hasError()) {
+                getOffers(mSession);
+                if (!mInstrument.equals(&quot;{INSTRUMENT}&quot;) &amp;&amp; !mInstrument.equals(&quot;&quot;)) {
+                    O2GRequestFactory requestFactory = mSession.getRequestFactory();
+                    if (requestFactory != null) {
+                        mSession.sendRequest(requestFactory.createRefreshTableRequest(O2GTableType.OFFERS));
+                        Thread.sleep(10000);
+                    }
+                }
+                mSession.logout();
+                while (!statusListener.isDisconnected()) {
+                    Thread.sleep(50);
+                }
+            }
+            mSession.unsubscribeSessionStatus(statusListener);
+            mSession.unsubscribeResponse(responseListener);
+            mSession.dispose();
+        } catch (Exception e) {
+            System.out.println (&quot;Exception: &quot; + e.getMessage());
+            System.exit(1);
+        }
+    }
+ 
+    // Get offers information
+    public static void getOffers(O2GSession session) {
+        try {
+            O2GLoginRules loginRules = session.getLoginRules();
+            if (loginRules != null &amp;&amp; loginRules.isTableLoadedByDefault(O2GTableType.OFFERS)) {
+                O2GResponse offersResponse = loginRules.getTableRefreshResponse(O2GTableType.OFFERS);
+                O2GResponseReaderFactory responseFactory = session.getResponseReaderFactory();
+                O2GOffersTableResponseReader offersReader = responseFactory.createOffersTableReader(offersResponse);
+                for (int i = 0; i &lt; offersReader.size(); i++) {
+                    O2GOfferRow offer = offersReader.getRow(i);
+                    System.out.println(&quot;Instrument = &quot; + offer.getInstrument() +
+                                       &quot; Bid Price = &quot; +  offer.getBid() +
+                                       &quot; Ask Price = &quot; + offer.getAsk());
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(&quot;Exception in getOffers().\n\t &quot; + e.getMessage());
+        }
+    }
+}
+ 
+class ResponseListener implements IO2GResponseListener {
+ 
+    // Session, response and request variables
+    private O2GSession mSession = null;
+    private String mInstrument = &quot;&quot;;
+    private O2GResponse mResponse = null;
+    private String mRequest = &quot;&quot;;
+ 
+    // Constructor
+    public ResponseListener(O2GSession session, String instrument) {
+        mSession = session;
+        mInstrument = instrument;
+    }
+ 
+    // Implementation of IO2GResponseListener interface public method onRequestCompleted
+    public void onRequestCompleted(String requestID, O2GResponse response) {
+        if (response.getType() == O2GResponseType.GET_OFFERS) {
+            mResponse = response;
+            mRequest = &quot;getoffers&quot;;
+            printOffers(mSession, mResponse, mInstrument);
+        }
+    }
+ 
+    // Implementation of IO2GResponseListener interface public method onRequestFailed
+    public void onRequestFailed(String requestID, String error) {
+        System.out.println(&quot;Request failed. requestID= &quot; + requestID + &quot;; error= &quot; + error);
+    }
+ 
+    // Implementation of IO2GResponseListener interface public method onTablesUpdates
+    public void onTablesUpdates(O2GResponse response) {
+        if (response.getType() == O2GResponseType.TABLES_UPDATES) {
+            mResponse = response;
+            mRequest = &quot;tablesupdates&quot;;
+            printOffers(mSession, mResponse, mInstrument);
+        }
+    }
+ 
+    // Prints response to a user request and live offer updates
+    public void printOffers(O2GSession session, O2GResponse response, String instrument) {
+        O2GResponseReaderFactory readerFactory = session.getResponseReaderFactory();
+        if (readerFactory != null) {
+            O2GOffersTableResponseReader reader = readerFactory.createOffersTableReader(response);
+            for (int i = 0; i &lt; reader.size(); i++) {
+                O2GOfferRow row = reader.getRow(i);
+                if (row.isBidValid() &amp;&amp; row.isAskValid())
+                {
+                    if (row.getInstrument().equals(instrument)) {
+                        if (&quot;getoffers&quot;.equals(mRequest)) {
+                            System.out.println(&quot;This is a response to getOffers request.&quot;);
+                        }
+                        if (&quot;tablesupdates&quot;.equals(mRequest)) {
+                            System.out.println(&quot;This is your live update.&quot;);
+                        }
+                        System.out.println(&quot;Instrument = &quot; + row.getInstrument() +
+                                       &quot; Bid Price = &quot; +  row.getBid() +
+                                       &quot; Ask Price = &quot; + row.getAsk());
+                        mRequest = &quot;&quot;;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
+ 
+ 
+class SessionStatusListener implements IO2GSessionStatus {
+ 
+    // Connection , session and status variables
+    private boolean mConnected = false;
+    private boolean mDisconnected = false;
+    private boolean mError = false;
+    private String mDBName = &quot;&quot;;
+    private String mPin = &quot;&quot;;
+    private O2GSession mSession = null;
+    private O2GSessionStatusCode mStatus = null;
+ 
+    // Constructor
+    public SessionStatusListener(O2GSession session, String dbName, String pin) {
+        mSession = session;
+        mDBName = dbName;
+        mPin = pin;
+    }
+ 
+    //Shows if session is connected
+    public final boolean isConnected() {
+        return mConnected;
+    }
+ 
+    //Shows if session is disconnected
+    public final boolean isDisconnected() {
+        return mDisconnected;
+    }
+ 
+    // Shows if there was an error during the logn process
+    public final boolean hasError() {
+        return mError;
+    }
+ 
+    // Returns current session status
+    public final O2GSessionStatusCode getStatus() {
+        return mStatus;
+    }
+ 
+    // Implementation of IO2GSessionStatus interface public method onSessionStatusChanged
+    public final void onSessionStatusChanged(O2GSessionStatusCode status) {
+        mStatus = status;
+        System.out.println(&quot;Status: &quot; + mStatus.toString());
+        if (mStatus == O2GSessionStatusCode.CONNECTED) {
+            mConnected = true;
+        }
+        else {
+            mConnected = false;
+        }
+        if (status == O2GSessionStatusCode.DISCONNECTED) {
+            mDisconnected = true;
+        }
+        else {
+            mDisconnected = false;
+        }
+        if (mStatus == O2GSessionStatusCode.TRADING_SESSION_REQUESTED) {
+            O2GSessionDescriptorCollection descs = mSession.getTradingSessionDescriptors();
+            System.out.println(&quot;\nSession descriptors&quot;);
+            System.out.println(&quot;id, name, description, requires pin&quot;);
+            for (O2GSessionDescriptor desc : descs) {
+                System.out.println(desc.getId() + &quot; &quot; + desc.getName() + &quot; &quot; + desc.getDescription() + &quot; &quot; + desc.isPinRequired());
+            }
+            if (mDBName.equals(&quot;&quot;)) {
+                System.out.println(&quot;Argument for trading session ID is missing&quot;);
+            }
+            else {
+                mSession.setTradingSession(mDBName, mPin);
+            }
+        }
+    }
+ 
+    // Implementation of IO2GSessionStatus interface public method onLoginFailed
+    public final void onLoginFailed(String error) {
+        System.out.println(&quot;Login error: &quot; + error);
+        mError = true;
+    }
+}
+ 
+</code></pre>
+</div><p>
+      <center><a href="howto.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

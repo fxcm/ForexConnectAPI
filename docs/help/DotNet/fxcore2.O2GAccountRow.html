@@ -1,0 +1,415 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GAccountRow</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>O2GAccountRow</b></code></font>
+    </p>
+    <p></p>
+    <table class="tmain" width="100%">
+      <tr>
+        <td colspan="2" class="thdr"><b>Parents</b></td>
+      </tr>
+      <tr>
+        <td style="tmain" width="30"></td>
+        <td style="tmain"><code><a href="fxcore2.O2GRow.html"><code>O2GRow</code></a></code></td>
+      </tr>
+    </table>
+    <p><b>Brief</b></p>
+    <p>The class provides access to account information.</p>
+    <p><b>Details</b></p><p>An instance of the class can be obtained by the following methods:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Method/Use</p></td>
+    <td class="thdr"><p>Prerequisites</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GAccountsTableResponseReader.html"><code>O2GAccountsTableResponseReader</code></a>.<a href="fxcore2.O2GAccountsTableResponseReader.getRow.0.html"><code>getRow</code></a><br></p>
+<p>This method is used to get the initial account information after a session with the trading server is established.<br>
+This method provides access to a single account. If you have multiple accounts, call this method in a loop.</p></td>
+    <td class="tmain"><p>Depending on the trading server settings, the <a href="TTAccounts.html">Accounts</a> table may or may not be loaded by the server automatically during the login process.<br></p>
+<p>To determine whether the table is loaded or not and what follow-up action is required to get the account information, use the returned value of the <a href="fxcore2.O2GLoginRules.html"><code>O2GLoginRules</code></a>.<a href="fxcore2.O2GLoginRules.isTableLoadedByDefault.0.html"><code>isTableLoadedByDefault</code></a> method:<br></p><ul class="main">
+  <li><p>If the table is loaded, you can get the account information by using the <a href="fxcore2.O2GLoginRules.html"><code>O2GLoginRules</code></a>.<a href="fxcore2.O2GLoginRules.getTableRefreshResponse.0.html"><code>getTableRefreshResponse</code></a> method;</p></li>
+  <li><p>Otherwise, you must create a request to load the table by using the <a href="fxcore2.O2GRequestFactory.html"><code>O2GRequestFactory</code></a>.<a href="fxcore2.O2GRequestFactory.createRefreshTableRequest.0.html"><code>createRefreshTableRequest</code></a> method.
+You must obtain a response to this request by implementing the <a href="fxcore2.IO2GResponseListener.html"><code>IO2GResponseListener</code></a>.<a href="fxcore2.IO2GResponseListener.onRequestCompleted.0.html"><code>onRequestCompleted</code></a> method.</p></li>
+</ul><p>Both methods use the <a href="fxcore2.O2GResponse.html"><code>O2GResponse</code></a> object of the <a href="fxcore2.O2GResponseType.html"><code>O2GResponseType</code></a>.<a href="fxcore2.O2GResponseType.GetAccounts.0.html"><code>GetAccounts</code></a> type.<br>
+You must parse this object by using the <a href="fxcore2.O2GAccountsTableResponseReader.html"><code>O2GAccountsTableResponseReader</code></a> object.<br></p>
+<p>For details, see the example below.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="fxcore2.O2GTablesUpdatesReader.html"><code>O2GTablesUpdatesReader</code></a>.<a href="fxcore2.O2GTablesUpdatesReader.getAccountRow.0.html"><code>getAccountRow</code></a><br></p>
+<p>This method is used to get account information updates.<br>
+This method provides access to a single account. If you have multiple accounts, call this method in a loop.</p></td>
+    <td class="tmain"><p>To receive the account information updates, you must implement the <a href="fxcore2.IO2GResponseListener.html"><code>IO2GResponseListener</code></a>.<a href="fxcore2.IO2GResponseListener.onTablesUpdates.0.html"><code>onTablesUpdates</code></a> method.
+The received <a href="fxcore2.O2GResponse.html"><code>O2GResponse</code></a> object is of the <a href="fxcore2.O2GResponseType.html"><code>O2GResponseType</code></a>.<a href="fxcore2.O2GResponseType.TablesUpdates.0.html"><code>TablesUpdates</code></a> type.<br>
+You must parse this object by using the <a href="fxcore2.O2GTablesUpdatesReader.html"><code>O2GTablesUpdatesReader</code></a> object.<br></p>
+<p>For details, see the example below.</p></td>
+  </tr>
+</table><p><b>Example</b></p><div id="open125" style="display:inline">
+  <p>Get Account ID, Balance and Used margin&nbsp;<a href="javascript: showdiv('close125'); hidediv('open125');" onclick="javascript: showdiv('close125'); hidediv('open125');">[show]</a></p>
+</div>
+<div id="close125" style="display:none">
+  <p>Get Account ID, Balance and Used margin&nbsp;<a href="javascript: showdiv('open125'); hidediv('close125');" onclick="javascript: showdiv('open125'); hidediv('close125');">[hide]</a></p>
+  <pre class="example">    <b>// Get accounts information</b>
+    public static void getAccounts(O2GSession session, ResponseListener responseListener)
+    {
+        try
+        {
+            O2GLoginRules loginRules = session.getLoginRules();
+ 
+            <b>// Check if Accounts table is loaded automatically</b>
+            if (loginRules != null &amp;&amp; loginRules.isTableLoadedByDefault(O2GTableType.Accounts))
+            {
+ 
+                <b>// If table is loaded, use getTableRefreshResponse method</b>
+                O2GResponse accountsResponse = loginRules.getTableRefreshResponse(O2GTableType.Accounts);
+                O2GResponseReaderFactory responseFactory = session.getResponseReaderFactory();
+                if (responseFactory != null)
+                {
+                    O2GAccountsTableResponseReader accountsReader = responseFactory.createAccountsTableReader(accountsResponse);
+                    for (int i = 0; i &lt; accountsReader.Count; i++) {
+                        O2GAccountRow account = accountsReader.getRow(i);
+                        Console.WriteLine(&quot;AccountID = &quot; + account.AccountID +
+                                           &quot; Balance = &quot; +  account.Balance +
+                                           &quot; UsedMargin = &quot; + account.UsedMargin);
+                    }
+                }
+            }
+            else
+            {
+ 
+                <b>// If table is not loaded, use createRefreshTableRequest method</b>
+                O2GRequestFactory requestFactory = session.getRequestFactory();
+                if (requestFactory != null)
+                {
+                    O2GRequest request = requestFactory.createRefreshTableRequest(O2GTableType.Accounts);
+                    responseListener.setRequest(request.RequestID);
+                    session.sendRequest(request);
+                    Thread.Sleep(1000);
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(&quot;Exception in getAccounts().\n\t &quot; + e.Message);
+        }
+    }
+ 
+    <b>// Implementation of IO2GResponseListener interface public method onRequestCompleted</b>
+    public void onRequestCompleted(String requestID, O2GResponse response)
+    {
+        if (requestID.Equals(mRequestID))
+        {
+            O2GResponseReaderFactory readerFactory = mSession.getResponseReaderFactory();
+            if (readerFactory != null)
+            {
+                O2GAccountsTableResponseReader reader = readerFactory.createAccountsTableReader(response);
+                for (int i = 0; i &lt; reader.Count; i++)
+                {
+                    O2GAccountRow account = reader.getRow(i);
+                    Console.WriteLine(&quot; This is a response to your request: \nAccountID = &quot; + account.AccountID +
+                                        &quot; Balance = &quot; +  account.Balance +
+                                        &quot; UsedMargin = &quot; + account.UsedMargin);
+                }
+            }
+        }
+    }
+ 
+    <b>// Implementation of IO2GResponseListener interface public method onTablesUpdates</b>
+    public void onTablesUpdates(O2GResponse response)
+    {
+        O2GResponseReaderFactory factory = mSession.getResponseReaderFactory();
+        if (factory != null)
+        {
+            O2GTablesUpdatesReader updatesReader = factory.createTablesUpdatesReader(response);
+            for (int i = 0; i &lt; updatesReader.Count; i++)
+            {
+                O2GTableType tableType = updatesReader.getUpdateTable(i);
+                if (tableType == O2GTableType.Accounts)
+                {
+                    O2GAccountRow account = updatesReader.getAccountRow(i);
+                    Console.WriteLine(&quot; This is a live update: \nAccountID = &quot; + account.AccountID +
+                                       &quot; Balance = &quot; +  account.Balance +
+                                       &quot; UsedMargin = &quot; + account.UsedMargin);
+                }
+            }
+        }
+    }</pre>
+</div><p>The type defined in the <code>fxcore2.dll</code> assembly.
+The namespace is <a href="fxcore2.html"><code>fxcore2</code></a>.</p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Properties</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GAccountRow.AccountID.0.html">AccountID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the account.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GAccountRow.AccountKind.0.html">AccountKind</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of the account.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GAccountRow.AccountName.0.html">AccountName</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique name of the account as it is displayed in the FXCM Trading Station.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GAccountRow.AmountLimit.0.html">AmountLimit</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the maximum amount of an order that is allowed on the account.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GAccountRow.ATPID.0.html">ATPID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of an account trading profile that specifies commission requirements.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GAccountRow.Balance.0.html">Balance</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the amount of funds on the account.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GAccountRow.BaseUnitSize.0.html">BaseUnitSize</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the size of one lot.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GAccountRow.Columns.0.html">Columns</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The columns of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GAccountRow.LastMarginCallDate.0.html">LastMarginCallDate</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the date and time of the last occurrence of a Margin Call.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GAccountRow.LeverageProfileID.0.html">LeverageProfileID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of an account leverage profile that specifies margin requirements.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GAccountRow.M2MEquity.0.html">M2MEquity</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the equity balance of the account at the beginning of a trading day.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GAccountRow.MaintenanceFlag.0.html">MaintenanceFlag</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a rollover maintenance flag.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GAccountRow.TradingType.0.html">MaintenanceType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the type of a position maintenance.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GAccountRow.ManagerAccountID.0.html">ManagerAccountID</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the unique identification number of the funds manager account.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GAccountRow.MarginCallFlag.0.html">MarginCallFlag</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the limitation state of the account.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GAccountRow.NonTradeEquity.0.html">NonTradeEquity</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the amount of the accounting transactions that is applied to the account during the current trading day.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GAccountRow.TableType.0.html">TableType</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>The type of the table.</p>
+    </td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GAccountRow.getCell.0.html">getCell</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a cell of the table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="fxcore2.O2GAccountRow.isCellChanged.0.html">isCellChanged</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a flag indicating whether the value of the cell is changed.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="fxcore2.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

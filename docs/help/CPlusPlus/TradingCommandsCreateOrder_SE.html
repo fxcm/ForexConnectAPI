@@ -1,0 +1,362 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Create Entry Stop Order</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Create Entry Stop Order</b></font>
+    </p><p>A regular entry order opens a position when the specified market condition is met.</p>
+<p>A netting entry order closes all positions for the specified instrument and
+account which are in the direction (buy or sell) opposite to the direction of the
+entry order.</p>
+<p>A stop entry order with a sell direction is filled when the market is below
+the rate specified in the order.</p>
+<p>A stop entry order with a buy direction is filled when the market is above
+the rate specified in the order.</p>
+<p>Please note that if hedging is disabled for the account, the order, first, closes
+existing opposite positions for the same account and instrument and only then opens a
+new position in the remaining amount.</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Parameter name</p></td>
+    <td class="thdr"><p>Datatype</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Command</p></td>
+    <td class="tmain"><p>const char *</p></td>
+    <td class="tmain"><p>The command. Must be <code>CreateOrder</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>OrderType</p></td>
+    <td class="tmain"><p>const char *</p></td>
+    <td class="tmain"><p>The type of the order. Must be <code>SE</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>OfferID</p></td>
+    <td class="tmain"><p>const char *</p></td>
+    <td class="tmain"><p>The identifier of the instrument the order should be placed for.
+The value must be obtained from the <a href="TTOffers.html">Offers</a> table, the <code>OfferID</code> column.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>AccountID</p></td>
+    <td class="tmain"><p>const char *</p></td>
+    <td class="tmain"><p>The identifier of the account the order should be placed for.
+The value must be obtained from the <a href="TTAccounts.html">Accounts</a> table, the <code>AccountID</code> column.</p>
+<p>Please note that the account identifier may not necessarily be equal to the account name
+which is shown in the FXCM Trading Station application.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>BuySell</p></td>
+    <td class="tmain"><p>const char *</p></td>
+    <td class="tmain"><p>The order direction.</p>
+<p>The value must be <code>B</code> - for buy orders and <code>S</code> - for sell orders.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Amount</p></td>
+    <td class="tmain"><p>int</p></td>
+    <td class="tmain"><p>The amount of the order. In the case of FX instruments, the amount is expressed in the base currency of an instrument. In the case of CFD instruments, the amount is expressed in contracts.
+Must be divisible by the value of the lot size.</p>
+<p>The amount must not be specified in case the <code>NetQuantity</code> parameter is used.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>NetQuantity</p></td>
+    <td class="tmain"><p>const char *</p></td>
+    <td class="tmain"><p>The net quantity flag. Use this parameter with the value <code>Y</code> only for a net quantity order.</p>
+<p>An entry order in the netting mode does not create any positions but closes all positions which
+exist at the moment of the order filling and which are created for the
+order account and order instrument in the direction (see <code>BuySell</code>)
+opposite to the direction of the order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Rate</p></td>
+    <td class="tmain"><p>double</p></td>
+    <td class="tmain"><p>The rate at which the order must be filled.</p>
+<p>The sell order rate must be below the market. The buy order rate must be above the market.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TrailStep</p></td>
+    <td class="tmain"><p>int</p></td>
+    <td class="tmain"><p>The trailing entry order follows the market in case the market moves in the direction opposite
+to that of the order (i.e. when the distance between the order and the current market price increases).</p>
+<p>The value specifies the maximum change of the market price after which the rate of the order
+will be changed as well.</p>
+<p>The value is expressed in the units of the minimum change of the
+price (see the <code>Digits</code> column of the <a href="TTOffers.html">Offers</a> table).</p>
+<p>For example, if the value in the <code>Digits</code> column is 3 and the value of this field is 5, the maximum change of the market
+price will be <code>5 * 10<sup>-3</sup> = 0.005</code>.</p>
+<p>If the value is 1, it means that the dynamic trailing mode is used, i.e. the order rate is changed
+with every change of the market price. Please note that in some systems, only dynamic
+trailing mode is supported.</p>
+<p>The value is optional. By default, this value is 0. 0, it means a non-trailing order.</p>
+<p>If the value is specified, the order type in the <a href="TTOrders.html">Orders</a> table will be <code>STE</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>TimeInForce</p></td>
+    <td class="tmain"><p>const char *</p></td>
+    <td class="tmain"><p>The Time In Force value.</p>
+<p>Can be GTC (Good Till Cancelled), DAY (Day Order) or GTD (Good Till Date).</p>
+<p>The value is optional.</p>
+<p>Entry orders are GTC orders by default.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>ClientRate</p></td>
+    <td class="tmain"><p>double</p></td>
+    <td class="tmain"><p>The current price of the order instrument.</p>
+<p>The value is optional. It is used for logging purposes.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>CustomID</p></td>
+    <td class="tmain"><p>const char *</p></td>
+    <td class="tmain"><p>The custom identifier of the order. This value will be populated into
+these columns of the trading tables:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p>Table</p></td>
+    <td class="thdr"><p>Column for opening order</p></td>
+    <td class="thdr"><p>Column for closing order</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTOrders.html">Orders</a></p></td>
+    <td class="tmain"><p><code>RequestTXT</code></p></td>
+    <td class="tmain"><p><code>RequestTXT</code></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTTrades.html">Trades</a></p></td>
+    <td class="tmain"><p><code>OpenOrderRequestTXT</code></p></td>
+    <td class="tmain"><p>N/A</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="TTClosedTrades.html">Closed Trades</a></p></td>
+    <td class="tmain"><p><code>OpenOrderRequestTXT</code></p></td>
+    <td class="tmain"><p><code>CloseOrderRequestTXT</code></p></td>
+  </tr>
+</table><p>The value is optional.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>ContingencyID</p></td>
+    <td class="tmain"><p>const char *</p></td>
+    <td class="tmain"><p>The identifier of an existing contingency group.</p>
+<p>The field is obligatory.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>ContingencyGroupType</p></td>
+    <td class="tmain"><p>int</p></td>
+    <td class="tmain"><p>The type of the contingency group. Must be:</p><table class="tmain">
+  <tr>
+    <td class="tmain"><p>0</p></td>
+    <td class="tmain"><p>No contingent order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>1</p></td>
+    <td class="tmain"><p>OCO group.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>2</p></td>
+    <td class="tmain"><p>OTO group.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>3</p></td>
+    <td class="tmain"><p>ELS group.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>4</p></td>
+    <td class="tmain"><p>OTOCO group.</p></td>
+  </tr>
+</table><p>The field is obligatory.</p></td>
+  </tr>
+</table><p>You can also create a pair of stop and limit orders for the trade using the same command. Please refer to
+<a href="TradingCommandsCreateOrder_A.html">Attach Stop and/or Limit Orders to the Command</a> for
+details.</p><div id="open75" style="display:none">
+  <p>Example: Create an Entry Stop order&nbsp;<a href="javascript: showdiv('close75'); hidediv('open75');" onclick="javascript: showdiv('close75'); hidediv('open75');">[show]</a></p>
+</div>
+<div id="close75" style="display:inline">
+  <p>Example: Create an Entry Stop order&nbsp;<a href="javascript: showdiv('open75'); hidediv('close75');" onclick="javascript: showdiv('open75'); hidediv('close75');">[hide]</a></p>
+  <pre class="example">  void CreateOrderSample::prepareParamsFromLoginRules(IO2GLoginRules *loginRules)
+  {
+      mParams = new OrderCreationParam();
+ 
+      O2G2Ptr&lt;IO2GResponseReaderFactory&gt; factory = mSession-&gt;getResponseReaderFactory();
+      // Gets first account from login.
+      O2G2Ptr&lt;IO2GResponse&gt; accountsResponse = loginRules-&gt;getTableRefreshResponse(Accounts);
+      O2G2Ptr&lt;IO2GAccountsTableResponseReader&gt; accountsReader = factory-&gt;createAccountsTableReader(accountsResponse);
+      O2G2Ptr&lt;IO2GAccountRow&gt; account = accountsReader-&gt;getRow(0);
+      // Store account id
+      mParams-&gt;mAccountID = account-&gt;getAccountID();
+      // Store base amount
+      mParams-&gt;mBaseAmount = account-&gt;getBaseUnitSize();
+      // Get offers for eur/usd
+      O2G2Ptr&lt;IO2GResponse&gt; offerResponse = loginRules-&gt;getTableRefreshResponse(Offers);
+      O2G2Ptr&lt;IO2GOffersTableResponseReader&gt; offersReader = factory-&gt;createOffersTableReader(offerResponse);
+      for (int i = 0; i &lt; offersReader-&gt;size(); i++)
+      {
+          O2G2Ptr&lt;IO2GOfferRow&gt; offer = offersReader-&gt;getRow(i);
+          if (_stricmp(offer-&gt;getInstrument(), &quot;EUR/USD&quot;) == 0)
+          {
+              mParams-&gt;mOfferID = offer-&gt;getOfferID();
+              mParams-&gt;mAsk = offer-&gt;getAsk();
+              mParams-&gt;mBid = offer-&gt;getBid();
+              mParams-&gt;mPointSize = offer-&gt;getPointSize();
+              break;
+          }
+      }
+  }
+ 
+  void CreateOrderSample::prepareParamsAndCallEntryStopOrder(const char *offerID, const char *accountID, int amount, double pointSize, int numPoints, const char * buySell)
+  {
+      double curRate = 0;
+      double orderRate = 0;
+      if (!strcmp(buySell, &quot;B&quot;))
+      {
+          curRate = mParams-&gt;mAsk;
+          orderRate = curRate + pointSize * numPoints;  // The buy order rate must be above the market.
+      }
+      else    // BuySell = &quot;S&quot;
+      {
+          curRate = mParams-&gt;mBid;
+          orderRate = curRate - pointSize * numPoints;  // The sell order rate must be below the market.
+      }
+      createEntryStopOrder(offerID, accountID, amount, orderRate, buySell);
+  }
+ 
+  void CreateOrderSample::createEntryStopOrder(const char * offerID, const char * accountID, int amount, double rate, const char * buySell)
+  {
+      using namespace O2G2;
+      O2G2Ptr&lt;IO2GRequestFactory&gt; factory = mSession-&gt;getRequestFactory();
+      if (factory)
+      {
+           O2G2Ptr&lt;IO2GValueMap&gt; valuemap = factory-&gt;createValueMap();
+           valuemap-&gt;setString(Command, Commands::CreateOrder);
+           valuemap-&gt;setString(OrderType, Orders::StopEntry);
+           valuemap-&gt;setString(AccountID, accountID);         // The identifier of the account the order should be placed for.
+           valuemap-&gt;setString(OfferID, offerID);             // The identifier of the instrument the order should be placed for.
+           valuemap-&gt;setString(BuySell, buySell);             // The order direction (&quot;B&quot; for buy, &quot;S&quot; for sell)
+           valuemap-&gt;setDouble(Rate, rate);                 // The rate at which the order must be filled (above current rate for Buy, bellow current rate for Sell)
+           valuemap-&gt;setInt(Amount, amount);                 // The quantity of the instrument to be bought or sold.
+           valuemap-&gt;setString(CustomID, &quot;StopEntryOrder&quot;); // The custom identifier of the order.
+ 
+           O2G2Ptr&lt;IO2GRequest&gt; request = factory-&gt;createOrderRequest(valuemap);
+           if (request == NULL)
+               std::cout &lt;&lt; &quot;Order's request can not be created: &quot; &lt;&lt; factory-&gt;getLastError() &lt;&lt; std::endl;
+           else
+           {
+               mSession-&gt;sendRequest(request);
+               // Store request and set delete actions. After order has been created
+               // then delete its.
+               mActions[request-&gt;getRequestID()] = deleteOrderAction;
+           }
+      }
+  }</pre>
+</div><p>
+      <center><a href="TradingCommandsCreateOrder.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

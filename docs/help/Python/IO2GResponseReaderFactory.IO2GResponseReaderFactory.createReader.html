@@ -1,0 +1,203 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>O2GResponseReaderFactory.create_reader</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>O2GResponseReaderFactory.create_reader</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Creates a reader to process a response that is provided by the trading server automatically.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">Python</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"></td>
+    <td width="99%" valign="top"><code><b>create_reader</b>((<a href="IO2GResponse.html"><code>O2GResponse</code></a>)response) -&gt; typing.Any</code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>response</code></td>
+    <td class="tmain" width="69%"><p>A response object.</p></td>
+  </tr>
+</table><p><b>Details</b></p><p>The method returns an instance of the reader or a <code>bool</code> value for the
+<a href="O2GResponseType.O2GResponseType.MarginRequirementsResponse.html">MARGIN_REQUIREMENTS_RESPONSE</a> response type.
+In case the response has a wrong type or is broken, the method returns <code>None</code>.</p>
+<p>The response types and their appropriate readers (or a value for the
+<a href="O2GResponseType.O2GResponseType.MarginRequirementsResponse.html">MARGIN_REQUIREMENTS_RESPONSE</a> response type)
+returned by the method are listed in the following table.</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p><code>O2GResponseType</code></p></td>
+    <td class="thdr"><p>Appropriate reader/Value</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="O2GResponseType.O2GResponseType.GetAccounts.html">GET_ACCOUNTS</a></p></td>
+    <td class="tmain"><p><a href="IO2GGenericTableResponseReader.html"><code>O2GGenericTableResponseReader</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="O2GResponseType.O2GResponseType.GetOffers.html">GET_OFFERS</a></p></td>
+    <td class="tmain"><p><a href="IO2GGenericTableResponseReader.html"><code>O2GGenericTableResponseReader</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="O2GResponseType.O2GResponseType.GetTrades.html">GET_TRADES</a></p></td>
+    <td class="tmain"><p><a href="IO2GGenericTableResponseReader.html"><code>O2GGenericTableResponseReader</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="O2GResponseType.O2GResponseType.GetClosedTrades.html">GET_CLOSED_TRADES</a></p></td>
+    <td class="tmain"><p><a href="IO2GGenericTableResponseReader.html"><code>O2GGenericTableResponseReader</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="O2GResponseType.O2GResponseType.GetMessages.html">GET_MESSAGES</a></p></td>
+    <td class="tmain"><p><a href="IO2GGenericTableResponseReader.html"><code>O2GGenericTableResponseReader</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="O2GResponseType.O2GResponseType.GetOrders.html">GET_ORDERS</a></p></td>
+    <td class="tmain"><p><a href="IO2GGenericTableResponseReader.html"><code>O2GGenericTableResponseReader</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="O2GResponseType.O2GResponseType.GetSystemProperties.html">GET_SYSTEM_PROPERTIES</a></p></td>
+    <td class="tmain"><p><a href="IO2GSystemPropertiesReader.html"><code>O2GSystemPropertiesReader</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="O2GResponseType.O2GResponseType.CreateOrderResponse.html">CREATE_ORDER_RESPONSE</a></p></td>
+    <td class="tmain"><p><a href="IO2GOrderResponseReader.html"><code>O2GOrderResponseReader</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="O2GResponseType.O2GResponseType.GetLastOrderUpdate.html">GET_LAST_ORDER_UPDATE</a></p></td>
+    <td class="tmain"><p><a href="IO2GLastOrderUpdateResponseReader.html"><code>O2GLastOrderUpdateResponseReader</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="O2GResponseType.O2GResponseType.TablesUpdates.html">TABLES_UPDATES</a></p></td>
+    <td class="tmain"><p><a href="IO2GTablesUpdatesReader.html"><code>O2GTablesUpdatesReader</code></a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><a href="O2GResponseType.O2GResponseType.MarginRequirementsResponse.html">MARGIN_REQUIREMENTS_RESPONSE</a></p></td>
+    <td class="tmain"><p>A <code>bool</code> value specifying whether the margin requirements are loaded or not.</p></td>
+  </tr>
+</table><p>Declared in <a href="IO2GResponseReaderFactory.html">O2GResponseReaderFactory</a></p>
+<p>
+  <center><a href="IO2GResponseReaderFactory.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'IO2GResponseReaderFactory.html');</script></body>
+</html>

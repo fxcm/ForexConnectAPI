@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>account_info_user Table</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b><code>account_info_user</code> Table</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article describes the report table containing information about the account owner.</p>
+    <p><b>Details</b></p><p>The table contains information about the owner of the account the report is requested for.
+The identifier of the table is <code>account_info_user</code>.</p><table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><p>Column identifier</p></td>
+    <td class="thdr"><p>Column data type</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>owner_name</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>In case of individual accounts, the name of the account owner in the format <code>First M. Last</code>.<br>
+In case of joint accounts, the name of the primary account owner in the format <code>First M. Last</code>.<br>
+In case of all other accounts (corporate, trust, partnership, LLC), the business name of the organization.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>owner_name_joint</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>In case of individual accounts, the value is empty.<br>
+In case of joint accounts, the name of the secondary account owner in the format <code>First M. Last</code>.<br>
+In case of all other accounts (corporate, trust, partnership, LLC),
+the name of the organization's contact person in the format <code>First M. Last</code>.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><code>owner_address</code></p></td>
+    <td class="tmain"><p><code>STRING</code></p></td>
+    <td class="tmain"><p>The address of the account owner in the format <code>Address1 Address2 City, State Zip code Country</code>.</p></td>
+  </tr>
+</table><div id="open43" style="display:inline">
+  <p>Example:&nbsp;<a href="javascript: showdiv('close43'); hidediv('open43');" onclick="javascript: showdiv('close43'); hidediv('open43');">[show]</a></p>
+</div>
+<div id="close43" style="display:none">
+  <p>Example:&nbsp;<a href="javascript: showdiv('open43'); hidediv('close43');" onclick="javascript: showdiv('open43'); hidediv('close43');">[hide]</a></p>
+  <pre class="example">&lt;rdf:table name=&quot;account_info_user&quot;&gt;
+   &lt;rdf:head&gt;
+       &lt;rdf:column name=&quot;owner_name&quot; type=&quot;STRING&quot;/&gt;
+       &lt;rdf:column name=&quot;owner_name_joint&quot; type=&quot;STRING&quot;/&gt;
+       &lt;rdf:column name=&quot;owner_address&quot; type=&quot;STRING&quot;/&gt;
+   &lt;/rdf:head&gt;
+   &lt;rdf:body&gt;
+       &lt;rdf:row&gt;
+           &lt;rdf:cell name=&quot;owner_name&quot;&gt;John L. Goodman&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;owner_name_joint&quot;&gt;&lt;/rdf:cell&gt;
+           &lt;rdf:cell name=&quot;owner_address&quot;&gt;700 Elm St. Ridgewood, NJ 07450 USA&lt;/rdf:cell&gt;
+       &lt;/rdf:row&gt;
+   &lt;/rdf:body&gt;
+&lt;/rdf:table&gt;</pre>
+</div><p>
+      <center><a href="CAS.ReportView.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

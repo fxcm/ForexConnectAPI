@@ -1,0 +1,307 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>IO2GResponseListener.onRequestCompleted</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>public method <b>IO2GResponseListener.onRequestCompleted</b></code></font>
+    </p><p><b>Brief</b></p>
+<p>Processes a notification about the successful request completion.</p>
+<table class="tmain" width="100%">
+  <tr>
+    <td class="thdr"><b>Declaration</b></td>
+  </tr>
+  <tr>
+    <td class="tmain"><table class="decl">
+  <tr>
+    <td colspan="2">C++</td>
+  </tr>
+  <tr>
+    <td width="1%" nowrap valign="top"><code>virtual&nbsp;void&nbsp;</code></td>
+    <td width="99%" valign="top"><code><b>onRequestCompleted</b> (const char *requestId, <a href="IO2GResponse.html">IO2GResponse</a> *response = NULL)  = 0</code></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Parameters</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>requestId</code></td>
+    <td class="tmain" width="69%"><p>The identifier of the successfully completed request. Session object may send multiple requests
+(see the<a href="IO2GSession.html">IO2GSession</a>.<a href="IO2GSession.sendRequest.html">sendRequest</a> method).
+The method receives notifications of all the requests that have been successfully completed. To make sure you are getting notification
+about a particular request, you must check if the value of this parameter matches the value obtained by calling
+the <a href="IO2GRequest.html"><code>IO2GRequest</code></a>.<a href="IO2GRequest.getRequestID.html"><code>getRequestID</code></a> method.
+For details, please see the example below.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw" width="31%"><code>response</code></td>
+    <td class="tmain" width="69%"><p>A response object. The type of the response depends on the type of the request. For example, if you request information about open
+positions, the type of the response will be <a href="O2GResponseType.GetTrades.0.html">O2GResponseType.GetTrades</a>. For complete list of response types,
+see <a href="O2GResponseType.html"><code>O2GResponseType</code></a>. The response type defines a reader that can parse the response.
+For example, if you request information about open positions, you must use the
+<a href="IO2GResponseReaderFactory.createTradesTableReader.html">createTradesTableReader</a> method to create the
+<a href="IO2GTradesTableResponseReader.html">IO2GTradesTableResponseReader</a> object.
+For a complete list of the methods that create appropriate readers, see the <a href="IO2GResponseReaderFactory.html">IO2GResponseReaderFactory</a> object.</p></td>
+  </tr>
+</table><p><b>Details</b></p><p>In order to process a notification about the successful request completion, an instance of the class implementing the <a href="IO2GResponseListener.html">IO2GResponseListener</a> interface
+must be subscribed to a session object.
+It is accomplished by calling the <a href="IO2GSession.html"><code>IO2GSession</code></a>.<a href="IO2GSession.subscribeResponse.html"><code>subscribeResponse</code></a> method.<br></p>
+<p><b>Note:</b> For the order creation request, successful completion means that an order has been validated by the trading server and accepted for execution.
+It does not mean that the order has been actually inserted in the <a href="TTOrders.html">Orders</a> table.</p>
+<p>The order can be rejected if it has been successfully inserted in the <a href="TTOrders.html">Orders</a> table. In case the order is deleted, the order status is \'R\'.  The rejected amount is contained in the order amount
+field. The rejection message is inserted to the <a href="TTMessages.html">Messages</a> table. The rejection message has the &quot;Market Conditions&quot;  type(<a href="IO2GMessageRow.getFeature.html">feature</a>).
+The message <a href="IO2GMessageRow.getText.html">text</a> contains the OrderID. The order delete and the reject message notification can be received randomly.</p>
+<p>To make sure that the order is inserted to or deleted from the <a href="TTOrders.html">Orders</a> table or the message is inserted to the <a href="TTMessages.html">Messages</a> table,
+use the following methods:</p><table class="tmain">
+  <tr>
+    <td class="thdr"><p><a href="IO2GTableManager.html">IO2GTableManager</a> used</p></td>
+    <td class="thdr"><p>Insert Order Method</p></td>
+    <td class="thdr"><p>Delete Order Method</p></td>
+    <td class="thdr"><p>Insert Message Method</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>YES</p></td>
+    <td class="tmain"><p><a href="IO2GTableListener.html">IO2GTableListener</a>.<a href="IO2GTableListener.onAdded.html">onAdded</a></p></td>
+    <td class="tmain"><p><a href="IO2GTableListener.html">IO2GTableListener</a>.<a href="IO2GTableListener.onDeleted.html">onDeleted</a></p></td>
+    <td class="tmain"><p><a href="IO2GTableListener.html">IO2GTableListener</a>.<a href="IO2GTableListener.onAdded.html">onAdded</a></p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>NO</p></td>
+    <td class="tmain"><p><a href="IO2GResponseListener.html">IO2GResponseListener</a>.<a href="IO2GResponseListener.onTablesUpdates.0.html">onTablesUpdates</a></p></td>
+    <td class="tmain"><p><a href="IO2GResponseListener.html">IO2GResponseListener</a>.<a href="IO2GResponseListener.onTablesUpdates.0.html">onTablesUpdates</a></p></td>
+    <td class="tmain"><p><a href="IO2GResponseListener.html">IO2GResponseListener</a>.<a href="IO2GResponseListener.onTablesUpdates.0.html">onTablesUpdates</a></p></td>
+  </tr>
+</table><p>For details of order creation, see the <a href="how_to_open.html">How to Open Position</a> article.</p>
+<p><b>Example</b></p><div id="open188" style="display:inline">
+  <p>Proccess a notification about a request to get offers&nbsp;<a href="javascript: showdiv('close188'); hidediv('open188');" onclick="javascript: showdiv('close188'); hidediv('open188');">[show]</a></p>
+</div>
+<div id="close188" style="display:none">
+  <p>Proccess a notification about a request to get offers&nbsp;<a href="javascript: showdiv('open188'); hidediv('close188');" onclick="javascript: showdiv('open188'); hidediv('close188');">[hide]</a></p>
+  <pre class="example">    #include &lt;ForexConnect.h&gt;
+    #include &lt;threadlib.h&gt;
+ 
+    class ResponseListener : public IO2GResponseListener
+    {
+    private:
+        <b>// Session and request variables</b>
+        IO2GSession *mSession;
+        std::string mRequestID;
+        volatile bool mRequestComplete;
+        volatile bool mRequestFailed;
+ 
+        <b>// Reference counter</b>
+        volatile long mRefCount;
+ 
+    public:
+        <b>// Constructor</b>
+        ResponseListener(IO2GSession *session)
+        {
+            mRefCount = 1;
+            mSession = session;
+            mSession-&gt;addRef();
+            mRequestID = &quot;&quot;;
+            mRequestComplete = false;
+            mRequestFailed = false;
+        }
+ 
+        <b>// Destructor</b>
+        ~ResponseListener()
+        {
+            mSession-&gt;release();
+        }
+ 
+        <b>// Increase reference counter</b>
+        long addRef()
+        {
+            <b>// for non-Windows OS InterlockedIncrement is platform specific macro defined in threadlib.h</b>
+            return InterlockedIncrement(&mRefCount);
+        }
+ 
+        <b>// Decrease reference counter</b>
+        long release()
+        {
+            <b>// for non-Windows OS InterlockedDecrement is platform specific macro defined in threadlib.h</b>
+            long rc = InterlockedDecrement(&mRefCount);
+            if (rc == 0)
+                delete this;
+            return rc;
+        }
+ 
+        <b>//Set request</b>
+        void setRequest(const char *requestID)
+        {
+            mRequestID = requestID;
+            mRequestComplete = false;
+            mRequestFailed = false;
+        }
+ 
+        <b>// Implementation of IO2GResponseListener interface public method onRequestCompleted</b>
+        void onRequestCompleted(const char *requestID, IO2GResponse *response)
+        {
+            if (mRequestID == requestID)
+            {
+                O2G2Ptr&lt;IO2GResponseReaderFactory&gt; readerFactory = mSession-&gt;getResponseReaderFactory();
+                if (readerFactory)
+                {
+                    O2G2Ptr&lt;IO2GOffersTableResponseReader&gt; reader = readerFactory-&gt;createOffersTableReader(response);
+                    for (int i = 0; i &lt; reader-&gt;size(); i++)
+                    {
+                        O2G2Ptr&lt;IO2GOfferRow&gt; offer = reader-&gt;getRow(i);
+                        std::cout &lt;&lt; &quot; This is a response to your request: \n Instrument = &quot; &lt;&lt; offer-&gt;getInstrument() &lt;&lt;
+                                     &quot; Bid = &quot; &lt;&lt; offer-&gt;getBid() &lt;&lt;
+                                     &quot; Ask = &quot; &lt;&lt; offer-&gt;getAsk() &lt;&lt; std::endl;
+                    }
+                    mRequestComplete = true;
+                }
+            }
+        }
+ 
+        <b>// Implementation of IO2GResponseListener interface public method onRequestFailed</b>
+        void onRequestFailed(const char *requestID, const char *error)
+        {
+            if (mRequestID == requestID)
+            {
+                std::cout &lt;&lt; &quot;Request failed. requestID= &quot; &lt;&lt; requestID &lt;&lt; &quot;; error= &quot; &lt;&lt; error &lt;&lt; std::endl;
+                mRequestFailed = true;
+            }
+        }
+ 
+        <b>// Implementation of IO2GResponseListener interface public method onTablesUpdates</b>
+        public void onTablesUpdates(IO2GResponse *response)
+        {
+            O2G2Ptr&lt;IO2GResponseReaderFactory&gt; factory = mSession-&gt;getResponseReaderFactory();
+            if (factory)
+            {
+                O2G2Ptr&lt;IO2GTablesUpdatesReader&gt; updatesReader = factory-&gt;createTablesUpdatesReader(response);
+                for (int i = 0; i &lt; updatesReader-&gt;size(); i++)
+                {
+                    if (updatesReader-&gt;getUpdateTable(i) == Offers)
+                    {
+                        O2G2Ptr&lt;IO2GOfferRow&gt; offer = updatesReader-&gt;getOfferRow(i);
+                        std::cout &lt;&lt; &quot; This is a live update: \n Instrument = &quot; &lt;&lt; offer-&gt;getInstrument() &lt;&lt;
+                                     &quot; Bid = &quot; &lt;&lt; offer-&gt;getBid() &lt;&lt;
+                                     &quot; Ask = &quot; &lt;&lt; offer-&gt;getAsk() &lt;&lt; std::endl;
+                    }
+                }
+            }
+        }
+    };</pre>
+</div><p>Declared in <a href="IO2GResponseListener.html">IO2GResponseListener</a></p>
+<p>
+  <center><a href="IO2GResponseListener.html">back</a></center>
+</p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href, 'IO2GResponseListener.html');</script></body>
+</html>

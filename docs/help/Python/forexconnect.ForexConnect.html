@@ -1,0 +1,271 @@
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>ForexConnect</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><code>class <b>ForexConnect</b></code></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The class is intended for working with a session.</p>
+    <p><b>Details</b></p><p>The module is <code>forexconnect</code></p><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Properties</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ForexConnect.ForexConnect.getLoginRules.html">login_rules</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the rules used for the currently established session.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ForexConnect.ForexConnect.getSession.html">session</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets an instance of the current session.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ForexConnect.ForexConnect.getTableManager.html">table_manager</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets the current table manager of the session.</p>
+    </td>
+  </tr>
+</table><p></p>
+<table class="tmain" width="100%">
+  <tr>
+    <td colspan="2" class="thdr"><b>Public Methods</b></td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ForexConnect.ForexConnect.createOrderRequest.html">create_order_request</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates a request for creating an order of a specified type using specified parameters.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ForexConnect.ForexConnect.create_reader.html">create_reader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates a reader for a certain response using the method <a href="IO2GResponseReaderFactory.IO2GResponseReaderFactory.createReader.html"><code>O2GResponseReaderFactory.create_reader</code></a>.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ForexConnect.ForexConnect.createRequest.html">create_request</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates a request.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ForexConnect.ForexConnect.getHistory.html">get_history</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets price history of a certain instrument with a certain timeframe for a specified period or a certain number of bars/ticks.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ForexConnect.ForexConnect.getTable.html">get_table</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets a specified table.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ForexConnect.ForexConnect.getTableReader.html">get_table_reader</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets an instance of a table reader.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ForexConnect.ForexConnect.getTimeFrame.html">get_timeframe</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Gets an instance of a timeframe.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ForexConnect.ForexConnect.login.html">login</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates a trading session and starts the connection with the specified trade server.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ForexConnect.ForexConnect.loginWithToken.html">login_with_token</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Creates a second trading session and starts the connection with the specified trade server using a token.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ForexConnect.ForexConnect.logout.html">logout</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Closes the trading session and connection with the trade server.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ForexConnect.ForexConnect.ParseTimeframe.html">parse_timeframe</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Parses a timeframe into <a href="O2GTimeframeUnit.html"><code>O2GTimeframeUnit</code></a> and the number of units.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ForexConnect.ForexConnect.sendRequest.html">send_request</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Sends a request and returns the appropriate response reader or a <code>bool</code> value.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ForexConnect.ForexConnect.sendRequestAsync.html">send_request_async</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Sends a request.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain_nw">
+      <p><a href="forexconnect.ForexConnect.ForexConnect.setSessionStatusListener.html">set_session_status_listener</a></p>
+    </td>
+    <td class="tmain" width="69%">
+      <p>Sets a session status listener on login or sets a new session status listener when necessary.</p>
+    </td>
+  </tr>
+</table><p>
+      <center><a href="module_forexconnect.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>

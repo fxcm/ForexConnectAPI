@@ -1,0 +1,344 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <title>Open/Close Market Order</title><script language="javascript" type="text/javascript">
+function hidediv( divname )
+{
+    document.getElementById( divname ).style.display = 'none';
+}
+
+function showdiv( divname )
+{
+    document.getElementById( divname ).style.display = 'inline';
+}
+</script><style type="text/css">
+    body
+    {
+        color:"444444";
+        background-color:white;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+    }
+    A:link
+    {
+        color:#0068be;
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    A:visited
+    {
+        color:"039CCF";
+        font-family:Trebuchet MS, Arial;
+        font-size:10pt;
+        cursor:hand;
+    }
+    p, h1, h2, h3, h4, h5, h6
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+
+    pre.example
+    {
+        background-color : #f1f1f1;
+    }
+
+    ul, ul.main
+    {
+        list-style-type : disc;
+        margin-left: 18 pt;
+    }
+    ol, ol.main
+    {
+        list-style-type: decimal;
+        margin-left: 18 pt;
+    }
+    li
+    {
+        font-family : Trebuchet MS, Arial;
+    }
+    ul.hhc
+    {
+        list-style-type : none;
+        margin-left : 1em;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    li.hhc
+    {
+        font-family : Trebuchet MS, Arial;
+        margin-left : 0;
+        padding : 0;
+        padding-left : 0;
+        text-indent : 0;
+    }
+    
+    table, table.tmain
+    {
+        font-size:10pt;
+        border-collapse : collapse;
+        border : 1px solid;
+        border-color : #dfe3e7;
+    }
+    td.tmain, td.tmain_nw, td.thdr
+    {
+        border : 1px solid;
+        border-color : #dfe3e7;
+        background-color : rgb(255, 255, 255);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+    }
+    td.tmain p, td.tmain_nw p, td.thdr p
+    {
+        margin-bottom : 6pt;
+    }
+    td.tmain_nw
+    {
+        white-space : nowrap;
+    }
+    td.thdr
+    {
+        font-size:10pt;
+        background-color : #f1f1f1;
+    }
+    table.decl
+    {
+        border : 0px none;
+        background-color : rgb(192, 192, 192);
+        vertical-align : top;
+        padding : 3px;
+        font-family : Trebuchet MS, Arial;
+        width : 100%;
+    }
+</style></head>
+  <body>
+    <p>
+      <font size="+1"><b>Open/Close Market Order</b></font>
+    </p>
+    <p><b>Brief</b></p>
+    <p>The article describes an Open/Close Market order.</p>
+    <p><b>Details</b></p><p></p>
+<h3>Definition and Use</h3>
+<p>An <b>Open/Close Market Order</b> (generally known as a <b>Market Order</b>) is an order to buy or sell an instrument immediately
+at the best price currently available in the market. The main purpose of this order is to secure execution at any price, which means that, as long as there are willing buyers and sellers,
+the trader is guaranteed execution but has no certainty of the actual price the order will be dealt at.</p>
+<p>Note: If you want to have certain control over the price of a market order, you should use the following orders: <b>Open/Close</b>
+and <b>Open/Close Range</b>.</p>
+<p>With an open/close market order, the trader has the following time-in-force options that provide additional instructions on how long the order should remain active:</p><table class="tmain" width="100%">
+  <tr>
+    <td class="thdr" width="12%"><p>Time-in-Force Option</p></td>
+    <td class="thdr"><p>Description</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Fill Or Kill (FOK)</p></td>
+    <td class="tmain"><p>An instruction to fill an order immediately and completely or not at all.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Immediate Or Cancel (IOC)</p></td>
+    <td class="tmain"><p>An instruction to fill an order (or any of its portions) immediately after it has been brought to the market;
+any portions not executed immediately must be rejected. An IOC order may be executed in portions.
+Such execution results in a number of positions opened/closed at different prices.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Good Till Cancelled (GTC)</p></td>
+    <td class="tmain"><p>An order which remains active until the trader decides to cancel it or until the order is executed.
+In the event of limited liquidity, a GTC order may be executed in portions.
+Such execution results in a number of positions opened/closed at different prices.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Day (DAY)</p></td>
+    <td class="tmain"><p>An order that automatically expires if not executed on the day the order is placed.
+During the trading day the order behaves exactly like a GTC order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p>Good Till Date (GTD)</p></td>
+    <td class="tmain"><p>An order that automatically expires if not executed before the specified date.
+During the trading day the order behaves exactly like a GTC order.</p></td>
+  </tr>
+</table><p>Generally, an open market order is used for entering the market (opening a position) while a close market order is used for exiting the market (closing a position).
+See execution <a href="OpenCloseMarketOrderScenario1.html">scenario 1</a>.
+This is a common rule for regular accounts which are not subject to FIFO and allow hedging. If, however, hedging is disabled, placing an open market order in the
+direction opposite to an existing position will result in closing such position. FIFO-based accounts do not allow placing close
+market orders, so whether the trader is willing to exit the market immediately at the best available price, he/she must use an open market order
+or a <b>Net Amount Order</b>.</p>
+<p>A close market order can be specified as a <b>Net Amount Order</b>. This is an instruction to close all positions in the given instrument.
+This type of order was initially designed for FIFO-based accounts, but has eventually become available for all accounts regardless of their settings.
+See execution <a href="OpenCloseMarketOrderScenario5.html">scenario 5</a>.</p>
+<p></p>
+<h3>Execution Price</h3>
+<p>When the trader places an open/close market order, the order is automatically assigned the best price available at that moment (original price).
+However, this price is not guaranteed since the system will search for the best price again (new price) before sending the order to the bank.
+If the new price is better than the original price, the order will be executed at the new price.
+The new price may also be worse than the original price of the order. In this case, the order will be executed at a worse price.</p>
+<p></p>
+<h3>Partial Fill</h3>
+<p>An open/close market order with GTC and IOC time-in-force options can be executed partially. It means that one order may result
+in a number of positions opened/closed at different prices. A GTC order is filled in portions until completely executed. An IOC order
+is filled in portions to the maximum extent possible (until the liquidity pool is dried up), the remainder of the order is rejected.
+In case of partial closing, the system closes a position in the filled amount and opens a new position in the remaining amount.
+The system does so until the order is filled in its entirety (GTC orders) or until the liquidity dries up (IOC orders).
+See <a href="OpenCloseMarketOrderExecScenarios.html">Execution Scenarios</a>.</p>
+<p></p>
+<h3>Order Cancellation</h3>
+<p>The trader may cancel only a GTC open/close market order and only in cases where there is no liquidity to fill the order
+(or the liquidity pool is not large enough) and the order is set to wait until new quotes are received from the banks.</p>
+<p></p>
+<h3>Open/Close Market Order State Machine</h3>
+<p>The state machine below is based on FXCM's order statuses.
+Note that the system creates an order only after the order is successfully validated. Otherwise, the system creates a rejection message
+and does not store the order in the database. However, the information about the order (such as, for example, the order ID and the reason for its rejection) is stored
+in the database.</p>
+<p><b>Open/Close Market Order: State Machine</b><br></p>
+<p><img src="img/OpenCloseMarketStateMachine.gif"></p>
+<p><b>Open/Close Market Order: FXCM Order Statuses Description</b><br></p><table class="tmain" width="100%">
+  <tr>
+    <td class="thdr" width="12%"><p>Order Status</p></td>
+    <td class="thdr" width="38%"><p>Order Status Description</p></td>
+    <td class="thdr" width="50%"><p>Transition</p></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><b>In Process (P)</b></p></td>
+    <td class="tmain"><p>The order was successfully validated and is ready for further execution.</p></td>
+    <td class="tmain"><table class="tmain" width="100%">
+  <tr>
+    <td class="tmain" width="13%"><p>Pending Calculated (U)</p></td>
+    <td class="tmain"><p>The order is sent to external execution.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><b>Pending Calculated (U)</b></p></td>
+    <td class="tmain"><p>The status has one of the following meanings:</p><ul class="main">
+  <li><p>Transition from &quot;In Process (P)&quot; (all orders regardless of time-in-force option):<br>
+The order was sent to external execution.</p></li>
+  <li><p>Transition from &quot;Pending Calculated (U)&quot; (the status is applicable only to GTC orders):<br>
+The order was filled partially.</p></li>
+  <li><p>Transition from &quot;Waiting (W)&quot; (the status is applicable only to GTC orders):<br>
+The new offer was received and the order was sent to external execution.</p></li>
+</ul></td>
+    <td class="tmain"><table class="tmain" width="100%">
+  <tr>
+    <td class="tmain" width="13%"><p>Pending Calculated (U)</p></td>
+    <td class="tmain"><p>The transition is applicable only to GTC and IOC orders:<br>
+The order is filled partially. A position is either opened or closed in the filled amount.
+Note that the filled portion may result in a number of open/closed positions.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="13%"><p>Executing (E)</p></td>
+    <td class="tmain"><p>The order is completely filled.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="13%"><p>Waiting (W)</p></td>
+    <td class="tmain"><p>The transition is applicable only to GTC orders and has one of the following meanings:</p><ul class="main">
+  <li><p>The order cannot be filled because there is no liquidity and is set to wait for a new offer.</p></li>
+  <li><p>The order is filled partially on limited liquidity; the remainder of the order is waiting for a new offer.</p></li>
+</ul></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="13%"><p>Cancelled (C)</p></td>
+    <td class="tmain"><p>The transition is applicable only to FOK and IOC orders:</p><ul class="main">
+  <li><p><i>FOK Orders:</i><br>
+There is no liquidity or the liquidity pool is not large enough to fill the entire order.</p></li>
+  <li><p><i>IOC Orders:</i><br>
+There is no liquidity to fill the order or any of its portions.</p></li>
+</ul></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><b>Executing (E)</b></p></td>
+    <td class="tmain"><p>The order was completely filled.</p></td>
+    <td class="tmain"><table class="tmain" width="100%">
+  <tr>
+    <td class="tmain" width="13%"><p>Executed (F)</p></td>
+    <td class="tmain"><p>A position is either opened or closed. Note that the order may result in a number of open/closed positions.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><b>Executed (F)</b></p></td>
+    <td class="tmain"><p>A position was opened/closed. Note that the order may result in a number of open/closed positions.</p></td>
+    <td class="tmain">
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><b>Waiting (W)</b></p></td>
+    <td class="tmain"><p>The status is applicable only to GTC orders:<br>
+The order was filled partially or was not filled at all because of limited or no
+liquidity; the remainder of the order is waiting for a new offer.</p></td>
+    <td class="tmain"><table class="tmain" width="100%">
+  <tr>
+    <td class="tmain" width="13%"><p>Pending Calculated (U)</p></td>
+    <td class="tmain"><p>The transition is applicable only to GTC orders:<br>
+The new offer is received and the order is sent to external execution.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="13%"><p>Pending Cancelled (S)</p></td>
+    <td class="tmain"><p>The transition is applicable only to GTC orders:<br>
+The trader removes the order.</p></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="13%"><p>Cancelled (C)</p></td>
+    <td class="tmain"><p>The transition is applicable only to GTC orders:</p><ul class="main">
+  <li><p><i>Open Orders:</i><br>
+The new offer is received, but there is insufficient margin in the account/the account is under the margin call.</p></li>
+  <li><p><i>Close Orders (including Net Amount Orders):</i><br>
+The position the order is placed on is already closed by another order.</p></li>
+</ul></td>
+  </tr>
+  <tr>
+    <td class="tmain" width="13%"><p>Expired (T)</p></td>
+    <td class="tmain"><p>The transition is applicable only to DAY or GTD orders:<br>
+The order expires because it cannot be executed on the day it was placed or before specified date.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><b>Pending Cancelled (S)</b></p></td>
+    <td class="tmain"><p>The status is applicable only to GTC orders:<br>
+The order was removed by the trader.</p></td>
+    <td class="tmain"><table class="tmain" width="100%">
+  <tr>
+    <td class="tmain" width="13%"><p>Cancelled (C)</p></td>
+    <td class="tmain"><p>The transition is applicable only to GTC orders:<br>
+The trader removes the order and the system deletes order.</p></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><b>Cancelled (C)</b></p></td>
+    <td class="tmain"><p>The status has one of the following meanings:</p><ul class="main">
+  <li><p>Transition from &quot;Pending Calculated (U)&quot; (the status is applicable only to FOK and IOC orders):<br>
+<i>FOK Orders:</i><br>
+The order was rejected because there is no liquidity or the liquidity pool is not large enough to fill the entire order.<br>
+<i>IOC Orders:</i><br>
+The order was rejected because there is no liquidity to fill the order or any of its portions.</p></li>
+  <li><p>Transition from &quot;Pending Cancelled (S)&quot; (the status is applicable only to GTC orders):<br>
+The order was removed by the trader and deleted by the system.</p></li>
+  <li><p>Transition from &quot;Waiting (W)&quot; (the status is applicable only to GTC orders):<br>
+<i>Open Orders:</i><br>
+The account is under the margin call/there is insufficient margin in the account.<br>
+<i>Close Orders:</i><br>
+The position the order was placed on is already closed by another order.</p></li>
+</ul></td>
+    <td class="tmain">
+    </td>
+  </tr>
+  <tr>
+    <td class="tmain"><p><b>Expired (T)</b></p></td>
+    <td class="tmain"><p>The status is applicable only to DAY or GTD orders:<br>
+The order expired because it was not executed on the day it was placed or before specified date.</p></td>
+    <td class="tmain"><table class="tmain" width="100%">
+  <tr>
+    <td class="tmain" width="13%"><p>Expired (T)</p></td>
+    <td class="tmain"><p>The transition is applicable only to DAY or GTD orders:<br>
+The system deletes the order after the order expiration.</p></td>
+  </tr>
+</table></td>
+  </tr>
+</table><p>
+      <center><a href="FXCMOpenCloseMarketOrder.html">back</a></center>
+    </p><script language="javascript" type="text/javascript">if(window.parent.frames[0]) window.parent.frames[0].selectItem(window.location.href);</script></body>
+</html>
